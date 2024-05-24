@@ -24,7 +24,6 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Progress Form -->
-                        <form id="progress-form" class="p-4 progress-form" action="https://httpbin.org/post" lang="en" novalidate>
                         <!-- Step Navigation -->
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs" role="tablist">
                             <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
@@ -51,6 +50,8 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
+                        <form id="patients-details-form" action="{{ route('save.form') }}" method="POST">
+                        @csrf
                         <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -62,7 +63,7 @@
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="middle-name">
                                     Middle name
                                 </label>
                                 <input id="middle-name" type="text" name="middle-name" autocomplete="given-name">
@@ -79,11 +80,11 @@
 
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="date_of_birth">
                                     Date of birth
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="date" name="first-name" autocomplete="given-name" required>
+                                <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -91,7 +92,7 @@
                                     Gender
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select id="gender" required>
+                                <select id="gender" name="gender" required>
                                     <option value="" disabled selected>Please select</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -101,53 +102,60 @@
                             <br/><span id="patientMailingAddressHrTag">Patient mailing address</span><hr></hr>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="country">
                                     Country
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <select class="" name="countries" id="countries">
+                                    <option value="">--Select--</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                    @endforeach
+                                </select>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="state">
                                     State
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" required>
-                                </div>
+  
+                                <select class="" name="states" id="states">
+                                    <option value="">--Select--</option>
+                                </select>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="city">
                                     City
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <input id="city" type="text" name="city" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="postal_code">
                                     Postal Code
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" required>
+                                <input id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="street_address">
                                     Street address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="continueButton">
-                                Continue
-                                </button>
+                            <button type="submit" data-action="next" class="continueButton">Continue</button>
                             </div>
+                           
                         </section>
+                        </form>
                         <!-- / End Step 1 -->
 
                         <!-- Step 2 -->
@@ -521,7 +529,6 @@
                         </section>
                         <!-- / End Thank You -->
 
-                    </form>
                     <!-- / End Progress Form -->
                     </div>
                 </div>
@@ -533,6 +540,8 @@
     <!-- content-wrapper ends -->
     @include("footer")
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
     console.clear();
 
@@ -1409,5 +1418,32 @@
     function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+
+
+    $(document).ready(function() {
+        $('#countries').change(function() {
+            var selectedOption = $(this).find('option:selected');
+            var country_id = selectedOption.val();
+            var country_name = selectedOption.data('country-name'); 
+            if (country_name) {
+                $.ajax({
+                    url: '/get-states/' + country_name,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#states').empty();
+                        $('#states').append('<option value="">--Select--</option>');
+                        $.each(data, function(key, value) {
+                            $('#states').append('<option value="' + value.id + '">' + value.state_name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#states').empty();
+                $('#states').append('<option value="">--Select--</option>');
+            }
+        });
+    });
+
 </script>
 @endsection
