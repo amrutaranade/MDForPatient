@@ -12,7 +12,6 @@ class ContactParty extends Model
     protected $fillable = [
         'relationship_to_patient',
         'email',
-        'confirm_email',
         'phone_number',
         'preferred_mode_of_communication',
         'preferred_contact_time',
@@ -26,6 +25,7 @@ class ContactParty extends Model
         'street_address',
         'Instituton',
         'fax_number',
+        'patient_id'
         
     ];
 }

@@ -83,11 +83,11 @@
 
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="date_of_birth">
                                     Date of birth
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="date" name="first-name" autocomplete="given-name" required>
+                                <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field ">
@@ -113,49 +113,56 @@
                             <br/><span id="patientMailingAddressHrTag">Patient mailing address</span><hr></hr>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="Country">
                                     Country
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <select class="" name="countries" id="countries">
+                                    <option value="">--Select--</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                    @endforeach
+                                </select>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="State">
                                     State
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" required>
+                                <select class="" name="states" id="states">
+                                    <option value="">--Select--</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="City">
                                     City
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <input id="city" type="text" name="city" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="postal_code">
                                     Postal Code
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" required>
+                                <input id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="street_address">
                                     Street address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="continueButton">
+                                <button type="button" data-action="next" class="continueButton step1" id="continueButton">
                                 Continue
                                 </button>
                             </div>
@@ -168,11 +175,11 @@
                             <h4>This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
                             </div>
                             <div class="mt-3 form__field">
-                                <label for="address">
+                                <label for="relationship_to_patient">
                                 Select relationship to the patient
                                 <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select id="address-state" name="address-state" autocomplete="shipping address-level1" required>
+                                <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
                                     <option value="" disabled selected>Please select</option>
                                     <option value="Patient">Patient</option>
                                     <option value="Caregiver">Caregiver</option>
@@ -185,40 +192,41 @@
 
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="address-city">
+                                <label for="email">
                                     Email Address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="address-city" type="email" name="address-city" autocomplete="shipping address-level2" required>
+                                <input id="email" type="email" name="email" autocomplete="shipping address-level2" required>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="address-city">
+                                <label for="confirm_email">
                                     Confirm email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="address-city" type="email" name="address-city" autocomplete="shipping address-level2" required>
+                                <input id="confirm_email" type="email" name="confirm_email" autocomplete="shipping address-level2" required>
+
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="address-city">
+                                <label for="phone number">
                                     Phone Number
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="address-city" type="text" name="address-city" autocomplete="shipping address-level2" required>
+                                <input id="phone_number" type="text" name="phone_number" autocomplete="shipping address-level2" required>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field ">
-                                    <label for="address-city">
+                                    <label for="preferred_mode_of_communication">
                                         Preferred mode of communication
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="prefModeOfCOmm" id="phoneRadio" value="Phone">
+                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="phoneRadio" value="Phone">
                                         <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="prefModeOfCOmm" id="emailRadio" value="Email">
+                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="emailRadio" value="Email">
                                         <label class="form-check-label" for="emailRadio">Email</label>
                                     </div>  
                                 </div>
@@ -226,22 +234,22 @@
 
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="address-city">
+                                    <label for="preferred_contact_time">
                                         Preferred contact time
                                     </label>  
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferredContactTime" id="maleRadio" value="male">
-                                        <label class="form-check-label" for="maleRadio">Morning</label>
+                                        <input class="form-check-input" type="radio" name="preferred_contact_time" id="MorningRadio" value="Morning">
+                                        <label class="form-check-label" for="MorningRadio">Morning</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferredContactTime" id="femaleRadio" value="female">
-                                        <label class="form-check-label" for="femaleRadio">Afternoon</label>
+                                        <input class="form-check-input" type="radio" name="preferred_contact_time" id="AfternoonRadio" value="Afternoon">
+                                        <label class="form-check-label" for="AfternoonRadio">Afternoon</label>
                                     </div> 
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferredContactTime" id="femaleRadio" value="female">
-                                        <label class="form-check-label" for="femaleRadio">Evening</label>
+                                        <input class="form-check-input" type="radio" name="preferred_contact_time" id="EveningRadio" value="Evening">
+                                        <label class="form-check-label" for="EveningRadio">Evening</label>
                                     </div>
                                 </div>
                             </div>
@@ -250,7 +258,7 @@
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
                                 </button>
-                                <button type="button" data-action="next" class="continueButton">
+                                <button type="button" data-action="next" class="continueButton" id="continueButtonStep2">
                                 Continue
                                 </button>
                             </div>
@@ -579,6 +587,7 @@
     <!-- content-wrapper ends -->
     @include("footer")
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     console.clear();
 
@@ -1466,5 +1475,7 @@
     function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+
 </script>
+<script src="{{ mix('js/patient.js') }}"></script>
 @endsection

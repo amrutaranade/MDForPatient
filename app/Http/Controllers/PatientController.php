@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\ContactParty;
 use App\Models\PatientsRegistrationDetail;
 
 class PatientController extends Controller
@@ -17,10 +18,9 @@ class PatientController extends Controller
         $getCountriesData = Country::get()->toArray();
         $getStatesData = State::get()->toArray();
 
-        return view('patient-registration',[
+        return view('patient-registration', [
             'countries' => $getCountriesData,
-            'states' => $getStatesData,
-         ]);
+            'states' => $getStatesData]);
     }
 
     public function getStates($country_name)
@@ -30,37 +30,65 @@ class PatientController extends Controller
     }
 
 
-    public function savePatientsDetailsFormSection1(Request $request)
-    {
+        public function savePatientsDetailsFormSection1(Request $request)
+        {
+            $requestData = $request->all();
+
+            // Validate the request
+            $validatedData = $request->validate([
+                'firstName' => 'required|string|max:255',
+                'middleName' => 'nullable|string|max:255',
+                'lastName' => 'required|string|max:255',
+                'dateOfBirth' => 'required|date',
+                'gender' => 'nullable|string|in:Male,Female',
+                'country' => 'nullable|integer',
+                'state' => 'nullable|integer',
+                'city' => 'required|string|max:255',
+                'postalCode' => 'required|string|max:10',
+                'streetAddress' => 'required|string|max:255',
+            ]);
+            // Save the data to the database or perform any other necessary actions
+            $patient =  PatientsRegistrationDetail::create([
+                "first_name" => $requestData["firstName"],
+                "middle_name" => $requestData["middleName"],
+                "last_name" => $requestData["lastName"],
+                "date_of_birth" => $requestData["dateOfBirth"],
+                "gender" => $requestData["gender"],
+                "country" => $requestData["country"],
+                "state" => $requestData["state"],
+                "city" => $requestData["city"],
+                "postal_code" => $requestData["postalCode"],
+                "street_address" => $requestData["streetAddress"],
+            ]);
+
+            return response()->json(['id' => $patient->id], 201);
+
+    }
+
+
+    public function saveContactPartyFormSection2(Request $request){
         $requestData = $request->all();
 
         // Validate the request
         $validatedData = $request->validate([
-            'first-name' => 'required|string|max:255',
-            'middle-name' => 'nullable|string|max:255',
-            'last-name' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|string|in:Male,Female',
-            'countries' => 'required|integer',
-            'states' => 'required|integer',
-            'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:10',
-            'street_address' => 'required|string|max:255',
+            'relationship_to_patient' => 'nullable|string|max:255',
+            'email' => 'required|string|max:255',
+            'phone_number' => 'required|integer',
+            'preferred_mode_of_communication' => 'required|string',
+            'preferred_contact_time' => 'required|string',
+            'patientId' => 'required|integer',
         ]);
         // Save the data to the database or perform any other necessary actions
-        $data =  PatientsRegistrationDetail::create([
-            "first_name" => $requestData["first-name"],
-            "middle_name" => $requestData["middle-name"],
-            "last_name" => $requestData["last-name"],
-            "date_of_birth" => $requestData["date_of_birth"],
-            "gender" => $requestData["gender"],
-            "country" => $requestData["countries"],
-            "state" => $requestData["states"],
-            "city" => $requestData["city"],
-            "postal_code" => $requestData["postal_code"],
-            "street_address" => $requestData["street_address"],
+        $contactparty =  ContactParty::create([
+            "relationship_to_patient" => $requestData["relationship_to_patient"],
+            "email" => $requestData["email"],
+            "phone_number" => $requestData["phone_number"],
+            "preferred_mode_of_communication" => $requestData["preferred_mode_of_communication"],
+            "preferred_contact_time" => $requestData["preferred_contact_time"],
+            "patient_id" => $requestData["patientId"],
+
         ]);
- // Redirect to another tab or section
- return redirect()->route('home')->with('success', 'Patient details saved successfully!');
+
+        return response()->json(['id' => $contactparty->id], 201);
     }
 }

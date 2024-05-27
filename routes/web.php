@@ -20,4 +20,5 @@ use App\Http\Controllers\PatientController;
 Route::get('/', [PatientController::class, 'patientFormView'])->name('home');
 Route::get('/get-states/{country_id}', [PatientController::class, 'getStates']);
 Route::post('/save-patients-details-form', [PatientController::class, 'savePatientsDetailsFormSection1'])->name('save.form');
-Route::post('/save-another-form', [PatientController::class, 'saveAnotherForm'])->name('save.another_form');
+
+Route::post('/save-contact-party-form', [PatientController::class, 'saveContactPartyFormSection2'])->name('save.section2');
