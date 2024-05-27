@@ -19,7 +19,15 @@ class CreatePatientsPrimaryConcernsTable extends Migration
             $table->string('primary_diagnosis')->nullable();
             $table->enum('treated_before', ['Yes', 'No'])->nullable();
             $table->text('request_description')->nullable();
+            $table->string('ip_address'); 
+            $table->string('latitude'); 
+            $table->string('longitude'); 
+            $table->string('browser_agent'); 
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('patient_id')->references('id')->on('patients_registration_details')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

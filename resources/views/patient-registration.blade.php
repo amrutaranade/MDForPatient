@@ -3,8 +3,8 @@
 <div class="">
     <div class="">
         <div class="row">
-            <div class="col-md-3 col-lg-3"></div>
-            <div class="col-md-6 col-lg-6">
+            <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-8 col-lg-8">
                 <div class="row">
                     <div class="page-header">
                         <h2 class="page-title pageHeader"> Expert opinion request </h2>
@@ -16,14 +16,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-lg-3"></div>
+            <div class="col-md-2 col-lg-2"></div>
         </div>
         <div class="row">
-            <div class="col-md-3 col-lg-3"></div>
-            <div class="col-md-6 col-lg-6">
+            <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-8 col-lg-8">
                 <div class="card">
                     <div class="card-body">
                         <!-- Progress Form -->
+                        <form id="progress-form" class="p-4 progress-form" action="https://httpbin.org/post" lang="en" novalidate>
                         <!-- Step Navigation -->
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs" role="tablist">
                             <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
@@ -44,15 +45,17 @@
                             </button>
                             <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <span class="d-block step" aria-hidden="true">Step 5 <span class="sm:d-none">of 5</span></span>
-                                Expert Opinion Request
+                                Make Payment
+                            </button>
+                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="d-block step" aria-hidden="true">Step 6 <span class="sm:d-none">of 6</span></span>
+                                Consent
                             </button>
                         </div>
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <form id="patients-details-form" action="{{ route('save.form') }}" method="POST">
-                        @csrf
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
@@ -63,7 +66,7 @@
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="middle-name">
+                                <label for="first-name">
                                     Middle name
                                 </label>
                                 <input id="middle-name" type="text" name="middle-name" autocomplete="given-name">
@@ -80,88 +83,89 @@
 
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="date_of_birth">
+                                <label for="first-name">
                                     Date of birth
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
+                                <input id="first-name" type="date" name="first-name" autocomplete="given-name" required>
                                 </div>
 
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="gender">
-                                    Gender
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select id="gender" name="gender" required>
-                                    <option value="" disabled selected>Please select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
+                                <div class="mt-3 sm:mt-0 form__field ">
+                                    <label for="address-city">
+                                        Gender
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    
+                                    <div class=" form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Male" required>
+                                        <label class="form-check-label" for="maleRadio">Male</label>
+                                    </div>
+                                    <div class=" form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="Female" required>
+                                        <label class="form-check-label" for="femaleRadio">Female</label>
+                                    </div>  
+                                    <div class=" form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="otherRadio" value="Other" required>
+                                        <label class="form-check-label" for="otherRadio">Other</label>
+                                    </div> 
                                 </div>
                             </div>
                             <br/><span id="patientMailingAddressHrTag">Patient mailing address</span><hr></hr>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="country">
+                                <label for="first-name">
                                     Country
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="" name="countries" id="countries">
-                                    <option value="">--Select--</option>
-                                    @foreach($countries as $country)
-                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
+                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="state">
+                                <label for="first-name">
                                     State
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-  
-                                <select class="" name="states" id="states">
-                                    <option value="">--Select--</option>
-                                </select>
+                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" required>
+                                </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="city">
+                                <label for="first-name">
                                     City
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="city" type="text" name="city" autocomplete="given-name" required>
+                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="postal_code">
+                                <label for="first-name">
                                     Postal Code
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
+                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="street_address">
+                                <label for="first-name">
                                     Street address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
+                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                            <button type="submit" data-action="next" class="continueButton">Continue</button>
+                                <button type="button" data-action="next" class="continueButton">
+                                Continue
+                                </button>
                             </div>
-                           
                         </section>
-                        </form>
                         <!-- / End Step 1 -->
 
                         <!-- Step 2 -->
                         <section id="progress-form__panel-2" role="tabpanel" aria-labelledby="progress-form__tab-2" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h3>This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h3>
+                            <h4>This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
                             </div>
                             <div class="mt-3 form__field">
                                 <label for="address">
@@ -210,12 +214,12 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Phone">
-                                        <label class="form-check-label" for="maleRadio">Phone</label>
+                                        <input class="form-check-input" type="radio" name="prefModeOfCOmm" id="phoneRadio" value="Phone">
+                                        <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="Email">
-                                        <label class="form-check-label" for="femaleRadio">Email</label>
+                                        <input class="form-check-input" type="radio" name="prefModeOfCOmm" id="emailRadio" value="Email">
+                                        <label class="form-check-label" for="emailRadio">Email</label>
                                     </div>  
                                 </div>
                             </div>
@@ -256,7 +260,7 @@
                         <!-- Step 3 -->
                         <section id="progress-form__panel-3" role="tabpanel" aria-labelledby="progress-form__tab-3" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h3>This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h3>
+                            <h4>This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h4>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -376,12 +380,12 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Phone">
-                                        <label class="form-check-label" for="maleRadio">Yes</label>
+                                        <input class="form-check-input" type="radio" name="patientTreatedSurgery" id="yesRadio" value="Phone">
+                                        <label class="form-check-label" for="yesRadio">Yes</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="Email">
-                                        <label class="form-check-label" for="femaleRadio">No</label>
+                                        <input class="form-check-input" type="radio" name="patientTreatedSurgery" id="noRadio" value="Email">
+                                        <label class="form-check-label" for="noRadio">No</label>
                                     </div>  
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field ">
@@ -413,9 +417,43 @@
                             </div>
                         </section>
                         <!-- / End Step 4 -->
-
-                        <!-- Step 4 -->
+                        
+                        <!-- Step 5 -->
                         <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
+                            <div class="mt-3 form__field">
+                            <h4>Please make a payment first to proceed further<br/><br/></h4>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">
+                                    <input type="text" class="hidden"/> <span data-required="false" aria-hidden="false"></span>
+                                    <form action="#" method="POST">
+                                        @csrf
+                                        <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="{{ env('STRIPE_KEY') }}"
+                                            data-amount="1000"
+                                            data-name="MD For Patient"
+                                            data-description="Payment for consulation fee   "
+                                            data-image="/dist/assets/images/logo-mini.png"
+                                            data-locale="auto"
+                                            data-currency="usd">
+                                        </script>
+                                    </form>
+                                </div>
+                                <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
+                                Back
+                                </button>
+                                <button type="button" data-action="next" class="continueButton">
+                                Continue
+                                </button>
+                            </div>
+                            </div>
+                        </section>
+                        <!-- / End Step 5 -->
+
+                        <!-- Step 6 -->
+                        <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
                             <div class="mt-3 form__field">
                             <h3>Please review the term(s) in the steps below and sign-off to confirm your agreement:<br/><br/></h3>
                             </div>
@@ -425,7 +463,7 @@
                                 <span class="tab-button" onclick="goToTab(1)" id="tabButton1">Patient Agreement</span>
                                 <span class="tab-button" onclick="goToTab(2)" id="tabButton2">Sign Off</span>
                             </div>
-                            <form id="form">
+                            
                                 <div class="tab tab-content">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
@@ -465,7 +503,7 @@
                                         </div>
                                     </div>                            
                                 </div>
-                            </form>
+                            
                             </div>
                             <!-- <div class="sm:d-grid sm:grid-col-12 sm:mt-3 hidden">
                                 <nav>
@@ -520,7 +558,7 @@
                                 </button>
                             </div>
                         </section>
-                        <!-- / End Step 5 -->
+                        <!-- / End Step 6 -->
 
                         <!-- Thank You -->
                         <section id="progress-form__thank-you" hidden>
@@ -529,19 +567,18 @@
                         </section>
                         <!-- / End Thank You -->
 
+                    </form>
                     <!-- / End Progress Form -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-lg-3"></div>
+            <div class="col-md-2 col-lg-2"></div>
         </div>
     </div>
     
     <!-- content-wrapper ends -->
     @include("footer")
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script>
     console.clear();
 
@@ -674,7 +711,7 @@
             isChecked = true;
         }
         }
-
+        
         if (!isChecked && isRequired) {
         return {
             isValid: false,
@@ -692,6 +729,7 @@
      */
 
     const validateChoice = field => {
+        console.log(field.closest('fieldset'));
         return validateGroup(field.closest('fieldset'));
     };
 
@@ -766,7 +804,10 @@
         case 'email':
             return validateEmail(field);
         case 'date':
-            return validateDate(field);    
+            return validateDate(field);  
+        case  'hidden': return {
+            isValid: true
+        };
         default:
             throw new Error(`The provided field type '${field.tagName}:${field.type}' is not supported in this form.`);
         }
@@ -792,6 +833,11 @@
 
     const validateStep = currentStep => {
         const fields = tabPanels[currentStep].querySelectorAll('fieldset, input:not([type="radio"]):not([type="checkbox"]), select, textarea');
+
+        // Skip validation for steps 5 and 6
+        if (currentStep === 5 || currentStep === 6) {
+            return Promise.resolve();
+        }
 
         const invalidFields = [...fields].filter(field => {
         return !isValid(field);
@@ -950,6 +996,7 @@
      */
 
     function activateTab(index) {
+        console.log(tabPanels);
         const thisTab   = tabItems[index]
             , thisPanel = tabPanels[index];
 
@@ -1103,26 +1150,25 @@
 
         if (target.matches('[data-action="next"]')) {
         validateStep(currentStep).then(() => {
-
             // Update the progress bar (step complete)
             handleProgress(true);
-
             // Progress to the next step
             activateTab(currentStep + 1);
 
         }).catch(invalidFields => {
-
             // Update the progress bar (step incomplete)
             handleProgress(false);
 
             // Show errors for any invalid fields
-            invalidFields.forEach(field => {
-            reportValidity(field);
-            });
+            if (invalidFields!=null && Array.isArray(invalidFields)) {
+                // Show errors for any invalid fields
+                invalidFields.forEach(field => {
+                    reportValidity(field);
+                });
 
-            // Focus the first found invalid field for the user
-            invalidFields[0].focus();
-
+                // Focus the first found invalid field for the user
+                invalidFields[0].focus();
+            } 
         });
         }
 
@@ -1202,7 +1248,7 @@
         thankYou.removeAttribute('hidden');
 
         // Logging the response from httpbin for quick verification
-        console.log(response);
+        //console.log(response);
     }
 
     /****************************************************************************/
@@ -1288,7 +1334,9 @@
         });
 
         // Focus the first found invalid field for the user
-        invalidFields[0].focus();
+        if (invalidFields!=null && Array.isArray(invalidFields)) {
+            invalidFields[0].focus();
+        }
 
         });
     });
@@ -1418,32 +1466,5 @@
     function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
-
-
-    $(document).ready(function() {
-        $('#countries').change(function() {
-            var selectedOption = $(this).find('option:selected');
-            var country_id = selectedOption.val();
-            var country_name = selectedOption.data('country-name'); 
-            if (country_name) {
-                $.ajax({
-                    url: '/get-states/' + country_name,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#states').empty();
-                        $('#states').append('<option value="">--Select--</option>');
-                        $.each(data, function(key, value) {
-                            $('#states').append('<option value="' + value.id + '">' + value.state_name + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#states').empty();
-                $('#states').append('<option value="">--Select--</option>');
-            }
-        });
-    });
-
 </script>
 @endsection
