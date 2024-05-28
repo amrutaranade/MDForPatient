@@ -22,3 +22,5 @@ Route::get('/get-states/{country_id}', [PatientController::class, 'getStates']);
 Route::post('/save-patients-details-form', [PatientController::class, 'savePatientsDetailsFormSection1'])->name('save.form');
 
 Route::post('/save-contact-party-form', [PatientController::class, 'saveContactPartyFormSection2'])->name('save.section2');
+Route::post('/save-patients-physician-form', [PatientController::class, 'savePatientsPhysicianFormSection3'])->name('save.section3');
+Route::post('/save-primary-concerns-form', [PatientController::class, 'savePrimaryConcernsFormSection4'])->name('save.section4');
