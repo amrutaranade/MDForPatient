@@ -36,6 +36,7 @@ $(document).ready(function() {
         firstName: document.getElementById('first-name').value,
         middleName: document.getElementById('middle-name').value ?? "",
         lastName: document.getElementById('last-name').value,
+        email: document.getElementById('email_step1').value,
         dateOfBirth: document.getElementById('date_of_birth').value,
         gender: document.querySelector('input[name="gender"]:checked')?.value ?? '',
         country: document.getElementById('countries').value ?? '',
@@ -47,6 +48,8 @@ $(document).ready(function() {
     data.latitude = latitude;
     data.longitude = longitude
     data.browserAgent = browserAgent
+
+    $('.error-message').text('');
     if(data.firstName && data.lastName && data.dateOfBirth && data.city && data.postalCode && data.streetAddress){
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -67,9 +70,14 @@ $(document).ready(function() {
            console.log(response.id);
            patientId = response.id;
         },
-        error: function(xhr, status, error) {
+        error: function(xhr) {
             // Handle error response
-            console.error(error);
+            if (xhr.status === 422) {
+                var errors = xhr.responseJSON.errors;
+                $.each(errors, function(key, value) {
+                    $('#' + key + '-error').text(value[0]);
+                });
+            }
         }
     });
 

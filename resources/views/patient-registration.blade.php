@@ -113,6 +113,23 @@
                             <br/><span id="patientMailingAddressHrTag">Patient mailing address</span><hr></hr>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
+                                <label for="email">
+                                    Email
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                </div>
+
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="confirm_email">
+                                    Confirm Email
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">
                                 <label for="Country">
                                     Country
                                     <span data-required="true" aria-hidden="true"></span>
@@ -1489,12 +1506,7 @@
         $(".continueButtonStep").on("click", function() {
             // Validate the email and confirm email fields
             var valid = true;
-            // Confirm email validation
-            if (!$(".confirm_email").val()) {
-                $(".confirm_email").next("label.error").remove();
-                $(".confirm_email").after('<label class="error form__error-text">This field is required.</label>');
-                valid = false;
-            } else if ($(".confirm_email").val() !== $(".email").val()) {
+             if ($(".confirm_email").val() !== $(".email").val()) {
                 $(".confirm_email").next("label.error").remove();
                 $(".confirm_email").after('<label class="error form__error-text">Email addresses must match.</label>');
                 valid = false;
