@@ -28,6 +28,7 @@ class PatientsRegistrationDetail extends Model
         'first_name',
         'middle_name',
         'last_name',
+        'email',
         'date_of_birth',
         'gender',
         'country',
