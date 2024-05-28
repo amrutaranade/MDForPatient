@@ -13,7 +13,12 @@ class PatientPrimaryConcern extends Model
         'patient_id',
         'primary_diagnosis',
         'treated_before',
-        'request_description'
+        'surgery_description',
+        'request_description',
+        'ip_address',
+        'latitude',
+        'longitude',
+        'browser_agent',
     ];
 }
 

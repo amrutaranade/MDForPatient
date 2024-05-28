@@ -22,5 +22,9 @@ class ReferringPhysician extends Model
         'email',
         'phone_number',
         'fax_number',
+        'ip_address',
+        'latitude',
+        'longitude',
+        'browser_agent',
     ];
 }

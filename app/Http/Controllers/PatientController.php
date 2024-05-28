@@ -7,6 +7,8 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\ContactParty;
 use App\Models\PatientsRegistrationDetail;
+use App\Models\ReferringPhysician;
+use App\Models\PatientPrimaryConcern;
 
 class PatientController extends Controller
 {
@@ -59,6 +61,10 @@ class PatientController extends Controller
                 "city" => $requestData["city"],
                 "postal_code" => $requestData["postalCode"],
                 "street_address" => $requestData["streetAddress"],
+                "ip_address" => $_SERVER['REMOTE_ADDR'],
+                "latitude" => 0,
+                "longitude" => 0,
+                "browser_agent" => 0
             ]);
 
             return response()->json(['id' => $patient->id], 201);
@@ -86,9 +92,82 @@ class PatientController extends Controller
             "preferred_mode_of_communication" => $requestData["preferred_mode_of_communication"],
             "preferred_contact_time" => $requestData["preferred_contact_time"],
             "patient_id" => $requestData["patientId"],
+            "ip_address" => $_SERVER['REMOTE_ADDR'],
+            "latitude" => 0,
+            "longitude" => 0,
+            "browser_agent" => 0
 
         ]);
 
         return response()->json(['id' => $contactparty->id], 201);
+    }
+
+    public function savePatientsPhysicianFormSection3(Request $request){
+        $requestData = $request->all();
+
+        // Validate the request
+        $validatedData = $request->validate([
+            'firstName' => 'nullable|string|max:255',
+            'lastName' => 'nullable|string|max:255',
+            'institution' => 'nullable|string',
+            'country' => 'nullable|integer',
+            'state' => 'nullable|integer',
+            'city' => 'nullable|string|max:255',
+            'postalCode' => 'nullable|string|max:10',
+            'streetAddress' => 'nullable|string|max:255',
+            'email' => 'nullable|string|max:255',
+            'phone_number' => 'nullable|integer',
+            'patientId' => 'required|integer',
+        ]);
+        // Save the data to the database or perform any other necessary actions
+        $data =  ReferringPhysician::create([
+            "first_name" => $requestData["firstName"],
+            "last_name" => $requestData["lastName"],
+            "institution" => $requestData["institution"],
+            "country" => $requestData["country"],
+            "state" => $requestData["state"],
+            "city" => $requestData["city"],
+            "postal_code" => $requestData["postalCode"],
+            "street_address" => $requestData["streetAddress"],
+            "email" => $requestData["email"],
+            "phone_number" => $requestData["phone_number"],
+            "patient_id" => $requestData["patientId"],
+            "ip_address" => $_SERVER['REMOTE_ADDR'],
+            "latitude" => 0,
+            "longitude" => 0,
+            "browser_agent" => 0
+        ]);
+
+        return response()->json(['id' => $data->id], 201);
+
+    }
+
+
+    public function savePrimaryConcernsFormSection4(Request $request){
+        $requestData = $request->all();
+
+        // Validate the request
+        $validatedData = $request->validate([
+            'primary_diagnosis' => 'nullable|string|max:255',
+            'treated_before' => 'nullable|string|max:255',
+            'surgery_description' => 'nullable|string',
+            'request_description' => 'nullable|string',
+            'patientId' => 'required|integer',
+        ]);
+        // Save the data to the database or perform any other necessary actions
+        $data =  PatientPrimaryConcern::create([
+            "primary_diagnosis" => $requestData["primary_diagnosis"],
+            "treated_before" => $requestData["treated_before"],
+            "surgery_description" => $requestData["surgery_description"],
+            "request_description" => $requestData["request_description"],
+            "patient_id" => $requestData["patientId"],
+            "ip_address" => $_SERVER['REMOTE_ADDR'],
+            "latitude" => 0,
+            "longitude" => 0,
+            "browser_agent" => 0
+        ]);
+
+        return response()->json(['id' => $data->id], 201);
+
     }
 }

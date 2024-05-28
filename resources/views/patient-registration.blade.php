@@ -117,7 +117,7 @@
                                     Country
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="" name="countries" id="countries">
+                                <select class="countries" name="countries" id="countries">
                                     <option value="">--Select--</option>
                                     @foreach($countries as $country)
                                         <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
@@ -126,11 +126,11 @@
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="State">
+                                <label for="states">
                                     State
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="" name="states" id="states">
+                                <select class="states" name="states" id="states">
                                     <option value="">--Select--</option>
                                 </select>
                                 </div>
@@ -196,14 +196,14 @@
                                     Email Address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="email" type="email" name="email" autocomplete="shipping address-level2" required>
+                                <input id="email" type="email" name="email" class ="email" autocomplete="shipping address-level2" required>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="confirm_email">
                                     Confirm email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="confirm_email" type="email" name="confirm_email" autocomplete="shipping address-level2" required>
+                                <input id="confirm_email" type="email" name="confirm_email" class ="confirm_email"  autocomplete="shipping address-level2" required>
 
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
                                 </button>
-                                <button type="button" data-action="next" class="continueButton" id="continueButtonStep2">
+                                <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep2">
                                 Continue
                                 </button>
                             </div>
@@ -275,84 +275,91 @@
                                 <label for="first-name">
                                     First name
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" >
+                                <input id="first-name-step3" type="text" name="first-name" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="last-name">
                                     Last name
                                 </label>
-                                <input id="last-name" type="text" name="last-name" autocomplete="family-name" >
+                                <input id="last-name-step3" type="text" name="last-name" autocomplete="family-name" >
                                 </div>
                             </div>
 
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="institution">
                                     Institution
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" >
+                                <input id="institution" type="text" name="institution" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="Country">
                                     Country
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" >
+                                <select class="countries" name="countries" id="countries-step3">
+                                    <option value="">--Select--</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                    @endforeach
+                                </select>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="states">
                                     State
                                 </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" >
+                                <select class="states" name="states" id="states-step3">
+                                    <option value="">--Select--</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="city">
                                     City
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" >
+                                <input id="city-step3" type="text" name="city" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="postal_code">
                                     Postal Code
                                 </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name" >
+                                <input id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="street_address">
                                     Street address
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" >
+                                <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="email">
                                     Email address
                                 </label>
-                                <input id="first-name" type="email" name="first-name" autocomplete="given-name" >
+                                <input id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="confirm_email">
                                     Confirm email
                                 </label>
-                                <input id="middle-name" type="email" name="middle-name" autocomplete="given-name" >
+                                <input id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="phone_number">
                                     Phone number
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" >
+                                <input id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" >
                                 </div>
                             </div>
 
@@ -360,7 +367,7 @@
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
                                 </button>
-                                <button type="button" data-action="next" class="continueButton">
+                                <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep3">
                                 Continue
                                 </button>
                             </div>
@@ -371,11 +378,11 @@
                         <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0" hidden>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="primary_diagnosis">
                                     Please provide the primary diagnosis* (If unknown, please list unknown)
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
                                 </div>
                             </div>
 
@@ -388,11 +395,11 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="patientTreatedSurgery" id="yesRadio" value="Phone">
+                                        <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
                                         <label class="form-check-label" for="yesRadio">Yes</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="patientTreatedSurgery" id="noRadio" value="Email">
+                                        <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
                                         <label class="form-check-label" for="noRadio">No</label>
                                     </div>  
                                 </div>
@@ -402,16 +409,16 @@
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
-                                    <input id="surgeryDescription" type="text" name="surgeryDescription" autocomplete="given-name" required> 
+                                    <input id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required> 
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
+                                <label for="request_description">
                                 Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other pertinent information.*
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <textarea rows="5" cols="40" id="first-name" type="text" name="first-name" autocomplete="given-name" required></textarea>
+                                <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required></textarea>
                                 </div>
                             </div>
 
@@ -419,7 +426,7 @@
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
                                 </button>
-                                <button type="button" data-action="next" class="continueButton">
+                                <button type="button" data-action="next" class="continueButton" id="continueButtonStep4">
                                 Continue
                                 </button>
                             </div>
@@ -587,7 +594,9 @@
     <!-- content-wrapper ends -->
     @include("footer")
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+
 <script>
     console.clear();
 
@@ -1475,6 +1484,27 @@
     function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+    $(document).ready(function() {
+        // Initialize validation on the email fields
+        $(".continueButtonStep").on("click", function() {
+            // Validate the email and confirm email fields
+            var valid = true;
+            // Confirm email validation
+            if (!$(".confirm_email").val()) {
+                $(".confirm_email").next("label.error").remove();
+                $(".confirm_email").after('<label class="error form__error-text">This field is required.</label>');
+                valid = false;
+            } else if ($(".confirm_email").val() !== $(".email").val()) {
+                $(".confirm_email").next("label.error").remove();
+                $(".confirm_email").after('<label class="error form__error-text">Email addresses must match.</label>');
+                valid = false;
+            } else {
+                $(".confirm_email").next("label.error").remove();
+            }
+
+        });
+    });
+</script>
 
 </script>
 <script src="{{ mix('js/patient.js') }}"></script>

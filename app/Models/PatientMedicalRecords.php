@@ -11,7 +11,11 @@ class PatientPrimaryConcern extends Model
 
     protected $fillable = [
         'patient_id',
-        'document_url'
+        'document_url',
+        'ip_address',
+        'latitude',
+        'longitude',
+        'browser_agent',
     ];
 }
 

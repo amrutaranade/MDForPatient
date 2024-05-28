@@ -13,11 +13,12 @@ class CreatePatientsPrimaryConcernsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patients_primary_concerns', function (Blueprint $table) {
+        Schema::create('patient_primary_concerns', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
             $table->string('primary_diagnosis')->nullable();
             $table->enum('treated_before', ['Yes', 'No'])->nullable();
+            $table->text('surgery_description')->nullable();
             $table->text('request_description')->nullable();
             $table->string('ip_address'); 
             $table->string('latitude'); 

@@ -14,6 +14,10 @@ class ReferringPhysician extends Model
         'agree_to_terms',
         'cover_letter',
         'patient_agreement',
-        'sign_off'
+        'sign_off',
+        'ip_address',
+        'latitude',
+        'longitude',
+        'browser_agent',
     ];
 }

@@ -35,6 +35,10 @@ class PatientsRegistrationDetail extends Model
         'city',
         'postal_code',
         'street_address',
+        'ip_address',
+        'latitude',
+        'longitude',
+        'browser_agent',
         
     ];
 }

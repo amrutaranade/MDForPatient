@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 
     //for contries -state relation
-    $('#countries').change(function() {
+    $('.countries').change(function() {
         var selectedOption = $(this).find('option:selected');
         var country_id = selectedOption.val();
         var country_name = selectedOption.data('country-name'); 
@@ -13,16 +13,16 @@ $(document).ready(function() {
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    $('#states').empty();
-                    $('#states').append('<option value="">--Select--</option>');
+                    $('.states').empty();
+                    $('.states').append('<option value="">--Select--</option>');
                     $.each(data, function(key, value) {
-                        $('#states').append('<option value="' + value.id + '">' + value.state_name + '</option>');
+                        $('.states').append('<option value="' + value.id + '">' + value.state_name + '</option>');
                     });
                 }
             });
         } else {
-            $('#states').empty();
-            $('#states').append('<option value="">--Select--</option>');
+            $('.states').empty();
+            $('.states').append('<option value="">--Select--</option>');
         }
     });
 
@@ -102,6 +102,85 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
         },
         error: function(xhr, status, error) {
             // Handle error response
+            console.error(error);
+        }
+    });
+
+});
+
+
+//patient physician  section 3
+
+document.getElementById('continueButtonStep3').addEventListener('click', function() {
+    // console.log(document.getElementById('first-name').value);
+    const data = {
+        firstName: document.getElementById('first-name-step3').value ?? '',
+        lastName: document.getElementById('last-name-step3').value ?? '' ,
+        institution: document.getElementById('institution').value ?? '' ,
+        country: document.getElementById('countries-step3').value ?? '',
+        state: document.getElementById('states-step3').value ?? '' ,
+        city: document.getElementById('city-step3').value ?? '',
+        postalCode: document.getElementById('postal_code_step3').value ?? '' ,
+        streetAddress: document.getElementById('street_address_step3').value ?? '',
+        email: document.getElementById('email_step3').value ?? '',
+        phone_number: document.getElementById('phone_number_step3').value ?? '',
+
+    };
+    data.patientId = patientId;
+    console.log(data);
+    // Get CSRF token from the page's meta tag
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    
+    // Add CSRF token to the headers of the AJAX request
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        }
+    });
+    $.ajax({
+        url: '/save-patients-physician-form',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(response) {
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+
+});
+
+//primary concerns  section 4
+
+document.getElementById('continueButtonStep4').addEventListener('click', function() {
+    // console.log(document.getElementById('first-name').value);
+    const data = {
+        primary_diagnosis: document.getElementById('primary_diagnosis').value ?? '',
+        treated_before: document.querySelector('input[name="treated_before"]:checked')?.value ?? '',
+        surgery_description: document.getElementById('surgery_description').value ?? '' ,
+        request_description: document.getElementById('request_description').value ?? '',
+
+    };
+    data.patientId = patientId;
+    console.log(data);
+    // Get CSRF token from the page's meta tag
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    
+    // Add CSRF token to the headers of the AJAX request
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        }
+    });
+    $.ajax({
+        url: '/save-primary-concerns-form',
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(response) {
+        },
+        error: function(xhr, status, error) {
             console.error(error);
         }
     });
