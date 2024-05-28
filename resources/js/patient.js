@@ -1,7 +1,10 @@
 $(document).ready(function() {
     let patientId = null;
+    let browserAgent = getBrowserAgent();
+    let latitude = 0;
+    let longitude = 0;
 
-
+  
     //for contries -state relation
     $('.countries').change(function() {
         var selectedOption = $(this).find('option:selected');
@@ -41,6 +44,9 @@ $(document).ready(function() {
         postalCode: document.getElementById('postal_code').value,
         streetAddress: document.getElementById('street_address').value,
     };
+    data.latitude = latitude;
+    data.longitude = longitude
+    data.browserAgent = browserAgent
     if(data.firstName && data.lastName && data.dateOfBirth && data.city && data.postalCode && data.streetAddress){
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -83,6 +89,9 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
         preferred_contact_time: document.querySelector('input[name="preferred_contact_time"]:checked')?.value ?? '',
     };
     data.patientId = patientId;
+    data.latitude = latitude;
+    data.longitude = longitude
+    data.browserAgent = browserAgent
     console.log(data);
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -127,6 +136,9 @@ document.getElementById('continueButtonStep3').addEventListener('click', functio
 
     };
     data.patientId = patientId;
+    data.latitude = latitude;
+    data.longitude = longitude
+    data.browserAgent = browserAgent
     console.log(data);
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -163,6 +175,9 @@ document.getElementById('continueButtonStep4').addEventListener('click', functio
 
     };
     data.patientId = patientId;
+    data.latitude = latitude;
+    data.longitude = longitude
+    data.browserAgent = browserAgent
     console.log(data);
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -186,5 +201,13 @@ document.getElementById('continueButtonStep4').addEventListener('click', functio
     });
 
 });
+
+
+function getBrowserAgent() {
+    return navigator.userAgent;
+  }
+
+
+
 
 });

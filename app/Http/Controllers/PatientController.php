@@ -62,9 +62,9 @@ class PatientController extends Controller
                 "postal_code" => $requestData["postalCode"],
                 "street_address" => $requestData["streetAddress"],
                 "ip_address" => $_SERVER['REMOTE_ADDR'],
-                "latitude" => 0,
-                "longitude" => 0,
-                "browser_agent" => 0
+                "latitude" => $requestData["latitude"],
+                "longitude" => $requestData["longitude"],
+                "browser_agent" =>$requestData["browserAgent"],
             ]);
 
             return response()->json(['id' => $patient->id], 201);
@@ -93,9 +93,9 @@ class PatientController extends Controller
             "preferred_contact_time" => $requestData["preferred_contact_time"],
             "patient_id" => $requestData["patientId"],
             "ip_address" => $_SERVER['REMOTE_ADDR'],
-            "latitude" => 0,
-            "longitude" => 0,
-            "browser_agent" => 0
+            "latitude" => $requestData["latitude"],
+            "longitude" => $requestData["longitude"],
+            "browser_agent" =>$requestData["browserAgent"],
 
         ]);
 
@@ -118,6 +118,7 @@ class PatientController extends Controller
             'email' => 'nullable|string|max:255',
             'phone_number' => 'nullable|integer',
             'patientId' => 'required|integer',
+            
         ]);
         // Save the data to the database or perform any other necessary actions
         $data =  ReferringPhysician::create([
@@ -133,9 +134,9 @@ class PatientController extends Controller
             "phone_number" => $requestData["phone_number"],
             "patient_id" => $requestData["patientId"],
             "ip_address" => $_SERVER['REMOTE_ADDR'],
-            "latitude" => 0,
-            "longitude" => 0,
-            "browser_agent" => 0
+            "latitude" => $requestData["latitude"],
+            "longitude" => $requestData["longitude"],
+            "browser_agent" =>$requestData["browserAgent"],
         ]);
 
         return response()->json(['id' => $data->id], 201);
@@ -162,9 +163,9 @@ class PatientController extends Controller
             "request_description" => $requestData["request_description"],
             "patient_id" => $requestData["patientId"],
             "ip_address" => $_SERVER['REMOTE_ADDR'],
-            "latitude" => 0,
-            "longitude" => 0,
-            "browser_agent" => 0
+            "latitude" => $requestData["latitude"],
+            "longitude" => $requestData["longitude"],
+            "browser_agent" =>$requestData["browserAgent"],
         ]);
 
         return response()->json(['id' => $data->id], 201);
