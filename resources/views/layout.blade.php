@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/dist/assets/css/stepwise.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="/dist/assets/images/favicon.png" />
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
   </head>
   <body>
     <div class="container-scroller">

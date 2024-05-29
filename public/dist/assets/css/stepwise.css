@@ -940,7 +940,7 @@ a:focus {
   /* --- Labels --- */
 
   --label-text-color: hsl(var(--blue-900));
-  --label-text-font-size: 1.4rem;
+  --label-text-font-size: 1.3rem;
   --label-text-font-weight: 600;
   --label-text-letter-spacing: 0.05em;
 

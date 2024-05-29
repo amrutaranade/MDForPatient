@@ -7,7 +7,7 @@
             <div class="col-md-8 col-lg-8">
                 <div class="row">
                     <div class="page-header">
-                        <h2 class="page-title pageHeader"> Expert opinion request </h2>
+                        <h2 class="page-title pageHeader">Expert opinion request</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -28,28 +28,32 @@
                         <!-- Step Navigation -->
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs" role="tablist">
                             <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 1 <span class="sm:d-none">of 3</span></span>
-                                Patient Details
+                                <span class="d-block step" aria-hidden="true">Step 1 <span class="sm:d-none">of 7</span></span>
+                                Patient<br/>Details
                             </button>
                             <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 2 <span class="sm:d-none">of 3</span></span>
-                                Contact Party
+                                <span class="d-block step" aria-hidden="true">Step 2 <span class="sm:d-none">of 7</span></span>
+                                Contact<br/>Party
                             </button>
                             <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 3 <span class="sm:d-none">of 3</span></span>
-                                Patient's Physician
+                                <span class="d-block step" aria-hidden="true">Step 3 <span class="sm:d-none">of 7</span></span>
+                                Patient's<br/>Physician
                             </button>
                             <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 4 <span class="sm:d-none">of 4</span></span>
-                                Primary Concern
-                            </button>
+                                <span class="d-block step" aria-hidden="true">Step 4 <span class="sm:d-none">of 7</span></span>
+                                Primary<br/>Concern
+                            </button>                            
                             <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 5 <span class="sm:d-none">of 5</span></span>
-                                Make Payment
+                                <span class="d-block step" aria-hidden="true">Step 5 <span class="sm:d-none">of 7</span></span>
+                                Consent
                             </button>
                             <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 6 <span class="sm:d-none">of 6</span></span>
-                                Consent
+                                <span class="d-block step" aria-hidden="true">Step 6 <span class="sm:d-none">of 7</span></span>
+                                Payment
+                            </button>
+                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="d-block step" aria-hidden="true">Step 7 <span class="sm:d-none">of 7</span></span>
+                                Medical<br/>Document 
                             </button>
                         </div>
                         <!-- / End Step Navigation -->
@@ -59,7 +63,7 @@
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
-                                    First name
+                                    First Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
@@ -67,14 +71,14 @@
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
-                                    Middle name
+                                    Middle Name
                                 </label>
                                 <input id="middle-name" type="text" name="middle-name" autocomplete="given-name">
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="last-name">
-                                    Last name
+                                    Last Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <input id="last-name" type="text" name="last-name" autocomplete="family-name" required>
@@ -84,7 +88,7 @@
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="date_of_birth">
-                                    Date of birth
+                                    Date Of Birth
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
@@ -110,25 +114,35 @@
                                     </div> 
                                 </div>
                             </div>
-                            <br/><span id="patientMailingAddressHrTag">Patient mailing address</span><hr></hr>
+                            <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="email">
-                                    Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="street_address">
+                                        Street Address
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
+                                    </div>
                                 </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="confirm_email">
-                                    Confirm Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="City">
+                                        City
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="city" type="text" name="city" autocomplete="given-name" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="postal_code">
+                                    Postal Code
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
+                                </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="Country">
                                     Country
@@ -154,28 +168,19 @@
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="City">
-                                    City
+                                <label for="email">
+                                    Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="city" type="text" name="city" autocomplete="given-name" required>
+                                <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="postal_code">
-                                    Postal Code
+                                <label for="confirm_email">
+                                    Confirm Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="street_address">
-                                    Street address
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
+                                <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
@@ -189,22 +194,24 @@
                         <!-- Step 2 -->
                         <section id="progress-form__panel-2" role="tabpanel" aria-labelledby="progress-form__tab-2" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h4>This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
+                            <h3 class="fw-bold">This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h3>
                             </div>
-                            <div class="mt-3 form__field">
-                                <label for="relationship_to_patient">
-                                Select relationship to the patient
-                                <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
-                                    <option value="" disabled selected>Please select</option>
-                                    <option value="Patient">Patient</option>
-                                    <option value="Caregiver">Caregiver</option>
-                                    <option value="Referring or local physician">Referring or local physician</option>
-                                    <option value="Parent">Parent</option>
-                                    <option value="Legal Guardian">Legal Guardian</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                <div class="mt-3 form__field">
+                                    <label for="relationship_to_patient">
+                                    Select Relationship To The Patient
+                                    <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
+                                        <option value="" disabled selected>Please select</option>
+                                        <option value="Patient">Patient</option>
+                                        <option value="Caregiver">Caregiver</option>
+                                        <option value="Referring or local physician">Referring or local physician</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Legal Guardian">Legal Guardian</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -217,7 +224,7 @@
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="confirm_email">
-                                    Confirm email
+                                    Confirm Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <input id="confirm_email" type="email" name="confirm_email" class ="confirm_email"  autocomplete="shipping address-level2" required>
@@ -234,7 +241,7 @@
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field ">
                                     <label for="preferred_mode_of_communication">
-                                        Preferred mode of communication
+                                        Preferred Mode Of Communication
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
@@ -252,7 +259,7 @@
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                     <label for="preferred_contact_time">
-                                        Preferred contact time
+                                        Preferred Contact Time
                                     </label>  
                                     
                                     <div class=" form-check-inline">
@@ -285,19 +292,19 @@
                         <!-- Step 3 -->
                         <section id="progress-form__panel-3" role="tabpanel" aria-labelledby="progress-form__tab-3" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h4>This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h4>
+                            <h3 class="fw-bold">This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h3>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
-                                    First name
+                                    First Name
                                 </label>
                                 <input id="first-name-step3" type="text" name="first-name" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="last-name">
-                                    Last name
+                                    Last Name
                                 </label>
                                 <input id="last-name-step3" type="text" name="last-name" autocomplete="family-name" >
                                 </div>
@@ -309,6 +316,29 @@
                                     Institution
                                 </label>
                                 <input id="institution" type="text" name="institution" autocomplete="given-name" >
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="street_address">
+                                    Street Address
+                                </label>
+                                <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" >
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="city">
+                                    City
+                                </label>
+                                <input id="city-step3" type="text" name="city" autocomplete="given-name" >
+                                </div>
+
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="postal_code">
+                                    Postal Code
+                                </label>
+                                <input id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -332,41 +362,18 @@
                                     <option value="">--Select--</option>
                                 </select>
                                 </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="city">
-                                    City
-                                </label>
-                                <input id="city-step3" type="text" name="city" autocomplete="given-name" >
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="postal_code">
-                                    Postal Code
-                                </label>
-                                <input id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" >
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="street_address">
-                                    Street address
-                                </label>
-                                <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" >
-                                </div>
-                            </div>
+                            </div>                            
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="email">
-                                    Email address
+                                    Email Address
                                 </label>
                                 <input id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="confirm_email">
-                                    Confirm email
+                                    Confirm Email
                                 </label>
                                 <input id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" >
                                 </div>
@@ -374,7 +381,7 @@
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="phone_number">
-                                    Phone number
+                                    Phone Number
                                 </label>
                                 <input id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" >
                                 </div>
@@ -396,7 +403,7 @@
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="primary_diagnosis">
-                                    Please provide the primary diagnosis* (If unknown, please list unknown)
+                                    Please Provide The Primary Diagnosis* (If unknown, please list unknown)
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
@@ -407,7 +414,7 @@
 
                                 <div class="mt-3 sm:mt-0 form__field ">
                                     <label for="address-city">
-                                    Has the patient been treated or had surgery for this condition before?*
+                                    Has The Patient Been Treated Or Had Surgery For This Condition Before?
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
@@ -432,7 +439,7 @@
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="request_description">
-                                Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other pertinent information.*
+                                Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other pertinent information.
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required></textarea>
@@ -449,45 +456,11 @@
                             </div>
                         </section>
                         <!-- / End Step 4 -->
-                        
+
                         <!-- Step 5 -->
                         <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h4>Please make a payment first to proceed further<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                    <input type="text" class="hidden"/> <span data-required="false" aria-hidden="false"></span>
-                                    <form action="#" method="POST">
-                                        @csrf
-                                        <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{ env('STRIPE_KEY') }}"
-                                            data-amount="1000"
-                                            data-name="MD For Patient"
-                                            data-description="Payment for consulation fee   "
-                                            data-image="/dist/assets/images/logo-mini.png"
-                                            data-locale="auto"
-                                            data-currency="usd">
-                                        </script>
-                                    </form>
-                                </div>
-                                <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton">
-                                Continue
-                                </button>
-                            </div>
-                            </div>
-                        </section>
-                        <!-- / End Step 5 -->
-
-                        <!-- Step 6 -->
-                        <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h3>Please review the term(s) in the steps below and sign-off to confirm your agreement:<br/><br/></h3>
+                            <h3>Documents to review:<br/><br/></h3>
                             </div>
                             <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                             <div id="tabs">
@@ -513,9 +486,35 @@
                                             <iframe src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
                                             </iframe>
                                         </div>
+                                        <div class="mt-1 form__field">
+                                            <label class="">
+                                                <span>Yes, I have read all the Appendix given in Patient Agreement</span>
+                                                            
+                                            </label>
+                                            <label class="form__choice-wrapper">
+                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <span>Patient Agreement</span>                                            
+                                            </label>
+                                            <label class="form__choice-wrapper">
+                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <span>Appendix 1 : Payment Terms</span>                                            
+                                            </label>
+                                            <label class="form__choice-wrapper">
+                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>                                            
+                                            </label>
+                                            <label class="form__choice-wrapper">
+                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" >
+                                                <span>Appendix 3: Medicare Opt-Out Agreement</span>                                            
+                                            </label>
+                                            <label class="form__choice-wrapper">
+                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <span>Appendix 4: Informed Consent</span>                                            
+                                            </label>
+                                        </div>
                                         <div class="mt-3 sm:mt-0 form__field">
                                             <button type="button" class="previousButton" onclick="previousTab()">Previous</button>
-                                            <button type="button" class="agreeButton" onclick="nextTab()">Agree & Proceed</button>
+                                            <button type="button" class="agreeButton" id="btnPatientAgreementConfirm" onclick="nextTab()">Agree & Proceed</button>
                                         </div>
                                     </div>
                                 </div>
@@ -586,11 +585,103 @@
                                 Back
                                 </button>
                                 <button type="button" data-action="next" class="continueButton hidden" id="submitBtn">
+                                Continue
+                                </button>
+                            </div>
+                        </section>
+                        <!-- / End Step 5 -->
+
+                        <!-- Step 6 -->
+                        <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
+                            <div class="mt-3 form__field">
+                            <h4>Pay $500 retainer<br/><br/></h4>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">                                    
+                                    <!-- <form action="#" method="POST">
+                                        @csrf
+                                        <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="{{ env('STRIPE_KEY') }}"
+                                            data-amount="50000"
+                                            data-name="MD For Patients"
+                                            data-description="Payment for consulation fee   "
+                                            data-image="/dist/assets/images/logo-mini.png"
+                                            data-locale="auto"
+                                            data-currency="usd">
+                                        </script>
+                                    </form> -->
+                                </div>
+                                <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
+                                Back
+                                </button>
+                                <button type="button" data-action="next" class="continueButton">
+                                Continue
+                                </button>
+                            </div>
+                            </div>
+                        </section>
+                        <!-- / End Step 6 -->
+
+                        <!-- Step 7 -->
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
+                            <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                <div class="mt-3 form__field">
+                                    <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
+                                    <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-12 sm:mt-3 dropzone" id="myDropzone">                                    
+                                <div class="mt-3 form__field">
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+                                    <script>
+                                        Dropzone.autoDiscover = false;
+
+                                        var myDropzone = new Dropzone("#myDropzone", {
+                                            url: "upload.php",
+                                            autoProcessQueue: false,
+                                            addRemoveLinks: true,
+                                            maxFiles: 10,
+                                            init: function() {
+                                                this.on("addedfile", function() {
+                                                    if (this.files.length > 0) {
+                                                        document.getElementById('confirmUploadBtn').disabled = false;
+                                                    }
+                                                });
+
+                                                this.on("removedfile", function() {
+                                                    if (this.files.length === 0) {
+                                                        document.getElementById('confirmUploadBtn').disabled = true;
+                                                    }
+                                                });
+
+                                                this.on("complete", function(file) {
+                                                    // Handle file complete event (optional)
+                                                });
+                                            }
+                                        });
+
+                                        document.getElementById('confirmUploadBtn').addEventListener('click', function() {
+                                            myDropzone.processQueue(); // Manually process the queue
+                                        });
+                                    </script>      
+                                </div>        
+                            </div>
+                            <div class="mt-3 form__field">
+                                <button id="confirmUploadBtn" class="agreeButton" disabled>Confirm Upload</button>
+                            </div> 
+                            
+                            <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
+                                Back
+                                </button>
+                                <button type="button" data-action="next" class="continueButton" id="submitBtn">
                                 Submit Your Application
                                 </button>
                             </div>
                         </section>
-                        <!-- / End Step 6 -->
+                        <!-- / End Step 7 -->
 
                         <!-- Thank You -->
                         <section id="progress-form__thank-you" hidden>
@@ -1378,6 +1469,32 @@
     });
 </script>
 <script>
+
+    // Function to check the state of all checkboxes and enable/disable the submit button
+    function updateSubmitButtonState() {
+        const checkboxes = document.querySelectorAll('.patientAgreement');
+        let allChecked = true;
+
+        checkboxes.forEach(checkbox => {
+            if (!checkbox.checked) {
+                allChecked = false;
+            }
+        });
+
+        // Enable button if all checkboxes are checked
+        const submitBtn = document.getElementById('btnPatientAgreementConfirm');
+        if (allChecked) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+
+    // Add event listeners to each checkbox
+    document.querySelectorAll('.patientAgreement').forEach(checkbox => {
+        checkbox.addEventListener('change', updateSubmitButtonState);
+    });
+
     let currentTab = 0;
     document.addEventListener("DOMContentLoaded", function () {
         showTab(currentTab);
