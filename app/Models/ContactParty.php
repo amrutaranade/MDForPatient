@@ -26,10 +26,7 @@ class ContactParty extends Model
         'Instituton',
         'fax_number',
         'patient_id',
-        'ip_address',
-        'latitude',
-        'longitude',
-        'browser_agent',
+
         
     ];
 }

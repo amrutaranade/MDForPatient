@@ -31,10 +31,6 @@ class CreateContactPartiesTable extends Migration
             $table->string('street_address')->nullable(); 
             $table->string('Instituton')->nullable();
             $table->string('fax_number')->nullable();
-            $table->string('ip_address'); 
-            $table->string('latitude'); 
-            $table->string('longitude'); 
-            $table->string('browser_agent'); 
             $table->timestamps(); 
         });
     }

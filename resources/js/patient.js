@@ -45,9 +45,7 @@ $(document).ready(function() {
         postalCode: document.getElementById('postal_code').value,
         streetAddress: document.getElementById('street_address').value,
     };
-    data.latitude = latitude;
-    data.longitude = longitude
-    data.browserAgent = browserAgent
+
 
     $('.error-message').text('');
     if(data.firstName && data.lastName && data.dateOfBirth && data.city && data.postalCode && data.streetAddress){
@@ -97,9 +95,7 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
         preferred_contact_time: document.querySelector('input[name="preferred_contact_time"]:checked')?.value ?? '',
     };
     data.patientId = patientId;
-    data.latitude = latitude;
-    data.longitude = longitude
-    data.browserAgent = browserAgent
+
     console.log(data);
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -144,9 +140,7 @@ document.getElementById('continueButtonStep3').addEventListener('click', functio
 
     };
     data.patientId = patientId;
-    data.latitude = latitude;
-    data.longitude = longitude
-    data.browserAgent = browserAgent
+
     console.log(data);
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -183,9 +177,7 @@ document.getElementById('continueButtonStep4').addEventListener('click', functio
 
     };
     data.patientId = patientId;
-    data.latitude = latitude;
-    data.longitude = longitude
-    data.browserAgent = browserAgent
+
     console.log(data);
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -215,7 +207,41 @@ function getBrowserAgent() {
     return navigator.userAgent;
   }
 
+  $('#email_step1').on('blur', function() {
+    var email = $(this).val();
+    if (email === '') {
+        $('#email-check-result').text('');
+        return;
+    }
+    // Get CSRF token from the page's meta tag
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-
+    // Add CSRF token to the headers of the AJAX request
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        }
+    });
+    $.ajax({
+        url: '/check-email',
+        type: 'POST',
+        data: {
+            email: email,
+        },
+        success: function(response) {
+            if (response.exists) {
+                $('#email-check-result')
+                .text('Email already exists')
+                .addClass('form__error-text');
+                $('#continueButton').prop('disabled', true);
+            } else {
+                $('#email-check-result')
+                .text('')
+                .removeClass('form__error-text'); // Remove the class if not exists
+                $('#continueButton').prop('disabled', false);
+            }
+        }
+    });
+});
 
 });
