@@ -17,10 +17,6 @@ class CreatePatientMedicalRecordsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('patient_id');
             $table->text('document_url')->nullable();
-            $table->string('ip_address'); 
-            $table->string('latitude'); 
-            $table->string('longitude'); 
-            $table->string('browser_agent'); 
             $table->softDeletes();
             $table->timestamps();
 

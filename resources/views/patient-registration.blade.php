@@ -148,7 +148,7 @@
                                     Country
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="countries" name="countries" id="countries">
+                                <select class="countries" name="countries" id="countries" required>
                                     <option value="">--Select--</option>
                                     @foreach($countries as $country)
                                         <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
@@ -161,18 +161,20 @@
                                     State
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="states" name="states" id="states">
+                                <select class="states" name="states" id="states" required>
                                     <option value="">--Select--</option>
                                 </select>
                                 </div>
                             </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="email">
                                     Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                <label id="email-check-result"></label>
+
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -1620,16 +1622,14 @@
     }
     $(document).ready(function() {
         // Initialize validation on the email fields
-        $(".continueButtonStep").on("click", function() {
+        $("#continueButton").on("click", function() {
             // Validate the email and confirm email fields
             var valid = true;
-             if ($(".confirm_email").val() !== $(".email").val()) {
-                $(".confirm_email").next("label.error").remove();
-                $(".confirm_email").after('<label class="error form__error-text">Email addresses must match.</label>');
+             if ($("#confirm_email_step1").val() !== $("#email_step1").val()) {
+                $("#confirm_email_step1").next("p.form__error-text").remove();
+                $("#confirm_email_step1").after('<p class="form__error-text">Email addresses must match.</p>');
                 valid = false;
-            } else {
-                $(".confirm_email").next("label.error").remove();
-            }
+            } 
 
         });
     });

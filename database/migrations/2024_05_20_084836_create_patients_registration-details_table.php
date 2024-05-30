@@ -26,10 +26,6 @@ class CreatePatientsRegistrationDetailsTable extends Migration
             $table->string('city');  
             $table->string('postal_code');  
             $table->string('street_address'); 
-            $table->string('ip_address'); 
-            $table->string('latitude'); 
-            $table->string('longitude'); 
-            $table->string('browser_agent'); 
             $table->softDeletes();
             $table->timestamps();
         });

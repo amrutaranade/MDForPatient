@@ -63,10 +63,7 @@ class PatientController extends Controller
                 "city" => $requestData["city"],
                 "postal_code" => $requestData["postalCode"],
                 "street_address" => $requestData["streetAddress"],
-                "ip_address" => $_SERVER['REMOTE_ADDR'],
-                "latitude" => $requestData["latitude"],
-                "longitude" => $requestData["longitude"],
-                "browser_agent" =>$requestData["browserAgent"],
+
             ]);
 
             return response()->json(['id' => $patient->id], 201);
@@ -94,10 +91,7 @@ class PatientController extends Controller
             "preferred_mode_of_communication" => $requestData["preferred_mode_of_communication"],
             "preferred_contact_time" => $requestData["preferred_contact_time"],
             "patient_id" => $requestData["patientId"],
-            "ip_address" => $_SERVER['REMOTE_ADDR'],
-            "latitude" => $requestData["latitude"],
-            "longitude" => $requestData["longitude"],
-            "browser_agent" =>$requestData["browserAgent"],
+
 
         ]);
 
@@ -135,10 +129,7 @@ class PatientController extends Controller
             "email" => $requestData["email"],
             "phone_number" => $requestData["phone_number"],
             "patient_id" => $requestData["patientId"],
-            "ip_address" => $_SERVER['REMOTE_ADDR'],
-            "latitude" => $requestData["latitude"],
-            "longitude" => $requestData["longitude"],
-            "browser_agent" =>$requestData["browserAgent"],
+
         ]);
 
         return response()->json(['id' => $data->id], 201);
@@ -164,13 +155,18 @@ class PatientController extends Controller
             "surgery_description" => $requestData["surgery_description"],
             "request_description" => $requestData["request_description"],
             "patient_id" => $requestData["patientId"],
-            "ip_address" => $_SERVER['REMOTE_ADDR'],
-            "latitude" => $requestData["latitude"],
-            "longitude" => $requestData["longitude"],
-            "browser_agent" =>$requestData["browserAgent"],
+
         ]);
 
         return response()->json(['id' => $data->id], 201);
 
+    }
+
+    public function checkEmail(Request $request)
+    {
+        $email = $request->input('email');
+        $exists = PatientsRegistrationDetail::where('email', $email)->exists();
+
+        return response()->json(['exists' => $exists]);
     }
 }
