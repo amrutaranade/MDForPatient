@@ -5,16 +5,27 @@
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
             <div class="col-md-8 col-lg-8">
-                <div class="row">
-                    <div class="page-header">
-                        <h2 class="page-title pageHeader">Expert opinion request</h2>
+                <!-- <div class="card">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3">
+                            
+                            <div class="page-header">
+                                <h2 class="page-title pageHeader"><div class= "verticalHeader"></div>Expert opinion request</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-lg-9">
+                            <div class="page-header">
+                                <div class="infoTag">If this is a time-sensitive or urgent request, please contact 911 or seek local medical care as appropriate.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="page-header">
-                        <div class="infoTag">If this is a time-sensitive or urgent request, please contact 911 or seek local medical care as appropriate.</div>
-                    </div>
+                <br/> -->
+                <div class="containerHeader">
+                    <div class="titleHeader">Expert Opinion Request</div>
+                    <div class="alertHeader">If this is a time-sensitive or urgent request, please contact 911 or seek local medical care as appropriate.</div>
                 </div>
+                <br/>
             </div>
             <div class="col-md-2 col-lg-2"></div>
         </div>
@@ -26,34 +37,35 @@
                         <!-- Progress Form -->
                         <form id="progress-form" class="p-4 progress-form" action="https://httpbin.org/post" lang="en" novalidate>
                         <!-- Step Navigation -->
-                        <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 1 <span class="sm:d-none">of 7</span></span>
-                                Patient<br/>Details
+                        
+                        <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
+                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
+                                <span class="active" aria-hidden="true"><div class="step-number">1</div>
+                                <div>Patient Details</div></span>
                             </button>
-                            <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 2 <span class="sm:d-none">of 7</span></span>
-                                Contact<br/>Party
+                            <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="" aria-hidden="true"><div class="step-number">2</div>
+                                <div>Contact Party</div></span>
                             </button>
-                            <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 3 <span class="sm:d-none">of 7</span></span>
-                                Patient's<br/>Physician
+                            <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="" aria-hidden="true"><div class="step-number">3</div><div>Patient's Physician</div></span>
+                                
                             </button>
-                            <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 4 <span class="sm:d-none">of 7</span></span>
-                                Primary<br/>Concern
+                            <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="" aria-hidden="true"><div class="step-number">4</div><div>Primary Concern</div></span>
+                                
                             </button>                            
-                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 5 <span class="sm:d-none">of 7</span></span>
-                                Consent
+                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="" aria-hidden="true"><div class="step-number">5</div><div>Consent</div></span>
+                                
                             </button>
-                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 6 <span class="sm:d-none">of 7</span></span>
-                                Payment
+                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="" aria-hidden="true"><div class="step-number">6</div><div>Payment</div></span>
+                                
                             </button>
-                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="d-block step" aria-hidden="true">Step 7 <span class="sm:d-none">of 7</span></span>
-                                Medical<br/>Document 
+                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
+                                <span class="" aria-hidden="true"><div class="step-number">7</div><div>Medical Document</div></span>
+                            
                             </button>
                         </div>
                         <!-- / End Step Navigation -->
