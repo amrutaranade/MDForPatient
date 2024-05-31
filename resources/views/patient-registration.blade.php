@@ -39,32 +39,32 @@
                         <!-- Step Navigation -->
                         
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
-                                <span class="active" aria-hidden="true"><div class="step-number">1</div>
+                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step active" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
+                                <span class="" aria-hidden="true"><div class="step-number">1</div>
                                 <div>Patient Details</div></span>
                             </button>
                             <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="" aria-hidden="true"><div class="step-number">2</div>
+                                <span  aria-hidden="true"><div class="step-number">2</div>
                                 <div>Contact Party</div></span>
                             </button>
                             <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="" aria-hidden="true"><div class="step-number">3</div><div>Patient's Physician</div></span>
+                                <span  aria-hidden="true"><div class="step-number">3</div><div>Patient's Physician</div></span>
                                 
                             </button>
                             <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="" aria-hidden="true"><div class="step-number">4</div><div>Primary Concern</div></span>
+                                <span  aria-hidden="true"><div class="step-number">4</div><div>Primary Concern</div></span>
                                 
                             </button>                            
                             <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="" aria-hidden="true"><div class="step-number">5</div><div>Consent</div></span>
+                                <span  aria-hidden="true"><div class="step-number">5</div><div>Consent</div></span>
                                 
                             </button>
                             <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="" aria-hidden="true"><div class="step-number">6</div><div>Payment</div></span>
+                                <span  aria-hidden="true"><div class="step-number">6</div><div>Payment</div></span>
                                 
                             </button>
                             <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span class="" aria-hidden="true"><div class="step-number">7</div><div>Medical Document</div></span>
+                                <span  aria-hidden="true"><div class="step-number">7</div><div>Medical Document</div></span>
                             
                             </button>
                         </div>
@@ -106,7 +106,7 @@
                                 <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
                                 </div>
 
-                                <div class="mt-3 sm:mt-0 form__field ">
+                                <fieldset class="mt-3 sm:mt-0 form__field ">
                                     <label for="address-city">
                                         Gender
                                         <span data-required="true" aria-hidden="true"></span>
@@ -124,7 +124,7 @@
                                         <input class="form-check-input" type="radio" name="gender" id="otherRadio" value="Other" required>
                                         <label class="form-check-label" for="otherRadio">Other</label>
                                     </div> 
-                                </div>
+                                </fieldset>
                             </div>
                             <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -178,7 +178,7 @@
                                 </select>
                                 </div>
                             </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="email">
                                     Email
@@ -186,7 +186,6 @@
                                 </label>
                                 <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
                                 <label id="email-check-result"></label>
-
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -199,7 +198,12 @@
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
                                 <button type="button" data-action="next" class="continueButton step1" id="continueButton">
-                                Continue
+                                Back
+                                </button>
+                            </div>
+                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                                <button type="button" data-action="next" class="continueButton step1" id="continueButton">
+                                Save & Next
                                 </button>
                             </div>
                         </section>
@@ -253,21 +257,21 @@
                                 </label>
                                 <input id="phone_number" type="text" name="phone_number" autocomplete="shipping address-level2" required>
                                 </div>
-                                <div class="mt-3 sm:mt-0 form__field ">
+                                <fieldset class="mt-3 sm:mt-0 form__field ">
                                     <label for="preferred_mode_of_communication">
                                         Preferred Mode Of Communication
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="phoneRadio" value="Phone">
+                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="phoneRadio" value="Phone" required>
                                         <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="emailRadio" value="Email">
+                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="emailRadio" value="Email" required>
                                         <label class="form-check-label" for="emailRadio">Email</label>
                                     </div>  
-                                </div>
+                                </fieldset>
                             </div>
 
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -1633,16 +1637,16 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
     $(document).ready(function() {
-        // Initialize validation on the email fields
-        $("#continueButton").on("click", function() {
+         // Initialize validation on the email fields
+         $("#continueButton").on("click", function() {
             // Validate the email and confirm email fields
             var valid = true;
              if ($("#confirm_email_step1").val() !== $("#email_step1").val()) {
                 $("#confirm_email_step1").next("p.form__error-text").remove();
                 $("#confirm_email_step1").after('<p class="form__error-text">Email addresses must match.</p>');
                 valid = false;
-            } 
-
+            }
+ 
         });
     });
 </script>

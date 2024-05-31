@@ -4,14 +4,10 @@
           <a class="navbar-brand brand-logo-mini" href="/"><img src="/dist/assets/images/logo-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button">
-            <span class="mdi mdi-menu123 experViewTitle">Expert View</span>
-          </button>
+          
           <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item nav-logout d-none d-lg-block">
-              <span class="experViewTitle"><u>
-                Discard Request</u>
-              </span>
+            <li class="nav-item nav-logout d-none d-lg-block">              
+              <button type="button" class="btn btn-gradient-light btn-rounded btn-fw btnDiscardRequest"><i class="fa fa-trash-o"> </i>&nbsp;&nbsp;Discard Request</button>
             </li>
           </ul>
           

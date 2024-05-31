@@ -49,9 +49,6 @@ $(document).ready(function () {
       postalCode: document.getElementById('postal_code').value,
       streetAddress: document.getElementById('street_address').value
     };
-    data.latitude = latitude;
-    data.longitude = longitude;
-    data.browserAgent = browserAgent;
     $('.error-message').text('');
     if (data.firstName && data.lastName && data.dateOfBirth && data.city && data.postalCode && data.streetAddress) {
       // Get CSRF token from the page's meta tag
@@ -99,9 +96,6 @@ $(document).ready(function () {
       preferred_contact_time: (_document$querySelect5 = (_document$querySelect6 = document.querySelector('input[name="preferred_contact_time"]:checked')) === null || _document$querySelect6 === void 0 ? void 0 : _document$querySelect6.value) !== null && _document$querySelect5 !== void 0 ? _document$querySelect5 : ''
     };
     data.patientId = patientId;
-    data.latitude = latitude;
-    data.longitude = longitude;
-    data.browserAgent = browserAgent;
     console.log(data);
     // Get CSRF token from the page's meta tag
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -143,9 +137,6 @@ $(document).ready(function () {
       phone_number: (_document$getElementB13 = document.getElementById('phone_number_step3').value) !== null && _document$getElementB13 !== void 0 ? _document$getElementB13 : ''
     };
     data.patientId = patientId;
-    data.latitude = latitude;
-    data.longitude = longitude;
-    data.browserAgent = browserAgent;
     console.log(data);
     // Get CSRF token from the page's meta tag
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -180,9 +171,6 @@ $(document).ready(function () {
       request_description: (_document$getElementB16 = document.getElementById('request_description').value) !== null && _document$getElementB16 !== void 0 ? _document$getElementB16 : ''
     };
     data.patientId = patientId;
-    data.latitude = latitude;
-    data.longitude = longitude;
-    data.browserAgent = browserAgent;
     console.log(data);
     // Get CSRF token from the page's meta tag
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -207,6 +195,38 @@ $(document).ready(function () {
   function getBrowserAgent() {
     return navigator.userAgent;
   }
+  $('#email_step1').on('blur', function () {
+    var email = $(this).val();
+    if (email === '') {
+      $('#email-check-result').text('');
+      return;
+    }
+    // Get CSRF token from the page's meta tag
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // Add CSRF token to the headers of the AJAX request
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      }
+    });
+    $.ajax({
+      url: '/check-email',
+      type: 'POST',
+      data: {
+        email: email
+      },
+      success: function success(response) {
+        if (response.exists) {
+          $('#email-check-result').text('Email already exists').addClass('form__error-text');
+          $('#continueButton').prop('disabled', true);
+        } else {
+          $('#email-check-result').text('').removeClass('form__error-text'); // Remove the class if not exists
+          $('#continueButton').prop('disabled', false);
+        }
+      }
+    });
+  });
 });
 /******/ })()
 ;
