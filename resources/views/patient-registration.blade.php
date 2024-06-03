@@ -105,26 +105,6 @@
                                 </label>
                                 <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
                                 </div>
-
-                                <fieldset class="mt-3 sm:mt-0 form__field ">
-                                    <label for="address-city">
-                                        Gender
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Male" required>
-                                        <label class="form-check-label" for="maleRadio">Male</label>
-                                    </div>
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="Female" required>
-                                        <label class="form-check-label" for="femaleRadio">Female</label>
-                                    </div>  
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="otherRadio" value="Other" required>
-                                        <label class="form-check-label" for="otherRadio">Other</label>
-                                    </div> 
-                                </fieldset>
                             </div>
                             <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -1636,6 +1616,13 @@
     function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+
+    document.querySelectorAll('#continueButton').forEach(checkbox => {
+        checkbox.addEventListener('change', updateSubmitButtonState);
+    });
+    $("#continueButton").on("click", function() {
+        // Perform your desired action here
+    });
     $(document).ready(function() {
          // Initialize validation on the email fields
          $("#continueButton").on("click", function() {

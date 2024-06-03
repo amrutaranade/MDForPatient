@@ -3196,6 +3196,7 @@ button:disabled {
 
 .progress-form__tabs-item[aria-selected="true"] {
   display: block;
+  background-color: #e0f7fa !important;
 }
 
 .progress-form__tabs-item[aria-selected="true"]::before {
@@ -3226,4 +3227,5 @@ button:disabled {
 
 .progress-form__tabs-item[data-complete="true"] > .step {
   color: hsl(var(--light-blue-500));
+  background-color: #e0f7fa !important;
 }
