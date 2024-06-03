@@ -194,10 +194,11 @@
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
+                                <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="continueButton step1" id="continueButton">
+                                <button type="button" data-action="next" class="continueButton step1">
                                 Back
                                 </button>
                             </div>
@@ -1637,17 +1638,55 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
     $(document).ready(function() {
-         // Initialize validation on the email fields
-         $("#continueButton").on("click", function() {
-            // Validate the email and confirm email fields
-            var valid = true;
-             if ($("#confirm_email_step1").val() !== $("#email_step1").val()) {
-                $("#confirm_email_step1").next("p.form__error-text").remove();
-                $("#confirm_email_step1").after('<p class="form__error-text">Email addresses must match.</p>');
-                valid = false;
-            }
+        //  $("#continueButton").on("blur", function() {
+        //     // Validate the email and confirm email fields
+        //     var valid = true;
+        //     console.log(valid);
+        //      if ($("#confirm_email_step1").val() !== $("#email_step1").val()) {
+        //         $('#continueButton').prop('disabled', true);
+        //         $("#confirm_email_step1").next("p.form__error-text").remove();
+        //         $("#confirm_email_step1").after('<p class="form__error-text">Email addresses must match.</p>');
+        //         valid = false;
+        //     }else{
+        //         $('#continueButton').prop('disabled', false);
+
+        //     }
  
-        });
+        // });
+
+    let typingTimer;
+    let doneTypingInterval = 1000; // time in ms (1 second)
+
+    // on keyup, start the countdown
+    $('#email_step1, #confirm_email_step1').on('keyup', function() {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+
+    // on keydown, clear the countdown
+    $('#email_step1, #confirm_email_step1').on('keydown', function() {
+        clearTimeout(typingTimer);
+    });
+
+    // user is "finished typing," do something
+    function doneTyping() {
+        // Get the values of the email fields
+        let email = $('#email_step1').val();
+        let confirmEmail = $('#confirm_email_step1').val();
+        if(confirmEmail != ""){
+        // Check if the emails match
+        if (email !== confirmEmail) {
+            $('#emailMatchMessage').show();
+            $('#emailMatchMessage').addClass('form__error-text');
+            $('#continueButton').prop('disabled', true);
+        } else {
+            $('#emailMatchMessage').hide();
+            $('#emailMatchMessage').removeClass('form__error-text');
+            $('#continueButton').prop('disabled', false);
+        }
+        }
+
+    }
     });
 </script>
 
