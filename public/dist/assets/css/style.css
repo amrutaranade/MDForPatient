@@ -11353,7 +11353,7 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
 .btn, .ajax-upload-dragdrop .ajax-file-upload {
   --bs-btn-padding-x: 2.5rem;
   --bs-btn-padding-y: 0.875rem;
-  --bs-btn-font-family: ;
+  --bs-btn-font-family: Open Sans, sans-serif !important;
   --bs-btn-font-size: 0.875rem;
   --bs-btn-font-weight: 400;
   --bs-btn-line-height: 1;
@@ -21929,7 +21929,7 @@ code {
 .btn, .ajax-upload-dragdrop .ajax-file-upload {
   font-size: 0.875rem;
   line-height: 1;
-  font-family: "ubuntu-bold", sans-serif;
+  
   /* Buttons with only icons */
   /* Buttons with icon and text */
 }
@@ -26457,4 +26457,21 @@ span.menu-title{
   font-size:1.2rem !important;
   font-family: Open Sans, sans-serif !important;
   font-weight: bold;
+}
+.btn{
+  color:black !important;
+  font-size: 13px;
+  font-weight: bold;
+}
+button[data-complete].progress-form__tabs-item{
+  background-color: #e0f7fa !important;
+}
+/* .stripe-button-el {
+  display: none;
+} */
+iframe.stripe_checkout_app{
+  left : 50% !important;
+  top : 50% !important;
+  transform: translate(-50%, -50%);
+  max-width: none !important;
 }

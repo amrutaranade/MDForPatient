@@ -32,6 +32,10 @@ class CreateContactPartiesTable extends Migration
             $table->string('Instituton')->nullable();
             $table->string('fax_number')->nullable();
             $table->timestamps(); 
+
+            // Foreign key constraint
+            $table->foreign('patient_id')->references('id')->on('patients_registration_details')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

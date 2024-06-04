@@ -29,6 +29,30 @@ $(document).ready(function() {
         }
     });
 
+    //for contries -state relation within step 2
+    $('.relationship_countries').change(function() {
+        var selectedOption = $(this).find('option:selected');
+        var country_id = selectedOption.val();
+        var country_name = selectedOption.data('country-name'); 
+        if (country_name) {
+            $.ajax({
+                url: '/get-states/' + country_name,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('.relationship_states').empty();
+                    $('.relationship_states').append('<option value="">--Select--</option>');
+                    $.each(data, function(key, value) {
+                        $('.relationship_states').append('<option value="' + value.id + '">' + value.state_name + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('.relationship_states').empty();
+            $('.relationship_states').append('<option value="">--Select--</option>');
+        }
+    });
+
 
     //patient registration details  section 1
     document.getElementById('continueButton').addEventListener('click', function() {

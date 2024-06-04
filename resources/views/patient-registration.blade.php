@@ -39,7 +39,7 @@
                         <!-- Step Navigation -->
                         
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step active" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
+                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
                                 <span class="" aria-hidden="true"><div class="step-number">1</div>
                                 <div>Patient Details</div></span>
                             </button>
@@ -56,7 +56,7 @@
                                 
                             </button>                            
                             <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span  aria-hidden="true"><div class="step-number">5</div><div>Consent</div></span>
+                                <span  aria-hidden="true"><div class="step-number">5</div><div>Consent & Payment</div></span>
                                 
                             </button>
                             <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
@@ -71,7 +71,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
@@ -178,12 +178,7 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="continueButton step1">
-                                Back
-                                </button>
-                            </div>
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="continueButton step1" id="continueButton">
+                                <button type="button" data-action="next" class="continueButton step1 btn btn-success btn-fw" id="continueButton">
                                 Save & Next
                                 </button>
                             </div>
@@ -193,7 +188,7 @@
                         <!-- Step 2 -->
                         <section id="progress-form__panel-2" role="tabpanel" aria-labelledby="progress-form__tab-2" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h3 class="fw-bold">This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h3>
+                            <h4 class="fw-bold">This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 form__field">
@@ -212,77 +207,190 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="email">
-                                    Email Address
+                                <label for="relationship_first_name">
+                                    Your First Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="email" type="email" name="email" class ="email" autocomplete="shipping address-level2" required>
+                                <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" required>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="confirm_email">
-                                    Confirm Email
+                                <label for="relationship_confirm_email">
+                                    Your Last Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="confirm_email" type="email" name="confirm_email" class ="confirm_email"  autocomplete="shipping address-level2" required>
+                                <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" required>
 
+                                </div>
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_npi">
+                                    NPI
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_npi" type="text" name="relationship_npi" required>
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_other">
+                                    Specify your relationship to the patient
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" required>
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_street_address">
+                                        Street Address
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" required>
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_city">
+                                        City
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" required>
+                                    </div>
+                                </div>
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_postal_code">
+                                    Postal Code
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name" required>
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship__country">
+                                    Country
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <select class="relationship_countries" name="relationship_countries" id="relationship_countries" required>
+                                    <option value="">--Select--</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_states">
+                                    State
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <select class="relationship_states" name="relationship_states" id="relationship_states" required>
+                                    <option value="">--Select--</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
-                                <label for="phone number">
+                                <label for="relationship_email">
+                                    Email Address
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" required>
+                                </div>
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_confirm_email">
+                                    Confirm Email
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" required>
+
+                                </div>
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_phone_number">
                                     Phone Number
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="phone_number" type="text" name="phone_number" autocomplete="shipping address-level2" required>
+                                <input id="relationship_phone_number" type="text" name="relationship_phone_number" required>
                                 </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_institution">
+                                    Institution
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  required>
+                                </div>
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_fax_no">
+                                    Fax No.
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" required>
+
+                                </div>
+                                <div class="mt-3 sm:mt-0 form__field">
+                                <label for="relationship_phone_number">
+                                    Phone Number
+                                    <span data-required="true" aria-hidden="true"></span>
+                                </label>
+                                <input id="relationship_phone_number" type="text" name="relationship_phone_number" required>
+                                </div>
+                            </div>
+                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
                                 <fieldset class="mt-3 sm:mt-0 form__field ">
-                                    <label for="preferred_mode_of_communication">
+                                    <label for="relationship_preferred_mode_of_communication">
                                         Preferred Mode Of Communication
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="phoneRadio" value="Phone" required>
+                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" required>
                                         <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferred_mode_of_communication" id="emailRadio" value="Email" required>
+                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" required>
                                         <label class="form-check-label" for="emailRadio">Email</label>
                                     </div>  
                                 </fieldset>
-                            </div>
-
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                            
                                 <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="preferred_contact_time">
+                                    <label for="relationship_preferred_contact_time">
                                         Preferred Contact Time
                                     </label>  
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferred_contact_time" id="MorningRadio" value="Morning">
+                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning">
                                         <label class="form-check-label" for="MorningRadio">Morning</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferred_contact_time" id="AfternoonRadio" value="Afternoon">
+                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon">
                                         <label class="form-check-label" for="AfternoonRadio">Afternoon</label>
                                     </div> 
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="preferred_contact_time" id="EveningRadio" value="Evening">
+                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening">
                                         <label class="form-check-label" for="EveningRadio">Evening</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                            <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
                                 </button>
                                 <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep2">
                                 Continue
+                                </button>
+                            </div> -->
+                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                Back
+                                </button> &nbsp;&nbsp;
+                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep2">
+                                Save & Next
                                 </button>
                             </div>
                         </section>
@@ -386,12 +494,20 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                            <!--<div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
                                 </button>
                                 <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep3">
                                 Continue
+                                </button>
+                            </div> -->
+                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                Back
+                                </button> &nbsp;&nbsp;
+                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep3">
+                                Save & Next
                                 </button>
                             </div>
                         </section>
@@ -399,7 +515,7 @@
 
                         <!-- Step 4 -->
                         <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0" hidden>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="primary_diagnosis">
                                     Please Provide The Primary Diagnosis* (If unknown, please list unknown)
@@ -407,10 +523,6 @@
                                 </label>
                                 <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
                                 </div>
-                            </div>
-
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-
                                 <div class="mt-3 sm:mt-0 form__field ">
                                     <label for="address-city">
                                     Has The Patient Been Treated Or Had Surgery For This Condition Before?
@@ -426,6 +538,10 @@
                                         <label class="form-check-label" for="noRadio">No</label>
                                     </div>  
                                 </div>
+                            </div>
+
+                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                
                                 <div class="mt-3 sm:mt-0 form__field ">
                                     <label for="address-city">
                                     If so, please describe
@@ -438,19 +554,27 @@
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="request_description">
-                                Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other pertinent information.
+                                Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other information you wish to provide.
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
                                 <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required></textarea>
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                            <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
                                 </button>
                                 <button type="button" data-action="next" class="continueButton" id="continueButtonStep4">
                                 Continue
+                                </button>
+                            </div> -->
+                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                Back
+                                </button> &nbsp;&nbsp;
+                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep4">
+                                Save & Next
                                 </button>
                             </div>
                         </section>
@@ -459,13 +583,12 @@
                         <!-- Step 5 -->
                         <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h3>Documents to review:<br/><br/></h3>
+                            <h4 class="fw-bold">Documents to review:<br/><br/></h4>
                             </div>
                             <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                             <div id="tabs">
                                 <span class="tab-button active" onclick="goToTab(0)" id="tabButton0">Patient Cover Letter</span>
                                 <span class="tab-button" onclick="goToTab(1)" id="tabButton1">Patient Agreement</span>
-                                <span class="tab-button" onclick="goToTab(2)" id="tabButton2">Sign Off</span>
                             </div>
                             
                                 <div class="tab tab-content">
@@ -475,7 +598,12 @@
                                             </iframe>
                                         </div>
                                         <div class="mt-3 sm:mt-0 form__field">
-                                            <button type="button" class="agreeButton" onclick="nextTab()">Agree & Proceed</button>
+                                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                                <button type="button"  class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
+                                                Agree & Proceed
+                                                </button>
+                                            </div>
+                                            <!-- <button type="button" class="agreeButton" onclick="nextTab()">Agree & Proceed</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -485,9 +613,11 @@
                                             <iframe src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
                                             </iframe>
                                         </div>
+                                    </div>
+                                    <div class="sm:d-grid sm:grid-col-2 sm:mt-3">                                        
                                         <div class="mt-1 form__field">
                                             <label class="">
-                                                <span>Yes, I have read all the Appendix given in Patient Agreement</span>
+                                                <span>I confirm that, I have read the Patient Agreement and each appendix checked below</span>
                                                             
                                             </label>
                                             <label class="form__choice-wrapper">
@@ -511,13 +641,53 @@
                                                 <span>Appendix 4: Informed Consent</span>                                            
                                             </label>
                                         </div>
-                                        <div class="mt-3 sm:mt-0 form__field">
-                                            <button type="button" class="previousButton" onclick="previousTab()">Previous</button>
-                                            <button type="button" class="agreeButton" id="btnPatientAgreementConfirm" onclick="nextTab()">Agree & Proceed</button>
+                                        <div class="mt-1 form__field">
+                                            <div class="mt-3 sm:mt-0 form__field">
+                                                <label for="digital_signature">
+                                                By typing the full name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
+                                                </label>
+                                                <input id="digital_signature" type="text" name="digital_signature" autocomplete="given-name" >
+                                            </div>
                                         </div>
+                                        
+                                    </div>
+                                    <!-- <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                                <button type="button" onclick="previousTab()" class="btn btn-secondary btn-fw previousButton">
+                                                Previous
+                                                </button> &nbsp;&nbsp;
+                                                <button type="button" data-action="next" class="agreeButton btn btn-success btn-fw" id="btnPatientAgreementConfirm" onclick="nextTab()">
+                                                Agree & Proceed
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                        <button type="button" onclick="previousTab()" class="btn btn-secondary btn-fw previousButton">
+                                        Previous
+                                        </button> &nbsp;&nbsp;
+                                        <!-- <button type="button" data-action="next" class="agreeButton btn btn-success btn-fw" id="btnPatientAgreementConfirm">
+                                        Agree & Proceed to Payment
+                                        </button> -->
+                                        <form action="#" method="POST">
+                                        @csrf
+                                        <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="{{ env('STRIPE_KEY') }}"
+                                            data-amount="19900"
+                                            data-name="MD For Patients"
+                                            data-description="Payment for consulation fee   "
+                                            data-image="/dist/assets/images/logo-mini.png"
+                                            data-locale="auto"
+                                            data-currency="usd"
+                                            data-label="Agree & Proceed to Payment"
+                                            data-class="agreeButton btn btn-success btn-fw">
+                                        </script>
+                                    </form>
                                     </div>
                                 </div>
-                                <div class="tab tab-content">
+                                <!-- <div class="tab tab-content">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
                                             <label for="first-name">
@@ -532,7 +702,7 @@
                                             <button type="button" class="previousButton" onclick="previousTab()">Previous</button>
                                         </div>
                                     </div>                            
-                                </div>
+                                </div> -->
                             
                             </div>
                             <!-- <div class="sm:d-grid sm:grid-col-12 sm:mt-3 hidden">
@@ -580,24 +750,21 @@
                                 </div>
                             </div> -->
                             <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
+                                <button type="button" class="mt-1 sm:mt-0 btn btn-secondary btn-fw" data-action="prev">
                                 Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton hidden" id="submitBtn">
-                                Continue
                                 </button>
                             </div>
                         </section>
                         <!-- / End Step 5 -->
 
                         <!-- Step 6 -->
-                        <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
+                        <!-- <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
                             <div class="mt-3 form__field">
                             <h4>Pay $500 retainer<br/><br/></h4>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">                                    
-                                    <!-- <form action="#" method="POST">
+                                    <form action="#" method="POST">
                                         @csrf
                                         <script
                                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -610,7 +777,7 @@
                                             data-currency="usd">
                                         </script>
                                     </form> -->
-                                </div>
+                                <!-- </div>
                                 <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
                                 <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
                                 Back
@@ -620,7 +787,7 @@
                                 </button>
                             </div>
                             </div>
-                        </section>
+                        </section> -->
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
@@ -1554,69 +1721,69 @@
         }
     }
 
-    const canvas = document.getElementById('signatureCanvas');
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
+    // const canvas = document.getElementById('signatureCanvas');
+    // const ctx = canvas.getContext('2d');
+    // let drawing = false;
 
-    // Resize canvas
-    function resizeCanvas() {
-        canvas.width = window.innerWidth * 0.8;
-        canvas.height = 200;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    // // Resize canvas
+    // function resizeCanvas() {
+    //     canvas.width = window.innerWidth * 0.8;
+    //     canvas.height = 200;
+    // }
+    // window.addEventListener('resize', resizeCanvas);
+    // resizeCanvas();
 
-    // Start drawing
-    canvas.addEventListener('mousedown', (event) => {
-        drawing = true;
-        ctx.beginPath();
-        ctx.moveTo(event.offsetX, event.offsetY);
-    });
+    // // Start drawing
+    // canvas.addEventListener('mousedown', (event) => {
+    //     drawing = true;
+    //     ctx.beginPath();
+    //     ctx.moveTo(event.offsetX, event.offsetY);
+    // });
 
-    // Drawing
-    canvas.addEventListener('mousemove', (event) => {
-        if (drawing) {
-            ctx.lineTo(event.offsetX, event.offsetY);
-            ctx.stroke();
-        }
-    });
+    // // Drawing
+    // canvas.addEventListener('mousemove', (event) => {
+    //     if (drawing) {
+    //         ctx.lineTo(event.offsetX, event.offsetY);
+    //         ctx.stroke();
+    //     }
+    // });
 
-    // Stop drawing
-    canvas.addEventListener('mouseup', () => {
-        drawing = false;
-    });
+    // // Stop drawing
+    // canvas.addEventListener('mouseup', () => {
+    //     drawing = false;
+    // });
 
-    // Touch events for mobile devices
-    canvas.addEventListener('touchstart', (event) => {
-        event.preventDefault();
-        drawing = true;
-        const touch = event.touches[0];
-        const mouseEvent = new MouseEvent('mousedown', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        canvas.dispatchEvent(mouseEvent);
-    });
+    // // Touch events for mobile devices
+    // canvas.addEventListener('touchstart', (event) => {
+    //     event.preventDefault();
+    //     drawing = true;
+    //     const touch = event.touches[0];
+    //     const mouseEvent = new MouseEvent('mousedown', {
+    //         clientX: touch.clientX,
+    //         clientY: touch.clientY
+    //     });
+    //     canvas.dispatchEvent(mouseEvent);
+    // });
 
-    canvas.addEventListener('touchmove', (event) => {
-        event.preventDefault();
-        const touch = event.touches[0];
-        const mouseEvent = new MouseEvent('mousemove', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        canvas.dispatchEvent(mouseEvent);
-    });
+    // canvas.addEventListener('touchmove', (event) => {
+    //     event.preventDefault();
+    //     const touch = event.touches[0];
+    //     const mouseEvent = new MouseEvent('mousemove', {
+    //         clientX: touch.clientX,
+    //         clientY: touch.clientY
+    //     });
+    //     canvas.dispatchEvent(mouseEvent);
+    // });
 
-    canvas.addEventListener('touchend', (event) => {
-        event.preventDefault();
-        drawing = false;
-    });
+    // canvas.addEventListener('touchend', (event) => {
+    //     event.preventDefault();
+    //     drawing = false;
+    // });
 
-    // Clear canvas
-    function clearCanvas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    // // Clear canvas
+    // function clearCanvas() {
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // }
 
     document.querySelectorAll('#continueButton').forEach(checkbox => {
         checkbox.addEventListener('change', updateSubmitButtonState);
@@ -1675,8 +1842,75 @@
 
     }
     });
+
+//     document.addEventListener('DOMContentLoaded', (event) => {
+//     const dropdown = document.getElementById('dropdown');
+//     const input1 = document.getElementById('input1');
+//     const input2 = document.getElementById('input2');
+//     const input3 = document.getElementById('input3');
+
+//     function updateInputs() {
+//         const selectedValue = dropdown.value;
+
+//         // Hide all inputs initially
+//         input1.style.display = 'none';
+//         input2.style.display = 'none';
+//         input3.style.display = 'none';
+
+//         // Show specific inputs based on selected value
+//         if (selectedValue === 'option1') {
+//             input1.style.display = 'block';
+//         } else if (selectedValue === 'option2') {
+//             input2.style.display = 'block';
+//         } else if (selectedValue === 'option3') {
+//             input3.style.display = 'block';
+//         }
+//     }
+
+//     // Update inputs on initial load
+//     updateInputs();
+
+//     // Add event listener to dropdown to update inputs on change
+//     dropdown.addEventListener('change', updateInputs);
+// });
+
 </script>
 
 </script>
 <script src="{{ mix('js/patient.js') }}"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">
+    document.getElementById('btnPatientAgreementConfirm').addEventListener('click', function() {
+        // Get user confirmation
+        if (confirm('Are you sure you want to proceed with the payment?')) {
+            // Initialize Stripe with your publishable key
+            var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+
+            // Make a request to your backend to create a Checkout Session
+            fetch("{{ route('create-checkout-session') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                // Redirect to Stripe Checkout
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function(result) {
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        }
+    });
+</script>
 @endsection

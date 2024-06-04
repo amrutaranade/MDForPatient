@@ -20,7 +20,7 @@ class CreatePatientsRegistrationDetailsTable extends Migration
             $table->string('last_name'); 
             $table->string('email'); 
             $table->date('date_of_birth');  
-            $table->enum('gender', ['Male', 'Female', 'Non-binary','Other']); 
+            $table->enum('gender', ['Male', 'Female', 'Non-binary','Other'])->nullable(); 
             $table->string('country');
             $table->string('state');
             $table->string('city');  

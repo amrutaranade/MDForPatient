@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\StripeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +26,4 @@ Route::post('/save-contact-party-form', [PatientController::class, 'saveContactP
 Route::post('/save-patients-physician-form', [PatientController::class, 'savePatientsPhysicianFormSection3'])->name('save.section3');
 Route::post('/save-primary-concerns-form', [PatientController::class, 'savePrimaryConcernsFormSection4'])->name('save.section4');
 Route::post('/check-email', [PatientController::class, 'checkEmail'])->name('check.email');
+Route::post('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('create-checkout-session');

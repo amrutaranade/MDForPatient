@@ -30,13 +30,10 @@ class PatientsRegistrationDetail extends Model
         'last_name',
         'email',
         'date_of_birth',
-        'gender',
         'country',
         'state',
         'city',
         'postal_code',
-        'street_address',
-
-        
+        'street_address',        
     ];
 }
