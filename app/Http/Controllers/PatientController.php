@@ -20,6 +20,7 @@ class PatientController extends Controller
         $getCountriesData = Country::get()->toArray();
         $getStatesData = State::get()->toArray();
 
+        //return view("upload");
         return view('patient-registration', [
             'countries' => $getCountriesData,
             'states' => $getStatesData]);

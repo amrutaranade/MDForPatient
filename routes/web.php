@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\ShareFileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +29,10 @@ Route::post('/save-patients-physician-form', [PatientController::class, 'savePat
 Route::post('/save-primary-concerns-form', [PatientController::class, 'savePrimaryConcernsFormSection4'])->name('save.section4');
 Route::post('/check-email', [PatientController::class, 'checkEmail'])->name('check.email');
 Route::post('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('create-checkout-session');
+
+//ShareFile Integration routes
+// Route::get('/upload', function () {
+//     return view('upload');
+// });
+
+// Route::post('/upload', [ShareFileController::class, 'upload']);
