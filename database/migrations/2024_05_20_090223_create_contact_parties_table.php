@@ -31,6 +31,7 @@ class CreateContactPartiesTable extends Migration
             $table->string('street_address')->nullable(); 
             $table->string('Instituton')->nullable();
             $table->string('fax_number')->nullable();
+            $table->string('relationship_other')->nullable();
             $table->timestamps(); 
 
             // Foreign key constraint

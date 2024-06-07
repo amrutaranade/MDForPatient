@@ -193,8 +193,8 @@
                                     <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
-                                        <option value="" disabled selected>Please select</option>
-                                        <option value="Patient">Patient</option>
+                                        <option value="" disabled >Please select</option>
+                                        <option value="Patient" selected>Patient</option>
                                         <option value="Caregiver">Caregiver</option>
                                         <option value="Referring or local physician">Referring or local physician</option>
                                         <option value="Parent">Parent</option>
@@ -209,22 +209,21 @@
                                     Your First Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" required>
+                                <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" >
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_confirm_email">
                                     Your Last Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" required>
+                                <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" >
 
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_npi">
                                     NPI
-                                    <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_npi" type="text" name="relationship_npi" required>
+                                <input id="relationship_npi" type="text" name="relationship_npi">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -233,7 +232,7 @@
                                     Specify your relationship to the patient
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" required>
+                                <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -241,35 +240,31 @@
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_street_address">
                                         Street Address
-                                        <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" required>
+                                    <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_city">
                                         City
-                                        <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" required>
+                                    <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" >
                                     </div>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_postal_code">
                                     Postal Code
-                                    <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name" required>
+                                <input id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship__country">
                                     Country
-                                    <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="relationship_countries" name="relationship_countries" id="relationship_countries" required>
+                                <select class="relationship_countries" name="relationship_countries" id="relationship_countries" >
                                     <option value="">--Select--</option>
                                     @foreach($countries as $country)
                                         <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
@@ -280,9 +275,8 @@
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_states">
                                     State
-                                    <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="relationship_states" name="relationship_states" id="relationship_states" required>
+                                <select class="relationship_states" name="relationship_states" id="relationship_states" >
                                     <option value="">--Select--</option>
                                 </select>
                                 </div>
@@ -293,14 +287,14 @@
                                     Email Address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" required>
+                                <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" >
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_confirm_email">
                                     Confirm Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" required>
+                                <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" >
 
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -308,32 +302,24 @@
                                     Phone Number
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_phone_number" type="text" name="relationship_phone_number" required>
+                                <input id="relationship_phone_number" type="text" name="relationship_phone_number" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_institution">
                                     Institution
-                                    <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  required>
+                                <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  >
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_fax_no">
                                     Fax No.
-                                    <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" required>
+                                <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" >
 
                                 </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_phone_number">
-                                    Phone Number
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="relationship_phone_number" type="text" name="relationship_phone_number" required>
-                                </div>
+
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
                                 <fieldset class="mt-3 sm:mt-0 form__field ">
@@ -343,11 +329,11 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" required>
+                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" >
                                         <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" required>
+                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" >
                                         <label class="form-check-label" for="emailRadio">Email</label>
                                     </div>  
                                 </fieldset>
@@ -1839,36 +1825,72 @@
     }
     });
 
-//     document.addEventListener('DOMContentLoaded', (event) => {
-//     const dropdown = document.getElementById('dropdown');
-//     const input1 = document.getElementById('input1');
-//     const input2 = document.getElementById('input2');
-//     const input3 = document.getElementById('input3');
+    $(document).ready(function() {
+    // Function to show/hide fields based on the selected relationship
+    function toggleFields() {
+        var relationship = $('#relationship_to_patient').val();
 
-//     function updateInputs() {
-//         const selectedValue = dropdown.value;
+        // Hide all fields initially
+        $('#relationship_first_name, #relationship_last_name, #relationship_npi, #relationship_street_address, #relationship_city, #relationship_postal_code, #relationship_countries, #relationship_states, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_institution, #relationship_fax_no, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').hide();
 
-//         // Hide all inputs initially
-//         input1.style.display = 'none';
-//         input2.style.display = 'none';
-//         input3.style.display = 'none';
+        $('#relationship_email').removeAttr('required');
+            $('#relationship_confirm_email').removeAttr('required');
+            $('#relationship_phone_number').removeAttr('required');
+            $('#phoneRadio').removeAttr('required');
+            $('#emailRadio').removeAttr('required');
+            $('#relationship_first_name').removeAttr('required');
+            $('#relationship_last_name').removeAttr('required');
+            $('#relationship_other').removeAttr('required');
 
-//         // Show specific inputs based on selected value
-//         if (selectedValue === 'option1') {
-//             input1.style.display = 'block';
-//         } else if (selectedValue === 'option2') {
-//             input2.style.display = 'block';
-//         } else if (selectedValue === 'option3') {
-//             input3.style.display = 'block';
-//         }
-//     }
+        if (relationship === 'Patient') {
+            // Show specific fields for 'Patient'
+            $('#relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
 
-//     // Update inputs on initial load
-//     updateInputs();
+        } else if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian') {
+            // Show specific fields for 'Caregiver'
+            $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#relationship_first_name').attr('required', 'required');
+            $('#relationship_last_name').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
 
-//     // Add event listener to dropdown to update inputs on change
-//     dropdown.addEventListener('change', updateInputs);
-// });
+        }else if(relationship === 'Referring or local physician'){
+            $('#relationship_first_name, #relationship_last_name, #relationship_email,#relationship_npi,#relationship_countries,#relationship_states,#relationship_postal_code, #relationship_street_address, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_institution,#relationship_fax_no, #relationship_city').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#relationship_first_name').attr('required', 'required');
+            $('#relationship_last_name').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
+        }else if(relationship === 'Other'){
+             // Show specific fields for 'Caregiver'
+             $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#relationship_first_name').attr('required', 'required');
+            $('#relationship_last_name').attr('required', 'required');
+            $('#relationship_other').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
+        }
+    }
+
+    // Trigger the function on page load and when the relationship select changes
+    toggleFields();
+    $('#relationship_to_patient').change(toggleFields);
+});
+
+
 
 </script>
 

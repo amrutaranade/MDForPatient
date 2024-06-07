@@ -117,6 +117,18 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
         relationship_phone_number: document.getElementById('relationship_phone_number').value,
         relationship_preferred_mode_of_communication: document.querySelector('input[name="relationship_preferred_mode_of_communication"]:checked')?.value ?? '',
         relationship_preferred_contact_time: document.querySelector('input[name="relationship_preferred_contact_time"]:checked')?.value ?? '',
+        relationship_first_name: document.getElementById('relationship_first_name').value ?? '', 
+        relationship_last_name: document.getElementById('relationship_last_name').value ?? '', 
+        relationship_npi: document.getElementById('relationship_npi').value ?? '', 
+        relationship_street_address: document.getElementById('relationship_street_address').value ?? '', 
+        relationship_city: document.getElementById('relationship_city').value ?? '', 
+        relationship_postal_code: document.getElementById('relationship_postal_code').value ?? '', 
+        relationship_countries: document.getElementById('relationship_countries').value ?? '', 
+        relationship_states: document.getElementById('relationship_states').value ?? '', 
+        relationship_institution: document.getElementById('relationship_institution').value ?? '', 
+        relationship_fax_no: document.getElementById('relationship_fax_no').value ?? '', 
+        relationship_other: document.getElementById('relationship_other').value ?? '', 
+        
     };
     data.patientId = patientId;
 

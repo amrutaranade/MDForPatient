@@ -135,7 +135,6 @@ class PatientController extends Controller
             'relationship_email' => 'required|string|max:255',
             'relationship_phone_number' => 'required|integer',
             'relationship_preferred_mode_of_communication' => 'required|string',
-            'relationship_preferred_contact_time' => 'required|string',
             'patientId' => 'required|integer',
         ]);
 
@@ -154,6 +153,17 @@ class PatientController extends Controller
                 "phone_number" => $requestData["relationship_phone_number"],
                 "preferred_mode_of_communication" => $requestData["relationship_preferred_mode_of_communication"],
                 "preferred_contact_time" => $requestData["relationship_preferred_contact_time"],
+                "first_name" => $requestData["relationship_first_name"],
+                "last_name" => $requestData["relationship_last_name"],
+                "NPI" => $requestData["relationship_npi"],
+                "street_address" => $requestData["relationship_street_address"],
+                "city" => $requestData["relationship_city"],
+                "postal_code" => $requestData["relationship_postal_code"],
+                "country" => $requestData["relationship_countries"],
+                "state" => $requestData["relationship_states"],
+                "Instituton" => $requestData["relationship_institution"],
+                "fax_number" => $requestData["relationship_fax_no"],
+                "relationship_other" => $requestData["relationship_other"],
             ]
         );
 
