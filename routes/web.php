@@ -44,3 +44,12 @@ Route::get('auth/google', [EmailController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [EmailController::class, 'handleGoogleCallback']);
 Route::get('send-email', [EmailController::class, 'sendEmail'])->name('send-email');
 
+// //Stripe Payment Routes
+// Route::get('/payment', function () {
+//     return view('payment');
+// });
+
+// Route::post('/payment', [StripeController::class, 'handlePost'])->name('stripe.post');
+Route::post('/stripe-post', [StripeController::class, 'stripePost'])->name('stripe.post');
+
+

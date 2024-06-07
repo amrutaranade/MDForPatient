@@ -35,11 +35,11 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Progress Form -->
-                        <form id="progress-form" class="p-4 progress-form" action="#" lang="en" novalidate type="post">
+                        <form id="progress-form" class="p-4 progress-form" action="#" lang="en" novalidate>
                         <!-- Step Navigation -->
                         
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="false">
+                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="false" aria-disabled="true">
                                 <span class="" aria-hidden="true"><div class="step-number">1</div>
                                 <div>Patient Details</div></span>
                             </button>
@@ -55,7 +55,7 @@
                                 <span  aria-hidden="true"><div class="step-number">4</div><div>Primary Concern</div></span>
                                 
                             </button>                            
-                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="true" tabindex="-1" aria-disabled="true">
                                 <span  aria-hidden="true"><div class="step-number">5</div><div>Consent & Payment</div></span>
                                 
                             </button>
@@ -67,7 +67,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
@@ -577,7 +577,7 @@
                         <!-- / End Step 4 -->
 
                         <!-- Step 5 -->
-                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
+                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0">
                             <div class="mt-3 form__field">
                             <h4 class="fw-bold">Documents to review:<br/><br/></h4>
                             </div>
@@ -593,14 +593,14 @@
                                             <iframe src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
                                             </iframe>
                                         </div>
-                                        <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
-                                            Back
-                                            </button> &nbsp;&nbsp;
-                                            <button type="button"  class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                                <button type="button"  class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
                                                 Agree & Proceed
                                                 </button>
-                                        </div>                                        
+                                            </div>
+                                            <!-- <button type="button" class="agreeButton" onclick="nextTab()">Agree & Proceed</button> -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab tab-content">
@@ -660,84 +660,21 @@
                                         </div>
                                     </div> -->
                                     <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                        <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
-                                            Back
-                                            </button> &nbsp;&nbsp;
+                                        <button type="button" onclick="previousTab()" class="btn btn-secondary btn-fw previousButton">
+                                        Previous
+                                        </button> &nbsp;&nbsp;
                                         <!-- <button type="button" data-action="next" class="agreeButton btn btn-success btn-fw" id="btnPatientAgreementConfirm">
                                         Agree & Proceed to Payment
                                         </button> -->
-                                        
-                                        <form action="#" method="POST" id="payment-form">
+                                        <form action="#" method="POST">
                                             @csrf
-                                            <div id="card-element" style="display:none">
-  <!-- Card Element will be mounted here -->
-</div>
+                                            
                                             <button type="button" id="customButton" class="agreeButton btn btn-success btn-fw">Agree & Proceed to Payment</button>
                                         </form>
                                     </div>
-                                </div>
-                                <!-- <div class="tab tab-content">
-                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="mt-3 sm:mt-0 form__field">
-                                            <label for="first-name">
-                                                <b>Digital signature</b>
-                                                <span data-required="true" aria-hidden="true"></span><br>
-                                                By signing below you confirm that you have read and agree to all the previous documents.
-                                                <button type="button" class="agreeButton" onclick="clearCanvas()">Clear Signature</button>
-                                            </label>
-                                            <canvas id="signatureCanvas"></canvas>
-                                        </div>
-                                        <div class="mt-3 sm:mt-0 form__field">
-                                            <button type="button" class="previousButton" onclick="previousTab()">Previous</button>
-                                        </div>
-                                    </div>                            
-                                </div> -->
-                            
+                                </div>                            
                             </div>
-                            <!-- <div class="sm:d-grid sm:grid-col-12 sm:mt-3 hidden">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <button onclick="showTabInPatientConsent(0)" class="nav-link active" id="nav-patientCoverLetter-tab" data-bs-toggle="tab" data-bs-target="#nav-patientCoverLetter" type="button" role="tab" aria-controls="nav-patientCoverLetter" aria-selected="true">Patient Cover Letter</button>
-                                        <button onclick="showTabInPatientConsent(1)" class="nav-link" id="nav-patientAgreement-tab" data-bs-toggle="tab" data-bs-target="#nav-patientAgreement" type="button" role="tab" aria-controls="nav-patientAgreement" aria-selected="false">Patient Agreement</button>
-                                        <button onclick="showTabInPatientConsent(2)" class="nav-link" id="nav-signOff-tab" data-bs-toggle="tab" data-bs-target="#nav-signOff" type="button" role="tab" aria-controls="nav-signOff" aria-selected="false">signOff</button>
-                                    </div>
-                                </nav>
-                                <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-patientCoverLetter" role="tabpanel" aria-labelledby="nav-patientCoverLetter-tab">
-                                        <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                            <div class="mt-3 sm:mt-0 form__field">
-                                                <iframe src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
-                                                </iframe>
-                                            </div>
-                                            <div class="mt-3 sm:mt-0 form__field">
-                                                <button type="button" onclick="nextTabInPatientConsent()">Agree & Proceed</button>
-                                            </div>
-                                        </div>                                
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-patientAgreement" role="tabpanel" aria-labelledby="nav-patientAgreement-tab">
-                                        <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                            <div class="mt-3 sm:mt-0 form__field">
-                                                <iframe src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
-                                                </iframe>
-                                                <button type="button" onclick="nextTabInPatientConsent()">Agree & Proceed</button>
-                                            </div>
-                                        </div>                                
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-signOff" role="tabpanel" aria-labelledby="nav-signOff-tab">
-                                        <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                            <div class="mt-3 sm:mt-0 form__field">
-                                                <label for="first-name">
-                                                    Digital signature* (If unknown, please list unknown)
-                                                    <span data-required="true" aria-hidden="true"> By signing below you confirm that you have <strong>read and agree to all the previous documents</span>
-                                                </label>
-                                                <canvas id="signatureCanvas"></canvas>
-                                                <br>
-                                                <button type="button" onclick="clearCanvas()">Clear Signature</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
+                            
                             <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
                                 <button type="button" class="mt-1 sm:mt-0 btn btn-secondary btn-fw" data-action="prev">
                                 Back
@@ -746,41 +683,8 @@
                         </section>
                         <!-- / End Step 5 -->
 
-                        <!-- Step 6 -->
-                        <!-- <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h4>Pay $500 retainer<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">                                    
-                                    <form action="#" method="POST">
-                                        @csrf
-                                        <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{ env('STRIPE_KEY') }}"
-                                            data-amount="50000"
-                                            data-name="MD For Patients"
-                                            data-description="Payment for consulation fee   "
-                                            data-image="/dist/assets/images/logo-mini.png"
-                                            data-locale="auto"
-                                            data-currency="usd">
-                                        </script>
-                                    </form> -->
-                                <!-- </div>
-                                <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton">
-                                Continue
-                                </button>
-                            </div>
-                            </div>
-                        </section> -->
-                        <!-- / End Step 6 -->
-
-                        <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
+                        <!-- Step 6 -->   
+                        <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
                             <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                 <div class="mt-3 form__field">
                                     <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
@@ -1599,6 +1503,7 @@
         .then(response => {
             setTimeout(() => {
             handleSuccess(response)
+            alert("here");
             }, 5000); // An artificial delay to show the state of the submit button
         })
         .catch(error => {
@@ -1653,10 +1558,6 @@
     let currentTab = 0;
     document.addEventListener("DOMContentLoaded", function () {
         showTab(currentTab);
-        var stripe = Stripe('{{ env('STRIPE_KEY') }}');
-        var elements = stripe.elements();
-        var card = elements.create('card');
-        card.mount('#card-element');
     });
 
     function showTab(n) {
@@ -1714,6 +1615,70 @@
         }
     }
 
+    // const canvas = document.getElementById('signatureCanvas');
+    // const ctx = canvas.getContext('2d');
+    // let drawing = false;
+
+    // // Resize canvas
+    // function resizeCanvas() {
+    //     canvas.width = window.innerWidth * 0.8;
+    //     canvas.height = 200;
+    // }
+    // window.addEventListener('resize', resizeCanvas);
+    // resizeCanvas();
+
+    // // Start drawing
+    // canvas.addEventListener('mousedown', (event) => {
+    //     drawing = true;
+    //     ctx.beginPath();
+    //     ctx.moveTo(event.offsetX, event.offsetY);
+    // });
+
+    // // Drawing
+    // canvas.addEventListener('mousemove', (event) => {
+    //     if (drawing) {
+    //         ctx.lineTo(event.offsetX, event.offsetY);
+    //         ctx.stroke();
+    //     }
+    // });
+
+    // // Stop drawing
+    // canvas.addEventListener('mouseup', () => {
+    //     drawing = false;
+    // });
+
+    // // Touch events for mobile devices
+    // canvas.addEventListener('touchstart', (event) => {
+    //     event.preventDefault();
+    //     drawing = true;
+    //     const touch = event.touches[0];
+    //     const mouseEvent = new MouseEvent('mousedown', {
+    //         clientX: touch.clientX,
+    //         clientY: touch.clientY
+    //     });
+    //     canvas.dispatchEvent(mouseEvent);
+    // });
+
+    // canvas.addEventListener('touchmove', (event) => {
+    //     event.preventDefault();
+    //     const touch = event.touches[0];
+    //     const mouseEvent = new MouseEvent('mousemove', {
+    //         clientX: touch.clientX,
+    //         clientY: touch.clientY
+    //     });
+    //     canvas.dispatchEvent(mouseEvent);
+    // });
+
+    // canvas.addEventListener('touchend', (event) => {
+    //     event.preventDefault();
+    //     drawing = false;
+    // });
+
+    // // Clear canvas
+    // function clearCanvas() {
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // }
+
     document.querySelectorAll('#continueButton').forEach(checkbox => {
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
@@ -1721,6 +1686,22 @@
         // Perform your desired action here
     });
     $(document).ready(function() {
+        //  $("#continueButton").on("blur", function() {
+        //     // Validate the email and confirm email fields
+        //     var valid = true;
+        //     console.log(valid);
+        //      if ($("#confirm_email_step1").val() !== $("#email_step1").val()) {
+        //         $('#continueButton').prop('disabled', true);
+        //         $("#confirm_email_step1").next("p.form__error-text").remove();
+        //         $("#confirm_email_step1").after('<p class="form__error-text">Email addresses must match.</p>');
+        //         valid = false;
+        //     }else{
+        //         $('#continueButton').prop('disabled', false);
+
+        //     }
+ 
+        // });
+
     let typingTimer;
     let doneTypingInterval = 1000; // time in ms (1 second)
 
@@ -1756,82 +1737,103 @@
     }
     });
 
+//     document.addEventListener('DOMContentLoaded', (event) => {
+//     const dropdown = document.getElementById('dropdown');
+//     const input1 = document.getElementById('input1');
+//     const input2 = document.getElementById('input2');
+//     const input3 = document.getElementById('input3');
+
+//     function updateInputs() {
+//         const selectedValue = dropdown.value;
+
+//         // Hide all inputs initially
+//         input1.style.display = 'none';
+//         input2.style.display = 'none';
+//         input3.style.display = 'none';
+
+//         // Show specific inputs based on selected value
+//         if (selectedValue === 'option1') {
+//             input1.style.display = 'block';
+//         } else if (selectedValue === 'option2') {
+//             input2.style.display = 'block';
+//         } else if (selectedValue === 'option3') {
+//             input3.style.display = 'block';
+//         }
+//     }
+
+//     // Update inputs on initial load
+//     updateInputs();
+
+//     // Add event listener to dropdown to update inputs on change
+//     dropdown.addEventListener('change', updateInputs);
+// });
+
 </script>
 
 </script>
 <script src="{{ mix('js/patient.js') }}"></script>
 <script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">   
+   
+    document.getElementById('btnPatientAgreementConfirm').addEventListener('click', function() {
+        // Get user confirmation
+        if (confirm('Are you sure you want to proceed with the payment?')) {
+            // Initialize Stripe with your publishable key
+            var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+
+            // Make a request to your backend to create a Checkout Session
+            fetch("{{ route('create-checkout-session') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                // Redirect to Stripe Checkout
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function(result) {
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        }
+    });
+</script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
-
-
-
 <script type="text/javascript">
     
-document.addEventListener("DOMContentLoaded", function () {
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        stripe.createPaymentMethod('card', card).then(function(result) {
-            if (result.error) {
-                // Display error.message in your UI.
-                console.error(result.error.message);
-            } else {
-                // Send the PaymentMethod ID to your server.
-                fetch("{{ route('stripe.post') }}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        payment_method_id: result.paymentMethod.id,
-                        email: result.paymentMethod.billing_details.email
-                    })
-                })
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(responseJson) {
-                    if (responseJson.error) {
-                        // Handle server errors
-                        console.error(responseJson.error);
-                    } else {
-                        // Payment successful
-                        alert('Payment successful!');
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error:', error);
-                });
-            }
-        });
-    });
-});
 
+    // Handle Stripe Checkout completion
     var handler = StripeCheckout.configure({
         key: '{{ env('STRIPE_KEY') }}',
         locale: 'auto',
-        
         token: function(token) {
+            var email = document.getElementById('email').value;
+            var email = document.getElementById('email').value;
+            var email = document.getElementById('email').value;
+            var email = document.getElementById('email').value;
+            // Call your backend API asynchronously
             fetch("{{ route('stripe.post') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                body: JSON.stringify({
-                    token: token.id,
-                    email: token.email,
-                    card_last4: token.card.last4,
-                    card_brand: token.card.brand,
-                    card_exp_month: token.card.exp_month,
-                    card_exp_year: token.card.exp_year
-                })
+                body: JSON.stringify({ token: token.id })
             })
             .then(function(response) {
                 if (response.ok) {
-                    // Show success message or handle next steps
-                    alert('Payment successful!');
+                    // Show the next step form if the API call is successful
+                    document.getElementById('stepper-form').style.display = 'block';
                 } else {
                     // Handle API call failure
                     console.error('API call failed');
@@ -1842,18 +1844,22 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
-
+    
+    // Open Stripe Checkout when the default button is clicked
     document.querySelector('#customButton').addEventListener('click', function(e) {
+        // Open Checkout with further options:
         handler.open({
-            name: 'MD For Patients',
-            description: 'Payment for consultation fee',
-            currency: 'usd',
-            amount: 19900,
-            image: "/dist/assets/images/logo-mini.png",
+            name : 'MD For Patients',
+            description : 'Payment for consultation fee',
+            currency : 'usd',
+            amount : 19900,
+            image :"/dist/assets/images/logo-mini.png",
+            key : "{{ env('STRIPE_KEY') }}"
         });
         e.preventDefault();
     });
 
+    // Close Checkout on page navigation
     window.addEventListener('popstate', function() {
         handler.close();
     });

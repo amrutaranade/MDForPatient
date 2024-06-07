@@ -68,4 +68,6 @@ class EmailController extends Controller
         return 'Email sent successfully';
     }
 
+    
+
 }
