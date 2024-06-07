@@ -1,5 +1,6 @@
 $(document).ready(function() {
     let patientId = null;
+    let applicationCode = null;
     let browserAgent = getBrowserAgent();
     let latitude = 0;
     let longitude = 0;
@@ -91,6 +92,16 @@ $(document).ready(function() {
            console.log('response');
            console.log(response.id);
            patientId = response.id;
+
+            // Generate application ID
+            const firstName = data.firstName;
+            const lastName = data.lastName;
+            const dateOfBirth = data.dateOfBirth.replace(/-/g, ''); 
+            const creationDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+            const randomNumber = Math.floor(10000 + Math.random() * 90000); // Generate a random 5-digit number
+
+            applicationCode = `${firstName}${lastName}${dateOfBirth}${creationDate}${randomNumber}`;
+            console.log('Application Code:', applicationCode);
         },
         error: function(xhr) {
             // Handle error response
@@ -117,6 +128,18 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
         relationship_phone_number: document.getElementById('relationship_phone_number').value,
         relationship_preferred_mode_of_communication: document.querySelector('input[name="relationship_preferred_mode_of_communication"]:checked')?.value ?? '',
         relationship_preferred_contact_time: document.querySelector('input[name="relationship_preferred_contact_time"]:checked')?.value ?? '',
+        relationship_first_name: document.getElementById('relationship_first_name').value ?? '', 
+        relationship_last_name: document.getElementById('relationship_last_name').value ?? '', 
+        relationship_npi: document.getElementById('relationship_npi').value ?? '', 
+        relationship_street_address: document.getElementById('relationship_street_address').value ?? '', 
+        relationship_city: document.getElementById('relationship_city').value ?? '', 
+        relationship_postal_code: document.getElementById('relationship_postal_code').value ?? '', 
+        relationship_countries: document.getElementById('relationship_countries').value ?? '', 
+        relationship_states: document.getElementById('relationship_states').value ?? '', 
+        relationship_institution: document.getElementById('relationship_institution').value ?? '', 
+        relationship_fax_no: document.getElementById('relationship_fax_no').value ?? '', 
+        relationship_other: document.getElementById('relationship_other').value ?? '', 
+        
     };
     data.patientId = patientId;
 

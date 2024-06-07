@@ -26,6 +26,7 @@ class ContactParty extends Model
         'Instituton',
         'fax_number',
         'patient_id',
+        'relationship_other'
 
         
     ];
