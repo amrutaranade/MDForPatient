@@ -113,10 +113,10 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
     // console.log(document.getElementById('first-name').value);
     const data = {
         relationship_to_patient: document.getElementById('relationship_to_patient').value,
-        email: document.getElementById('email').value ,
-        phone_number: document.getElementById('phone_number').value,
-        preferred_mode_of_communication: document.querySelector('input[name="preferred_mode_of_communication"]:checked')?.value ?? '',
-        preferred_contact_time: document.querySelector('input[name="preferred_contact_time"]:checked')?.value ?? '',
+        relationship_email: document.getElementById('relationship_email').value ,
+        relationship_phone_number: document.getElementById('relationship_phone_number').value,
+        relationship_preferred_mode_of_communication: document.querySelector('input[name="relationship_preferred_mode_of_communication"]:checked')?.value ?? '',
+        relationship_preferred_contact_time: document.querySelector('input[name="relationship_preferred_contact_time"]:checked')?.value ?? '',
     };
     data.patientId = patientId;
 

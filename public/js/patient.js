@@ -114,10 +114,10 @@ $(document).ready(function () {
     // console.log(document.getElementById('first-name').value);
     var data = {
       relationship_to_patient: document.getElementById('relationship_to_patient').value,
-      email: document.getElementById('email').value,
-      phone_number: document.getElementById('phone_number').value,
-      preferred_mode_of_communication: (_document$querySelect3 = (_document$querySelect4 = document.querySelector('input[name="preferred_mode_of_communication"]:checked')) === null || _document$querySelect4 === void 0 ? void 0 : _document$querySelect4.value) !== null && _document$querySelect3 !== void 0 ? _document$querySelect3 : '',
-      preferred_contact_time: (_document$querySelect5 = (_document$querySelect6 = document.querySelector('input[name="preferred_contact_time"]:checked')) === null || _document$querySelect6 === void 0 ? void 0 : _document$querySelect6.value) !== null && _document$querySelect5 !== void 0 ? _document$querySelect5 : ''
+      relationship_email: document.getElementById('relationship_email').value,
+      relationship_phone_number: document.getElementById('relationship_phone_number').value,
+      relationship_preferred_mode_of_communication: (_document$querySelect3 = (_document$querySelect4 = document.querySelector('input[name="relationship_preferred_mode_of_communication"]:checked')) === null || _document$querySelect4 === void 0 ? void 0 : _document$querySelect4.value) !== null && _document$querySelect3 !== void 0 ? _document$querySelect3 : '',
+      relationship_preferred_contact_time: (_document$querySelect5 = (_document$querySelect6 = document.querySelector('input[name="relationship_preferred_contact_time"]:checked')) === null || _document$querySelect6 === void 0 ? void 0 : _document$querySelect6.value) !== null && _document$querySelect5 !== void 0 ? _document$querySelect5 : ''
     };
     data.patientId = patientId;
     console.log(data);

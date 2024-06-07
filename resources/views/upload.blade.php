@@ -17,6 +17,7 @@
         init: function() {
             this.on("success", function(file, response) {
                 console.log(response);
+                console.log('file->',file)
             });
         }
     };

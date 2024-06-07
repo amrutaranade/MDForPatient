@@ -60,10 +60,6 @@
                                 
                             </button>
                             <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span  aria-hidden="true"><div class="step-number">6</div><div>Payment</div></span>
-                                
-                            </button>
-                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <span  aria-hidden="true"><div class="step-number">7</div><div>Medical Document</div></span>
                             
                             </button>
@@ -399,7 +395,7 @@
                         <!-- Step 3 -->
                         <section id="progress-form__panel-3" role="tabpanel" aria-labelledby="progress-form__tab-3" tabindex="0" hidden>
                             <div class="mt-3 form__field">
-                            <h3 class="fw-bold">This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h3>
+                            <h4 class="fw-bold">This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h4>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
