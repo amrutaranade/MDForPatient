@@ -58,14 +58,14 @@
                                     First Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <input disabled id="first-name" type="text" name="first-name" autocomplete="given-name" required>
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
                                     Middle Name
                                 </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name">
+                                <input disabled id="middle-name" type="text" name="middle-name" autocomplete="given-name">
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -73,7 +73,7 @@
                                     Last Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="last-name" type="text" name="last-name" autocomplete="family-name" required>
+                                <input disabled id="last-name" type="text" name="last-name" autocomplete="family-name" required>
                                 </div>
                             </div>
 
@@ -83,7 +83,7 @@
                                     Date Of Birth
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
+                                <input disabled id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
                                 </div>
                             </div>
                             <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
@@ -94,7 +94,7 @@
                                         Street Address
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
+                                    <input disabled id="street_address" type="text" name="street_address" autocomplete="given-name" required>
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -103,7 +103,7 @@
                                         City
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="city" type="text" name="city" autocomplete="given-name" required>
+                                    <input disabled id="city" type="text" name="city" autocomplete="given-name" required>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                     Postal Code
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
+                                <input disabled id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="Country">
@@ -144,7 +144,7 @@
                                     Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                <input disabled id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
                                 <label id="email-check-result"></label>
                                 </div>
 
@@ -153,7 +153,7 @@
                                     Confirm Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
+                                <input disabled id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
                                 <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                 </div>
                             </div>
@@ -193,21 +193,21 @@
                                     Your First Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" >
+                                <input disabled id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" >
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_confirm_email">
                                     Your Last Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" >
+                                <input disabled id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" >
 
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_npi">
                                     NPI
                                 </label>
-                                <input id="relationship_npi" type="text" name="relationship_npi">
+                                <input disabled id="relationship_npi" type="text" name="relationship_npi">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -216,7 +216,7 @@
                                     Specify your relationship to the patient
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" >
+                                <input disabled id="relationship_other" type="text" name="relationship_other" class ="relationship_other" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -225,7 +225,7 @@
                                     <label for="relationship_street_address">
                                         Street Address
                                     </label>
-                                    <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name">
+                                    <input disabled id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -233,14 +233,14 @@
                                     <label for="relationship_city">
                                         City
                                     </label>
-                                    <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" >
+                                    <input disabled id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" >
                                     </div>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_postal_code">
                                     Postal Code
                                 </label>
-                                <input id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name" >
+                                <input disabled id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
@@ -271,14 +271,14 @@
                                     Email Address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" >
+                                <input disabled id="relationship_email" type="email" name="relationship_email" class ="relationship_email" >
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_confirm_email">
                                     Confirm Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" >
+                                <input disabled id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" >
 
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -286,7 +286,7 @@
                                     Phone Number
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="relationship_phone_number" type="text" name="relationship_phone_number" >
+                                <input disabled id="relationship_phone_number" type="text" name="relationship_phone_number" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -294,13 +294,13 @@
                                 <label for="relationship_institution">
                                     Institution
                                 </label>
-                                <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  >
+                                <input disabled id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  >
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_fax_no">
                                     Fax No.
                                 </label>
-                                <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" >
+                                <input disabled id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" >
 
                                 </div>
 
@@ -313,11 +313,11 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" >
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" >
                                         <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" >
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" >
                                         <label class="form-check-label" for="emailRadio">Email</label>
                                     </div>  
                                 </fieldset>
@@ -328,16 +328,16 @@
                                     </label>  
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning">
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning">
                                         <label class="form-check-label" for="MorningRadio">Morning</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon">
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon">
                                         <label class="form-check-label" for="AfternoonRadio">Afternoon</label>
                                     </div> 
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening">
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening">
                                         <label class="form-check-label" for="EveningRadio">Evening</label>
                                     </div>
                                 </div>
@@ -372,14 +372,14 @@
                                 <label for="first-name">
                                     First Name
                                 </label>
-                                <input id="first-name-step3" type="text" name="first-name" autocomplete="given-name" >
+                                <input disabled id="first-name-step3" type="text" name="first-name" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="last-name">
                                     Last Name
                                 </label>
-                                <input id="last-name-step3" type="text" name="last-name" autocomplete="family-name" >
+                                <input disabled id="last-name-step3" type="text" name="last-name" autocomplete="family-name" >
                                 </div>
                             </div>
 
@@ -388,7 +388,7 @@
                                 <label for="institution">
                                     Institution
                                 </label>
-                                <input id="institution" type="text" name="institution" autocomplete="given-name" >
+                                <input disabled id="institution" type="text" name="institution" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -396,7 +396,7 @@
                                 <label for="street_address">
                                     Street Address
                                 </label>
-                                <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" >
+                                <input disabled id="street_address_step3" type="text" name="street_address" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -404,14 +404,14 @@
                                 <label for="city">
                                     City
                                 </label>
-                                <input id="city-step3" type="text" name="city" autocomplete="given-name" >
+                                <input disabled id="city-step3" type="text" name="city" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="postal_code">
                                     Postal Code
                                 </label>
-                                <input id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" >
+                                <input disabled id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -441,14 +441,14 @@
                                 <label for="email">
                                     Email Address
                                 </label>
-                                <input id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" >
+                                <input disabled id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" >
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="confirm_email">
                                     Confirm Email
                                 </label>
-                                <input id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" >
+                                <input disabled id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -456,7 +456,7 @@
                                 <label for="phone_number">
                                     Phone Number
                                 </label>
-                                <input id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" >
+                                <input disabled id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" >
                                 </div>
                             </div>
 
@@ -487,7 +487,7 @@
                                     Please Provide The Primary Diagnosis* (If unknown, please list unknown)
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
+                                <input disabled id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field ">
                                     <label for="address-city">
@@ -496,11 +496,11 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
+                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
                                         <label class="form-check-label" for="yesRadio">Yes</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
+                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
                                         <label class="form-check-label" for="noRadio">No</label>
                                     </div>  
                                 </div>
@@ -514,7 +514,7 @@
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
-                                    <input id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required> 
+                                    <input disabled id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required> 
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -587,23 +587,23 @@
                                                             
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
                                                 <span>Patient Agreement</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
                                                 <span>Appendix 1 : Payment Terms</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
                                                 <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" >
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" >
                                                 <span>Appendix 3: Medicare Opt-Out Agreement</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
                                                 <span>Appendix 4: Informed Consent</span>                                            
                                             </label>
                                         </div>
@@ -612,7 +612,7 @@
                                                 <label for="digital_signature">
                                                 By typing the full name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
                                                 </label>
-                                                <input id="digital_signature" type="text" name="digital_signature" autocomplete="given-name" >
+                                                <input disabled id="digital_signature" type="text" name="digital_signature" autocomplete="given-name" >
                                             </div>
                                         </div>
                                         
@@ -688,7 +688,7 @@
                                         Dropzone.autoDiscover = false;
 
                                         var myDropzone = new Dropzone("#myDropzone", {
-                                            url: "{{ url('/upload') }}",
+                                            url: "upload.php",
                                             autoProcessQueue: false,
                                             addRemoveLinks: true,
                                             maxFiles: 10,

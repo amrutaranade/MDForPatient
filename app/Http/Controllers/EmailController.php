@@ -39,20 +39,7 @@ class EmailController extends Controller
 
     public function sendEmail(Request $request)
     {
-        $token = $request->session()->get('google_token');
-        if (!$token) {
-            return redirect()->route('auth/google');
-        }
-
-        $client = new GoogleClient();
-        $client->setAccessToken($token);
-
-        if ($client->isAccessTokenExpired()) {
-            $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
-            $request->session()->put('google_token', $client->getAccessToken());
-        }
-
-        $service = new Gmail($client);
+        
 
         $message = new Message();
         $rawMessageString = "From: intake@mdforpatients.com\r\n";

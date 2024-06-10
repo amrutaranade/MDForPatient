@@ -5,6 +5,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ShareFileController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\OtpController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,9 @@ Route::get('send-email', [EmailController::class, 'sendEmail'])->name('send-emai
 Route::post('/stripe-post', [StripeController::class, 'stripePost'])->name('stripe.post');
 
 
+//OTP Related Routes
+Route::post('/validate-case-number', [OtpController::class, 'validateCaseNumber']);
+Route::post('/generate-otp', [OtpController::class, 'generateOtp']);
+Route::post('/verify-otp', [OtpController::class, 'verifyOtp']);
+Route::get('/otp', [OtpController::class, 'showOTPForm'])->name('show.otp.form');
+Route::get('/patient_consultation_view', [OtpController::class, 'patientConsultationView'])->name('show.otp.form');

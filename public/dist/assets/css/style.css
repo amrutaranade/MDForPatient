@@ -26475,3 +26475,27 @@ iframe.stripe_checkout_app{
   transform: translate(-50%, -50%);
   max-width: none !important;
 }
+.payment-details {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.payment-status {
+  display: flex;
+  align-items: center;
+}
+.payment-status .status-icon {
+  color: green;
+  margin-right: 5px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+table strong {
+  font-size : 1.4rem !important;
+}
+table td{
+  font-size:1.4rem !important;
+}

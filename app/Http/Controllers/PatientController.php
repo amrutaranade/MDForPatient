@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Models\Otp;
+
 
 class PatientController extends Controller
 {
@@ -19,9 +21,7 @@ class PatientController extends Controller
     * addGame page
     */
     public function patientFormView()
-    {
-        
-
+    {     
         $getCountriesData = Country::get()->toArray();
         $getStatesData = State::get()->toArray();
 
@@ -272,6 +272,56 @@ class PatientController extends Controller
             // Clear the session data
             session()->forget(['form_id', 'form_start_time']);
         }
+    }
+
+    public function generateOtp($patientId) {        
+        $otp = rand(100000, 999999);
+        $expiresAt = Carbon::now()->addMinutes(10);
+
+        // Save OTP to database
+        Otp::create([
+            'patient_id' => $patientId,
+            'otp' => $otp,
+            'expires_at' => $expiresAt,
+        ]);
+
+        // Send OTP via email
+        // Mail::raw("Your OTP is: $otp", function($message) use ($user) {
+        //     $message->to($user->email)
+        //             ->subject('Your OTP Code');
+        // });
+
+        return response()->json(['message' => 'OTP sent to your email.']);
+    }
+
+    public function validateCaseNumber(Request $request) {
+        $caseNumber = $request->input('case_number');
+        // Replace with actual validation logic
+        $validCaseNumbers = ['1'];
+
+        if (in_array($caseNumber, $validCaseNumbers)) {
+            $this->generateOtp(1);
+            return response()->json(['message' => 'Valid case number.']);
+        }
+
+        return response()->json(['message' => 'Invalid case number.'], 400);
+    }
+
+    public function verifyOtp(Request $request) {
+        //$user = auth()->user();
+        $otp = $request->input('otp');
+
+        // Retrieve the latest OTP for the user
+        $otpEntry = Otp::where('otp', $otp)
+                        ->where('expires_at', '>', Carbon::now())
+                        ->orderBy('created_at', 'desc')
+                        ->first();
+
+        if ($otpEntry) {
+            return redirect("patientConsultationView");
+        }
+
+        return response()->json(['message' => 'Invalid or expired OTP.'], 400);
     }
 }
 ?>
