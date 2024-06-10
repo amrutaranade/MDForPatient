@@ -832,9 +832,10 @@
             return {
                 isValid: false
             };
-        } else if (!/^[a-zA-Z0-9-_,\/ ]+$/.test(sanitizedValue)) {
-            return { isValid: false, message: 'Only alphanumeric characters, hyphens, underscores, commas, and slashes are allowed.' };
-        }else {
+        } //else if (!/^[a-zA-Z0-9-_,\/ ]+$/.test(val)) {
+        //     return { isValid: false, message: 'Only alphanumeric characters, hyphens, underscores, commas, and slashes are allowed.' };
+        // }
+        else {
             return {
                 isValid: true
             };
@@ -1561,7 +1562,7 @@
     let currentTab = 0;
     document.addEventListener("DOMContentLoaded", function () {
         showTab(currentTab);
-        var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+        var stripe = Stripe("{{ config('services.stripe.stripe_key') }}");
         var elements = stripe.elements();
         var card = elements.create('card');
         card.mount('#card-element');
@@ -1786,7 +1787,7 @@
     var paymentDetails = document.getElementById('progress-form__panel-6');
     var documentUpload = document.getElementById('progress-form__panel-7');
     var handler = StripeCheckout.configure({
-        key: '{{ env('STRIPE_KEY') }}',
+        key: "{{ config('services.stripe.stripe_key') }}",
         locale: 'auto',
         
         token: function(token) {

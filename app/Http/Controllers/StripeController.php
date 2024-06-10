@@ -15,7 +15,7 @@ class StripeController extends Controller
 {
     public function createCheckoutSession(Request $request)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('services.stripe.stripe_key'));
 
         $session = Session::create([
             'payment_method_types' => ['card'],
@@ -39,7 +39,7 @@ class StripeController extends Controller
 
     public function handlePost(Request $request)
     {
-        Stripe::setApiKey(env("STRIPE_SECRET"));
+        Stripe::setApiKey(config('services.stripe.stripe_key'));
         $requestData = $request->all();
 
         try {
@@ -70,7 +70,7 @@ class StripeController extends Controller
     public function stripePost(Request $request)
     {
         // Set your secret key
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('services.stripe.stripe_key'));
 
         // Get the token and other data from the request
         $token = $request->input('token');
