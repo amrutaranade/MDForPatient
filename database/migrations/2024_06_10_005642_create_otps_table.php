@@ -18,7 +18,7 @@ class CreateOtpsTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->string('otp');
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('expires_at');
+            $table->timestamp('expires_at')->nullable();
             $table->foreign('patient_id')->references('id')->on('patients_registration_details')->onDelete('cascade');
         });
     }

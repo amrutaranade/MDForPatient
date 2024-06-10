@@ -9,9 +9,18 @@ use Carbon\Carbon;
 use App\Models\PatientsRegistrationDetail;
 use App\Models\Country;
 use App\Models\State;
+use App\Http\Controllers\EmailController;
+
 
 class OtpController extends Controller
 {
+
+    protected $emailController;
+
+    public function __construct(EmailController $emailController)
+    {
+        $this->emailController = $emailController;
+    }
     public function showOTPForm()
     {
         return view('showOTPForm');
@@ -30,6 +39,18 @@ class OtpController extends Controller
             'expires_at' => $expiresAt,
         ]);
 
+        // Get patient email
+        $patient = PatientsRegistrationDetail::find($patientId);
+        $recipientEmail = 'taiyabbashaikh19@gmail.com';
+
+        // Prepare email details
+        $details = [
+            'title' => 'Your OTP Code',
+            'body' => $otp
+        ];
+
+        // Send OTP via email using EmailController's sendEmail method
+        $this->emailController->sendEmail($recipientEmail, $details);
         // Send OTP via email
         // Mail::raw("Your OTP is: $otp", function($message) use ($user) {
         //     $message->to($user->email)

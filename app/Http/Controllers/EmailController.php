@@ -7,54 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Google\Client as GoogleClient;
 use Google\Service\Gmail\Message;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpEmail;
 class EmailController extends Controller
 {
     
-    public function redirectToGoogle()
-    {
-        $client = new GoogleClient();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $client->addScope('https://www.googleapis.com/auth/gmail.send');
-
-        $authUrl = $client->createAuthUrl();
-        return redirect()->away($authUrl);
-    }
-
-    public function handleGoogleCallback(Request $request)
-    {
-        $client = new GoogleClient();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $client->authenticate($request->code);
-
-        $token = $client->getAccessToken();
-        $request->session()->put('google_token', $token);
-
-        return redirect()->route('send-email');
-    }
-
-    public function sendEmail(Request $request)
-    {
-        
-
-        $message = new Message();
-        $rawMessageString = "From: intake@mdforpatients.com\r\n";
-        $rawMessageString .= "To: yogeshwari.amrutaphadke@gmail.com\r\n";
-        $rawMessageString .= "Subject: Test Email\r\n\r\n";
-        $rawMessageString .= "This is a test email from your Laravel application 123545645747.";
-        $encodedMessage = base64_encode($rawMessageString);
-        $encodedMessage = str_replace(['+', '/', '='], ['-', '_', ''], $encodedMessage);
-        $message->setRaw($encodedMessage);
-
-        $service->users_messages->send('me', $message);
-
-        return 'Email sent successfully';
-    }
-
+   
+        public function sendEmail($recipientEmail, $details)
+        {
+            Mail::to($recipientEmail)->send(new OtpEmail($details));
+        }
     
 
 }
