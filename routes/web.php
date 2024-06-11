@@ -23,6 +23,9 @@ use App\Http\Controllers\OtpController;
 // });
 
 Route::get('/', [PatientController::class, 'patientFormView'])->name('home');
+Route::get('/final-submission', function() {
+    return view('thank-you');
+})->name("final-submission");
 Route::get('/get-states/{country_id}', [PatientController::class, 'getStates']);
 Route::post('/save-patients-details-form', [PatientController::class, 'savePatientsDetailsFormSection1'])->name('save.form')->middleware('update.form.timestamp');;
 
@@ -37,7 +40,7 @@ Route::get('/upload', function () {
     return view('upload');
 });
 
-Route::post('/upload', [ShareFileController::class, 'upload']);
+Route::post('/upload', [PatientController::class, 'upload']);
 
 
 //Gmail Routes

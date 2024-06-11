@@ -129,6 +129,8 @@ class StripeController extends Controller
                 'status' => $paymentIntent->status,
             ]);
 
+            session(['stripe_charge_id' => $paymentIntent->latest_charge]);
+
             return response()->json(['status' => 'success', 'paymentIntent' => $paymentIntent]);
 
         } catch (\Exception $e) {

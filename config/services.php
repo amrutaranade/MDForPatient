@@ -32,6 +32,13 @@ return [
     'stripe' => [
 		'stripe_key' => env('STRIPE_KEY'),
 		'stripe_secret_key' => env('STRIPE_SECRET')
-	]
+	],
+    'shareFile' => [
+        'sharefile_client_id' => "FnQaFTXG1JGb2DdjyODW2XTOlMo4LeXJ",
+        'sharefile_client_secret' => "m7Q4Nw1komawXbuUIneP7uAn8Se1q3wQGYJUPgknXOI0IjhV",
+        'sharefile_username' => "aalex@discoveralpha.com",
+        'sharefile_password' => "gbtt q5ty o5dv cz3l",
+        'sharefile_subdomain' => "mdforpatients2",
+    ]
 
 ];

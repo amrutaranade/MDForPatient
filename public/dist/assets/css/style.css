@@ -9736,7 +9736,7 @@ progress {
   }
   .col-lg-2 {
     flex: 0 0 auto;
-    width: 16.66666667%;
+    width: 14%;
   }
   .col-lg-3 {
     flex: 0 0 auto;
@@ -9760,7 +9760,7 @@ progress {
   }
   .col-lg-8 {
     flex: 0 0 auto;
-    width: 66.66666667%;
+    width: 72%;
   }
   .col-lg-9 {
     flex: 0 0 auto;
@@ -26476,8 +26476,7 @@ iframe.stripe_checkout_app{
   max-width: none !important;
 }
 .payment-details {
-  max-width: 400px;
-  margin: 50px auto;
+  margin: 10px;
   padding: 20px;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
@@ -26499,3 +26498,28 @@ table strong {
 table td{
   font-size:1.4rem !important;
 }
+
+.dropzone {
+  border: 2px dashed #ccc !important; /* Change border style to dotted */
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  min-height: 150px;
+  padding: 20px;
+  position: relative;
+}
+
+.dropzone-icon {
+  font-size: 48px;
+  color: #999;
+}
+
+.dropzone-text {
+  font-size: 18px;
+  color: #666;
+  margin-top: 10px;
+}
+.dz-button{
+  font-size:1.6rem !important;
+  font-family: inherit !important;
+}
+

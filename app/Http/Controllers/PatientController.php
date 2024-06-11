@@ -13,13 +13,20 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Otp;
-
+use App\Services\ShareFileService;
+use DateTime;
+use Google\Service\AdExchangeBuyerII\Date;
+use Google\Service\AdMob\Date as AdMobDate;
 
 class PatientController extends Controller
 {
-    /**
-    * addGame page
-    */
+    protected $shareFileService;
+    
+    public function __construct(ShareFileService $shareFileService)
+    {
+        $this->shareFileService = $shareFileService;
+    }
+
     public function patientFormView()
     {     
         $getCountriesData = Country::get()->toArray();
@@ -121,6 +128,18 @@ class PatientController extends Controller
         // Store the patient ID in the session
         session(['patient_id' => $patient->id]);
     }
+
+    // Generate the string
+    $randomNum = rand(10000, 99999);
+    $patientName = $requestData["firstName"].$requestData["middleName"].$requestData["lastName"];
+    $dateOfBirth = new DateTime($requestData["dateOfBirth"]);
+    $dateOfBirth = $dateOfBirth->format('Ymd');
+    $currentDate = new DateTime();
+    $currentDate = $currentDate->format('Ymd');
+    $patientConsulatationNmber = "{$randomNum}_{$patientName}_{$dateOfBirth}_{$currentDate}";
+
+    // Store the data string in the session
+    session(['patient_consulatation_number' => $patientConsulatationNmber]);
 
     return response()->json(['id' => $patient->id, 'form_id' => $formId], 201);
 }
@@ -322,6 +341,24 @@ class PatientController extends Controller
         }
 
         return response()->json(['message' => 'Invalid or expired OTP.'], 400);
+    }
+
+    public function upload(Request $request)
+    {        
+        $folderName = session("patient_consulatation_number");
+        $filePath = $request->file('file')->getPathname();
+        $file = $request->file('file');
+
+        try {
+            $result = $this->shareFileService->ensureFolderExistsAndUploadFile($request, $folderName, $file);
+            return response()->json($result);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function finalSubmission() {
+        return view('thank-you');
     }
 }
 ?>

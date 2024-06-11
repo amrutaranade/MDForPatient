@@ -16,12 +16,12 @@ class ShareFileController extends Controller
 
     public function upload(Request $request)
     {
-        $folderName = 'Amruta Ranade';
+        $folderName = 'Amruta Phadke Ranade';
         $filePath = $request->file('file')->getPathname();
         $file = $request->file('file');
 
         try {
-            $result = $this->shareFileService->ensureFolderExistsAndUploadFile($folderName, $file);
+            $result = $this->shareFileService->ensureFolderExistsAndUploadFile($request, $folderName, $file);
             return response()->json($result);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

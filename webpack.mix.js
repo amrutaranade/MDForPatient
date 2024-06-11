@@ -12,7 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .js('resources/js/patient.js', 'public/js') // Add custom.js
+   .js('resources/js/patient.js', 'public/js') // Add patient.js
+   .js('resources/js/dropzone.js', 'public/js') // Add dropzone.js
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);

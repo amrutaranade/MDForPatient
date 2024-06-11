@@ -19,11 +19,11 @@ class ShareFileService
     public function __construct()
     {
         $this->client = new Client();
-        $this->clientId = env('SHAREFILE_CLIENT_ID');
-        $this->clientSecret = env('SHAREFILE_CLIENT_SECRET');
-        $this->username = env('SHAREFILE_USERNAME');
-        $this->password = env('SHAREFILE_PASSWORD');
-        $this->subdomain = env('SHAREFILE_SUBDOMAIN');
+        $this->clientId = config('services.shareFile.sharefile_client_id');
+        $this->clientSecret = config('services.shareFile.sharefile_client_secret');
+        $this->username = config('services.shareFile.sharefile_username');
+        $this->password = config('services.shareFile.sharefile_password');
+        $this->subdomain = config('services.shareFile.sharefile_subdomain');
     }
 
     public function getAccessToken() {
@@ -91,188 +91,87 @@ class ShareFileService
         } catch (RequestException $e) {
             throw new \Exception("Error creating folder: " . $e->getMessage());
         }
-    }
+    }    
 
-    /*
-    public function uploadFile($file, $folderId) {
-        $accessToken = $this->getAccessToken();
+    public function uploadFile($request, $file, $folderId)
+    {
+        $token = $this->getAccessToken();        
+        $local_path = $request->file('file')->getPathname();
+
+        if (!$file) {
+            return response()->json(['error' => 'No file uploaded'], 400);
+        }
+
+        $local_path = $file->getPathname();
+        $original_filename = $file->getClientOriginalName();
+
+        $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")/Upload";
+        
+        Log::error('File upload link - : '.$uri);
+
+        $headers = $this->getAuthorizationHeader($token); // Implement this function to get authorization headers
+
+        $client = new Client([
+            'verify' => false,
+            'timeout' => 300,
+            'headers' => $headers
+        ]);
+
         try {
-            // Initiate the upload
-            $uploadResponse = $this->client->post("https://{$this->subdomain}.sf-api.com/sf/v3/Items($folderId)/Upload", [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                ],
-                'json' => [
-                    'method' => 'standard',
-                    'raw' => true,
-                ],
-            ]);
+            $response = $client->get($uri);
+            $upload_config = json_decode($response->getBody()->getContents());
 
-            $uploadInfo = json_decode($uploadResponse->getBody(), true);
-            $uploadUrl = $uploadInfo['ChunkUri'];
-
-            // Perform the file upload
-            $response = $this->client->post($uploadUrl, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                ],
-                'multipart' => [
+            if ($response->getStatusCode() == 200) {
+                $multipart = [
                     [
-                        'name' => 'File1',
-                        'contents' => fopen($file->getPathname(), 'r'),
-                        'filename' => $file->getClientOriginalName(),
-                    ],
-                ],
-            ]);
+                        'name'     => 'File1',
+                        'contents' => fopen($local_path, 'r'),
+                        'filename' => $original_filename
+                    ]
+                ];
 
-            // Confirm the upload
-            $finalizeResponse = $this->client->post($uploadUrl, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                ],
-                'json' => [
-                    'method' => 'standard',
-                ],
-            ]);
-
-            return ['message' => 'File uploaded successfully'];
-        } catch (RequestException $e) {
-            throw new \Exception('Upload failed: ' . $e->getMessage());
-        }
-    }
-    */
-
-    // public function uploadFile($file, $folderId) {
-    //     $accessToken = $this->getAccessToken();
-    //     try {
-    //         // Validate file
-    //         if (!$file->isValid()) {
-    //             throw new \Exception('Invalid file upload');
-    //         }
-
-    //         // Initiate the upload
-    //         $uploadResponse = $this->client->post("https://{$this->subdomain}.sf-api.com/sf/v3/Items($folderId)/Upload", [
-    //             'headers' => [
-    //                 'Authorization' => 'Bearer ' . $accessToken,
-    //             ],
-    //             'json' => [
-    //                 'method' => 'standard',
-    //                 'raw' => true,
-    //             ],
-    //         ]);
-
-    //         $uploadInfo = json_decode($uploadResponse->getBody(), true);
-    //         $uploadUrl = $uploadInfo['ChunkUri'];
-
-    //         // Perform the file upload
-    //         $fileStream = fopen($file->getPathname(), 'rb');
-    //         if (!$fileStream) {
-    //             throw new \Exception('Could not open file stream');
-    //         }
-
-    //         try {
-    //             $response = $this->client->post($uploadUrl, [
-    //                 'headers' => [
-    //                     'Authorization' => 'Bearer ' . $accessToken,
-    //                 ],
-    //                 'multipart' => [
-    //                     [
-    //                         'name' => 'file',
-    //                         'contents' => $fileStream,
-    //                         'filename' => $file->getClientOriginalName(),
-    //                     ],
-    //                 ],
-    //             ]);
-    //         } finally {
-    //             if (is_resource($fileStream)) {
-    //                 fclose($fileStream); // Close the file stream only if it's a valid resource
-    //             }
-    //         }
-
-    //         // Confirm the upload
-    //         $finalizeResponse = $this->client->post($uploadUrl, [
-    //             'headers' => [
-    //                 'Authorization' => 'Bearer ' . $accessToken,
-    //             ],
-    //             'json' => [
-    //                 'method' => 'standard',
-    //             ],
-    //         ]);
-
-    //         return ['message' => 'File uploaded successfully'];
-    //     } catch (RequestException $e) {
-    //         throw new \Exception('Upload failed: ' . $e->getMessage());
-    //     }
-    // }
-    public function uploadFile($file, $folderId) {
-        $accessToken = $this->getAccessToken();
-        try {
-            // Validate file
-            if (!$file->isValid()) {
-                throw new \Exception('Invalid file upload');
-            }
-    
-            // Initiate the upload
-            $uploadResponse = $this->client->post("https://{$this->subdomain}.sf-api.com/sf/v3/Items($folderId)/Upload", [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                ],
-                'json' => [
-                    'method' => 'standard',
-                    'raw' => true,
-                ],
-            ]);
-    
-            $uploadInfo = json_decode($uploadResponse->getBody(), true);
-            $uploadUrl = $uploadInfo['ChunkUri'];
-    
-            // Perform the file upload
-            $fileStream = fopen($file->getPathname(), 'rb');
-            if (!$fileStream) {
-                throw new \Exception('Could not open file stream');
-            }
-    
-            try {
-                $response = $this->client->post($uploadUrl, [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . $accessToken,
-                    ],
-                    'multipart' => [
-                        [
-                            'name' => 'file',
-                            'contents' => $fileStream,
-                            'filename' => $file->getClientOriginalName(),
-                        ],
-                    ],
+                $uploadResponse = $client->post($upload_config->ChunkUri, [
+                    'multipart' => $multipart,
+                    'headers' => $headers // Use the same headers for the post request
                 ]);
-            } finally {
-                if (is_resource($fileStream)) {
-                    fclose($fileStream); // Close the file stream only if it's a valid resource
-                }
+
+                return response()->json(['success']);
+            } else {
+                return response()->json(['error'], $response->getStatusCode());
             }
-    
-            // Confirm the upload
-            $finalizeResponse = $this->client->post($uploadUrl, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                ],
-                'json' => [
-                    'method' => 'standard',
-                ],
-            ]);
-    
-            // Log upload URL for debugging
-            Log::info('Upload URL: ' . $uploadUrl);
-    
-            return ['message' => 'File uploaded successfully'];
         } catch (RequestException $e) {
-            throw new \Exception('Upload failed: ' . $e->getMessage());
+            Log::error('File upload error: '.$e->getMessage());
+            if ($e->hasResponse()) {
+                $responseBody = $e->getResponse()->getBody()->getContents();
+                Log::error('Response: '.$responseBody);
+                return response()->json(['error' => $responseBody], $e->getResponse()->getStatusCode());
+            } else {
+                return response()->json(['error' => 'Failed to connect to server'], 500);
+            }
         }
+    }
+
+    private function getHostname($token)
+    {
+        // Implement your logic to get the hostname based on the token
+    }
+
+    private function getAuthorizationHeader($token)
+    {
+        // Implement your logic to get the authorization header based on the token
+        return [
+            'Authorization' => 'Bearer ' . $token
+        ];
+    }
+
+    private function getToken()
+    {
+        // Implement your logic to get the token
     }
     
 
 
-    public function ensureFolderExistsAndUploadFile($folderName, $filePath) {
+    public function ensureFolderExistsAndUploadFile($request, $folderName, $filePath) {
         $rootFolderId = $this->getPersonalRootFolderId();
 
         if ($rootFolderId === null) {
@@ -285,7 +184,7 @@ class ShareFileService
             $folderId = $this->createFolder($rootFolderId, $folderName);
         }
 
-        return $this->uploadFile($filePath, $folderId);
+        return $this->uploadFile($request, $filePath, $folderId);
     }
 
     public function getPersonalRootFolderId() {
