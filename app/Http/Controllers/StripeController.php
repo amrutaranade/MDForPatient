@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\PaymentMethod;
 use Stripe\PaymentIntent;
 use App\Models\Transaction;
+use App\Models\PatientExpertOpinionRequest;
 use Stripe\Checkout\Session;
 use Stripe\Charge;
+use Illuminate\Support\Facades\Storage;
 
 class StripeController extends Controller
 {
@@ -116,6 +117,25 @@ class StripeController extends Controller
                 ],
             ]);
 
+
+
+            // $coverLetterPath = public_path('/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf');
+            // $agreementPath = public_path('/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf');
+            // $coverLetterContents = file_get_contents($coverLetterPath, FILE_BINARY);
+            // $agreementContents = file_get_contents($agreementPath, FILE_BINARY);
+
+            PatientExpertOpinionRequest::create([
+                'patient_agreement' =>$request->input('patient_agreement'),
+                "patient_id" => session('patient_id'),
+                'appendix_1' => $request->input('appendix_1'),
+                'appendix_2' => $request->input('appendix_2'),
+                'appendix_3' => $request->input('appendix_3'),
+                'appendix_4' =>$request->input('appendix_4'),
+                're_type_name' => $request->input('re_type_name'),
+                // 'cover_letter' =>$coverLetterContents,
+                // 'agreement' =>$agreementContents
+
+            ]);
             // Save transaction details to the database
             Transaction::create([
                 'email' => $email,

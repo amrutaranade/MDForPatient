@@ -11,13 +11,15 @@ class PatientExpertOpinionRequest extends Model
 
     protected $fillable = [
         'patient_id',
-        'agree_to_terms',
         'cover_letter',
+        'agreement',
         'patient_agreement',
-        'sign_off',
-        'ip_address',
-        'latitude',
-        'longitude',
-        'browser_agent',
+        'appendix_1',
+        'appendix_2',
+        'appendix_3',
+        'appendix_4',
+        're_type_name'
+
+
     ];
 }
