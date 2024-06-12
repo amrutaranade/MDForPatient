@@ -16,8 +16,8 @@ class CreatePatientExpertOpinionRequestsTable extends Migration
         Schema::create('patient_expert_opinion_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->enum('agree_to_terms', ['Yes', 'No'])->nullable();
-            $table->longText('cover_letter')->nullable();
+            $table->binary('cover_letter')->nullable();
+            $table->binary('agreement')->nullable();
             $table->longText('patient_agreement')->nullable();
             $table->longText('appendix_1')->nullable();
             $table->longText('appendix_2')->nullable();
@@ -25,11 +25,6 @@ class CreatePatientExpertOpinionRequestsTable extends Migration
             $table->longText('appendix_4')->nullable();
             $table->longText('appendix_5')->nullable();
             $table->longText('re_type_name')->nullable();
-            $table->text('sign_off')->nullable();
-            $table->string('ip_address'); 
-            $table->string('latitude'); 
-            $table->string('longitude'); 
-            $table->string('browser_agent'); 
             $table->timestamps();
 
             // Foreign key constraint

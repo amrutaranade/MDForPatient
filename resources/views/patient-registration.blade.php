@@ -570,7 +570,7 @@
                                 <div class="tab tab-content">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
-                                            <iframe src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
+                                            <iframe src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="cover">                                    
                                             </iframe>
                                         </div>
                                         <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
@@ -586,10 +586,11 @@
                                 <div class="tab tab-content">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
-                                            <iframe src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
+                                            <iframe src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="agrrement">                                    
                                             </iframe>
                                         </div>
                                     </div>
+
                                     <div class="sm:d-grid sm:grid-col-2 sm:mt-3">                                        
                                         <div class="mt-1 form__field">
                                             <label class="">
@@ -597,23 +598,23 @@
                                                             
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" class="patientAgreement">
                                                 <span>Patient Agreement</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input id="appendix_1" type="checkbox" name="appendix_1" value="Yes" class="patientAgreement">
                                                 <span>Appendix 1 : Payment Terms</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input id="appendix_2" type="checkbox" name="appendix_2" value="Yes" class="patientAgreement">
                                                 <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" >
+                                                <input id="appendix_3" type="checkbox" name="appendix_3" value="Yes" class="patientAgreement" >
                                                 <span>Appendix 3: Medicare Opt-Out Agreement</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input id="appendix_4" type="checkbox" name="appendix_4" value="Yes" class="patientAgreement">
                                                 <span>Appendix 4: Informed Consent</span>                                            
                                             </label>
                                         </div>
@@ -622,7 +623,7 @@
                                                 <label for="digital_signature">
                                                 By typing the full name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
                                                 </label>
-                                                <input id="digital_signature" type="text" name="digital_signature" autocomplete="given-name" >
+                                                <input id="re_type_name" type="text" name="re_type_name" autocomplete="given-name" >
                                             </div>
                                         </div>
                                         
@@ -1576,7 +1577,7 @@
     const submitBtn = document.getElementById('customButton');
     function updateSubmitButtonState() {
         
-        const digital_signature = document.getElementById('digital_signature').value.trim();
+        const digital_signature = document.getElementById('re_type_name').value.trim();
         const checkboxes = document.querySelectorAll('.patientAgreement');
         let allChecked = true;
 
@@ -1599,7 +1600,7 @@
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
     
-    document.querySelector('#digital_signature').addEventListener('keyup', function() {
+    document.querySelector('#re_type_name').addEventListener('keyup', function() {
         if (this.value.trim() !== '') {
             const checkboxes = document.querySelectorAll('.patientAgreement');
             let allChecked = true;
@@ -1621,7 +1622,7 @@
 
     });
 
-    document.querySelector('#digital_signature').addEventListener('blur', function() {
+    document.querySelector('#re_type_name').addEventListener('blur', function() {
         if (this.value.trim() !== '') {
             const checkboxes = document.querySelectorAll('.patientAgreement');
             let allChecked = true;
@@ -1888,7 +1889,14 @@
                     card_last4: token.card.last4,
                     card_brand: token.card.brand,
                     card_exp_month: token.card.exp_month,
-                    card_exp_year: token.card.exp_year
+                    card_exp_year: token.card.exp_year,
+                    patient_agreement: document.getElementById('patient_agreement').value,
+                    appendix_1: document.getElementById('appendix_1').value ,
+                    appendix_2: document.getElementById('appendix_2').value,
+                    appendix_3: document.getElementById('appendix_3').value,
+                    appendix_4: document.getElementById('appendix_4').value,
+                    re_type_name: document.getElementById('re_type_name').value
+
                 })
             })
             .then(function(response) {
