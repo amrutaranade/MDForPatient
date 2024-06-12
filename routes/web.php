@@ -63,7 +63,8 @@ Route::post('/verify-otp', [OtpController::class, 'verifyOtp']);
 Route::get('/otp', [OtpController::class, 'showOTPForm'])->name('show.otp.form');
 Route::get('/patient_consultation_view/{id}', [OtpController::class, 'patientConsultationView'])->name('patient.consultation.view');
 
-
+//ShreFile Controllers
+Route::get('/files/download/{id}/{filePath}', [OtpController::class, 'downloadFile'])->name('files.download');
 
 // //StripeTempController
 // Route::get('/stripe', [StripeTempController::class, 'checkout'])->name('checkout');

@@ -18,20 +18,24 @@ use App\Models\PatientMedicalRecords;
 use App\Models\Transaction;
 use GuzzleHttp\Client;
 use App\Http\Controllers\PatientController;
+use App\Services\ShareFileService;
 
 class OtpController extends Controller
 {
 
     protected $emailController;
     protected $patientController;
+    protected $shareFileService;
 
-    public function __construct(EmailController $emailController, PatientController $patientController)
+    public function __construct(EmailController $emailController, PatientController $patientController, ShareFileService $shareFileService)
     {
         $this->emailController = $emailController;
         $this->patientController = $patientController;
+        $this->shareFileService = $shareFileService;
     }
     public function showOTPForm()
     {
+        session(["otp_verified" => false]);
         return view('showOTPForm');
     }
 
@@ -80,6 +84,7 @@ class OtpController extends Controller
                         ->first();
 
         if ($otpEntry) {
+            session(["otp_verified" => true]);
             return redirect()->action([OtpController::class, 'patientConsultationView'], [$otpEntry->patient_id]);
         }
 
@@ -92,7 +97,7 @@ class OtpController extends Controller
         $validCaseNumbers = PatientsRegistrationDetail::Where('patient_consulatation_number', $caseNumber)->first();
 
         if ($caseNumber == $validCaseNumbers->patient_consulatation_number) {
-            $this->generateOtp(1);
+            $this->generateOtp($validCaseNumbers->id);
             return response()->json(['message' => 'Valid case number.']);
         }
 
@@ -101,6 +106,9 @@ class OtpController extends Controller
 
     public function patientConsultationView ($patientId)
     {
+        if(session("otp_verified") == false)  {
+            return redirect()->route('show.otp.form');
+        }
         $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
         $contactParty = ContactParty::Where('patient_id', $patientId)->first();
         $referringPhysician = ReferringPhysician::Where('patient_id', $patientId)->first();
@@ -111,7 +119,19 @@ class OtpController extends Controller
         $countries = Country::get()->toArray();
         $states = State::get()->toArray();
 
-        $shareFiles = $this->patientController->getShareFilesByFolderId($medicalRecords->folder_id);
+        $customeShareFiles = $this->patientController->getShareFilesByFolderId($medicalRecords->folder_id);
+        if(!empty($customeShareFiles)) {
+            $customeShareFiles = array_map(function ($item) {
+                                    return [
+                                        'fileName' => $item['FileName'],
+                                        'url' => $item['url'],
+                                        'creationDate' => $item['CreationDate'],
+                                        'id' => $item['Id']
+                                    ];
+                                }, $customeShareFiles);
+        } else {
+            $customeShareFiles = [];
+        }
        
         return view('patient_consultation_view', [
             'patientDetails' => $patientDetails,
@@ -121,12 +141,25 @@ class OtpController extends Controller
             'expertOpinionRequests' => $expertOpinionRequests,
             'paymentDetails' => $paymentDetails,
             'medicalRecords' => $medicalRecords,
-            "shareFiles" => $shareFiles,
+            "customeShareFiles" => $customeShareFiles,
             'countries' => $countries,
             'states' => $states
         ]);
     }
 
-    
+    public function downloadFile($id, $localPath) {
+        // Call the download_item function
+        $fileStream = $this->shareFileService->downloadFile($id, $localPath);
+
+        if ($fileStream) {
+            // Send the file stream to the browser for download
+            return response()->streamDownload(function() use ($fileStream) {
+                echo $fileStream;
+            }, 'filename.ext');
+        }
+
+        // Optionally, you can return a response or redirect after downloading
+        return response()->download($localPath)->deleteFileAfterSend(true);
+    }
 }
 ?>

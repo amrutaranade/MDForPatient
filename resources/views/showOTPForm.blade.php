@@ -3,11 +3,11 @@
 <div class="col-lg-4 mx-auto">
   <div class="auth-form-light text-left p-5">
         <div id="consultation-section">
-            <h3>Enter Consultation Case Number</h3>
+            <h3 class="fw-bold">To check the status of a consultation request please enter the consultation number in the field below.</h3>
             <form id="case-form">
                 @csrf
                 <input type="text" id="case_number" name="case_number" placeholder="Case Number"><br/>
-                <button type="submit">Validate</button>
+                <button type="submit" class="continueButton continueButtonStep btn btn-success btn-fw" >Validate</button>
             </form>
         </div>
 
@@ -16,7 +16,7 @@
             <form id="otp-form" action="/verify-otp" method="post">
                 @csrf
                 <input type="text" id="otp" name="otp" placeholder="OTP">
-                <button type="submit">Verify</button>
+                <button type="submit" class="continueButton continueButtonStep btn btn-success btn-fw">Verify</button>
             </form>
             <div id="otp-message"></div>
         </div>

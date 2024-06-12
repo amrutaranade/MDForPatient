@@ -209,7 +209,7 @@ class ShareFileService
 
     public function getShareFilesByFolderId($folderId) {
         $accessToken = $this->getAccessToken();
-        $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")";
+        $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")/Children";
 
         $headers = $this->getAuthorizationHeader($accessToken);
 
@@ -221,9 +221,82 @@ class ShareFileService
         ]);
 
         $http_code = $response->getStatusCode();
-        $curl_response = $response->getBody()->getContents();       
+        $curl_response = json_decode($response->getBody(), true);       
 
-        return json_decode($curl_response);
+        return $curl_response["value"];
+    }
+
+    function downloadFileOld($item_id, $local_path) {
+        $accessToken = $this->getAccessToken();
+        $client = new Client([
+            'base_uri' => 'https://' . $this->subdomain . '.sf-api.com/sf/v3/',
+            'headers' => $this->getAuthorizationHeader($accessToken),
+            'stream' => true,
+            'verify' => false, // Disabling SSL verification, you might want to remove this in a production environment
+            'allow_redirects' => true, // Enable automatic redirect following
+            'http_errors' => false // Disable throwing exceptions for non-successful HTTP responses
+        ]);
+
+        try {
+            $response = $client->get("Items($item_id)/Download", [
+                'sink' => $local_path
+            ]);
+
+            // Check if download was successful
+            if ($response->getStatusCode() === 200) {
+                echo "File downloaded successfully.\n";
+            } else {
+                echo "Error downloading file. HTTP code: " . $response->getStatusCode() . "\n";
+            }
+        } catch (RequestException $e) {
+            echo "Error downloading file: " . $e->getMessage() . "\n";
+        }
+    }
+
+    function downloadFile($item_id, $local_path) {
+        $accessToken = $this->getAccessToken();
+        $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(".$item_id.")/Download";
+        
+        $headers = $this->getAuthorizationHeader($accessToken);
+     
+        $client = new Client([
+            'verify' => false,
+            'timeout' => 300,
+            'headers' => $headers,
+            'stream' => true,
+            'allow_redirects' => true
+        ]);
+
+        try {
+            $response = $client->get($uri, [
+                'sink' => $local_path
+            ]);
+
+            $http_code = $response->getStatusCode();
+
+            $redirectUrl = $response->getHeaderLine('Location');
+
+            // Now, download the file from the redirect URL
+            //$downloadResponse = $client->get($redirectUrl);
+
+            if ($response->getStatusCode() === 302) {
+                $redirectUrl = $response->getHeaderLine('Location');
+    
+                // Now, download the file from the redirect URL
+                $downloadResponse = $client->get($redirectUrl);
+    
+                // Check if download was successful
+                if ($downloadResponse->getStatusCode() === 200) {
+                    return $downloadResponse->getBody();
+                } else {
+                    echo "Error downloading file. HTTP code: " . $downloadResponse->getStatusCode() . "\n";
+                }
+            } else {
+                echo "Unexpected HTTP code: " . $response->getStatusCode() . "\n";
+            }
+        } catch (RequestException $e) {
+            echo "Error downloading file: " . $e->getMessage() . "\n";
+        }
     }
 }
 ?>

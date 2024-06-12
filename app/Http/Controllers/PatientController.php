@@ -389,10 +389,14 @@ class PatientController extends Controller
     public function getShareFilesByFolderId($folderId){
         try {
             $result = $this->shareFileService->getShareFilesByFolderId($folderId);
-            return response()->json($result);
+            return $result;
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    
+
+    
 }
 ?>

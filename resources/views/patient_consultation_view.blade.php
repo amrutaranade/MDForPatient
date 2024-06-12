@@ -51,7 +51,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0"  >                            
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>                            
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
@@ -655,7 +655,7 @@
                                         </tr>
                                         <tr>
                                             <td><strong>Amount Paid:</strong></td>
-                                            <td>$500.00</td>
+                                            <td>$199.00</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Payment Status:</strong></td>
@@ -676,7 +676,7 @@
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" >
                             <div class="card">
                                 <div class="card-body">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">      
@@ -688,6 +688,30 @@
                                                 <h3>Previously Uploaded Documents<br></h3>
                                             </div>  
                                             
+                                            @foreach($customeShareFiles as $item)
+                                            <div class="stat-row">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="/dist/assets/images/photo.png" alt="ssss">
+                                                    <div class="pl-2"><b>Description:</b>{{$item["fileName"]}}</div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="pr-4">
+                                                        <b>Uploaded:</b>
+                                                        {{$item["creationDate"]}}
+                                                    </div>
+                                                    <button class="delete-btn">
+                                                        <img src="/dist/assets/images/eye.svg" alt="">
+                                                        View
+                                                    </button>&nbsp;&nbsp;
+                                                    <button class="delete-btn">
+                                                    <a target="_blank" href="{{ route('files.download', ['id' => $item['id'], 'filePath' => $item['fileName']]) }}"><img src="/dist/assets/images/delete.png" alt=""/>Download</a>
+
+                                                        
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            @endforeach
                                             <div class="mt-3 sm:mt-0 form__field">                                            
                                                 <div class="">          
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
@@ -739,7 +763,10 @@
                                                             this.on("queuecomplete", function() {
                                                                 //console.log("All files have been uploaded.");
                                                                 document.getElementById('progress-form__panel-1').removeAttribute("hidden");
+                                                                document.getElementById('progress-form__panel-7').setAttribute("hidden","");
                                                                 alert("Your Files have been uploaded successfully");
+
+                                                                window.location = "/";
 
                                                             });
 
