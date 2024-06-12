@@ -363,7 +363,7 @@ class PatientController extends Controller
 
     public function upload(Request $request)
     {        
-        $folderName = session("patient_consulatation_number");
+        $folderName = session("patient_consulatation_number") ?? $request->input('patient_consulatation_number');
         $filePath = $request->file('file')->getPathname();
         $file = $request->file('file');
 
@@ -386,6 +386,13 @@ class PatientController extends Controller
         ]);
     }
 
-    
+    public function getShareFilesByFolderId($folderId){
+        try {
+            $result = $this->shareFileService->getShareFilesByFolderId($folderId);
+            return response()->json($result);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
 ?>

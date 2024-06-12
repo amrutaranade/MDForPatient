@@ -138,7 +138,7 @@ class ShareFileService
 
                 //Save medical records data 
                 PatientMedicalRecords::insert([
-                    'patient_id' => $request->patient_id,
+                    'patient_id' => session("patient_id") ?? $request->patient_id,
                     'document_name' => $original_filename,
                     'folder_id' => $folderId,
                     'created_at' => now(),
@@ -160,11 +160,6 @@ class ShareFileService
         }
     }
 
-    private function getHostname($token)
-    {
-        // Implement your logic to get the hostname based on the token
-    }
-
     private function getAuthorizationHeader($token)
     {
         // Implement your logic to get the authorization header based on the token
@@ -172,13 +167,6 @@ class ShareFileService
             'Authorization' => 'Bearer ' . $token
         ];
     }
-
-    private function getToken()
-    {
-        // Implement your logic to get the token
-    }
-    
-
 
     public function ensureFolderExistsAndUploadFile($request, $folderName, $filePath) {
         $rootFolderId = $this->getPersonalRootFolderId();
@@ -221,8 +209,7 @@ class ShareFileService
 
     public function getShareFilesByFolderId($folderId) {
         $accessToken = $this->getAccessToken();
-        $uri = "https://" . $this->subdomain . "/sf/v3/Items(" . $folderId . ")";
-        echo "GET " . $uri . "\n";
+        $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")";
 
         $headers = $this->getAuthorizationHeader($accessToken);
 
@@ -234,14 +221,9 @@ class ShareFileService
         ]);
 
         $http_code = $response->getStatusCode();
-        $curl_response = $response->getBody()->getContents();
+        $curl_response = $response->getBody()->getContents();       
 
-        //echo $curl_response."\n"; // output entire response
-        echo $http_code . "\n"; // output http status code
-
-        $root = json_decode($curl_response);
-        //print_r($root); // print entire json response
-        echo $root->Id . " " . $root->CreationDate . " " . $root->Name . "\n";
+        return json_decode($curl_response);
     }
 }
 ?>

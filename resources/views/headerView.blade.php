@@ -5,11 +5,7 @@
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           
-          <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item nav-logout d-none d-lg-block">       
-              <a href="/" class="btn btn-gradient-light btn-rounded btn-fw btnDiscardRequest"><i class="fa fa-trash-o"> </i>&nbsp;&nbsp;Discard Request</a>
-            </li>
-          </ul>
+          
           
         </div>
       </nav>

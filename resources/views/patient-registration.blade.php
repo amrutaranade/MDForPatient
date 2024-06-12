@@ -114,7 +114,7 @@
                                     Postal Code
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
+                                <input id="postal_code" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" required>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="Country">
@@ -241,7 +241,7 @@
                                 <label for="relationship_postal_code">
                                     Postal Code
                                 </label>
-                                <input id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name" >
+                                <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
@@ -416,7 +416,7 @@
                                 <label for="postal_code">
                                     Postal Code
                                 </label>
-                                <input id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" >
+                                <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" >
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">

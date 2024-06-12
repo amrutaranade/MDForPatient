@@ -17,18 +17,18 @@ use App\Models\PatientExpertOpinionRequest;
 use App\Models\PatientMedicalRecords;
 use App\Models\Transaction;
 use GuzzleHttp\Client;
-use App\Http\Controllers\ShareFileController;
+use App\Http\Controllers\PatientController;
 
 class OtpController extends Controller
 {
 
     protected $emailController;
-    protected $shareFileController;
+    protected $patientController;
 
-    public function __construct(EmailController $emailController, ShareFileController $shareFileController)
+    public function __construct(EmailController $emailController, PatientController $patientController)
     {
         $this->emailController = $emailController;
-        $this->shareFileController = $shareFileController;
+        $this->patientController = $patientController;
     }
     public function showOTPForm()
     {
@@ -111,7 +111,7 @@ class OtpController extends Controller
         $countries = Country::get()->toArray();
         $states = State::get()->toArray();
 
-        $shareFiles = $this->shareFileController->getShareFilesByFolderId($medicalRecords->folder_id);
+        $shareFiles = $this->patientController->getShareFilesByFolderId($medicalRecords->folder_id);
        
         return view('patient_consultation_view', [
             'patientDetails' => $patientDetails,
@@ -121,6 +121,7 @@ class OtpController extends Controller
             'expertOpinionRequests' => $expertOpinionRequests,
             'paymentDetails' => $paymentDetails,
             'medicalRecords' => $medicalRecords,
+            "shareFiles" => $shareFiles,
             'countries' => $countries,
             'states' => $states
         ]);

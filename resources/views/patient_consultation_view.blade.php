@@ -163,7 +163,7 @@
                             </div>
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
                                 <button type="button" data-action="next" class="continueButton step1 btn btn-success btn-fw" id="continueButton">
-                                Save & Next
+                                Next
                                 </button>
                             </div>
                         </section>
@@ -363,7 +363,7 @@
                                 Back
                                 </button> &nbsp;&nbsp;
                                 <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep2">
-                                Save & Next
+                                Next
                                 </button>
                             </div>
                         </section>
@@ -474,7 +474,7 @@
                                 Back
                                 </button> &nbsp;&nbsp;
                                 <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep3">
-                                Save & Next
+                                Next
                                 </button>
                             </div>
                         </section>
@@ -541,7 +541,7 @@
                                 Back
                                 </button> &nbsp;&nbsp;
                                 <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep4">
-                                Save & Next
+                                Next
                                 </button>
                             </div>
                         </section>
@@ -569,7 +569,7 @@
                                             Back
                                             </button> &nbsp;&nbsp;
                                             <button type="button"  class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
-                                                Agree & Proceed
+                                                Next
                                                 </button>
                                         </div>                                        
                                     </div>
@@ -625,7 +625,7 @@
                                         <form action="#" method="POST" id="payment-form">
                                             @csrf
                                             <div id="card-element" style="display:none"></div>
-                                            <button type="button" id="customButton" class="agreeButton btn btn-success btn-fw">Agree & Proceed to Payment</button>
+                                            <button type="button" id="customButton" class="agreeButton btn btn-success btn-fw">Next</button>
                                         </form>
                                     </div>
                                 </div>
@@ -669,7 +669,7 @@
                                 Back
                                 </button> &nbsp;&nbsp;
                                 <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep6">
-                                Save & Next
+                                Next
                                 </button>
                             </div>
                         </section>
@@ -677,59 +677,97 @@
 
                         <!-- Step 7 -->
                         <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
-                            <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                <div class="mt-3 form__field">
-                                    <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
-                                    <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-12 sm:mt-3 dropzone" id="myDropzone">                                    
-                                <div class="mt-3 form__field">
-                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
-                                    <script>
-                                        Dropzone.autoDiscover = false;
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">      
+                                            <div class="mt-3 sm:mt-0 form__field">
+                                                <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
+                                                <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
+                                            </div>    
+                                            <div class="mt-3 sm:mt-0 form__field">  
+                                                <h3>Previously Uploaded Documents<br></h3>
+                                            </div>  
+                                            
+                                            <div class="mt-3 sm:mt-0 form__field">                                            
+                                                <div class="">          
+                                                    <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
+                                                        <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
+                                                        <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
+                                                    </form>
+                                                </div>
 
-                                        var myDropzone = new Dropzone("#myDropzone", {
-                                            url: "upload.php",
-                                            autoProcessQueue: false,
-                                            addRemoveLinks: true,
-                                            maxFiles: 10,
-                                            init: function() {
-                                                this.on("addedfile", function() {
-                                                    if (this.files.length > 0) {
-                                                        document.getElementById('confirmUploadBtn').disabled = false;
-                                                    }
-                                                });
+                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+                                                <script>
+                                                    Dropzone.options.fileUpload = {
+                                                        paramName: "file", // The name that will be used to transfer the file
+                                                        maxFilesize: 10, // MB
+                                                        acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
+                                                        autoProcessQueue: false,
+                                                        parallelUploads: 50, // Upload files one at a time
+                                                        addRemoveLinks: true, // Enable the built-in remove links
+                                                        totalMaxFilesize: 50, 
+                                                        dictDefaultMessage: "<span class='fa fa-download'>Drop files here to upload</span>", // Hide the default message
+                                                        init: function() {
+                                                            var myDropzone = this;
 
-                                                this.on("removedfile", function() {
-                                                    if (this.files.length === 0) {
-                                                        document.getElementById('confirmUploadBtn').disabled = true;
-                                                    }
-                                                });
+                                                            // Add event listener to the Confirm Upload button
+                                                            document.getElementById("confirm-upload").addEventListener("click", function() {
+                                                                myDropzone.processQueue(); // Trigger file upload on button click
+                                                            });
 
-                                                this.on("complete", function(file) {
-                                                    // Handle file complete event (optional)
-                                                });
-                                            }
-                                        });
+                                                            // Handle file removal
+                                                            this.on("addedfile", function(file) {
+                                                                // Create the remove button
+                                                                var removeButton = Dropzone.createElement("<button class='btn btn-danger btn-sm mt-2'>Delete</button>");
+                                                                
+                                                                // Listen to the click event
+                                                                removeButton.addEventListener("click", function(e) {
+                                                                    e.preventDefault();
+                                                                    e.stopPropagation();
 
-                                        document.getElementById('confirmUploadBtn').addEventListener('click', function() {
-                                            myDropzone.processQueue(); // Manually process the queue
-                                        });
-                                    </script>      
-                                </div>        
-                            </div>
-                            <div class="mt-3 form__field">
-                                <button id="confirmUploadBtn" class="agreeButton" disabled>Confirm Upload</button>
-                            </div> 
-                            
-                            <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton" id="submitBtn">
-                                Submit Your Application
-                                </button>
+                                                                    // Remove the file preview and the file itself from the Dropzone instance
+                                                                    myDropzone.removeFile(file);
+                                                                });
+
+                                                                // Append the remove button to the file preview element
+                                                                file.previewElement.appendChild(removeButton);
+                                                            });
+
+                                                            // Handling the queue complete event
+                                                            this.on("queuecomplete", function() {
+                                                                //console.log("All files have been uploaded.");
+                                                                document.getElementById('progress-form__panel-1').removeAttribute("hidden");
+                                                                alert("Your Files have been uploaded successfully");
+
+                                                            });
+
+                                                            // Handling the success event
+                                                            this.on("success", function(file, response) {
+                                                                console.log("success", response);
+                                                                console.log('file->', file);
+                                                            });
+
+                                                            // Handling the error event
+                                                            this.on("error", function(file, response) {
+                                                                console.error("error", response);
+                                                                console.error('file->', file);
+                                                            });
+                                                        }
+                                                    };
+                                                </script>
+
+                                            </div>   
+                                        <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">  
+                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                                Back
+                                            </button> &nbsp;&nbsp;
+
+                                            <button id="confirm-upload" class="continueButton step1 btn btn-success btn-fw">Confirm Upload</button>
+                                        </div>
+                                    </div>
+                                </div>                            
                             </div>
                         </section>
                         <!-- / End Step 7 -->
@@ -1547,10 +1585,6 @@
     let currentTab = 0;
     document.addEventListener("DOMContentLoaded", function () {
         showTab(currentTab);
-        var stripe = Stripe('{{ env('STRIPE_KEY') }}');
-        var elements = stripe.elements();
-        var card = elements.create('card');
-        card.mount('#card-element');
     });
 
     function showTab(n) {
