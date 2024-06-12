@@ -25,6 +25,7 @@ class PatientsRegistrationDetail extends Model
         'city',
         'postal_code',
         'street_address',        
+        'patient_consulatation_number'
     ];
 
     protected $encryptable = [

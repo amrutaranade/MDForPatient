@@ -92,16 +92,8 @@ $(document).ready(function() {
            console.log('response');
            console.log(response.id);
            patientId = response.id;
-
-            // Generate application ID
-            const firstName = data.firstName;
-            const lastName = data.lastName;
-            const dateOfBirth = data.dateOfBirth.replace(/-/g, ''); 
-            const creationDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-            const randomNumber = Math.floor(10000 + Math.random() * 90000); // Generate a random 5-digit number
-
-            applicationCode = `${firstName}${lastName}${dateOfBirth}${creationDate}${randomNumber}`;
-            console.log('Application Code:', applicationCode);
+            document.getElementById("patientId").value = response.id;
+            
         },
         error: function(xhr) {
             // Handle error response

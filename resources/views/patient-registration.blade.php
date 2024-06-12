@@ -22,7 +22,7 @@
                     <!-- Step Navigation -->
                     
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="false" aria-disabled="true">
+                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
                                 <div class="step-number">1</div>
                                 <div>Patient Details</div>
                             </button>
@@ -39,18 +39,20 @@
                             <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <div class="step-number">5</div><div>Consent & Payment</div>                                
                             </button>
+                            @if(!empty(session("stripe_charge_id")))
                             <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <div class="step-number">6</div><div>Payment Details</div>                            
                             </button>
-                            <button id="progress-form__tab-7" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="true" tabindex="-1" aria-disabled="true" hidden>
+                            <button id="progress-form__tab-7" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="false" tabindex="-1" aria-disabled="true" hidden>
                                 <div class="step-number">7</div><div>Medical Document</div>                            
                             </button>
+                            @endif
                             
                         </div>
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
@@ -477,7 +479,7 @@
                                 </button>
                             </div> -->
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                <button data-action="prev" type="button" class="btn btn-secondary btn-fw" >
                                 Back
                                 </button> &nbsp;&nbsp;
                                 <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep3">
@@ -544,7 +546,7 @@
                                 </button>
                             </div> -->
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                <button data-action="prev" type="button" class="btn btn-secondary btn-fw" >
                                 Back
                                 </button> &nbsp;&nbsp;
                                 <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep4">
@@ -572,7 +574,7 @@
                                             </iframe>
                                         </div>
                                         <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                            <button type="button" class="backButtonPrimaryConcern btn btn-secondary btn-fw" >
                                             Back
                                             </button> &nbsp;&nbsp;
                                             <button type="button"  class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
@@ -626,9 +628,9 @@
                                         
                                     </div>
                                     <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                        <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                        <button type="button" class="btn btn-secondary btn-fw backButtonPrimaryConcern" >
                                             Back
-                                            </button> &nbsp;&nbsp;
+                                        </button> &nbsp;&nbsp;
                                         <form action="#" method="POST" id="payment-form">
                                             @csrf
                                             <div id="card-element" style="display:none"></div>
@@ -652,11 +654,11 @@
                                             <tbody>
                                                 <tr>
                                                     <td><strong>Transaction Id:</strong></td>
-                                                    <td class="chargeId"></td>
+                                                    <td><p id="chargeId"></p></td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>Card Used:</strong></td>
-                                                    <td class="cardNumber"></td>
+                                                    <td><p id="cardNumber"></p></td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>Payment Date:</strong></td>
@@ -674,7 +676,7 @@
                                         </table>
                                     </div>
                                     <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                        <button data-action="prev" type="button" class="btn btn-secondary btn-fw" >
+                                        <button type="button" class="btn btn-secondary btn-fw backButtonPaymentDetails" >
                                             Back
                                         </button>
                                         <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep6">
@@ -688,7 +690,7 @@
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" >
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">      
@@ -700,6 +702,7 @@
                                                 <div class="">          
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
                                                         @csrf
+                                                        <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
                                                     </form>
                                                 </div>
 
@@ -744,7 +747,6 @@
                                                             this.on("queuecomplete", function() {
                                                                 //console.log("All files have been uploaded.");
                                                                 document.getElementById('progress-form__panel-7').setAttribute("hidden", "");
-                                                                document.getElementById('progress-form__thank-you').removeAttribute("hidden", "");
                                                                 window.location = "{{ route('final-submission') }}";
 
                                                             });
@@ -777,13 +779,6 @@
                             </div>
                         </section>
                         <!-- / End Step 7 -->
-
-                        <!-- Thank You -->
-                        <section id="progress-form__thank-you" hidden>
-                        <p>Thank you! We will be in contact with you shortly.</p>
-                        <p>Please record your unique consultation number shown below. This number will allow you to upload additional records in future.</p>
-                        </section>
-                        <!-- / End Thank You -->
 
                     </form>
                     <!-- / End Progress Form -->
@@ -1565,8 +1560,23 @@
 </script>
 <script>
 
-    // Function to check the state of all checkboxes and enable/disable the submit button
+    //Function to display back page when clicked from consent & payment tab
+    document.querySelector(".backButtonPrimaryConcern").addEventListener("click", function() {
+        document.getElementById("progress-form__panel-5").setAttribute("hidden", "");
+        document.getElementById("progress-form__panel-4").removeAttribute("hidden");
+    });
+
+    //Function to display back page when clicked from payment details page
+    document.querySelector(".backButtonPaymentDetails").addEventListener("click", function() {
+        document.getElementById("progress-form__panel-6").setAttribute("hidden", "");
+        document.getElementById("progress-form__panel-5").removeAttribute("hidden");
+    });
+
+    // Function to check the state of all checkboxes and enable/disable the submit button for payment
+    const submitBtn = document.getElementById('customButton');
     function updateSubmitButtonState() {
+        
+        const digital_signature = document.getElementById('digital_signature').value.trim();
         const checkboxes = document.querySelectorAll('.patientAgreement');
         let allChecked = true;
 
@@ -1576,10 +1586,8 @@
             }
         });
 
-        // Enable button if all checkboxes are checked
-        const submitBtn = document.getElementById('customButton');
-        const digital_signature = document.getElementById('digital_signature');
-        if (allChecked && digital_signature != null) {
+        
+        if (allChecked && digital_signature !== ""){
             submitBtn.disabled = false;
         } else {
             submitBtn.disabled = true;
@@ -1590,9 +1598,48 @@
     document.querySelectorAll('.patientAgreement').forEach(checkbox => {
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
-    // Add event listeners to textbox where user has to retype his name
-    document.querySelectorAll('#digital_signature').forEach(textbox => {
-        textbox.addEventListener('blur', updateSubmitButtonState);
+    
+    document.querySelector('#digital_signature').addEventListener('keyup', function() {
+        if (this.value.trim() !== '') {
+            const checkboxes = document.querySelectorAll('.patientAgreement');
+            let allChecked = true;
+
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    allChecked = false;
+                }
+            });
+
+            if (allChecked){
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        } else {
+            submitBtn.disabled = true;
+        }
+
+    });
+
+    document.querySelector('#digital_signature').addEventListener('blur', function() {
+        if (this.value.trim() !== '') {
+            const checkboxes = document.querySelectorAll('.patientAgreement');
+            let allChecked = true;
+
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    allChecked = false;
+                }
+            });
+
+            if (allChecked) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        } else {
+            submitBtn.disabled = true;
+        }
     });
 
     let currentTab = 0;
@@ -1614,11 +1661,11 @@
         tabs[n].style.display = "block";
         tabButtons[n].classList.add("active");
 
-        if (n === 2) {
-            document.getElementById("submitBtn").classList.remove("hidden");
-        } else {
-            document.getElementById("submitBtn").classList.add("hidden");
-        }
+        // if (n === 2) {
+        //     document.getElementById("submitBtn").classList.remove("hidden");
+        // } else {
+        //     document.getElementById("submitBtn").classList.add("hidden");
+        // }
     }
 
     function enableTabButton(tabIndex) {
@@ -1822,11 +1869,13 @@
     var paymentConsentDetails = document.getElementById('progress-form__panel-5');
     var paymentDetails = document.getElementById('progress-form__panel-6');
     var documentUpload = document.getElementById('progress-form__panel-7');
+    var card4Digits = "";
     var handler = StripeCheckout.configure({
         key: "{{ config('services.stripe.stripe_key') }}",
         locale: 'auto',
         
         token: function(token) {
+            card4Digits = token.card.last4;
             fetch("{{ route('stripe.post') }}", {
                 method: 'POST',
                 headers: {
@@ -1846,12 +1895,13 @@
                 if (response.ok) {
                     // Show success message or handle next steps
                     //document.getElementById('payment-form').delete();
+                    //var jsonData = JSON.parse(response);
                     paymentConsentDetails.setAttribute('hidden', '');
                     paymentDetails.removeAttribute('hidden');
                     paymentDetails.setAttribute('aria-selected', 'true');
                     paymentDetails.setAttribute('data-complete', 'true');
-                    document.getElementsByClassName("chargeId").innerHTML = response.chargeId;
-                    document.getElementsByClassName("cardNumber").innerHTML = "**** **** ****" + response.card_last4;
+                    document.getElementById("chargeId").textContent  = chargeId;
+                    document.getElementById("cardNumber").textContent  = "**** **** ****" + card4Digits;
                     
                 } else {
                     // Handle API call failure
@@ -1865,15 +1915,22 @@
     });
 
     document.querySelector('#customButton').addEventListener('click', function(e) {
-        alert("here");//stripe_charge_id
-        handler.open({
-            name: 'MD For Patients',
-            description: 'Payment for consultation fee',
-            currency: 'usd',
-            amount: 19900,
-            image: "/dist/assets/images/logo-mini.png",
-        });
-        e.preventDefault();
+        var sessionChargeId = "{{ session('stripe_charge_id') }}";
+        
+        if (sessionChargeId == "") {
+            handler.open({
+                name: 'MD For Patients',
+                description: 'Payment for consultation fee',
+                currency: 'usd',
+                amount: 19900,
+                image: "/dist/assets/images/logo-mini.png",
+            });
+        } else {
+            paymentConsentDetails.setAttribute('hidden', '');
+            paymentDetails.removeAttribute('hidden');
+            paymentDetails.setAttribute('aria-selected', 'true');
+            paymentDetails.setAttribute('data-complete', 'true');
+        }
     });
 
     window.addEventListener('popstate', function() {

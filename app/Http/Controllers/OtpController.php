@@ -10,7 +10,12 @@ use App\Models\PatientsRegistrationDetail;
 use App\Models\Country;
 use App\Models\State;
 use App\Http\Controllers\EmailController;
-
+use App\Models\ContactParty;
+use App\Models\ReferringPhysician;
+use App\Models\PatientPrimaryConcern;
+use App\Models\PatientExpertOpinionRequest;
+use App\Models\PatientMedicalRecords;
+use App\Models\Transaction;
 
 class OtpController extends Controller
 {
@@ -62,18 +67,16 @@ class OtpController extends Controller
 
     public function verifyOtp(Request $request)
     {
-        //$user = auth()->user();
         $otp = $request->input('otp');
 
         // Retrieve the latest OTP for the user
-        $otpEntry = Otp:://where('user_id', $user->id)
-                        Where('otp', $otp)
+        $otpEntry = Otp::Where('otp', $otp)
                         ->where('expires_at', '>', Carbon::now())
                         ->orderBy('created_at', 'desc')
                         ->first();
 
         if ($otpEntry) {
-            return redirect()->action([OtpController::class, 'patientConsultationView']);
+            return redirect()->action([OtpController::class, 'patientConsultationView'], [$otpEntry->patient_id]);
         }
 
         return response()->json(['message' => 'Invalid or expired OTP.'], 400);
@@ -82,9 +85,9 @@ class OtpController extends Controller
     public function validateCaseNumber(Request $request) {
         $caseNumber = $request->input('case_number');
         // Replace with actual validation logic
-        $validCaseNumbers = ['1'];
+        $validCaseNumbers = PatientsRegistrationDetail::Where('patient_consulatation_number', $caseNumber)->first();
 
-        if (in_array($caseNumber, $validCaseNumbers)) {
+        if ($caseNumber == $validCaseNumbers->patient_consulatation_number) {
             $this->generateOtp(1);
             return response()->json(['message' => 'Valid case number.']);
         }
@@ -92,28 +95,28 @@ class OtpController extends Controller
         return response()->json(['message' => 'Invalid case number.'], 400);
     }
 
-    public function patientConsultationView() {
-        
-        //$patientRegistration = PatientsRegistrationDetail::Where([])->get()->toArray();
-        $patientRegistration = PatientsRegistrationDetail::take(1)->get()->toArray();
-        $patientRegistration = PatientsRegistrationDetail::take(1)->get()->toArray();
-        $patientRegistration = PatientsRegistrationDetail::take(1)->get()->toArray();
-        $patientRegistration = PatientsRegistrationDetail::take(1)->get()->toArray();
-        $patientRegistration = PatientsRegistrationDetail::take(1)->get()->toArray();
-        $patientRegistration = PatientsRegistrationDetail::take(1)->get()->toArray();
+    public function patientConsultationView ($patientId)
+    {
+        $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
+        $contactParty = ContactParty::where('patient_id', $patientId)->first();
+        $referringPhysician = ReferringPhysician::where('patient_id', $patientId)->first();
+        $patientPrimaryConcern = PatientPrimaryConcern::where('patient_id', $patientId)->first();
+        $expertOpinionRequests = PatientExpertOpinionRequest::where('patient_id', $patientId)->get();
+        $medicalRecords = PatientMedicalRecords::where('patient_id', $patientId)->get();
+        $paymentDetails = Transaction::where('patient_id', $patientId)->get();
+        $countries = Country::get()->toArray();
+        $states = State::get()->toArray();
 
-        $getCountriesData = Country::get()->toArray();
-        $getStatesData = State::get()->toArray();
-        
         return view('patient_consultation_view', [
-            'patient_registration' => $patientRegistration,
-            'patient_contact_Party' => $patientRegistration,
-            'patient_physician' => $patientRegistration,
-            'patient_primary_concern' => $patientRegistration,
-            'patient_consent_payment' => $patientRegistration,
-            'patient_medical_Records' => $patientRegistration,
-            'countries' => $getCountriesData,
-            'states' => $getStatesData
+            'patientDetails' => $patientDetails,
+            'contactParty' => $contactParty,
+            'referringPhysician' => $referringPhysician,
+            'patientPrimaryConcern' => $patientPrimaryConcern,
+            'expertOpinionRequests' => $expertOpinionRequests,
+            'paymentDetails' => $paymentDetails,
+            'medicalRecords' => $medicalRecords,
+            'countries' => $countries,
+            'states' => $states
         ]);
     }
 }

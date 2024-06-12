@@ -119,10 +119,8 @@ class StripeController extends Controller
             // Save transaction details to the database
             Transaction::create([
                 'email' => $email,
+                "patient_id" => session('patient_id'),
                 'card_last4' => $cardLast4,
-                'card_brand' => $cardBrand,
-                'card_exp_month' => $cardExpMonth,
-                'card_exp_year' => $cardExpYear,
                 'amount' => $paymentIntent->amount,
                 'currency' => $paymentIntent->currency,
                 'charge_id' => $paymentIntent->latest_charge,
@@ -131,7 +129,7 @@ class StripeController extends Controller
 
             session(['stripe_charge_id' => $paymentIntent->latest_charge]);
 
-            return response()->json(['status' => 'success', 'paymentIntent' => $paymentIntent]);
+            return response()->json(['status' => 'success', 'charge_id' => $paymentIntent->latest_charge ]);
 
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);

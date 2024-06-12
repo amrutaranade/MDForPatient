@@ -43,7 +43,7 @@
                                     Please record your unique consultation number shown below. This<br/>number will allow you to upload additional records in the future.
                         </div><br/>
                         <div class="consultation-code align-items-center justify-center ">
-                        {{session("patient_consulatation_number")}}
+                        {{ $patient_consulatation_number }}
                         </div>
                     </div>
                 </div>

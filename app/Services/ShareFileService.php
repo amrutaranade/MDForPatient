@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\FacadesLog;
 use Illuminate\Support\Facades\Log;
+use App\Models\PatientMedicalRecords;
 
 class ShareFileService
 {
@@ -135,6 +136,14 @@ class ShareFileService
                     'headers' => $headers // Use the same headers for the post request
                 ]);
 
+                //Save medical records data 
+                PatientMedicalRecords::insert([
+                    'patient_id' => $request->patient_id,
+                    'document_name' => $original_filename,
+                    'folder_id' => $folderId,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
                 return response()->json(['success']);
             } else {
                 return response()->json(['error'], $response->getStatusCode());

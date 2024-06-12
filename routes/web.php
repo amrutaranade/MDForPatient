@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\StripeController;
+//use App\Http\Controllers\StripeTempController;
 use App\Http\Controllers\ShareFileController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\OtpController;
@@ -23,9 +24,7 @@ use App\Http\Controllers\OtpController;
 // });
 
 Route::get('/', [PatientController::class, 'patientFormView'])->name('home');
-Route::get('/final-submission', function() {
-    return view('thank-you');
-})->name("final-submission");
+Route::get('/final-submission', [PatientController::class, 'finalSubmission'])->name("final-submission");
 Route::get('/get-states/{country_id}', [PatientController::class, 'getStates']);
 Route::post('/save-patients-details-form', [PatientController::class, 'savePatientsDetailsFormSection1'])->name('save.form')->middleware('update.form.timestamp');;
 
@@ -62,4 +61,13 @@ Route::post('/validate-case-number', [OtpController::class, 'validateCaseNumber'
 Route::post('/generate-otp', [OtpController::class, 'generateOtp']);
 Route::post('/verify-otp', [OtpController::class, 'verifyOtp']);
 Route::get('/otp', [OtpController::class, 'showOTPForm'])->name('show.otp.form');
-Route::get('/patient_consultation_view', [OtpController::class, 'patientConsultationView'])->name('show.otp.form');
+Route::get('/patient_consultation_view/{id}', [OtpController::class, 'patientConsultationView'])->name('patient.consultation.view');
+
+
+
+// //StripeTempController
+// Route::get('/stripe', [StripeTempController::class, 'checkout'])->name('checkout');
+// Route::post('/test', 'App\Http\Controllers\StripeTempController@test');
+// Route::post('/live', 'App\Http\Controllers\StripeTempController@live');
+// Route::get('/success', 'App\Http\Controllers\StripeTempController@success')->name('success');
+

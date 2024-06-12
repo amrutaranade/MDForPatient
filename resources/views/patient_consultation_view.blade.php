@@ -23,7 +23,7 @@
                         <!-- Step Navigation -->
                         
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
+                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true" data-complete="true">
                                 <span class="" aria-hidden="true"><div class="step-number">1</div>
                                 <div>Patient Details</div></span>
                             </button>
@@ -51,21 +51,21 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden >
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
                                     First Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                <input disabled id="first-name" type="text" name="first-name" autocomplete="given-name" required value="{{$patientDetails->first_name}}">
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
                                     Middle Name
                                 </label>
-                                <input disabled id="middle-name" type="text" name="middle-name" autocomplete="given-name">
+                                <input disabled id="middle-name" type="text" name="middle-name" autocomplete="given-name" value="{{$patientDetails->middle_name}}">
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -73,7 +73,7 @@
                                     Last Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="last-name" type="text" name="last-name" autocomplete="family-name" required>
+                                <input disabled id="last-name" type="text" name="last-name" autocomplete="family-name" required value="{{$patientDetails->last_name}}">
                                 </div>
                             </div>
 
@@ -83,7 +83,7 @@
                                     Date Of Birth
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required>
+                                <input disabled id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required value="{{$patientDetails->dob}}">
                                 </div>
                             </div>
                             <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
@@ -94,7 +94,7 @@
                                         Street Address
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled id="street_address" type="text" name="street_address" autocomplete="given-name" required>
+                                    <input disabled id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{$patientDetails->street_Address}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -103,7 +103,7 @@
                                         City
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled id="city" type="text" name="city" autocomplete="given-name" required>
+                                    <input disabled id="city" type="text" name="city" autocomplete="given-name" required value="{{$patientDetails->city}}">
                                     </div>
                                 </div>
                             </div>
@@ -113,17 +113,17 @@
                                     Postal Code
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="postal_code" type="text" name="postal_code" autocomplete="given-name" required>
+                                <input disabled id="postal_code" type="text" name="postal_code" autocomplete="given-name" required value="{{$patientDetails->postal_code}}">
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="Country">
                                     Country
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="countries" name="countries" id="countries" required>
+                                <select disabled  class="countries" name="countries" id="countries" required>
                                     <option value="">--Select--</option>
                                     @foreach($countries as $country)
-                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        <option {{($patientDetails->country==$country['id']) ? 'selected' : null }} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -133,8 +133,12 @@
                                     State
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <select class="states" name="states" id="states" required>
+                                <select disabled  class="states" name="states" id="states" required>
                                     <option value="">--Select--</option>
+                                    <option value="">--Select--</option>
+                                    @foreach($states as $state)
+                                        <option {{($patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                    @endforeach
                                 </select>
                                 </div>
                             </div>
@@ -144,7 +148,7 @@
                                     Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                <input disabled id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required value="{{$patientDetails->email}}">
                                 <label id="email-check-result"></label>
                                 </div>
 
@@ -153,7 +157,7 @@
                                     Confirm Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
+                                <input disabled id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required value="{{$patientDetails->email}}">
                                 <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                 </div>
                             </div>
@@ -176,14 +180,14 @@
                                     Select Relationship To The Patient
                                     <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
+                                    <select disabled  id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
                                         <option value="" disabled >Please select</option>
-                                        <option value="Patient" selected>Patient</option>
-                                        <option value="Caregiver">Caregiver</option>
-                                        <option value="Referring or local physician">Referring or local physician</option>
-                                        <option value="Parent">Parent</option>
-                                        <option value="Legal Guardian">Legal Guardian</option>
-                                        <option value="Other">Other</option>
+                                        <option value="Patient" @if($contactParty->relationrelationship_to_patient == "Patient") ? 'selected' : null @endif selected>Patient</option>
+                                        <option value="Caregiver" @if($contactParty->relationrelationship_to_patient == "Caregiver") ? 'selected' : null @endif>Caregiver</option>
+                                        <option value="Referring or local physician" @if ($contactParty->relationrelationship_to_patient == "Referring or local physician") ? 'selected' : null @endif>Referring or local physician</option>
+                                        <option value="Parent" @if ($contactParty->relationrelationship_to_patient == "Parent") ? 'selected' : null @endif > Parent</option>
+                                        <option value="Legal Guardian" @if($contactParty->relationrelationship_to_patient == "Legal Guardian") ? 'selected' : null @endif>Legal Guardian</option>
+                                        <option value="Other" @if($contactParty->relationrelationship_to_patient == "Other") ? 'selected' : null @endif >Other</option>
                                     </select>
                                 </div>
                             </div>
@@ -193,21 +197,21 @@
                                     Your First Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" >
+                                <input disabled id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" value="{{$contactParty->first_name}}">
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_confirm_email">
                                     Your Last Name
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" >
+                                <input disabled id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name"  value="{{$contactParty->last_name}}">
 
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_npi">
                                     NPI
                                 </label>
-                                <input disabled id="relationship_npi" type="text" name="relationship_npi">
+                                <input disabled id="relationship_npi" type="text" name="relationship_npi"  value="{{$contactParty->NPI}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -216,7 +220,7 @@
                                     Specify your relationship to the patient
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="relationship_other" type="text" name="relationship_other" class ="relationship_other" >
+                                <input disabled id="relationship_other" type="text" name="relationship_other" class ="relationship_other"  value="{{$contactParty->relationship_other}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -225,7 +229,7 @@
                                     <label for="relationship_street_address">
                                         Street Address
                                     </label>
-                                    <input disabled id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name">
+                                    <input disabled id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name"  value="{{$contactParty->street_address}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -233,14 +237,14 @@
                                     <label for="relationship_city">
                                         City
                                     </label>
-                                    <input disabled id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" >
+                                    <input disabled id="relationship_city" type="text" name="relationship_city" autocomplete="given-name"  value="{{$contactParty->city}}">
                                     </div>
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_postal_code">
                                     Postal Code
                                 </label>
-                                <input disabled id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name" >
+                                <input disabled id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name"  value="{{$contactParty->postal_code}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
@@ -248,10 +252,10 @@
                                 <label for="relationship__country">
                                     Country
                                 </label>
-                                <select class="relationship_countries" name="relationship_countries" id="relationship_countries" >
+                                <select disabled  class="relationship_countries" name="relationship_countries" id="relationship_countries" >
                                     <option value="">--Select--</option>
                                     @foreach($countries as $country)
-                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        <option {{($contactParty->country == $country["id"]) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -260,8 +264,11 @@
                                 <label for="relationship_states">
                                     State
                                 </label>
-                                <select class="relationship_states" name="relationship_states" id="relationship_states" >
+                                <select disabled  class="relationship_states" name="relationship_states" id="relationship_states" >
                                     <option value="">--Select--</option>
+                                    @foreach($states as $state)
+                                        <option {{($contactParty->state == $state["id"]) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                    @endforeach
                                 </select>
                                 </div>
                             </div>
@@ -271,14 +278,14 @@
                                     Email Address
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="relationship_email" type="email" name="relationship_email" class ="relationship_email" >
+                                <input disabled id="relationship_email" type="email" name="relationship_email" class ="relationship_email"  value="{{$contactParty->email}}">
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_confirm_email">
                                     Confirm Email
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" >
+                                <input disabled id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email"  value="{{$contactParty->email}}">
 
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
@@ -286,7 +293,7 @@
                                     Phone Number
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="relationship_phone_number" type="text" name="relationship_phone_number" >
+                                <input disabled id="relationship_phone_number" type="text" name="relationship_phone_number"  value="{{$contactParty->phone_number}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -294,13 +301,13 @@
                                 <label for="relationship_institution">
                                     Institution
                                 </label>
-                                <input disabled id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  >
+                                <input disabled id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  value="{{$contactParty->Instituton}}" >
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="relationship_fax_no">
                                     Fax No.
                                 </label>
-                                <input disabled id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" >
+                                <input disabled id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no"  value="{{$contactParty->fax_number}}">
 
                                 </div>
 
@@ -313,11 +320,11 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" >
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" {{ ($contactParty->preferred_mode_of_communication =='Phone') ? 'checked' : null}}>
                                         <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" >
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" {{ ($contactParty->preferred_mode_of_communication =='Email') ? 'checked' : null}}>
                                         <label class="form-check-label" for="emailRadio">Email</label>
                                     </div>  
                                 </fieldset>
@@ -328,16 +335,16 @@
                                     </label>  
                                     
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning">
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning" {{ ($contactParty->preferred_contact_time =='Morning') ? 'checked' : null}}>
                                         <label class="form-check-label" for="MorningRadio">Morning</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon">
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon" {{ ($contactParty->preferred_contact_time =='Afternoon') ? 'checked' : null}}>
                                         <label class="form-check-label" for="AfternoonRadio">Afternoon</label>
                                     </div> 
                                     
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening">
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening" {{ ($contactParty->preferred_contact_time =='Evening') ? 'checked' : null}}>
                                         <label class="form-check-label" for="EveningRadio">Evening</label>
                                     </div>
                                 </div>
@@ -372,14 +379,14 @@
                                 <label for="first-name">
                                     First Name
                                 </label>
-                                <input disabled id="first-name-step3" type="text" name="first-name" autocomplete="given-name" >
+                                <input disabled id="first-name-step3" type="text" name="first-name" autocomplete="given-name" value="{{$referringPhysician->first_name}}">
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="last-name">
                                     Last Name
                                 </label>
-                                <input disabled id="last-name-step3" type="text" name="last-name" autocomplete="family-name" >
+                                <input disabled id="last-name-step3" type="text" name="last-name" autocomplete="family-name" value="{{$referringPhysician->last_name}}" >
                                 </div>
                             </div>
 
@@ -388,7 +395,7 @@
                                 <label for="institution">
                                     Institution
                                 </label>
-                                <input disabled id="institution" type="text" name="institution" autocomplete="given-name" >
+                                <input disabled id="institution" type="text" name="institution" autocomplete="given-name" value="{{$referringPhysician->institution}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -396,7 +403,7 @@
                                 <label for="street_address">
                                     Street Address
                                 </label>
-                                <input disabled id="street_address_step3" type="text" name="street_address" autocomplete="given-name" >
+                                <input disabled id="street_address_step3" type="text" name="street_address" autocomplete="given-name" value="{{$referringPhysician->street_address}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -404,14 +411,14 @@
                                 <label for="city">
                                     City
                                 </label>
-                                <input disabled id="city-step3" type="text" name="city" autocomplete="given-name" >
+                                <input disabled id="city-step3" type="text" name="city" autocomplete="given-name" value="{{$referringPhysician->city}}">
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="postal_code">
                                     Postal Code
                                 </label>
-                                <input disabled id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" >
+                                <input disabled id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" value="{{$referringPhysician->postal_code}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -419,10 +426,10 @@
                                 <label for="Country">
                                     Country
                                 </label>
-                                <select class="countries" name="countries" id="countries-step3">
+                                <select disabled  class="countries" name="countries" id="countries-step3">
                                     <option value="">--Select--</option>
                                     @foreach($countries as $country)
-                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        <option {{($referringPhysician->country==$country['id']) ? 'selected' : null}}  value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -431,8 +438,11 @@
                                 <label for="states">
                                     State
                                 </label>
-                                <select class="states" name="states" id="states-step3">
+                                <select disabled  class="states" name="states" id="states-step3">
                                     <option value="">--Select--</option>
+                                    @foreach($states as $state)
+                                        <option {{($referringPhysician->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                    @endforeach
                                 </select>
                                 </div>
                             </div>                            
@@ -441,14 +451,14 @@
                                 <label for="email">
                                     Email Address
                                 </label>
-                                <input disabled id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" >
+                                <input disabled id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" value="{{$referringPhysician->email}}">
                                 </div>
 
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="confirm_email">
                                     Confirm Email
                                 </label>
-                                <input disabled id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" >
+                                <input disabled id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" value="{{$referringPhysician->email}}">
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -456,18 +466,9 @@
                                 <label for="phone_number">
                                     Phone Number
                                 </label>
-                                <input disabled id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" >
+                                <input disabled id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" value="{{$referringPhysician->phone_number}}">
                                 </div>
                             </div>
-
-                            <!--<div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep3">
-                                Continue
-                                </button>
-                            </div> -->
                             <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
                                 <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
                                 Back
@@ -487,7 +488,7 @@
                                     Please Provide The Primary Diagnosis* (If unknown, please list unknown)
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
+                                <input disabled id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{$patientPrimaryConcern->primary_diagnosis}}">
                                 </div>
                                 <div class="mt-3 sm:mt-0 form__field ">
                                     <label for="address-city">
@@ -496,11 +497,11 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
+                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes" {{$patientPrimaryConcern->treated_before =="Yes" ? 'checked' : null}}>
                                         <label class="form-check-label" for="yesRadio">Yes</label>
                                     </div>
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
+                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No" {{$patientPrimaryConcern->treated_before =="No" ? 'checked' : null}}>
                                         <label class="form-check-label" for="noRadio">No</label>
                                     </div>  
                                 </div>
@@ -514,7 +515,7 @@
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     
-                                    <input disabled id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required> 
+                                    <input disabled id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required value="{{$patientPrimaryConcern->surgery_description}}"> 
                                 </div>
                             </div>
                             <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -523,7 +524,7 @@
                                 Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other information you wish to provide.
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required></textarea>
+                                <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required>{{$patientPrimaryConcern->request_description}}</textarea>
                                 </div>
                             </div>
 
@@ -547,7 +548,7 @@
                         <!-- / End Step 4 -->
 
                         <!-- Step 5 -->
-                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
+                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" >
                             <div class="mt-3 form__field">
                             <h4 class="fw-bold">Documents to review:<br/><br/></h4>
                             </div>
@@ -587,23 +588,23 @@
                                                             
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
                                                 <span>Patient Agreement</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
                                                 <span>Appendix 1 : Payment Terms</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
                                                 <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" >
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
                                                 <span>Appendix 3: Medicare Opt-Out Agreement</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
+                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
                                                 <span>Appendix 4: Informed Consent</span>                                            
                                             </label>
                                         </div>
@@ -731,13 +732,6 @@
                             </div>
                         </section>
                         <!-- / End Step 7 -->
-
-                        <!-- Thank You -->
-                        <section id="progress-form__thank-you" hidden>
-                        <p>Thank you for your submission!</p>
-                        <p>We appreciate you contacting us. One of our team members will get back to you very&nbsp;soon.</p>
-                        </section>
-                        <!-- / End Thank You -->
 
                     </form>
                     <!-- / End Progress Form -->

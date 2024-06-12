@@ -16,7 +16,8 @@ class CreatePatientMedicalRecordsTable extends Migration
         Schema::create('patient_medical_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->text('document_url')->nullable();
+            $table->text('document_name');
+            $table->text('folder_id');
             $table->softDeletes();
             $table->timestamps();
 

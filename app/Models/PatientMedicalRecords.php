@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PatientPrimaryConcern extends Model
+class PatientMedicalRecords extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'patient_id',
-        'document_url',
-,
+        'document_name',
+        'folder_id'
     ];
 }
 

@@ -17,6 +17,9 @@ use App\Services\ShareFileService;
 use DateTime;
 use Google\Service\AdExchangeBuyerII\Date;
 use Google\Service\AdMob\Date as AdMobDate;
+use Illuminate\Support\Facades\Crypt;
+use App\Models\PatientMedicalRecords;
+use App\Models\PatientExpertOpinionRequest;
 
 class PatientController extends Controller
 {
@@ -83,7 +86,7 @@ class PatientController extends Controller
     if (!$formId) {
         $formId = Str::uuid();
         session(['form_id' => $formId]);
-    }
+    }    
 
     // Check if a patient already exists with the provided email and ID
     $existingPatient = $patientId ? PatientsRegistrationDetail::where('id', $patientId)->first() : null;
@@ -111,6 +114,17 @@ class PatientController extends Controller
         ]);
         $patient = $existingPatient;
     } else {
+        
+
+        // Generate the string
+        $randomNum = rand(10000, 99999);
+        $patientName = $requestData["firstName"].$requestData["middleName"].$requestData["lastName"];
+        $dateOfBirth = new DateTime($requestData["dateOfBirth"]);
+        $dateOfBirth = $dateOfBirth->format('Ymd');
+        $currentDate = new DateTime();
+        $currentDate = $currentDate->format('Ymd');
+        $patientConsulatationNumber = "{$randomNum}_{$patientName}_{$dateOfBirth}_{$currentDate}";
+
         // Insert new patient data
         $patient = PatientsRegistrationDetail::create([
             "first_name" => $requestData["firstName"],
@@ -123,23 +137,17 @@ class PatientController extends Controller
             "city" => $requestData["city"],
             "postal_code" => $requestData["postalCode"],
             "street_address" => $requestData["streetAddress"],
+            "patient_consulatation_number" => $patientConsulatationNumber,
         ]);
 
         // Store the patient ID in the session
         session(['patient_id' => $patient->id]);
-    }
 
-    // Generate the string
-    $randomNum = rand(10000, 99999);
-    $patientName = $requestData["firstName"].$requestData["middleName"].$requestData["lastName"];
-    $dateOfBirth = new DateTime($requestData["dateOfBirth"]);
-    $dateOfBirth = $dateOfBirth->format('Ymd');
-    $currentDate = new DateTime();
-    $currentDate = $currentDate->format('Ymd');
-    $patientConsulatationNmber = "{$randomNum}_{$patientName}_{$dateOfBirth}_{$currentDate}";
-
-    // Store the data string in the session
-    session(['patient_consulatation_number' => $patientConsulatationNmber]);
+        // Store the data string in the session
+        session(['patient_consulatation_number' => $patientConsulatationNumber]);
+        
+    }    
+    
 
     return response()->json(['id' => $patient->id, 'form_id' => $formId], 201);
 }
@@ -272,10 +280,20 @@ class PatientController extends Controller
 
     public function checkEmail(Request $request)
     {
-        $email = $request->input('email');
-        $exists = PatientsRegistrationDetail::where('email', $email)->exists();
+        $email = ($request->input('email')) ? Crypt::encryptString($request->input('email')) : null;
+        if(!empty($email)) {
+            $patientData = PatientsRegistrationDetail::where('email', $email)->exists();
 
-        return response()->json(['exists' => $exists]);
+            if(!empty($patientData)) {
+                $existingEmail = Crypt::decryptString($patientData->email);
+                if($existingEmail == $email) {
+                    return response()->json(['exists' => true]);
+                } else {
+                    return response()->json(['exists' => false]);
+                }
+            }
+        }  
+        return response()->json(['exists' => false]);
     }
 
     // Helper method to check form completion and clear session if complete
@@ -316,9 +334,9 @@ class PatientController extends Controller
     public function validateCaseNumber(Request $request) {
         $caseNumber = $request->input('case_number');
         // Replace with actual validation logic
-        $validCaseNumbers = ['1'];
+        $validCaseNumbers = PatientsRegistrationDetail::Where('patient_consulatation_number', $caseNumber)->first();
 
-        if (in_array($caseNumber, $validCaseNumbers)) {
+        if ($caseNumber == $validCaseNumbers->patient_consulatation_number) {
             $this->generateOtp(1);
             return response()->json(['message' => 'Valid case number.']);
         }
@@ -358,7 +376,16 @@ class PatientController extends Controller
     }
 
     public function finalSubmission() {
-        return view('thank-you');
+        
+        $patientConsulatationNumber = session("patient_consulatation_number");
+
+        session()->flush();
+
+        return view('thank-you', [
+            'patient_consulatation_number' => $patientConsulatationNumber
+        ]);
     }
+
+    
 }
 ?>

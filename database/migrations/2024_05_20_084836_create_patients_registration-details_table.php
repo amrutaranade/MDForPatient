@@ -15,6 +15,7 @@ class CreatePatientsRegistrationDetailsTable extends Migration
     {
         Schema::create('patients_registration_details', function (Blueprint $table) {
             $table->id();
+            $table->string('patient_consulatation_number');
             $table->string('first_name');
             $table->string('middle_name')->nullable();  
             $table->string('last_name'); 
