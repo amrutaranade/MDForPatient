@@ -218,5 +218,30 @@ class ShareFileService
             throw new \Exception("Error obtaining personal root folder ID: " . $e->getMessage());
         }
     }
+
+    public function getShareFilesByFolderId($folderId) {
+        $accessToken = $this->getAccessToken();
+        $uri = "https://" . $this->subdomain . "/sf/v3/Items(" . $folderId . ")";
+        echo "GET " . $uri . "\n";
+
+        $headers = $this->getAuthorizationHeader($accessToken);
+
+        $client = new Client();
+        $response = $client->request('GET', $uri, [
+            'timeout' => 30,
+            'verify' => false,
+            'headers' => $headers
+        ]);
+
+        $http_code = $response->getStatusCode();
+        $curl_response = $response->getBody()->getContents();
+
+        //echo $curl_response."\n"; // output entire response
+        echo $http_code . "\n"; // output http status code
+
+        $root = json_decode($curl_response);
+        //print_r($root); // print entire json response
+        echo $root->Id . " " . $root->CreationDate . " " . $root->Name . "\n";
+    }
 }
 ?>

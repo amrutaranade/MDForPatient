@@ -27,6 +27,15 @@ class ShareFileController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function getShareFilesByFolderId($folderId){
+        try {
+            $result = $this->shareFileService->getShareFilesByFolderId($folderId);
+            return response()->json($result);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
 
 ?>

@@ -1,4 +1,4 @@
-@extends("layout")
+@extends("layoutView")
 @section("content")
 <div class="">
     <div class="">
@@ -23,27 +23,27 @@
                         <!-- Step Navigation -->
                         
                         <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true" data-complete="true">
+                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-disabled="true" data-complete="true" aria-selected="false">
                                 <span class="" aria-hidden="true"><div class="step-number">1</div>
                                 <div>Patient Details</div></span>
                             </button>
-                            <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" data-complete="true" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <span  aria-hidden="true"><div class="step-number">2</div>
                                 <div>Contact Party</div></span>
                             </button>
-                            <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" data-complete="true" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <span  aria-hidden="true"><div class="step-number">3</div><div>Patient's Physician</div></span>                                
                             </button>
-                            <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true">
                                 <span  aria-hidden="true"><div class="step-number">4</div><div>Primary Concern</div></span>                                
                             </button>                            
-                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true">
                                 <span  aria-hidden="true"><div class="step-number">5</div><div>Consent & Payment</div></span>                                
                             </button>
-                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true">
                                 <span  aria-hidden="true"><div class="step-number">6</div><div>Payment Details</div></span>                            
                             </button>
-                            <button id="progress-form__tab-7" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="false" tabindex="-1" aria-disabled="true" hidden>
+                            <button id="progress-form__tab-7" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true" hidden>
                                 <span  aria-hidden="true"><div class="step-number">7</div><div>Medical Document</div></span>                            
                             </button>
                             
@@ -51,7 +51,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden >
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0"  >                            
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
@@ -83,7 +83,7 @@
                                     Date Of Birth
                                     <span data-required="true" aria-hidden="true"></span>
                                 </label>
-                                <input disabled id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required value="{{$patientDetails->dob}}">
+                                <input disabled id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required value="{{$patientDetails->date_of_birth}}">
                                 </div>
                             </div>
                             <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
@@ -94,7 +94,7 @@
                                         Street Address
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{$patientDetails->street_Address}}">
+                                    <input disabled id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{$patientDetails->street_address}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -320,7 +320,7 @@
                                     </label>
                                     
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" {{ ($contactParty->preferred_mode_of_communication =='Phone') ? 'checked' : null}}>
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" {{ ($contactParty->preferred_mode_of_communication ==1) ? 'checked' : null}}>
                                         <label class="form-check-label" for="phoneRadio">Phone</label>
                                     </div>
                                     <div class=" form-check-inline">
@@ -335,7 +335,7 @@
                                     </label>  
                                     
                                     <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning" {{ ($contactParty->preferred_contact_time =='Morning') ? 'checked' : null}}>
+                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning" {{ ($contactParty->preferred_contact_time ==1) ? 'checked' : null}}>
                                         <label class="form-check-label" for="MorningRadio">Morning</label>
                                     </div>
                                     <div class=" form-check-inline">
@@ -548,7 +548,7 @@
                         <!-- / End Step 4 -->
 
                         <!-- Step 5 -->
-                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" >
+                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
                             <div class="mt-3 form__field">
                             <h4 class="fw-bold">Documents to review:<br/><br/></h4>
                             </div>
@@ -625,7 +625,7 @@
                                         <form action="#" method="POST" id="payment-form">
                                             @csrf
                                             <div id="card-element" style="display:none"></div>
-                                            <button type="button" disabled id="customButton" class="agreeButton btn btn-success btn-fw">Agree & Proceed to Payment</button>
+                                            <button type="button" id="customButton" class="agreeButton btn btn-success btn-fw">Agree & Proceed to Payment</button>
                                         </form>
                                     </div>
                                 </div>
@@ -641,16 +641,17 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
+
                                             <td><strong>Transaction Id:</strong></td>
-                                            <td>19837627386</td>
+                                            <td>{{$paymentDetails->card_last4}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Card Used:</strong></td>
-                                            <td>**** **** **** 2314</td>
+                                            <td>**** **** **** {{$paymentDetails->card_last4}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Payment Date:</strong></td>
-                                            <td>04/29/2024</td>
+                                            <td>{{$paymentDetails->created_at}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Amount Paid:</strong></td>
@@ -1719,103 +1720,21 @@
 </script>
 
 </script>
-<script src="{{ mix('js/patient.js') }}"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
 
 <script type="text/javascript">    
-    /*
-    document.addEventListener("DOMContentLoaded", function () {
-        var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            stripe.createPaymentMethod('card', card).then(function(result) {
-                if (result.error) {
-                    // Display error.message in your UI.
-                    console.error(result.error.message);
-                } else {
-                    // Send the PaymentMethod ID to your server.
-                    fetch("{{ route('stripe.post') }}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            payment_method_id: result.paymentMethod.id,
-                            email: result.paymentMethod.billing_details.email
-                        })
-                    })
-                    .then(function(response) {
-                        return response.json();
-                    })
-                    .then(function(responseJson) {
-                        if (responseJson.error) {
-                            // Handle server errors
-                            console.error(responseJson.error);
-                        } else {
-                            // Payment successful
-                            alert('Payment successful2222222');
-                        }
-                    })
-                    .catch(function(error) {
-                        console.error('Error:', error);
-                    });
-                }
-            });
-        });
-    });
-    */
 
     var paymentConsentDetails = document.getElementById('progress-form__panel-5');
     var paymentDetails = document.getElementById('progress-form__panel-6');
     var documentUpload = document.getElementById('progress-form__panel-7');
-    var handler = StripeCheckout.configure({
-        key: '{{ env('STRIPE_KEY') }}',
-        locale: 'auto',
-        
-        token: function(token) {
-            fetch("{{ route('stripe.post') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    token: token.id,
-                    email: token.email,
-                    card_last4: token.card.last4,
-                    card_brand: token.card.brand,
-                    card_exp_month: token.card.exp_month,
-                    card_exp_year: token.card.exp_year
-                })
-            })
-            .then(function(response) {
-                if (response.ok) {
-                    // Show success message or handle next steps
-                    document.getElementById('payment-form').delete();
-                    paymentConsentDetails.setAttribute('hidden', '');
-                    paymentDetails.removeAttribute('hidden');
-                } else {
-                    // Handle API call failure
-                    console.error('API call failed');
-                }
-            })
-            .catch(function(error) {
-                console.error('Error:', error);
-            });
-        }
-    });
+    var card4Digits = "";    
 
     document.querySelector('#customButton').addEventListener('click', function(e) {
-        handler.open({
-            name: 'MD For Patients',
-            description: 'Payment for consultation fee',
-            currency: 'usd',
-            amount: 19900,
-            image: "/dist/assets/images/logo-mini.png",
-        });
-        e.preventDefault();
+        paymentConsentDetails.setAttribute('hidden', '');
+        paymentDetails.removeAttribute('hidden');
+        paymentDetails.setAttribute('aria-selected', 'true');
+        paymentDetails.setAttribute('data-complete', 'true');
     });
 
     window.addEventListener('popstate', function() {

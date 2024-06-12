@@ -16,15 +16,19 @@ use App\Models\PatientPrimaryConcern;
 use App\Models\PatientExpertOpinionRequest;
 use App\Models\PatientMedicalRecords;
 use App\Models\Transaction;
+use GuzzleHttp\Client;
+use App\Http\Controllers\ShareFileController;
 
 class OtpController extends Controller
 {
 
     protected $emailController;
+    protected $shareFileController;
 
-    public function __construct(EmailController $emailController)
+    public function __construct(EmailController $emailController, ShareFileController $shareFileController)
     {
         $this->emailController = $emailController;
+        $this->shareFileController = $shareFileController;
     }
     public function showOTPForm()
     {
@@ -46,7 +50,7 @@ class OtpController extends Controller
 
         // Get patient email
         $patient = PatientsRegistrationDetail::find($patientId);
-        $recipientEmail = 'taiyabbashaikh19@gmail.com';
+        $recipientEmail = $patient->email;
 
         // Prepare email details
         $details = [
@@ -98,15 +102,17 @@ class OtpController extends Controller
     public function patientConsultationView ($patientId)
     {
         $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
-        $contactParty = ContactParty::where('patient_id', $patientId)->first();
-        $referringPhysician = ReferringPhysician::where('patient_id', $patientId)->first();
-        $patientPrimaryConcern = PatientPrimaryConcern::where('patient_id', $patientId)->first();
-        $expertOpinionRequests = PatientExpertOpinionRequest::where('patient_id', $patientId)->get();
-        $medicalRecords = PatientMedicalRecords::where('patient_id', $patientId)->get();
-        $paymentDetails = Transaction::where('patient_id', $patientId)->get();
+        $contactParty = ContactParty::Where('patient_id', $patientId)->first();
+        $referringPhysician = ReferringPhysician::Where('patient_id', $patientId)->first();
+        $patientPrimaryConcern = PatientPrimaryConcern::Where('patient_id', $patientId)->first();
+        $expertOpinionRequests = PatientExpertOpinionRequest::Where('patient_id', $patientId)->first();
+        $medicalRecords = PatientMedicalRecords::Where('patient_id', $patientId)->first();
+        $paymentDetails = Transaction::Where('patient_id', $patientId)->first();
         $countries = Country::get()->toArray();
         $states = State::get()->toArray();
 
+        $shareFiles = $this->shareFileController->getShareFilesByFolderId($medicalRecords->folder_id);
+       
         return view('patient_consultation_view', [
             'patientDetails' => $patientDetails,
             'contactParty' => $contactParty,
@@ -119,5 +125,7 @@ class OtpController extends Controller
             'states' => $states
         ]);
     }
+
+    
 }
 ?>
