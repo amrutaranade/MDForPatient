@@ -383,7 +383,9 @@ class PatientController extends Controller
 
     public function finalSubmission() {
         $patientConsulatationNumber = session("patient_consulatation_number");
+       
         $patientId = session('patient_id');
+        if($patientId){
 
         // Get patient email
         $patient = PatientsRegistrationDetail::find($patientId);
@@ -396,7 +398,7 @@ class PatientController extends Controller
         // Send email
         $this->emailController->sendWelcomEmail($recipientEmail, $details);
 
-
+         }
         session()->flush();
 
         return view('thank-you', [

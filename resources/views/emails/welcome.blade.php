@@ -41,11 +41,10 @@
             <h2>{{ $details['title'] }}</h2>
         </div>
         <div class="content">
-            <p>Dear Recipient.</p>
-            <p>Greetings from MD For Patients!</p>
-            <p>We are sending you this email to provide you with your consultation number. Please use the same to check your consultation</p>
+            <p>Thank you for your consultation request and payment.</p>
+            <p>Please save your consultation request number,</p>
             <p><strong>Consultation Number  : {{ $details['body'] }}</strong></p>
-            <p><i>This is an automatically generated email.</i></p>
+            <p>We will be in touch with you shortly.</p>
             <p>Client Services<br>MD for Patients</p>
         </div>
 
