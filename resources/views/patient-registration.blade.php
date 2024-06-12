@@ -1643,6 +1643,11 @@
         }
     });
 
+    document.getElementById("email_step1").addEventListener("blur", function() {
+        document.getElementById("relationship_email").value = this.value;
+        document.getElementById("relationship_confirm_email").value = this.value;
+    });
+
     let currentTab = 0;
     document.addEventListener("DOMContentLoaded", function () {
         showTab(currentTab);
@@ -1753,6 +1758,7 @@
     // Function to show/hide fields based on the selected relationship
     function toggleFields() {
         var relationship = $('#relationship_to_patient').val();
+        var email_step1 = document.getElementById("email_step1").value;
 
         // Hide all fields initially
         $('#relationship_first_name, #relationship_last_name, #relationship_npi, #relationship_street_address, #relationship_city, #relationship_postal_code, #relationship_countries, #relationship_states, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_institution, #relationship_fax_no, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').hide();
@@ -1774,6 +1780,8 @@
             $('#relationship_phone_number').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = email_step1;
+            document.getElementById("relationship_confirm_email").value = email_step1;
 
         } else if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian') {
             // Show specific fields for 'Caregiver'
@@ -1785,6 +1793,8 @@
             $('#relationship_last_name').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
 
         }else if(relationship === 'Referring or local physician'){
             $('#relationship_first_name, #relationship_last_name, #relationship_email,#relationship_npi,#relationship_countries,#relationship_states,#relationship_postal_code, #relationship_street_address, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_institution,#relationship_fax_no, #relationship_city').closest('.form__field').show();
@@ -1795,6 +1805,8 @@
             $('#relationship_last_name').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
         }else if(relationship === 'Other'){
              // Show specific fields for 'Caregiver'
              $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').show();
@@ -1806,6 +1818,8 @@
             $('#relationship_other').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
         }
     }
 
@@ -1908,7 +1922,7 @@
                     paymentDetails.removeAttribute('hidden');
                     paymentDetails.setAttribute('aria-selected', 'true');
                     paymentDetails.setAttribute('data-complete', 'true');
-                    document.getElementById("chargeId").textContent  = chargeId;
+                    document.getElementById("chargeId").textContent  = response.charge_id;
                     document.getElementById("cardNumber").textContent  = "**** **** ****" + card4Digits;
                     
                 } else {
