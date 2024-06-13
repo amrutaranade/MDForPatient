@@ -7,7 +7,7 @@
           
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-logout d-none d-lg-block">       
-              <a href="/" class="btn btn-gradient-light btn-rounded btn-fw btnDiscardRequest"><i class="fa fa-trash-o"> </i>&nbsp;&nbsp;Discard Request</a>
+              <button class="btn btn-gradient-light btn-rounded btn-fw btnDiscardRequest"><i class="fa fa-trash-o"> </i>&nbsp;&nbsp;Discard Request</button>
             </li>
           </ul>
           

@@ -34,6 +34,9 @@ Route::post('/save-primary-concerns-form', [PatientController::class, 'savePrima
 Route::post('/check-email', [PatientController::class, 'checkEmail'])->name('check.email');
 Route::post('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('create-checkout-session');
 
+Route::get("/discard-application", [PatientController::class, 'discardApplication'])->name('discard-application');
+
+
 //ShareFile Integration routes
 Route::get('/upload', function () {
     return view('upload');
@@ -65,6 +68,10 @@ Route::get('/patient_consultation_view/{id}', [OtpController::class, 'patientCon
 
 //ShreFile Controllers
 Route::get('/files/download/{id}/{filePath}', [OtpController::class, 'downloadFile'])->name('files.download');
+Route::get('/download/{id}', [OtpController::class, 'download'])->name('download');
+Route::get('/view-file/{id}', [OtpController::class, 'viewFile'])->name('view-file');
+
+
 
 // //StripeTempController
 // Route::get('/stripe', [StripeTempController::class, 'checkout'])->name('checkout');

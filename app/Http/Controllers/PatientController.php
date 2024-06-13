@@ -416,7 +416,12 @@ class PatientController extends Controller
     }
 
     
-
+    public function discardApplication() {
+        $patientId = session('patient_id');
+        $this->deleteIncompleteFormData($patientId);
+        session()->flush();
+        return redirect()->route('/');
+    }
     
 }
 ?>

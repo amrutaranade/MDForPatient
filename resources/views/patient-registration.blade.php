@@ -1,5 +1,10 @@
 @extends("layout")
 @section("content")
+<div id="loading-screen" style="display: none;" class="fullScreenLoader">
+    <div class="loading-icon">
+        <img src="/dist/assets/images/loader.gif" />
+    </div>
+</div>
 <div class="">
     <div class="">
         <div class="row">
@@ -594,11 +599,11 @@
                                     <div class="sm:d-grid sm:grid-col-2 sm:mt-3">                                        
                                         <div class="mt-1 form__field">
                                             <label class="">
-                                                <span>I confirm that, I have read the Patient Agreement and each appendix checked below</span>
+                                                <input id="select_all_appendixes" type="checkbox" name="select_all_appendixes" value="Yes" class="select_all_appendixes"><span>I agree to all of the following:</span>
                                                             
                                             </label>
                                             <label class="form__choice-wrapper">
-                                                <input id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" class="patientAgreement">
+                                                <input id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" class="patientAgreement" readonly>
                                                 <span>Patient Agreement</span>                                            
                                             </label>
                                             <label class="form__choice-wrapper">
@@ -621,7 +626,7 @@
                                         <div class="mt-1 form__field">
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <label for="digital_signature">
-                                                By typing the full name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
+                                                By typing my full legal name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
                                                 </label>
                                                 <input id="re_type_name" type="text" name="re_type_name" autocomplete="given-name" >
                                             </div>
@@ -697,7 +702,7 @@
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">      
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
-                                                <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
+                                                <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
                                             </div>                              
                                             <div class="mt-3 sm:mt-0 form__field">                                            
                                                 <div class="">          
@@ -711,7 +716,7 @@
                                                 <script>
                                                     Dropzone.options.fileUpload = {
                                                         paramName: "file", // The name that will be used to transfer the file
-                                                        maxFilesize: 10, // MB
+                                                        maxFilesize: 1000, // MB
                                                         acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
                                                         autoProcessQueue: false,
                                                         parallelUploads: 50, // Upload files one at a time
@@ -720,6 +725,11 @@
                                                         dictDefaultMessage: "<span class='fa fa-download'>Drop files here to upload</span>", // Hide the default message
                                                         init: function() {
                                                             var myDropzone = this;
+
+                                                            // Show loading screen when files start processing
+                                                            // this.on("processing", function() {
+                                                            //     document.getElementById("loading-screen").style.display = "block";
+                                                            // });
 
                                                             // Add event listener to the Confirm Upload button
                                                             document.getElementById("confirm-upload").addEventListener("click", function() {
@@ -746,6 +756,7 @@
 
                                                             // Handling the queue complete event
                                                             this.on("queuecomplete", function() {
+                                                                // document.getElementById("loading-screen").style.display = "none";
                                                                 //console.log("All files have been uploaded.");
                                                                 document.getElementById('progress-form__panel-7').setAttribute("hidden", "");
                                                                 window.location = "{{ route('final-submission') }}";
@@ -1890,9 +1901,11 @@
         locale: 'auto',
         
         token: function(token) {
+            //document.getElementById("loading-screen").style.display = "block";
             card4Digits = token.card.last4;
             fetch("{{ route('stripe.post') }}", {
                 method: 'POST',
+                type: 'application/json',   
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -1914,17 +1927,23 @@
                 })
             })
             .then(function(response) {
-                if (response.ok) {
-                    // Show success message or handle next steps
-                    //document.getElementById('payment-form').delete();
-                    //var jsonData = JSON.parse(response);
+                if (!response.ok) {
+                    throw new Error('API call failed');
+                }
+                return response.json(); // Parse JSON from the response
+            })
+            .then(function(data) {
+                // Handle success response data
+                //document.getElementById("loading-screen").style.display = "none";
+                
+                if (data && data.status === 'success') {
+                    // Success handling
                     paymentConsentDetails.setAttribute('hidden', '');
                     paymentDetails.removeAttribute('hidden');
                     paymentDetails.setAttribute('aria-selected', 'true');
                     paymentDetails.setAttribute('data-complete', 'true');
-                    document.getElementById("chargeId").textContent  = response.charge_id;
-                    document.getElementById("cardNumber").textContent  = "**** **** ****" + card4Digits;
-                    
+                    document.getElementById("chargeId").textContent = data.charge_id;
+                    document.getElementById("cardNumber").textContent = "**** **** ****" + card4Digits;
                 } else {
                     // Handle API call failure
                     console.error('API call failed');
@@ -1942,7 +1961,7 @@
         if (sessionChargeId == "") {
             handler.open({
                 name: 'MD For Patients',
-                description: 'Payment for consultation fee',
+                description: 'Consultation Deposit',
                 currency: 'usd',
                 amount: 19900,
                 image: "/dist/assets/images/logo-mini.png",

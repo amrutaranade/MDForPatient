@@ -40,11 +40,17 @@ class ShareFileService
             ]);
 
             $data = json_decode($response->getBody(), true);
+
+            // Log the access token for debugging purposes
+            Log::info('Access Token Retrieved: ' . $data['access_token']);
+            
             return $data['access_token'];
         } catch (RequestException $e) {
             // Handle error
             throw new \Exception("Error obtaining access token: " . $e->getMessage());
         }
+
+        
     }
 
     public function getFolderId($parentId, $folderName) {
@@ -221,9 +227,9 @@ class ShareFileService
         ]);
 
         $http_code = $response->getStatusCode();
-        $curl_response = json_decode($response->getBody(), true);       
+        $curl_response = json_decode((string) $response->getBody(), true);       
 
-        return $curl_response["value"];
+        return $curl_response;
     }
 
     function downloadFileOld($item_id, $local_path) {
@@ -296,6 +302,25 @@ class ShareFileService
             }
         } catch (RequestException $e) {
             echo "Error downloading file: " . $e->getMessage() . "\n";
+        }
+    }
+
+    public function download($fileId)
+    {
+        try {
+            $accessToken = $this->getAccessToken();
+            $headers = $this->getAuthorizationHeader($accessToken);
+            $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items($fileId)/Download";
+
+
+            $client = new Client();
+            $response = $client->get($uri, [
+                'headers' => $headers,
+            ]);
+
+            return redirect($response->getHeaderLine('Location'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 }
