@@ -51,7 +51,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0"  >                            
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >                            
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                 <div class="mt-3 sm:mt-0 form__field">
                                 <label for="first-name">
@@ -584,7 +584,7 @@
                                     <div class="sm:d-grid sm:grid-col-2 sm:mt-3">                                        
                                         <div class="mt-1 form__field">
                                             <label class="">
-                                                <span>I confirm that, I have read the Patient Agreement and each appendix checked below</span>
+                                                <input id="select_all_appendixes" type="checkbox" name="select_all_appendixes" value="Yes" class="select_all_appendixes"><span>I agree to all of the following:</span>
                                                             
                                             </label>
                                             <label class="form__choice-wrapper">
@@ -611,7 +611,7 @@
                                         <div class="mt-1 form__field">
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <label for="digital_signature">
-                                                By typing the full name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
+                                                By typing my full legal name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
                                                 </label>
                                                 <input disabled id="digital_signature" type="text" name="digital_signature" autocomplete="given-name" >
                                             </div>
@@ -655,7 +655,7 @@
                                         </tr>
                                         <tr>
                                             <td><strong>Amount Paid:</strong></td>
-                                            <td>$500.00</td>
+                                            <td>$199.00</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Payment Status:</strong></td>
@@ -682,12 +682,43 @@
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">      
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
-                                                <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
-                                            </div>    
+                                                <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
+                                            </div>    <br/>
                                             <div class="mt-3 sm:mt-0 form__field">  
                                                 <h3>Previously Uploaded Documents<br></h3>
                                             </div>  
-                                            
+
+                                            @foreach ($customeShareFiles['customeShareFiles']['value'] as $file)
+                                                <!-- <tr>
+                                                    <td>{{ $file['Name'] }}</td>
+                                                    <td>
+                                                        <a target="_blank" href="{{ $file['url'] }}" target="_blank">View</a>
+                                                        <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}">Download</a>
+                                                    </td>
+                                                </tr> -->
+
+                                                <div class="stat-row">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="/dist/assets/images/photo.png" alt="ssss">
+                                                    <div class="pl-2"><b>Description:</b>{{$file['Name'] }}</div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="pr-4">
+                                                        <b>Uploaded:</b>
+                                                        {{ (new DateTime($file["CreationDate"]))->format("m-d-Y") }}
+                                                    </div>
+                                                    <button class="delete-btn">
+                                                        <a href="{{ route('view-file', ['id' => $file['Id']]) }}" target="_blank">View</a>
+                                                    </button>&nbsp;&nbsp;
+                                                    <button class="delete-btn">
+                                                        <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}"><span class="fa fa-download"></span>Download</a>
+
+                                                        
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            @endforeach
                                             <div class="mt-3 sm:mt-0 form__field">                                            
                                                 <div class="">          
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
@@ -702,7 +733,7 @@
                                                 <script>
                                                     Dropzone.options.fileUpload = {
                                                         paramName: "file", // The name that will be used to transfer the file
-                                                        maxFilesize: 10, // MB
+                                                        maxFilesize: 1000, // MB
                                                         acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
                                                         autoProcessQueue: false,
                                                         parallelUploads: 50, // Upload files one at a time
@@ -739,7 +770,10 @@
                                                             this.on("queuecomplete", function() {
                                                                 //console.log("All files have been uploaded.");
                                                                 document.getElementById('progress-form__panel-1').removeAttribute("hidden");
+                                                                document.getElementById('progress-form__panel-7').setAttribute("hidden","");
                                                                 alert("Your Files have been uploaded successfully");
+
+                                                                window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
 
                                                             });
 

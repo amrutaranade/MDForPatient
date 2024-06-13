@@ -20,14 +20,20 @@ use Google\Service\AdMob\Date as AdMobDate;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\PatientMedicalRecords;
 use App\Models\PatientExpertOpinionRequest;
+use App\Http\Controllers\EmailController;
+
 
 class PatientController extends Controller
 {
     protected $shareFileService;
+    protected $emailController;
+
     
-    public function __construct(ShareFileService $shareFileService)
+    public function __construct(ShareFileService $shareFileService,EmailController $emailController)
     {
         $this->shareFileService = $shareFileService;
+        $this->emailController = $emailController;
+
     }
 
     public function patientFormView()
@@ -376,9 +382,23 @@ class PatientController extends Controller
     }
 
     public function finalSubmission() {
-        
         $patientConsulatationNumber = session("patient_consulatation_number");
+       
+        $patientId = session('patient_id');
+        if($patientId){
 
+        // Get patient email
+        $patient = PatientsRegistrationDetail::find($patientId);
+        $recipientEmail = $patient->email;
+        $details = [
+            'title' => 'Welcome to MD For Patients',
+            'body' => $patientConsulatationNumber
+        ];
+
+        // Send email
+        $this->emailController->sendWelcomEmail($recipientEmail, $details);
+
+         }
         session()->flush();
 
         return view('thank-you', [
@@ -389,10 +409,19 @@ class PatientController extends Controller
     public function getShareFilesByFolderId($folderId){
         try {
             $result = $this->shareFileService->getShareFilesByFolderId($folderId);
-            return response()->json($result);
+            return $result;
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    
+    public function discardApplication() {
+        $patientId = session('patient_id');
+        $this->deleteIncompleteFormData($patientId);
+        session()->flush();
+        return redirect()->route('/');
+    }
+    
 }
 ?>

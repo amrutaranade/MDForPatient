@@ -1,5 +1,10 @@
 @extends("layout")
 @section("content")
+<div id="loading-screen" style="display: none;" class="fullScreenLoader">
+    <div class="loading-icon">
+        <img src="/dist/assets/images/loader.gif" />
+    </div>
+</div>
 <div class="">
     <div class="">
         <div class="row">
@@ -765,7 +770,7 @@
                                                 <script>
                                                     Dropzone.options.fileUpload = {
                                                         paramName: "file", // The name that will be used to transfer the file
-                                                        maxFilesize: 10, // MB
+                                                        maxFilesize: 1000, // MB
                                                         acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
                                                         autoProcessQueue: false,
                                                         parallelUploads: 50, // Upload files one at a time
@@ -774,6 +779,11 @@
                                                         dictDefaultMessage: "<span class='fa fa-download'>Drop files here to upload</span>", // Hide the default message
                                                         init: function() {
                                                             var myDropzone = this;
+
+                                                            // Show loading screen when files start processing
+                                                            // this.on("processing", function() {
+                                                            //     document.getElementById("loading-screen").style.display = "block";
+                                                            // });
 
                                                             // Add event listener to the Confirm Upload button
                                                             document.getElementById("confirm-upload").addEventListener("click", function() {
@@ -800,6 +810,7 @@
 
                                                             // Handling the queue complete event
                                                             this.on("queuecomplete", function() {
+                                                                // document.getElementById("loading-screen").style.display = "none";
                                                                 //console.log("All files have been uploaded.");
                                                                 document.getElementById('progress-form__panel-7').setAttribute("hidden", "");
                                                                 window.location = "{{ route('final-submission') }}";
@@ -1703,7 +1714,7 @@
     const submitBtn = document.getElementById('customButton');
     function updateSubmitButtonState() {
         
-        const digital_signature = document.getElementById('digital_signature').value.trim();
+        const digital_signature = document.getElementById('re_type_name').value.trim();
         const checkboxes = document.querySelectorAll('.patientAgreement');
         let allChecked = true;
 
@@ -1726,7 +1737,7 @@
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
     
-    document.querySelector('#digital_signature').addEventListener('keyup', function() {
+    document.querySelector('#re_type_name').addEventListener('keyup', function() {
         if (this.value.trim() !== '') {
             const checkboxes = document.querySelectorAll('.patientAgreement');
             let allChecked = true;
@@ -1748,7 +1759,7 @@
 
     });
 
-    document.querySelector('#digital_signature').addEventListener('blur', function() {
+    document.querySelector('#re_type_name').addEventListener('blur', function() {
         if (this.value.trim() !== '') {
             const checkboxes = document.querySelectorAll('.patientAgreement');
             let allChecked = true;
@@ -1767,6 +1778,11 @@
         } else {
             submitBtn.disabled = true;
         }
+    });
+
+    document.getElementById("email_step1").addEventListener("blur", function() {
+        document.getElementById("relationship_email").value = this.value;
+        document.getElementById("relationship_confirm_email").value = this.value;
     });
 
     let currentTab = 0;
@@ -1880,6 +1896,7 @@
     // Function to show/hide fields based on the selected relationship
     function toggleFields() {
         var relationship = $('#relationship_to_patient').val();
+        var email_step1 = document.getElementById("email_step1").value;
 
         // Hide all fields initially
         $('#relationship_first_name, #relationship_last_name, #relationship_npi, #relationship_street_address, #relationship_city, #relationship_postal_code, #relationship_countries, #relationship_states, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_institution, #relationship_fax_no, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').hide();
@@ -1901,6 +1918,8 @@
             $('#relationship_phone_number').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = email_step1;
+            document.getElementById("relationship_confirm_email").value = email_step1;
 
         } else if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian') {
             // Show specific fields for 'Caregiver'
@@ -1912,6 +1931,8 @@
             $('#relationship_last_name').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
 
         }else if(relationship === 'Referring or local physician'){
             $('#relationship_first_name, #relationship_last_name, #relationship_email,#relationship_npi,#relationship_countries,#relationship_states,#relationship_postal_code, #relationship_street_address, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_institution,#relationship_fax_no, #relationship_city').closest('.form__field').show();
@@ -1922,6 +1943,8 @@
             $('#relationship_last_name').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
         }else if(relationship === 'Other'){
              // Show specific fields for 'Caregiver'
              $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').show();
@@ -1933,6 +1956,8 @@
             $('#relationship_other').attr('required', 'required');
             $('#phoneRadio').attr('required', 'required');
             $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
         }
     }
 
@@ -2003,9 +2028,11 @@
         locale: 'auto',
         
         token: function(token) {
+            //document.getElementById("loading-screen").style.display = "block";
             card4Digits = token.card.last4;
             fetch("{{ route('stripe.post') }}", {
                 method: 'POST',
+                type: 'application/json',   
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -2016,21 +2043,34 @@
                     card_last4: token.card.last4,
                     card_brand: token.card.brand,
                     card_exp_month: token.card.exp_month,
-                    card_exp_year: token.card.exp_year
+                    card_exp_year: token.card.exp_year,
+                    patient_agreement: document.getElementById('patient_agreement').value,
+                    appendix_1: document.getElementById('appendix_1').value ,
+                    appendix_2: document.getElementById('appendix_2').value,
+                    appendix_3: document.getElementById('appendix_3').value,
+                    appendix_4: document.getElementById('appendix_4').value,
+                    re_type_name: document.getElementById('re_type_name').value
+
                 })
             })
             .then(function(response) {
-                if (response.ok) {
-                    // Show success message or handle next steps
-                    //document.getElementById('payment-form').delete();
-                    //var jsonData = JSON.parse(response);
+                if (!response.ok) {
+                    throw new Error('API call failed');
+                }
+                return response.json(); // Parse JSON from the response
+            })
+            .then(function(data) {
+                // Handle success response data
+                //document.getElementById("loading-screen").style.display = "none";
+                
+                if (data && data.status === 'success') {
+                    // Success handling
                     paymentConsentDetails.setAttribute('hidden', '');
                     paymentDetails.removeAttribute('hidden');
                     paymentDetails.setAttribute('aria-selected', 'true');
                     paymentDetails.setAttribute('data-complete', 'true');
-                    document.getElementById("chargeId").textContent  = chargeId;
-                    document.getElementById("cardNumber").textContent  = "**** **** ****" + card4Digits;
-                    
+                    document.getElementById("chargeId").textContent = data.charge_id;
+                    document.getElementById("cardNumber").textContent = "**** **** ****" + card4Digits;
                 } else {
                     // Handle API call failure
                     console.error('API call failed');
@@ -2048,7 +2088,7 @@
         if (sessionChargeId == "") {
             handler.open({
                 name: 'MD For Patients',
-                description: 'Payment for consultation fee',
+                description: 'Consultation Deposit',
                 currency: 'usd',
                 amount: 19900,
                 image: "/dist/assets/images/logo-mini.png",
