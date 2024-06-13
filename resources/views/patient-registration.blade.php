@@ -18,148 +18,153 @@
             <div class="col-md-8 col-lg-8">                
                 <div class="">
                     <!-- Progress Form -->
-                    <form id="progress-form" class="p-4 progress-form" action="#" lang="en" novalidate type="post">
+                    <form id="progress-form" class="progress-form rounded-bottom-0" action="#" lang="en" novalidate type="post">
                     <!-- Step Navigation -->
                     
-                        <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
+                        <div class="d-flex align-items-start p-0 progress-form__tabs step-container" role="tablist">
+                            <button id="progress-form__tab-1" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
                                 <div class="step-number">1</div>
                                 <div>Patient Details</div>
                             </button>
-                            <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-2" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <div class="step-number">2</div>
                                 <div>Contact Party</div>
                             </button>
-                            <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-3" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
                                     <div class="step-number">3</div><div>Patient's Physician</div>                               
                             </button>
-                            <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-4" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <div class="step-number">4</div><div>Primary Concern</div>                                
                             </button>                            
-                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-5" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <div class="step-number">5</div><div>Consent & Payment</div>                                
                             </button>
-                            @if(!empty(session("stripe_charge_id")))
-                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
+                            <button id="progress-form__tab-6" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true">
                                 <div class="step-number">6</div><div>Payment Details</div>                            
                             </button>
-                            <button id="progress-form__tab-7" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="false" tabindex="-1" aria-disabled="true" hidden>
+                            <button id="progress-form__tab-7" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="false" tabindex="-1" aria-disabled="true" hidden>
                                 <div class="step-number">7</div><div>Medical Document</div>                            
-                            </button>
-                            @endif
-                            
+                            </button>                            
                         </div>
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
-                                    First Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
-                                    Middle Name
-                                </label>
-                                <input id="middle-name" type="text" name="middle-name" autocomplete="given-name">
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="last-name">
-                                    Last Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="last-name" type="text" name="last-name" autocomplete="family-name" required>
-                                </div>
-                            </div>
-
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="date_of_birth">
-                                    Date Of Birth
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" >
-                                </div>
-                            </div>
-                            <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
+                            <div class="p-5 mx-3">
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="street_address">
-                                        Street Address
+                                    <label for="first-name">
+                                        First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
+                                    <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
                                     </div>
-                                </div>
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+
                                     <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="City">
-                                        City
+                                    <label for="first-name">
+                                        Middle Name
+                                    </label>
+                                    <input id="middle-name" type="text" name="middle-name" autocomplete="given-name">
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="last-name">
+                                        Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="city" type="text" name="city" autocomplete="given-name" required>
+                                    <input id="last-name" type="text" name="last-name" autocomplete="family-name" required>
+                                    </div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="date_of_birth">
+                                        Date Of Birth
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" >
+                                    </div>
+                                </div>
+
+                                <div id="patientMailingAddressHrTag" class="sm:d-grid sm:grid-col-3 sm:mt-3 fw-bold mt-5" >
+                                    <div class="left-border-heading">Patient Mailing Address</div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="street_address">
+                                            Street Address
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <input id="street_address" type="text" name="street_address" autocomplete="given-name" required>
+                                        </div>
+                                    </div>
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="City">
+                                            City
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <input id="city" type="text" name="city" autocomplete="given-name" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="postal_code">
+                                        Postal Code
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" required>
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="Country">
+                                        Country
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select class="countries" name="countries" id="countries" required>
+                                        <option value="">--Select--</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="states">
+                                        State
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select class="states" name="states" id="states" required>
+                                        <option value="">--Select--</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="email">
+                                        Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                    <label id="email-check-result"></label>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="confirm_email">
+                                        Confirm Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
+                                    <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="postal_code">
-                                    Postal Code
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="postal_code" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" required>
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="Country">
-                                    Country
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select class="countries" name="countries" id="countries" required>
-                                    <option value="">--Select--</option>
-                                    @foreach($countries as $country)
-                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="states">
-                                    State
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select class="states" name="states" id="states" required>
-                                    <option value="">--Select--</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="email">
-                                    Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
-                                <label id="email-check-result"></label>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="confirm_email">
-                                    Confirm Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
-                                <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="continueButton step1 btn btn-success btn-fw" id="continueButton">
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButton">
                                 Save & Next
                                 </button>
                             </div>
@@ -168,196 +173,200 @@
 
                         <!-- Step 2 -->
                         <section id="progress-form__panel-2" role="tabpanel" aria-labelledby="progress-form__tab-2" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h4 class="fw-bold">This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                            <div class="p-5 mx-3">
                                 <div class="mt-3 form__field">
-                                    <label for="relationship_to_patient">
-                                    Select Relationship To The Patient
-                                    <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
-                                        <option value="" disabled >Please select</option>
-                                        <option value="Patient" selected>Patient</option>
-                                        <option value="Caregiver">Caregiver</option>
-                                        <option value="Referring or local physician">Referring or local physician</option>
-                                        <option value="Parent">Parent</option>
-                                        <option value="Legal Guardian">Legal Guardian</option>
-                                        <option value="Other">Other</option>
-                                    </select>
+                                <h4 class="fw-bold">This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
                                 </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_first_name">
-                                    Your First Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" >
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_confirm_email">
-                                    Your Last Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" >
-
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_npi">
-                                    NPI
-                                </label>
-                                <input id="relationship_npi" type="text" name="relationship_npi">
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_other">
-                                    Specify your relationship to the patient
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" >
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="relationship_street_address">
-                                        Street Address
-                                    </label>
-                                    <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name">
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 form__field">
+                                        <label for="relationship_to_patient">
+                                        Select Relationship To The Patient
+                                        <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
+                                            <option value="" disabled >Please select</option>
+                                            <option value="Patient" selected>Patient</option>
+                                            <option value="Caregiver">Caregiver</option>
+                                            <option value="Referring or local physician">Referring or local physician</option>
+                                            <option value="Parent">Parent</option>
+                                            <option value="Legal Guardian">Legal Guardian</option>
+                                            <option value="Other">Other</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="relationship_city">
-                                        City
-                                    </label>
-                                    <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" >
-                                    </div>
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_postal_code">
-                                    Postal Code
-                                </label>
-                                <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" >
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship__country">
-                                    Country
-                                </label>
-                                <select class="relationship_countries" name="relationship_countries" id="relationship_countries" >
-                                    <option value="">--Select--</option>
-                                    @foreach($countries as $country)
-                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_states">
-                                    State
-                                </label>
-                                <select class="relationship_states" name="relationship_states" id="relationship_states" >
-                                    <option value="">--Select--</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_email">
-                                    Email Address
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" >
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_confirm_email">
-                                    Confirm Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" >
-
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_phone_number">
-                                    Phone Number
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="relationship_phone_number" type="text" name="relationship_phone_number" >
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_institution">
-                                    Institution
-                                </label>
-                                <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  >
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_fax_no">
-                                    Fax No.
-                                </label>
-                                <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" >
-
-                                </div>
-
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
-                                <fieldset class="mt-3 sm:mt-0 form__field ">
-                                    <label for="relationship_preferred_mode_of_communication">
-                                        Preferred Mode Of Communication
+                                    <label for="relationship_first_name">
+                                        Your First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" >
-                                        <label class="form-check-label" for="phoneRadio">Phone</label>
+                                    <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" >
                                     </div>
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" >
-                                        <label class="form-check-label" for="emailRadio">Email</label>
-                                    </div>  
-                                </fieldset>
-                            
-                                <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="relationship_preferred_contact_time">
-                                        Preferred Contact Time
-                                    </label>  
-                                    
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning">
-                                        <label class="form-check-label" for="MorningRadio">Morning</label>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_confirm_email">
+                                        Your Last Name
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" >
+
                                     </div>
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon">
-                                        <label class="form-check-label" for="AfternoonRadio">Afternoon</label>
-                                    </div> 
-                                    
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening">
-                                        <label class="form-check-label" for="EveningRadio">Evening</label>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_npi">
+                                        NPI
+                                    </label>
+                                    <input id="relationship_npi" type="text" name="relationship_npi">
                                     </div>
                                 </div>
-                            </div>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_other">
+                                        Specify your relationship to the patient
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" >
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="relationship_street_address">
+                                            Street Address
+                                        </label>
+                                        <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name">
+                                        </div>
+                                    </div>
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="relationship_city">
+                                            City
+                                        </label>
+                                        <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" >
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_postal_code">
+                                        Postal Code
+                                    </label>
+                                    <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" >
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship__country">
+                                        Country
+                                    </label>
+                                    <select class="relationship_countries" name="relationship_countries" id="relationship_countries" >
+                                        <option value="">--Select--</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
 
-                            <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep2">
-                                Continue
-                                </button>
-                            </div> -->
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
-                                Back
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_states">
+                                        State
+                                    </label>
+                                    <select class="relationship_states" name="relationship_states" id="relationship_states" >
+                                        <option value="">--Select--</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_email">
+                                        Email Address
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" >
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_confirm_email">
+                                        Confirm Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" >
+
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_phone_number">
+                                        Phone Number
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="relationship_phone_number" type="text" name="relationship_phone_number" >
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_institution">
+                                        Institution
+                                    </label>
+                                    <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  >
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_fax_no">
+                                        Fax No.
+                                    </label>
+                                    <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" >
+
+                                    </div>
+
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
+                                    <fieldset class="mt-3 sm:mt-0 form__field ">
+                                        <label for="relationship_preferred_mode_of_communication">
+                                            Preferred Mode Of Communication
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <div class="d-flex">
+                                            <div class="form-check-inline d-flex">
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" >
+                                                <label class="form-check-label pl-1" for="phoneRadio">Phone</label>
+                                            </div>
+                                            <div class="form-check-inline d-flex pl-2">
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" >
+                                                <label class="form-check-label pl-1" for="emailRadio">Email</label>
+                                            </div>  
+                                        </div>
+                                    </fieldset>
+                                
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="relationship_preferred_contact_time">
+                                            Preferred Contact Time
+                                        </label>  
+                                        <div class="d-flex justify-content-between">
+                                            <div class=" form-check-inline d-flex">
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning">
+                                                <label class="form-check-label pl-1" for="MorningRadio">Morning</label>
+                                            </div>
+                                            <div class=" form-check-inline d-flex">
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon">
+                                                <label class="form-check-label pl-1" for="AfternoonRadio">Afternoon</label>
+                                            </div> 
+                                            
+                                            <div class=" form-check-inline d-flex">
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening">
+                                                <label class="form-check-label pl-1" for="EveningRadio">Evening</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                                    <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
+                                    Back
+                                    </button>
+                                    <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep2">
+                                    Continue
+                                    </button>
+                                </div> -->
+                            </div>
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary rounded">
+                                    Back
                                 </button> &nbsp;&nbsp;
-                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep2">
-                                Save & Next
+                                <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep2">
+                                    Save & Next
                                 </button>
                             </div>
                         </section>
@@ -365,124 +374,127 @@
 
                         <!-- Step 3 -->
                         <section id="progress-form__panel-3" role="tabpanel" aria-labelledby="progress-form__tab-3" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h4 class="fw-bold">This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
-                                    First Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="first-name-step3" type="text" name="first-name" autocomplete="given-name" required>
+                            <div class="p-5 mx-3">
+                                <div class="mt-3 form__field">
+                                    <h4 class="fw-bold">This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h4>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="first-name">
+                                        First Name
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="first-name-step3" type="text" name="first-name" autocomplete="given-name" required>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="last-name">
+                                        Last Name
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="last-name-step3" type="text" name="last-name" autocomplete="family-name" required>
+                                    </div>
                                 </div>
 
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="last-name">
-                                    Last Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="last-name-step3" type="text" name="last-name" autocomplete="family-name" required>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="institution">
+                                        Institution
+                                    </label>
+                                    <input id="institution" type="text" name="institution" autocomplete="given-name" >
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="street_address">
+                                        Street Address
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" required>
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="city">
+                                        City
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="city-step3" type="text" name="city" autocomplete="given-name" required>
+                                    </div>
 
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="institution">
-                                    Institution
-                                </label>
-                                <input id="institution" type="text" name="institution" autocomplete="given-name" >
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="postal_code">
+                                        Postal Code
+                                    </label>
+                                    <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="street_address">
-                                    Street Address
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" required>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="Country">
+                                        Country
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select class="countries" name="countries" id="countries-step3" required>
+                                        <option value="">--Select--</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="states">
+                                        State
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select class="states" name="states" id="states-step3" required>
+                                        <option value="">--Select--</option>
+                                    </select>
+                                    </div>
+                                </div>                            
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="email">
+                                        Email Address 
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="confirm_email">
+                                        Confirm Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="city">
-                                    City
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="city-step3" type="text" name="city" autocomplete="given-name" required>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="phone_number">
+                                        Phone Number
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" required>
+                                    </div>
                                 </div>
 
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="postal_code">
-                                    Postal Code
-                                </label>
-                                <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" >
-                                </div>
+                                <!--<div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                                    <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
+                                    Back
+                                    </button>
+                                    <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep3">
+                                    Continue
+                                    </button>
+                                </div> -->
                             </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="Country">
-                                    Country
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select class="countries" name="countries" id="countries-step3" required>
-                                    <option value="">--Select--</option>
-                                    @foreach($countries as $country)
-                                        <option value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="states">
-                                    State
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select class="states" name="states" id="states-step3" required>
-                                    <option value="">--Select--</option>
-                                </select>
-                                </div>
-                            </div>                            
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="email">
-                                    Email Address 
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" required>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="confirm_email">
-                                    Confirm Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" required>
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="phone_number">
-                                    Phone Number
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" required>
-                                </div>
-                            </div>
-
-                            <!--<div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep3">
-                                Continue
-                                </button>
-                            </div> -->
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" class="btn btn-secondary btn-fw" >
+                            <!-- <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo"> -->
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button data-action="prev" type="button" class="btn btn-secondary rounded">
                                 Back
                                 </button> &nbsp;&nbsp;
-                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep3">
+                                <button type="button" data-action="next" class="btn btn-success rounded" id="continueButtonStep3">
                                 Save & Next
                                 </button>
                             </div>
@@ -491,65 +503,67 @@
 
                         <!-- Step 4 -->
                         <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0" hidden>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="primary_diagnosis">
-                                    Please Provide The Primary Diagnosis* (If unknown, please list unknown)
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field ">
-                                    <label for="address-city">
-                                    Has The Patient Been Treated Or Had Surgery For This Condition Before?
+                            <div class="p-5 mx-3">
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="primary_diagnosis">
+                                        Please Provide The Primary Diagnosis* (If unknown, please list unknown)
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
-                                        <label class="form-check-label" for="yesRadio">Yes</label>
+                                    <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required>
                                     </div>
-                                    <div class=" form-check-inline">
-                                        <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
-                                        <label class="form-check-label" for="noRadio">No</label>
-                                    </div>  
+                                    <div class="mt-3 sm:mt-0 form__field ">
+                                        <label for="address-city">
+                                        Has The Patient Been Treated Or Had Surgery For This Condition Before?
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        
+                                        <div class=" form-check-inline">
+                                            <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
+                                            <label class="form-check-label" for="yesRadio">Yes</label>
+                                        </div>
+                                        <div class=" form-check-inline">
+                                            <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
+                                            <label class="form-check-label" for="noRadio">No</label>
+                                        </div>  
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                
-                                <div class="mt-3 sm:mt-0 form__field ">
-                                    <label for="address-city">
-                                    If so, please describe
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    
+                                    <div class="mt-3 sm:mt-0 form__field ">
+                                        <label for="address-city">
+                                        If so, please describe
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        
+                                        <input id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required> 
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="request_description">
+                                    Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other information you wish to provide.
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    
-                                    <input id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required> 
+                                    <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="request_description">
-                                Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other information you wish to provide.
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required></textarea>
-                                </div>
-                            </div>
 
-                            <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton" id="continueButtonStep4">
-                                Continue
-                                </button>
-                            </div> -->
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" class="btn btn-secondary btn-fw" >
+                                <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
+                                    <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
+                                    Back
+                                    </button>
+                                    <button type="button" data-action="next" class="continueButton" id="continueButtonStep4">
+                                    Continue
+                                    </button>
+                                </div> -->
+                            </div>
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button data-action="prev" type="button" class="btn btn-secondary rounded" >
                                 Back
                                 </button> &nbsp;&nbsp;
-                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep4">
+                                <button type="button" data-action="next" class="btn btn-success rounded" id="continueButtonStep4">
                                 Save & Next
                                 </button>
                             </div>
@@ -558,86 +572,115 @@
 
                         <!-- Step 5 -->
                         <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h4 class="fw-bold">Documents to review:<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                <div id="tabs">
-                                    <span class="tab-button active" onclick="goToTab(0)" id="tabButton0">Patient Cover Letter</span>
-                                    <span class="tab-button" onclick="goToTab(1)" id="tabButton1">Patient Agreement</span>
+                            <div class="p-5 mx-3">
+                                <div class="mt-3 form__field">
+                                    <h4 class="fw-bold fs-3">Documents to review:<br /><br /></h4>
                                 </div>
-                            
-                                <div class="tab tab-content">
-                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="mt-3 sm:mt-0 form__field">
-                                            <iframe src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
-                                            </iframe>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                            <button type="button" class="backButtonPrimaryConcern btn btn-secondary btn-fw" >
-                                            Back
-                                            </button> &nbsp;&nbsp;
-                                            <button type="button"  class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
-                                                Agree & Proceed
-                                                </button>
-                                        </div>                                        
+                                <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                    <div id="tabs">
+                                        <span class="tab-button active" onclick="goToTab(0)" id="tabButton0">Patient Cover Letter</span>
+                                        <span style="margin-left: -3px;" class="tab-button" onclick="goToTab(1)" id="tabButton1">Patient Agreement</span>
                                     </div>
-                                </div>
-                                <div class="tab tab-content">
-                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="mt-3 sm:mt-0 form__field">
-                                            <iframe src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
-                                            </iframe>
-                                        </div>
-                                    </div>
-                                    <div class="sm:d-grid sm:grid-col-2 sm:mt-3">                                        
-                                        <div class="mt-1 form__field">
-                                            <label class="">
-                                                <span>I confirm that, I have read the Patient Agreement and each appendix checked below</span>
-                                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
-                                                <span>Patient Agreement</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
-                                                <span>Appendix 1 : Payment Terms</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
-                                                <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" >
-                                                <span>Appendix 3: Medicare Opt-Out Agreement</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement">
-                                                <span>Appendix 4: Informed Consent</span>                                            
-                                            </label>
-                                        </div>
-                                        <div class="mt-1 form__field">
+                        
+                                    <div class="tab tab-content" style="display: block">
+                                        <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                             <div class="mt-3 sm:mt-0 form__field">
-                                                <label for="digital_signature">
-                                                By typing the full name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
-                                                </label>
-                                                <input id="digital_signature" type="text" name="digital_signature" autocomplete="given-name" >
+                                                <iframe
+                                                    src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
+                                                    style="max-width: 100%" class="">
+                                                </iframe>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                        
+                                    <div class="tab tab-content">
+                                        <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                            <div class="mt-3 sm:mt-0 form__field">
+                                                <iframe
+                                                    src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
+                                                    style="max-width: 100%" class="">
+                                                </iframe>
                                             </div>
                                         </div>
-                                        
+                                        <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                            <div class="mt-1 form__field">
+                                                <label class="">
+                                                    <span>I confirm that, I have read the Patient Agreement and each appendix checked
+                                                        below</span>
+                        
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Patient Agreement</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 1 : Payment Terms</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 3: Medicare Opt-Out Agreement</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 4: Informed Consent</span>
+                                                </label>
+                                            </div>
+                                            <div class="mt-1 form__field">
+                                                <div class="mt-3 sm:mt-0 form__field">
+                                                    <label for="digital_signature">
+                                                        By typing the full name below, I hereby indicate that I understand and accept all terms
+                                                        as specified in the Patient Agreement and in each Appendix
+                                                    </label>
+                                                    <input id="digital_signature" type="text" name="digital_signature"
+                                                        autocomplete="given-name">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                        <button type="button" class="btn btn-secondary btn-fw backButtonPrimaryConcern" >
-                                            Back
-                                        </button> &nbsp;&nbsp;
-                                        <form action="#" method="POST" id="payment-form">
-                                            @csrf
-                                            <div id="card-element" style="display:none"></div>
-                                            <button type="button" disabled id="customButton" class="agreeButton btn btn-success btn-fw">Agree & Proceed to Payment</button>
-                                        </form>
-                                    </div>
-                                </div>
+                                    <!-- <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                                                <button type="button" class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
+                                                                    Agree & Proceed
+                                                                </button>
+                                                            </div>
+                                                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
+                                                                <button type="button" class="btn btn-secondary backButtonPrimaryConcern">
+                                                                    Previous
+                                                                </button> &nbsp;&nbsp;
+                                                                <form action="#" method="POST" id="payment-form">
+                                                                    @csrf
+                                                                    <div id="card-element" style="display:none"></div>
+                                                                    <button type="button" disabled id="customButton" class="agreeButton btn btn-success btn-fw">
+                                                                        Agree & Proceed to Payment
+                                                                    </button>
+                                                                </form> 
+                                </div> -->
+                            </div>
+                            </div>
+                            <div class="px-5 py-4 text-end border-top sm:mt-5 mt-0 bg-white">
+                                <button data-action="prev" type="button" class="btn btn-secondary rounded">
+                                    Back
+                                </button>
+                                <button type="button" class="btn btn-success btn-fw agreeButton" onclick="goToTab(1)">
+                                    Agree & Proceed
+                                </button>
+                                <form action="#" method="POST" id="payment-form">
+                                    @csrf
+                                    <!-- <div id="card-element" style="display:none"></div> -->
+                                    <button type="button" disabled id="customButton" class="agreeButton btn btn-success btn-fw">
+                                        Agree & Proceed to Payment
+                                    </button>
+                                </form>
                             </div>
                         </section>
                         <!-- / End Step 5 -->
@@ -645,41 +688,43 @@
                         <!-- Step 6 -->
                         <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden> 
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body p-0">
                                 <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                    <div class="payment-details">
-                                        <h3 class="fw-bold">Payment Details</h3>
-                                        <br/>                                
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td><strong>Transaction Id:</strong></td>
-                                                    <td><p id="chargeId"></p></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Card Used:</strong></td>
-                                                    <td><p id="cardNumber"></p></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Payment Date:</strong></td>
-                                                    <td class="paymentDate">{{date("m-d-Y")}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Amount Paid:</strong></td>
-                                                    <td class=>$199.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Payment Status:</strong></td>
-                                                    <td class="payment-status"><span class="status-icon">&#x2714;</span> PAID</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="px-5 py-3 mx-3">
+                                        <div class="payment-details">
+                                            <h3 class="fw-bold">Payment Details</h3>
+                                            <br/>                                
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>Transaction Id:</strong></td>
+                                                        <td><p id="chargeId"></p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Card Used:</strong></td>
+                                                        <td><p id="cardNumber"></p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Payment Date:</strong></td>
+                                                        <td class="paymentDate">{{date("m-d-Y")}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Amount Paid:</strong></td>
+                                                        <td class=>$199.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Payment Status:</strong></td>
+                                                        <td class="payment-status"><span class="status-icon">&#x2714;</span> PAID</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                        <button type="button" class="btn btn-secondary btn-fw backButtonPaymentDetails" >
+                                    <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                        <button type="button" class="btn btn-secondary mr-3 rounded" >
                                             Back
                                         </button>
-                                        <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep6">
+                                        <button type="button" data-action="next" class="btn btn-success rounded" id="continueButtonStep6">
                                         Save & Next
                                         </button>
                                     </div>
@@ -690,22 +735,32 @@
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">      
-                                            <div class="mt-3 sm:mt-0 form__field">
-                                                <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
-                                                <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" >
+                            <div class="card rounded-top-0">
+                                <div class="card-body p-0">
+                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                        <div class="p-5 mx-3">      
+                                            <div class="sm:mt-0 form__field">
+                                                <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
+                                                <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
                                             </div>                              
-                                            <div class="mt-3 sm:mt-0 form__field">                                            
-                                                <div class="">          
+                                            <div class="mt-3 sm:mt-0 form__field">   
+                                                <!-- <div>
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
                                                         @csrf
                                                         <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
                                                     </form>
+                                                </div>                                          -->
+                                                <div class="dropzone p-0">          
+                                                    <label for="file-input" class="file-drop-label" id="files-count">
+                                                        <img src="/dist/assets/images/download.png" alt="">
+                                                        Drop files here to upload
+                                                    </label>
+                                                    <input type="file" id="file-input" class="file-drop-input" multiple>
                                                 </div>
-
+                                                <div class="text-end mt-3"><button id="upload-btn" class="upload-btn">Upload</button></div>
+                                                
+                                                <div id="file-list" class="file-list"></div>
                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
                                                 <script>
                                                     Dropzone.options.fileUpload = {
@@ -764,15 +819,87 @@
                                                             });
                                                         }
                                                     };
-                                                </script>
+                                                       
+                                                    function formatDate() {
+                                                        // Create a new Date object from the date string
+                                                        const date = new Date();
+                                                        // Get the day, month, and year
+                                                        const day = String(date.getDate()).padStart(2, '0'); // Ensure day is two digits
+                                                        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure month is two digits, getMonth() returns 0-11
+                                                        const year = date.getFullYear();
 
+                                                        // Get the hours and minutes
+                                                        const hours = String(date.getHours()).padStart(2, '0'); // Ensure hours are two digits
+                                                        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure minutes are two digits
+                                                        // Return the formatted date as dd-mm-yyyy
+                                                        return `${day}/${month}/${year} - ${hours}:${minutes}`;
+                                                    };
+                                                   
+                                                    document.addEventListener("DOMContentLoaded", () => {
+                                                        const fileInput = document.getElementById("file-input");
+                                                        const uploadBtn = document.getElementById("upload-btn");
+                                                        const fileList = document.getElementById("file-list");
+                                                        const filesCount = document.getElementById("files-count");
+                                                        let filesArray = [];
+
+                                                        fileInput.addEventListener("change", (event) => {
+                                                            filesArray = Array.from(event.target.files);
+                                                            if(filesArray.length > 1){
+                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
+                                                            }else{
+                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
+                                                            }
+                                                        });
+
+                                                        uploadBtn.addEventListener("click", () => {
+                                                            if (filesArray.length > 0) {
+                                                            // Handle the upload action, for example:
+                                                            displayFiles(filesArray);
+                                                            fileInput.value = "";
+                                                            console.log("Files to upload:", filesArray);
+                                                            } else {
+                                                            alert("Please select files to upload");
+                                                            }
+                                                        });
+
+                                                        function displayFiles(files) {
+                                                            const htmlString = files
+                                                            .map(
+                                                                (item, ind) => `
+                                                                <div class="stat-row">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}">
+                                                                        <div class="pl-2"><b>Description:</b> ${item.name}</div>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="pr-4">
+                                                                            <b>Uploaded:</b>
+                                                                            ${formatDate()}
+                                                                        </div>
+                                                                        <button class="delete-btn">
+                                                                            <img src="/dist/assets/images/delete.png" alt="">
+                                                                            Delete
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                `
+                                                            )
+                                                            .join("");
+                                                            fileList.innerHTML = "";
+                                                            fileList.innerHTML = htmlString;
+                                                            filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
+                                                        }
+                                                    });
+
+                                                </script>
                                             </div>   
-                                        <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">  
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                        </div>
+                                        <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
+                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary" >
                                                 Back
                                             </button> &nbsp;&nbsp;
 
-                                            <button id="confirm-upload" class="continueButton step1 btn btn-success btn-fw">Confirm Upload</button>
+                                            <button id="confirm-upload" class="step1 btn btn-success">Submit</button>
                                         </div>
                                     </div>
                                 </div>                            
@@ -1700,10 +1827,11 @@
 
     // Function to go to a specific tab
     function goToTab(n) {
-        if (document.getElementById(`tabButton${n}`).style.pointerEvents === "auto") {
-            currentTab = n;
-            showTab(currentTab);
-        }
+        showTab(n);
+        // if (document.getElementById(`tabButton${n}`).style.pointerEvents === "auto") {
+        //     currentTab = n;
+        //     showTab(currentTab);
+        // }
     }
 
     document.querySelectorAll('#continueButton').forEach(checkbox => {

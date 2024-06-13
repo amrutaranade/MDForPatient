@@ -26296,7 +26296,7 @@ dl li {
   cursor: pointer;
   background-color: #f1f1f1;
   border: 1px solid #ccc;
-  pointer-events: none; /* Disable pointer events */
+  /*pointer-events: auto;  Disable pointer events */
   opacity: 0.6; /* Make disabled tabs look disabled */
 }
 .tab-button.active {
@@ -26543,5 +26543,72 @@ table td{
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
+}
+
+
+.stat-row {
+  background: #EFF4F7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #BDD6E2;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.delete-btn {
+  padding: 0 10px;
+  background: #D7E9F3;
+  border-radius: 5px;
+  border: none;
+  color: #1996D7;
+  font-weight: normal;
+}
+
+.upload-btn{
+  background: #1996D7;
+  color: #fff;
+}
+
+.file-drop-input {
+  height: 100px;
+  padding: 0;
+  position: absolute;
+  opacity: 0;
+}
+
+.file-drop-label {
+  position: absolute;
+  z-index: 11;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
+
+.left-border-heading {
+  border-left: 5px solid #00D2C4;
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#progress-form__panel-5 #tabs{
+  border: 1px solid #d4d4dd !important;
+  border-bottom: 0 !important;
+}
+
+#progress-form__panel-5 .tab-button{
+  border: 1px solid #f1f1f1 !important;
+  padding: 15px;
+  font-size: 15px;
+  border-bottom: 3px solid #f1f1f1 !important;
+}
+
+#progress-form__panel-5 #tabs .active{
+  background: #CCF6F3;
+  color: #000;
+  border-bottom: 3px solid #00D2C4 !important;
 }
 
