@@ -131,6 +131,15 @@ class PatientController extends Controller
         $currentDate = $currentDate->format('Ymd');
         $patientConsulatationNumber = "{$randomNum}_{$patientName}_{$dateOfBirth}_{$currentDate}";
 
+        // Check if the patient consultation number already exists
+        $existingPatient = PatientsRegistrationDetail::where('patient_consulatation_number', $patientConsulatationNumber)->first();
+        if ($existingPatient) {
+            // Generate a new patient consultation number
+            $randomNum = rand(10000, 99999);
+            $patientConsulatationNumber = "{$randomNum}_{$patientName}_{$dateOfBirth}_{$currentDate}";
+        }
+
+
         // Insert new patient data
         $patient = PatientsRegistrationDetail::create([
             "first_name" => $requestData["firstName"],
