@@ -12,7 +12,8 @@ class Transaction extends Model
 
     // Add the fillable property
     protected $fillable = [
-        'email',
+        'card_holder_email',
+        'card_holder_name',
         'patient_id',
         'card_last4',
         'amount',

@@ -9,13 +9,13 @@
     <title>MD For Patient</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/dist/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/dist/assets/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" href="/dist/assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="/dist/assets/vendors/font-awesome/css/font-awesome.min.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="/dist/assets/vendors/select2/select2.min.css">
-    <link rel="stylesheet" href="/dist/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+   
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
@@ -65,6 +65,7 @@
     <script src="{{ mix('js/patient.js') }}"></script>
     
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- End custom js for this page -->
   </body>
 </html>

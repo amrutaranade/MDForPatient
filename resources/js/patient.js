@@ -89,10 +89,8 @@ $(document).ready(function() {
         dataType: 'json',
         data: data,
         success: function(response) {
-           console.log('response');
-           console.log(response.id);
-           patientId = response.id;
-            document.getElementById("patientId").value = response.id;
+            patientId = response.id;
+            document.getElementById("patientId").value = patientId;
             
         },
         error: function(xhr) {

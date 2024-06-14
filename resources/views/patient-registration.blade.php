@@ -576,7 +576,7 @@
                         <!-- / End Step 4 -->
 
                         <!-- Step 5 -->
-                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
+                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" >
                             <div class="p-5 mx-3">
                                 <div class="mt-3 form__field">
                                     <h4 class="fw-bold fs-3">Documents to review:<br /><br /></h4>
@@ -679,13 +679,46 @@
                                 <button type="button" class="btn btn-success btn-fw agreeButton" onclick="goToTab(1)">
                                     Agree & Proceed
                                 </button>
-                                <form action="#" method="POST" id="payment-form">
-                                    @csrf
-                                    <!-- <div id="card-element" style="display:none"></div> -->
-                                    <button type="button" disabled id="customButton" class="agreeButton btn btn-success btn-fw">
-                                        Agree & Proceed to Payment
-                                    </button>
-                                </form>
+                                <div class="container mt-5">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#paymentModal">Pay with Stripe</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div>
+                                                    <img src="/dist/assets/images/logo-mini.png" alt="Logo" class="mb-3">
+                                                        <p class="mb-0">Consultation Deposit</p>
+                                                    </div>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                    
+                                                        <div class="form-group">
+                                                            <label for="card-holder-name">Card Holder Name</label>
+                                                            <input type="text" id="card-holder-name" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="card-holder-email">Card Holder Email</label>
+                                                            <input type="text" id="card-holder-email" class="form-control" required>
+                                                        </div>
+                                                        <div id="card-element" class="form-control">
+                                                            <!-- A Stripe Element will be inserted here. -->
+                                                        </div>
+                                                        <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                                                    
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button id="card-button" class="btn btn-primary" data-secret="">Pay</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </section>
                         <!-- / End Step 5 -->
@@ -740,7 +773,7 @@
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" >
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
@@ -750,6 +783,8 @@
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
                                             </div>                              
                                             <div class="mt-3 sm:mt-0 form__field">   
+                                                <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
+
                                                 <!-- <div>
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
                                                         @csrf
@@ -2023,91 +2058,214 @@
     var paymentDetails = document.getElementById('progress-form__panel-6');
     var documentUpload = document.getElementById('progress-form__panel-7');
     var card4Digits = "";
-    var handler = StripeCheckout.configure({
-        key: "{{ config('services.stripe.stripe_key') }}",
-        locale: 'auto',
+    // var handler = StripeCheckout.configure({
+    //     key: "{{ config('services.stripe.stripe_key') }}",
+    //     locale: 'auto',
         
-        token: function(token) {
-            //document.getElementById("loading-screen").style.display = "block";
-            card4Digits = token.card.last4;
-            fetch("{{ route('stripe.post') }}", {
-                method: 'POST',
-                type: 'application/json',   
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    token: token.id,
-                    email: token.email,
-                    card_last4: token.card.last4,
-                    card_brand: token.card.brand,
-                    card_exp_month: token.card.exp_month,
-                    card_exp_year: token.card.exp_year,
-                    patient_agreement: document.getElementById('patient_agreement').value,
-                    appendix_1: document.getElementById('appendix_1').value ,
-                    appendix_2: document.getElementById('appendix_2').value,
-                    appendix_3: document.getElementById('appendix_3').value,
-                    appendix_4: document.getElementById('appendix_4').value,
-                    re_type_name: document.getElementById('re_type_name').value
+    //     token: function(token) {
+    //         //document.getElementById("loading-screen").style.display = "block";
+    //         card4Digits = token.card.last4;
+    //         fetch("{{ route('stripe.post') }}", {
+    //             method: 'POST',
+    //             type: 'application/json',   
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    //             },
+    //             body: JSON.stringify({
+    //                 token: token.id,
+    //                 email: token.email,
+    //                 card_last4: token.card.last4,
+    //                 card_brand: token.card.brand,
+    //                 card_exp_month: token.card.exp_month,
+    //                 card_exp_year: token.card.exp_year,
+    //                 patient_agreement: document.getElementById('patient_agreement').value,
+    //                 appendix_1: document.getElementById('appendix_1').value ,
+    //                 appendix_2: document.getElementById('appendix_2').value,
+    //                 appendix_3: document.getElementById('appendix_3').value,
+    //                 appendix_4: document.getElementById('appendix_4').value,
+    //                 re_type_name: document.getElementById('re_type_name').value
 
-                })
-            })
-            .then(function(response) {
-                if (!response.ok) {
-                    throw new Error('API call failed');
-                }
-                return response.json(); // Parse JSON from the response
-            })
-            .then(function(data) {
-                // Handle success response data
-                //document.getElementById("loading-screen").style.display = "none";
+    //             })
+    //         })
+    //         .then(function(response) {
+    //             if (!response.ok) {
+    //                 throw new Error('API call failed');
+    //             }
+    //             return response.json(); // Parse JSON from the response
+    //         })
+    //         .then(function(data) {
+    //             // Handle success response data
+    //             //document.getElementById("loading-screen").style.display = "none";
                 
-                if (data && data.status === 'success') {
-                    // Success handling
-                    paymentConsentDetails.setAttribute('hidden', '');
-                    paymentDetails.removeAttribute('hidden');
-                    paymentDetails.setAttribute('aria-selected', 'true');
-                    paymentDetails.setAttribute('data-complete', 'true');
-                    document.getElementById("chargeId").textContent = data.charge_id;
-                    document.getElementById("cardNumber").textContent = "**** **** ****" + card4Digits;
-                } else {
-                    // Handle API call failure
-                    console.error('API call failed');
-                }
-            })
-            .catch(function(error) {
-                console.error('Error:', error);
-            });
-        }
-    });
+    //             if (data && data.status === 'success') {
+    //                 // Success handling
+    //                 paymentConsentDetails.setAttribute('hidden', '');
+    //                 paymentDetails.removeAttribute('hidden');
+    //                 paymentDetails.setAttribute('aria-selected', 'true');
+    //                 paymentDetails.setAttribute('data-complete', 'true');
+    //                 document.getElementById("chargeId").textContent = data.charge_id;
+    //                 document.getElementById("cardNumber").textContent = "**** **** ****" + card4Digits;
+    //             } else {
+    //                 // Handle API call failure
+    //                 console.error('API call failed');
+    //             }
+    //         })
+    //         .catch(function(error) {
+    //             console.error('Error:', error);
+    //         });
+    //     }
+    // });
 
-    document.querySelector('#customButton').addEventListener('click', function(e) {
-        var sessionChargeId = "{{ session('stripe_charge_id') }}";
+    // document.querySelector('#customButton').addEventListener('click', function(e) {
+    //     var sessionChargeId = "{{ session('stripe_charge_id') }}";
         
-        if (sessionChargeId == "") {
-            handler.open({
-                name: 'MD For Patients',
-                description: 'Consultation Deposit',
-                currency: 'usd',
-                amount: 19900,
-                image: "/dist/assets/images/logo-mini.png",
-            });
-        } else {
-            paymentConsentDetails.setAttribute('hidden', '');
-            paymentDetails.removeAttribute('hidden');
-            paymentDetails.setAttribute('aria-selected', 'true');
-            paymentDetails.setAttribute('data-complete', 'true');
-        }
-    });
+    //     if (sessionChargeId == "") {
+    //         handler.open({
+    //             name: 'MD For Patients',
+    //             description: 'Consultation Deposit',
+    //             currency: 'usd',
+    //             amount: 19900,
+    //             image: "/dist/assets/images/logo-mini.png",
+    //         });
+    //     } else {
+    //         paymentConsentDetails.setAttribute('hidden', '');
+    //         paymentDetails.removeAttribute('hidden');
+    //         paymentDetails.setAttribute('aria-selected', 'true');
+    //         paymentDetails.setAttribute('data-complete', 'true');
+    //     }
+    // });
 
-    window.addEventListener('popstate', function() {
-        handler.close();
-    });
+    // window.addEventListener('popstate', function() {
+    //     handler.close();
+    // });
 
     document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {
         paymentDetails.setAttribute('hidden', '');
         documentUpload.removeAttribute('hidden');
     });
+</script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function () {
+    var stripe = Stripe("{{ config('services.stripe.stripe_key') }}");
+    var elements = stripe.elements();
+
+    var style = {
+        base: {
+            color: '#32325d',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+    var cardElement = elements.create('card', {
+        style: style,
+        hidePostalCode: true  // Hide the postal code field
+    });
+
+    cardElement.mount('#card-element');
+
+    $('#card-button').on('click', function (e) {
+        e.preventDefault();
+
+        const cardHolderName = $('#card-holder-name').val();
+        const email = $('#card-holder-email').val();
+
+        if (!cardHolderName || !email) {
+            $('#card-errors').text('Card holder name and email are required.');
+            return;
+        }
+
+        $.ajax({
+            url: '/create-customer',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                name: cardHolderName,
+                email: email
+            },
+            success: function (customerResponse) {
+                console.log('Customer created: ', customerResponse);
+                $.ajax({
+                    url: '/create-payment-intent',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        customer_id: customerResponse.customer_id
+                    },
+                    success: function (paymentIntentResponse) {
+                        console.log('Payment Intent created: ', paymentIntentResponse);
+                        processPayment(paymentIntentResponse.clientSecret, cardHolderName, email);
+                    },
+                    error: function (error) {
+                        console.error('Error creating payment intent: ', error);
+                        $('#card-errors').text('Error creating payment intent. Please try again.');
+                    }
+                });
+            },
+            error: function (error) {
+                console.error('Error creating customer: ', error);
+                $('#card-errors').text('Error creating customer. Please try again.');
+            }
+        });
+    });
+
+    function processPayment(clientSecret, cardHolderName, email) {
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: cardElement,
+                billing_details: {
+                    name: cardHolderName
+                }
+            }
+        }).then(function (result) {
+            if (result.error) {
+                $('#card-errors').text(result.error.message);
+            } else {
+                $.ajax({
+                    url: '/handle-payment',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        payment_intent_id: result.paymentIntent.id,
+                        cardHolderName: cardHolderName,
+                        cardHolderEmail: email
+
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Payment successful!");
+                            paymentConsentDetails.setAttribute('hidden', '');
+                            paymentDetails.removeAttribute('hidden');
+                            paymentDetails.setAttribute('aria-selected', 'true');
+                            paymentDetails.setAttribute('data-complete', 'true');
+                            document.getElementById("chargeId").textContent = response.paymentDetails.charge_id;
+                            document.getElementById("cardNumber").textContent = "**** **** ****" + response.paymentDetails.last4;
+
+                        } else {
+                            alert('Payment failed: ' + response.error);
+                        }
+
+                        
+                    },
+                    error: function (error) {
+                        console.error('Error handling payment: ', error);
+                    }
+                });
+            }
+        });
+    }
+});
 </script>
 @endsection

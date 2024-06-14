@@ -79,3 +79,8 @@ Route::get('/view-file/{id}', [OtpController::class, 'viewFile'])->name('view-fi
 // Route::post('/live', 'App\Http\Controllers\StripeTempController@live');
 // Route::get('/success', 'App\Http\Controllers\StripeTempController@success')->name('success');
 
+
+//Stripe Related Routes
+Route::post('create-payment-intent', [StripeController::class, 'createPaymentIntent']);
+Route::post('create-customer', [StripeController::class, 'createCustomer']);
+Route::post('handle-payment', [StripeController::class, 'handlePayment']);
