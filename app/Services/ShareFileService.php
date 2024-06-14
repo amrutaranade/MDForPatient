@@ -100,9 +100,78 @@ class ShareFileService
         }
     }    
 
-    public function uploadFile($request, $file, $folderId)
+    public function uploadFile($request, $files, $folderId)
     {
-        $token = $this->getAccessToken();        
+        $token = $this->getAccessToken();
+        $successCount = 0;
+        
+        foreach ($files as $file) {            
+            
+            $local_path = $file->getPathname();
+            if (!$file) {
+                return response()->json(['error' => 'No file uploaded'], 400);
+            }
+
+            $original_filename = $file->getClientOriginalName();
+            $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")/Upload";            
+            Log::error('File upload link - : '.$uri);
+            $headers = $this->getAuthorizationHeader($token); // Implement this function to get authorization headers
+
+            $client = new Client([
+                'verify' => false,
+                'timeout' => 300,
+                'headers' => $headers
+            ]);
+
+            try {
+                $response = $client->get($uri);
+                $upload_config = json_decode($response->getBody()->getContents());
+
+                if ($response->getStatusCode() == 200) {
+                    $multipart = [
+                        [
+                            'name'     => 'File1',
+                            'contents' => fopen($local_path, 'r'),
+                            'filename' => $original_filename
+                        ]
+                    ];
+
+                    $uploadResponse = $client->post($upload_config->ChunkUri, [
+                        'multipart' => $multipart,
+                        'headers' => $headers // Use the same headers for the post request
+                    ]);
+
+                    //Save medical records data 
+                    PatientMedicalRecords::insert([
+                        'patient_id' => session("patient_id") ?? $request->patient_id,
+                        'document_name' => $original_filename,
+                        'folder_id' => $folderId,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                    $successCount++;
+                }
+            } catch (RequestException $e) {
+                Log::error('File upload error: '.$e->getMessage());
+                if ($e->hasResponse()) {
+                    $responseBody = $e->getResponse()->getBody()->getContents();
+                    Log::error('Response: '.$responseBody);
+                    return response()->json(['error' => $responseBody], $e->getResponse()->getStatusCode());
+                } else {
+                    return response()->json(['error' => 'Failed to connect to server'], 500);
+                }
+            }
+        }
+
+        if($successCount == count($files)){
+            return response()->json(['success']);
+        } else {
+            return response()->json(['error']);
+        }
+
+        /*
+        $token = $this->getAccessToken();    
+            
         $local_path = $request->file('file')->getPathname();
 
         if (!$file) {
@@ -164,6 +233,7 @@ class ShareFileService
                 return response()->json(['error' => 'Failed to connect to server'], 500);
             }
         }
+            */
     }
 
     private function getAuthorizationHeader($token)
@@ -174,7 +244,7 @@ class ShareFileService
         ];
     }
 
-    public function ensureFolderExistsAndUploadFile($request, $folderName, $filePath) {
+    public function ensureFolderExistsAndUploadFile($request, $folderName, $files) {
         $rootFolderId = $this->getPersonalRootFolderId();
 
         if ($rootFolderId === null) {
@@ -187,7 +257,7 @@ class ShareFileService
             $folderId = $this->createFolder($rootFolderId, $folderName);
         }
 
-        return $this->uploadFile($request, $filePath, $folderId);
+        return $this->uploadFile($request, $files, $folderId);
     }
 
     public function getPersonalRootFolderId() {

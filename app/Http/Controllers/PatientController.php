@@ -48,10 +48,12 @@ class PatientController extends Controller
     }
 
     // Helper method to delete incomplete form data
-    private function deleteIncompleteFormData($formId)
+    private function deleteIncompleteFormData($patientId)
     {
-        $patient = PatientsRegistrationDetail::where('form_id', $formId)->first();
+        $patient = PatientsRegistrationDetail::where('id', $patientId)->first();
         if ($patient) {
+            PatientMedicalRecords::where('patient_id', $patient->id)->delete();
+            PatientExpertOpinionRequest::where('patient_id', $patient->id)->delete();
             ContactParty::where('patient_id', $patient->id)->delete();
             ReferringPhysician::where('patient_id', $patient->id)->delete();
             PatientPrimaryConcern::where('patient_id', $patient->id)->delete();
@@ -379,8 +381,7 @@ class PatientController extends Controller
     public function upload(Request $request)
     {        
         $folderName = session("patient_consulatation_number") ?? $request->input('patient_consulatation_number');
-        $filePath = $request->file('file')->getPathname();
-        $file = $request->file('file');
+        $file = $request->files->get('file');
 
         try {
             $result = $this->shareFileService->ensureFolderExistsAndUploadFile($request, $folderName, $file);
@@ -427,9 +428,11 @@ class PatientController extends Controller
     
     public function discardApplication() {
         $patientId = session('patient_id');
+
+
         $this->deleteIncompleteFormData($patientId);
         session()->flush();
-        return redirect()->route('/');
+        return redirect()->route('home');
     }
     
 }

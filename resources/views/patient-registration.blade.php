@@ -54,7 +54,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
                             <div class="p-5 mx-3">
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -507,7 +507,7 @@
                         <!-- / End Step 3 -->
 
                         <!-- Step 4 -->
-                        <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0">
+                        <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0" hidden>
                             <div class="p-5 mx-3">
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -677,10 +677,11 @@
                                 <button data-action="prev" type="button" class="btn btn-secondary rounded">
                                     Back
                                 </button>
-                                <button class="btn btn-success btn-fw agreeButton" data-toggle="modal" data-target="#paymentModal">Agree & Proceed For Payment</button>
-                                <div class="container mt-5">
+                                <button class="btn btn-success btn-fw agreeButton" id="agreeButton" onclick="nextTab()">Agree & Proceed</button>
+                                <button class="btn btn-success btn-fw" id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>                                
+                                <button class="btn btn-success btn-fw agreeAfterPaymentButton" id="agreeButton" onclick="nextTab()" hidden>Agree & Proceed</button>
                                     
-
+                                <div class="container mt-5">
                                     <!-- Modal -->
                                     <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -758,9 +759,10 @@
                                         </div>
                                     </div>
                                     <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
-                                        <button type="button" class="btn btn-secondary mr-3 rounded" >
+                                        <button data-action="pre" type="button" class="btn btn-secondary mr-3 rounded backButtonPaymentDetails" >
                                             Back
                                         </button>
+                                        
                                         <button type="button" data-action="next" class="btn btn-success rounded" id="continueButtonStep6">
                                         Save & Next
                                         </button>
@@ -803,6 +805,7 @@
                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
                                                 <script>
                                                     Dropzone.options.fileUpload = {
+                                                        url:"{{ url('/upload') }}",
                                                         paramName: "file", // The name that will be used to transfer the file
                                                         maxFilesize: 1000, // MB
                                                         acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
@@ -853,8 +856,6 @@
 
                                                             // Handling the success event
                                                             this.on("success", function(file, response) {
-                                                                console.log("success", response);
-                                                                console.log('file->', file);
                                                             });
 
                                                             // Handling the error event
@@ -934,6 +935,51 @@
                                                             fileList.innerHTML = htmlString;
                                                             filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
                                                         }
+                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
+
+                                                        async function uploadFiles() {
+                                                            const apiUrl = "{{route('upload')}}";
+                                                            const formData = new FormData();
+
+                                                            for (const file of filesArray) {
+                                                                formData.append("file[]", file);
+                                                            }
+                                                            formData.append("file", filesArray);
+                                                            try {
+                                                                const response = await fetch(apiUrl, {
+                                                                    method: "POST",
+                                                                    body: formData,
+                                                                    headers: {
+                                                                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                                                    },
+                                                                });
+
+                                                                if (response.ok) {
+                                                                    alert("Files uploaded successfully");
+                                                                    window.location = "{{ route('final-submission') }}";
+                                                                } else {
+                                                                    console.error("Failed to upload files");
+                                                                }
+                                                            } catch (error) {
+                                                                console.error("An error occurred while uploading files");
+                                                            }
+                                                        }
+
+                                                        function readFileAsBinary(file) {
+                                                            return new Promise((resolve, reject) => {
+                                                                const reader = new FileReader();
+
+                                                                reader.onload = () => {
+                                                                    resolve(reader.result);
+                                                                };
+
+                                                                reader.onerror = () => {
+                                                                    reject(new Error("Failed to read file as binary"));
+                                                                };
+
+                                                                reader.readAsBinaryString(file);
+                                                            });
+                                                        }
                                                     });
 
                                                 </script>
@@ -944,8 +990,7 @@
                                                 Back
                                             </button> &nbsp;&nbsp;
 
-                                            <button id="confirm-upload" class="step1 btn btn-success">Submit</button>
-                                            <button id="confirmUploadBtn" class="agreeButton" disabled>Confirm Upload</button>
+                                            <button id="confirm-upload" class="step1 btn btn-success" type="button" >Submit</button>
                                         </div>
                                     </div>
                                 </div>                            
@@ -968,9 +1013,12 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
+
 <script>
     console.clear();
 
+    //Set Agree to Payment button off on payload
+    
     function ready(fn) {
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setTimeout(fn, 1);
@@ -1197,6 +1245,9 @@
         case 'date':
             return validateDate(field);  
         case  'hidden': return {
+            isValid: true
+        };
+        case  'file': return {
             isValid: true
         };
         
@@ -1736,41 +1787,30 @@
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle back button click from primary concern page
-    const backButtonPrimaryConcern = document.querySelector(".backButtonPrimaryConcern");
-    if (backButtonPrimaryConcern) {
-        backButtonPrimaryConcern.addEventListener("click", function() {
-            const panel5 = document.getElementById("progress-form__panel-5");
-            const panel4 = document.getElementById("progress-form__panel-4");
+    
+    $(".backButtonPaymentDetails").click(function() {
+        const panel6 = document.getElementById("progress-form__panel-6");
+        const panel5 = document.getElementById("progress-form__panel-5");
 
-            if (panel5 && panel4) {
-                panel5.setAttribute("hidden", "");
-                panel4.removeAttribute("hidden");
-            } else {
-                console.error("One or both of the panels (panel 5 or panel 4) not found.");
-            }
-        });
-    } else {
-        console.error("Element with class 'backButtonPrimaryConcern' not found.");
-    }
+        if (panel6 && panel5) {
+            panel6.setAttribute("hidden", "");
+            panel5.removeAttribute("hidden");
+        } else {
+            console.error("One or both of the panels (panel 6 or panel 5) not found.");
+        }
+    });
 
-    // Handle back button click from payment details page
-    const backButtonPaymentDetails = document.querySelector(".backButtonPaymentDetails");
-    if (backButtonPaymentDetails) {
-        backButtonPaymentDetails.addEventListener("click", function() {
-            const panel6 = document.getElementById("progress-form__panel-6");
-            const panel5 = document.getElementById("progress-form__panel-5");
+    $(".agreeAfterPaymentButton").click(function() {
+        const panel6 = document.getElementById("progress-form__panel-6");
+        const panel5 = document.getElementById("progress-form__panel-5");
 
-            if (panel6 && panel5) {
-                panel6.setAttribute("hidden", "");
-                panel5.removeAttribute("hidden");
-            } else {
-                console.error("One or both of the panels (panel 6 or panel 5) not found.");
-            }
-        });
-    } else {
-        console.error("Element with class 'backButtonPaymentDetails' not found.");
-    }
+        if (panel6 && panel5) {
+            panel5.setAttribute("hidden", "");
+            panel6.removeAttribute("hidden");
+        } else {
+            console.error("One or both of the panels (panel 6 or panel 5) not found.");
+        }
+    });
 });
 
 
@@ -1881,6 +1921,10 @@ document.addEventListener('DOMContentLoaded', function() {
             currentTab++;
             showTab(currentTab);
             enableTabButtons();
+            document.getElementById("agreeAndProceedButton").removeAttribute("hidden");
+            document.getElementById("agreeButton").setAttribute("hidden", '');
+            document.getElementById("agreeAfterPaymentButton").setAttribute("hidden", '');
+
         }
     }
 
@@ -2212,7 +2256,6 @@ $(document).ready(function () {
                 }
             });
 
-            console.log('Customer created: ', customerResponse);
             const customerId = customerResponse.customer_id;
 
             // Attach payment method
@@ -2249,7 +2292,6 @@ $(document).ready(function () {
                 }
             });
 
-            console.log('Payment Intent created: ', paymentIntentResponse);
             processPayment(paymentIntentResponse.clientSecret, cardHolderName, email);
         } catch (error) {
             console.error('Error: ', error);
@@ -2293,7 +2335,6 @@ $(document).ready(function () {
             console.error('Error confirming card payment:', error.message);
             $('#card-errors').text('Error confirming card payment. Please try again.');
         } else if (paymentIntent.status === 'succeeded') {
-            console.log('Payment successful!');
             $('#card-errors').text('Payment successful!');
         }
     }
@@ -2329,6 +2370,11 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         if (response.success) {
+                            $('#paymentModal').modal('hide');
+                            $('.modal-backdrop').remove();
+                            $('#paymentModal').remove();
+                            $(".agreeAfterPaymentButton").removeAttr("hidden");
+                            $("#agreeAndProceedButton").attr("hidden", 'hidden');
                             alert("Payment successful!");
                             paymentConsentDetails.setAttribute('hidden', '');
                             paymentDetails.removeAttribute('hidden');
@@ -2340,8 +2386,8 @@ $(document).ready(function () {
                         } else {
                             alert('Payment failed: ' + response.error);
                         }
-                        $('#paymentModal').modal('hide');
-                        $('.modal-backdrop').remove();
+                        
+                        
                         
                     },
                     error: function (error) {
@@ -2352,20 +2398,19 @@ $(document).ready(function () {
         });
     }
 
-
-
-$('#surgery_description').removeAttr('required');
-$('#surgery_description').closest('.form__field').hide();
+    $('#surgery_description').removeAttr('required');
+    $('#surgery_description').closest('.form__field').hide();
     $('input[name="treated_before"]').on('change', function() {
-                if ($('#yesRadio').is(':checked')) {
-                    $('#surgery_description').attr('required', 'required');
-                    $('#surgery_description').closest('.form__field').show();
-                }else if($('#noRadio').is(':checked')) {
-                    $('#surgery_description').removeAttr('required');
-                    $('#surgery_description').closest('.form__field').hide();
-                }
+        if ($('#yesRadio').is(':checked')) {
+            $('#surgery_description').attr('required', 'required');
+            $('#surgery_description').closest('.form__field').show();
+        }else if($('#noRadio').is(':checked')) {
+            $('#surgery_description').removeAttr('required');
+            $('#surgery_description').closest('.form__field').hide();
+        }
 
-            });
+    });
+
 });
 </script>
 @endsection

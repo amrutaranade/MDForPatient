@@ -26691,6 +26691,6 @@ table td{
 div.payment {
   background-color: white;
 }
-.ButtonContainer{
-  display: none;
+.ButtonContainer--save, .ButtonContainer--pay, .ButtonContainer--use{
+  display: none !important;
 }

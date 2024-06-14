@@ -42,7 +42,7 @@ Route::get('/upload', function () {
     return view('upload');
 });
 
-Route::post('/upload', [PatientController::class, 'upload']);
+Route::post('/upload', [PatientController::class, 'upload'])->name("upload");
 
 
 //Gmail Routes
@@ -84,3 +84,4 @@ Route::get('/view-file/{id}', [OtpController::class, 'viewFile'])->name('view-fi
 Route::post('create-payment-intent', [StripeController::class, 'createPaymentIntent']);
 Route::post('create-customer', [StripeController::class, 'createCustomer']);
 Route::post('handle-payment', [StripeController::class, 'handlePayment']);
+Route::post('/attach-payment-method', [StripeController::class, 'attachPaymentMethodToCustomer']);

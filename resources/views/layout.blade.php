@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/dist/assets/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" href="/dist/assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="/dist/assets/vendors/font-awesome/css/font-awesome.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
    
@@ -67,5 +68,12 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- End custom js for this page -->
+     <script>
+      $(document).on('click', '.btnDiscardRequest', function() {
+        if (confirm("You will loose filled data. Are you sure you want to discard the application? ")) {
+          window.location.href = "{{ route('discard-application') }}";
+        }
+      });
+     </script>
   </body>
 </html>
