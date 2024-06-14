@@ -56,20 +56,20 @@
                         <!-- Step 1 -->
                         <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
                             <div class="p-5 mx-3">
-                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="first-name">
                                         First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="first-name" type="text" name="first-name" autocomplete="given-name" required>
+                                    <input id="first-name" type="text" name="firstname" autocomplete="given-name" required>
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="first-name">
                                         Middle Name
                                     </label>
-                                    <input id="middle-name" type="text" name="middle-name" autocomplete="given-name">
+                                    <input id="middle-name" type="text" name="middlename" autocomplete="given-name">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -77,7 +77,7 @@
                                         Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="last-name" type="text" name="last-name" autocomplete="family-name" required>
+                                    <input id="last-name" type="text" name="lastname" autocomplete="family-name" required>
                                     </div>
                                 </div>
 
@@ -111,7 +111,7 @@
                                             City
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        <input id="city" type="text" name="city" autocomplete="given-name" required>
+                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                         Postal Code
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" required>
+                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required>
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="Country">
@@ -154,7 +154,7 @@
                                         Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                    <input id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required>
                                     <label id="email-check-result"></label>
                                     </div>
 
@@ -163,7 +163,7 @@
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required>
+                                    <input id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required>
                                     <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                     </div>
                                 </div>
@@ -389,7 +389,7 @@
                                         First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="first-name-step3" type="text" name="first-name" autocomplete="given-name" required>
+                                    <input id="first-name-step3" type="text" name="firstnamestep3" autocomplete="given-name" required>
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -397,7 +397,7 @@
                                         Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="last-name-step3" type="text" name="last-name" autocomplete="family-name" required>
+                                    <input id="last-name-step3" type="text" name="lastnamestep3" autocomplete="family-name" required>
                                     </div>
                                 </div>
 
@@ -424,14 +424,14 @@
                                         City
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="city-step3" type="text" name="city" autocomplete="given-name" required>
+                                    <input id="city-step3" type="text" name="citystep3" autocomplete="given-name" required>
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="postal_code">
                                         Postal Code
                                     </label>
-                                    <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postal_code" autocomplete="given-name" >
+                                    <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postalcodestep3" autocomplete="given-name" >
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -464,7 +464,7 @@
                                         Email Address 
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" required>
+                                    <input id="email_step3" type="email" name="email_step3" class ="email" autocomplete="given-name" required>
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -472,7 +472,7 @@
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" required>
+                                    <input id="confirm_email_step3" type="email" name="confirm_email_step3" class ="confirm_email" autocomplete="given-name" required>
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -481,7 +481,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" required>
+                                    <input id="phone_number_step3" type="text" name="phonenumberstep3" autocomplete="given-name" required>
                                     </div>
                                 </div>
 
@@ -1949,41 +1949,7 @@ document.addEventListener('DOMContentLoaded', function() {
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
 
-    $(document).ready(function() {
-    let typingTimer;
-    let doneTypingInterval = 1000; // time in ms (1 second)
 
-    // on keyup, start the countdown
-    $('#email_step1, #confirm_email_step1').on('keyup', function() {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    });
-
-    // on keydown, clear the countdown
-    $('#email_step1, #confirm_email_step1').on('keydown', function() {
-        clearTimeout(typingTimer);
-    });
-
-    // user is "finished typing," do something
-    function doneTyping() {
-        // Get the values of the email fields
-        let email = $('#email_step1').val();
-        let confirmEmail = $('#confirm_email_step1').val();
-        if(confirmEmail != ""){
-        // Check if the emails match
-        if (email !== confirmEmail) {
-            $('#emailMatchMessage').show();
-            $('#emailMatchMessage').addClass('form__error-text');
-            $('#continueButton').prop('disabled', true);
-        } else {
-            $('#emailMatchMessage').hide();
-            $('#emailMatchMessage').removeClass('form__error-text');
-            $('#continueButton').prop('disabled', false);
-        }
-        }
-
-    }
-    });
 
     $(document).ready(function() {
     // Function to show/hide fields based on the selected relationship

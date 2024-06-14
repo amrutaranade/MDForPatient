@@ -65,8 +65,10 @@
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/patient.js') }}"></script>
     
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+   
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="{{ mix('js/validation.js') }}"></script>
     <!-- End custom js for this page -->
      <script>
       $(document).on('click', '.btnDiscardRequest', function() {

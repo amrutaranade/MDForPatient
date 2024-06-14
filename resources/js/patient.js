@@ -244,41 +244,41 @@ function getBrowserAgent() {
     return navigator.userAgent;
   }
 
-  $('#email_step1').on('blur', function() {
-    var email = $(this).val();
-    if (email === '') {
-        $('#email-check-result').text('');
-        return;
-    }
-    // Get CSRF token from the page's meta tag
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//   $('#email_step1').on('blur', function() {
+//     var email = $(this).val();
+//     if (email === '') {
+//         $('#email-check-result').text('');
+//         return;
+//     }
+//     // Get CSRF token from the page's meta tag
+//     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Add CSRF token to the headers of the AJAX request
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': csrfToken
-        }
-    });
-    $.ajax({
-        url: '/check-email',
-        type: 'POST',
-        data: {
-            email: email,
-        },
-        success: function(response) {
-            if (response.exists) {
-                $('#email-check-result')
-                .text('Email already exists')
-                .addClass('form__error-text');
-                $('#continueButton').prop('disabled', true);
-            } else {
-                $('#email-check-result')
-                .text('')
-                .removeClass('form__error-text'); // Remove the class if not exists
-                $('#continueButton').prop('disabled', false);
-            }
-        }
-    });
-});
+//     // Add CSRF token to the headers of the AJAX request
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': csrfToken
+//         }
+//     });
+//     $.ajax({
+//         url: '/check-email',
+//         type: 'POST',
+//         data: {
+//             email: email,
+//         },
+//         success: function(response) {
+//             if (response.exists) {
+//                 $('#email-check-result')
+//                 .text('Email already exists')
+//                 .addClass('form__error-text');
+//                 $('#continueButton').prop('disabled', true);
+//             } else {
+//                 $('#email-check-result')
+//                 .text('')
+//                 .removeClass('form__error-text'); // Remove the class if not exists
+//                 $('#continueButton').prop('disabled', false);
+//             }
+//         }
+//     });
+// });
 
 });
