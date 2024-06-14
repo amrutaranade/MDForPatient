@@ -534,7 +534,7 @@
                                     </div>
                                 </div>
 
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3" id="surgeryDescriptionDiv">
                                     
                                     <div class="mt-3 sm:mt-0 form__field ">
                                         <label for="address-city">
@@ -2278,6 +2278,21 @@ $(document).ready(function () {
             }
         });
     }
+
+
+
+$('#surgery_description').removeAttr('required');
+$('#surgery_description').closest('.form__field').hide();
+    $('input[name="treated_before"]').on('change', function() {
+                if ($('#yesRadio').is(':checked')) {
+                    $('#surgery_description').attr('required', 'required');
+                    $('#surgery_description').closest('.form__field').show();
+                }else if($('#noRadio').is(':checked')) {
+                    $('#surgery_description').removeAttr('required');
+                    $('#surgery_description').closest('.form__field').hide();
+                }
+
+            });
 });
 </script>
 @endsection
