@@ -941,7 +941,7 @@ a:focus {
 
   --label-text-color: hsl(var(--blue-900));
   --label-text-font-size: 1.3rem;
-  --label-text-font-weight: 600;
+  --label-text-font-weight: 700;
   --label-text-letter-spacing: 0.05em;
 
   /* --- Error Text ---*/

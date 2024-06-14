@@ -54,7 +54,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
                             <div class="p-5 mx-3">
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -507,7 +507,7 @@
                         <!-- / End Step 3 -->
 
                         <!-- Step 4 -->
-                        <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0" hidden>
+                        <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0">
                             <div class="p-5 mx-3">
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -522,15 +522,16 @@
                                         Has The Patient Been Treated Or Had Surgery For This Condition Before?
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        
-                                        <div class=" form-check-inline">
-                                            <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
-                                            <label class="form-check-label" for="yesRadio">Yes</label>
+                                        <div class="d-flex align-items-center h-50">
+                                            <div class=" form-check-inline d-flex align-items-center pr-2">
+                                                <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
+                                                <label class="form-check-label pb-0 pl-2" for="yesRadio">Yes</label>
+                                            </div>
+                                            <div class="form-check-inline d-flex align-items-center pl-2">
+                                                <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
+                                                <label class="form-check-label pb-0 pl-2" for="noRadio">No</label>
+                                            </div>  
                                         </div>
-                                        <div class=" form-check-inline">
-                                            <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
-                                            <label class="form-check-label" for="noRadio">No</label>
-                                        </div>  
                                     </div>
                                 </div>
 
@@ -592,7 +593,7 @@
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <iframe
                                                     src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
-                                                    style="max-width: 100%" class="">
+                                                    style="width: 100%; max-width: 100%" class="">
                                                 </iframe>
                                             </div>
                         
@@ -604,7 +605,7 @@
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <iframe
                                                     src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
-                                                    style="max-width: 100%" class="">
+                                                    style="width: 100%; max-width: 100%" class="">
                                                 </iframe>
                                             </div>
                                         </div>
