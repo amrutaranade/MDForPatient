@@ -29,22 +29,22 @@ class PatientsRegistrationDetail extends Model
     ];
 
     // Encrypt specific fields before saving
-    public function setAttribute($key, $value)
-    {
-        if (in_array($key, $this->fillable) && !is_null($value) && $key !== 'date_of_birth') {
-            $this->attributes[$key] = Crypt::encryptString($value);
-        } else {
-            parent::setAttribute($key, $value);
-        }
-    }
+    // public function setAttribute($key, $value)
+    // {
+    //     if (in_array($key, $this->fillable) && !is_null($value) && $key !== 'date_of_birth') {
+    //         $this->attributes[$key] = Crypt::encryptString($value);
+    //     } else {
+    //         parent::setAttribute($key, $value);
+    //     }
+    // }
 
-    // Decrypt specific fields
-    public function getAttribute($key)
-    {
-        if (in_array($key, $this->fillable) && isset($this->attributes[$key]) && $key !== 'date_of_birth') {
-            return Crypt::decryptString($this->attributes[$key]);
-        } else {
-            return parent::getAttribute($key);
-        }
-    }
+    // // Decrypt specific fields
+    // public function getAttribute($key)
+    // {
+    //     if (in_array($key, $this->fillable) && isset($this->attributes[$key]) && $key !== 'date_of_birth') {
+    //         return Crypt::decryptString($this->attributes[$key]);
+    //     } else {
+    //         return parent::getAttribute($key);
+    //     }
+    // }
 }

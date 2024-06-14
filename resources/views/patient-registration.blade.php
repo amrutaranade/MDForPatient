@@ -713,7 +713,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button id="card-button" class="btn btn-primary" data-secret="">Pay</button>
+                                                    <button id="card-button" class="btn btn-primary btn-success" data-secret="">Pay</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -1135,7 +1135,7 @@ textarea[aria-invalid="true"] {
   --field-border: var(--field-border-width)
     var(--field-border-style)
     var(--field-border-color);
-  --field-text-color: var(--error-text-color);
+  /*--field-text-color: var(--error-text-color);*/
   box-shadow: 0 0 0 1px hsl(var(--form-error-color));
 }
 
