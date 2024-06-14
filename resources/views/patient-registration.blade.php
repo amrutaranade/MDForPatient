@@ -616,27 +616,27 @@
                         
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                    <input id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes"
                                                         class="patientAgreement">
                                                     <span>Patient Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                    <input id="appendix_1" type="checkbox" name="appendix_1" value="Yes"
                                                         class="patientAgreement">
                                                     <span>Appendix 1 : Payment Terms</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                    <input id="appendix_2" type="checkbox" name="appendix_2" value="Yes"
                                                         class="patientAgreement">
                                                     <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                    <input id="appendix_3" type="checkbox" name="appendix_3" value="Yes"
                                                         class="patientAgreement">
                                                     <span>Appendix 3: Medicare Opt-Out Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes"
+                                                    <input id="appendix_4" type="checkbox" name="appendix_4" value="Yes"
                                                         class="patientAgreement">
                                                     <span>Appendix 4: Informed Consent</span>
                                                 </label>
@@ -647,7 +647,7 @@
                                                         By typing the full name below, I hereby indicate that I understand and accept all terms
                                                         as specified in the Patient Agreement and in each Appendix
                                                     </label>
-                                                    <input id="digital_signature" type="text" name="digital_signature"
+                                                    <input id="re_type_name" type="text" name="digital_signature"
                                                         autocomplete="given-name">
                                                 </div>
                                             </div>
@@ -676,16 +676,14 @@
                                 <button data-action="prev" type="button" class="btn btn-secondary rounded">
                                     Back
                                 </button>
-                                <button type="button" class="btn btn-success btn-fw agreeButton" onclick="goToTab(1)">
-                                    Agree & Proceed
-                                </button>
+                                <button class="btn btn-success btn-fw agreeButton" data-toggle="modal" data-target="#paymentModal">Agree & Proceed For Payment</button>
                                 <div class="container mt-5">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#paymentModal">Pay with Stripe</button>
+                                    
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
+                                            <div class="modal-content payment">
                                                 <div class="modal-header">
                                                     <div>
                                                     <img src="/dist/assets/images/logo-mini.png" alt="Logo" class="mb-3">
@@ -695,7 +693,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body text-center">
+                                                <div class="modal-body text-left">
                                                     
                                                         <div class="form-group">
                                                             <label for="card-holder-name">Card Holder Name</label>
@@ -946,6 +944,7 @@
                                             </button> &nbsp;&nbsp;
 
                                             <button id="confirm-upload" class="step1 btn btn-success">Submit</button>
+                                            <button id="confirmUploadBtn" class="agreeButton" disabled>Confirm Upload</button>
                                         </div>
                                     </div>
                                 </div>                            
@@ -1198,6 +1197,7 @@
         case  'hidden': return {
             isValid: true
         };
+        
         default:
             throw new Error(`The provided field type '${field.tagName}:${field.type}' is not supported in this form.`);
         }
@@ -2176,7 +2176,7 @@ $(document).ready(function () {
 
     cardElement.mount('#card-element');
 
-    $('#card-button').on('click', function (e) {
+    $('#card-button').on('click', async function (e) {
         e.preventDefault();
 
         const cardHolderName = $('#card-holder-name').val();
@@ -2187,39 +2187,104 @@ $(document).ready(function () {
             return;
         }
 
-        $.ajax({
-            url: '/create-customer',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                name: cardHolderName,
-                email: email
-            },
-            success: function (customerResponse) {
-                console.log('Customer created: ', customerResponse);
-                $.ajax({
-                    url: '/create-payment-intent',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        customer_id: customerResponse.customer_id
-                    },
-                    success: function (paymentIntentResponse) {
-                        console.log('Payment Intent created: ', paymentIntentResponse);
-                        processPayment(paymentIntentResponse.clientSecret, cardHolderName, email);
-                    },
-                    error: function (error) {
-                        console.error('Error creating payment intent: ', error);
-                        $('#card-errors').text('Error creating payment intent. Please try again.');
-                    }
-                });
-            },
-            error: function (error) {
-                console.error('Error creating customer: ', error);
-                $('#card-errors').text('Error creating customer. Please try again.');
+        try {
+            // Create customer first
+            const customerResponse = await $.ajax({
+                url: '/create-customer',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    name: cardHolderName,
+                    email: email
+                }
+            });
+
+            console.log('Customer created: ', customerResponse);
+            const customerId = customerResponse.customer_id;
+
+            // Attach payment method
+            //const cardElement = elements.getElement(CardElement);
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: cardHolderName,
+                    email: email
+                }
+            });
+
+            if (error) {
+                console.error('Error creating payment method: ', error);
+                $('#card-errors').text('Error creating payment method. Please try again.');
+                return;
+            }
+
+            const attachResponse = await attachPaymentMethodToCustomer(paymentMethod.id, customerId);
+            if (!attachResponse) {
+                $('#card-errors').text('Error attaching payment method. Please try again.');
+                return;
+            }
+
+            // Create payment intent
+            const paymentIntentResponse = await $.ajax({
+                url: '/create-payment-intent',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    customer_id: customerId,
+                    payment_method_id: paymentMethod.id
+                }
+            });
+
+            console.log('Payment Intent created: ', paymentIntentResponse);
+            processPayment(paymentIntentResponse.clientSecret, cardHolderName, email);
+        } catch (error) {
+            console.error('Error: ', error);
+            $('#card-errors').text('An error occurred. Please try again.');
+        }
+    });
+
+    async function attachPaymentMethodToCustomer(paymentMethodId, customerId) {
+        try {
+            const response = await fetch('/attach-payment-method', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    payment_method_id: paymentMethodId,
+                    customer_id: customerId
+                })
+            });
+            const data = await response.json();
+            return data.success;
+        } catch (error) {
+            console.error('Error attaching payment method:', error);
+            return false;
+        }
+    }
+
+    async function processPayment(clientSecret, cardHolderName, email) {
+        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    name: cardHolderName,
+                    email: email
+                }
             }
         });
-    });
+
+        if (error) {
+            console.error('Error confirming card payment:', error.message);
+            $('#card-errors').text('Error confirming card payment. Please try again.');
+        } else if (paymentIntent.status === 'succeeded') {
+            console.log('Payment successful!');
+            $('#card-errors').text('Payment successful!');
+        }
+    }
+
 
     function processPayment(clientSecret, cardHolderName, email) {
         stripe.confirmCardPayment(clientSecret, {
@@ -2240,7 +2305,13 @@ $(document).ready(function () {
                         _token: '{{ csrf_token() }}',
                         payment_intent_id: result.paymentIntent.id,
                         cardHolderName: cardHolderName,
-                        cardHolderEmail: email
+                        cardHolderEmail: email,
+                        patient_agreement: document.getElementById('patient_agreement').value,
+                        appendix_1: document.getElementById('appendix_1').value ,
+                        appendix_2: document.getElementById('appendix_2').value,
+                        appendix_3: document.getElementById('appendix_3').value,
+                        appendix_4: document.getElementById('appendix_4').value,
+                        re_type_name: document.getElementById('re_type_name').value
 
                     },
                     success: function (response) {
@@ -2256,7 +2327,8 @@ $(document).ready(function () {
                         } else {
                             alert('Payment failed: ' + response.error);
                         }
-
+                        $('#paymentModal').modal('hide');
+                        $('.modal-backdrop').remove();
                         
                     },
                     error: function (error) {

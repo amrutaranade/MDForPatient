@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use Stripe\Checkout\Session;
 use Stripe\Charge;
 use Stripe\Exception\ApiErrorException;
+use App\Models\PatientExpertOpinionRequest;
 
 class StripeController extends Controller
 {
@@ -197,6 +198,18 @@ class StripeController extends Controller
                         'status' => $paymentIntent->status,
                     ]);
         
+                    PatientExpertOpinionRequest::create([
+                        'patient_agreement' =>$request->patient_agreement,
+                        "patient_id" => session('patient_id'),
+                        'appendix_1' => $request->appendix_1,
+                        'appendix_2' => $request->appendix_2,
+                        'appendix_3' => $request->appendix_3,
+                        'appendix_4' =>$request->appendix_4,
+                        're_type_name' => $request->re_type_name,
+                        // 'cover_letter' =>$coverLetterContents,
+                        // 'agreement' =>$agreementContents
+        
+                    ]);
                     session(['stripe_charge_id' => $paymentIntent->latest_charge]);
                     
                     return response()->json([
@@ -274,6 +287,28 @@ class StripeController extends Controller
                 'success' => false,
                 'error' => $e->getMessage()
             ]);
+        }
+    }
+
+    public function attachPaymentMethodToCustomer(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.stripe_secret_key'));
+
+        try {
+            // Attach the payment method to the customer
+            $paymentMethod = PaymentMethod::retrieve($request->payment_method_id);
+            $paymentMethod->attach(['customer' => $request->customer_id]);
+
+            // Update the default payment method for the customer
+            Customer::update($request->customer_id, [
+                'invoice_settings' => [
+                    'default_payment_method' => $request->payment_method_id,
+                ],
+            ]);
+
+            return response()->json(['success' => true]);
+        } catch (ApiErrorException $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 }
