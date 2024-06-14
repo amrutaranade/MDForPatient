@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\PatientMedicalRecords;
 use App\Models\PatientExpertOpinionRequest;
 use App\Http\Controllers\EmailController;
+use App\Rules\UniqueEmail;
 
 
 class PatientController extends Controller
@@ -295,21 +296,11 @@ class PatientController extends Controller
 
     public function checkEmail(Request $request)
     {
-        $email = ($request->input('email')) ? Crypt::encryptString($request->input('email')) : null;
-        if(!empty($email)) {
-            $patientData = PatientsRegistrationDetail::where('email', $email)->exists();
-
-            if(!empty($patientData)) {
-                $existingEmail = Crypt::decryptString($patientData->email);
-                if($existingEmail == $email) {
-                    return response()->json(['exists' => true]);
-                } else {
-                    return response()->json(['exists' => false]);
-                }
-            }
-        }  
-        return response()->json(['exists' => false]);
-    }
+        $request->validate([
+            'email' => ['required', 'email', new UniqueEmail],
+        ]);
+    
+        return response()->json(['exists' => true]);    }
 
     // Helper method to check form completion and clear session if complete
     private function checkFormCompletion($patientId)

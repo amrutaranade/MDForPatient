@@ -24,46 +24,27 @@ class PatientsRegistrationDetail extends Model
         'state',
         'city',
         'postal_code',
-        'street_address',        
+        'street_address',
         'patient_consulatation_number'
     ];
 
-    protected $encryptable = [
-        'first_name',
-        'middle_name',
-        'last_name',
-        'email',
-        'country',
-        'state',
-        'city',
-        'postal_code',
-        'street_address',
-    ];
-
+    // Encrypt specific fields before saving
     public function setAttribute($key, $value)
     {
-        if (in_array($key, $this->encryptable)) {
-            // Ensure the value is encrypted before saving
-            $value = Crypt::encryptString($value);
+        if (in_array($key, $this->fillable) && !is_null($value) && $key !== 'date_of_birth') {
+            $this->attributes[$key] = Crypt::encryptString($value);
+        } else {
+            parent::setAttribute($key, $value);
         }
-
-        return parent::setAttribute($key, $value);
     }
 
+    // Decrypt specific fields
     public function getAttribute($key)
     {
-        $value = parent::getAttribute($key);
-
-        if (in_array($key, $this->encryptable) && !is_null($value)) {
-            try {
-                // Ensure the value is decrypted if it was encrypted
-                $value = Crypt::decryptString($value);
-            } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
-                // Handle the case where the decryption fails
-                $value = null;
-            }
+        if (in_array($key, $this->fillable) && isset($this->attributes[$key]) && $key !== 'date_of_birth') {
+            return Crypt::decryptString($this->attributes[$key]);
+        } else {
+            return parent::getAttribute($key);
         }
-
-        return $value;
     }
 }
