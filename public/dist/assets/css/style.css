@@ -1,4 +1,44 @@
 @charset "UTF-8";
+
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:wght@300;400;500;700;900&display=swap');
+
+.mulish {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
+}
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
 /*-------------------------------------------------------------------
   ===== Table of Contents =====
 
@@ -8425,9 +8465,10 @@
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-font-sans-serif: Open Sans, sans-serif;
+  --bs-font-mulish: "Mulish", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-family: var(--bs-font-mulish);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -20676,7 +20717,7 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: Open Sans, sans-serif;
+  font-family: "Mulish", sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased;
@@ -20694,7 +20735,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: Open Sans, sans-serif;
+  font-family: "Mulish", sans-serif;
 }
 
 p {
@@ -20901,7 +20942,7 @@ pre {
 code {
   padding: 5px;
   color: #fe7c96;
-  font-family: Open Sans, sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 0.875rem;
   border-radius: 4px;
 }
@@ -20960,7 +21001,7 @@ code {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   font-size: 1.2rem;
-  font-family: Open Sans, sans-serif;
+  font-family: "Mulish", sans-serif;
 }
 .footer a {
   color: #1bcfb4;

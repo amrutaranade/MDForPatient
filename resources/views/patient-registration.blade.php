@@ -507,7 +507,7 @@
                         <!-- / End Step 3 -->
 
                         <!-- Step 4 -->
-                        <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0" hidden>
+                        <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0">
                             <div class="p-5 mx-3">
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -522,19 +522,20 @@
                                         Has The Patient Been Treated Or Had Surgery For This Condition Before?
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        
-                                        <div class=" form-check-inline">
-                                            <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
-                                            <label class="form-check-label" for="yesRadio">Yes</label>
+                                        <div class="d-flex align-items-center h-50">
+                                            <div class=" form-check-inline d-flex align-items-center pr-2">
+                                                <input class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes">
+                                                <label class="form-check-label pb-0 pl-2" for="yesRadio">Yes</label>
+                                            </div>
+                                            <div class="form-check-inline d-flex align-items-center pl-2">
+                                                <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
+                                                <label class="form-check-label pb-0 pl-2" for="noRadio">No</label>
+                                            </div>  
                                         </div>
-                                        <div class=" form-check-inline">
-                                            <input class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No">
-                                            <label class="form-check-label" for="noRadio">No</label>
-                                        </div>  
                                     </div>
                                 </div>
 
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3" id="surgeryDescriptionDiv">
                                     
                                     <div class="mt-3 sm:mt-0 form__field ">
                                         <label for="address-city">
@@ -576,7 +577,7 @@
                         <!-- / End Step 4 -->
 
                         <!-- Step 5 -->
-                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" >
+                        <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
                             <div class="p-5 mx-3">
                                 <div class="mt-3 form__field">
                                     <h4 class="fw-bold fs-3">Documents to review:<br /><br /></h4>
@@ -592,7 +593,7 @@
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <iframe
                                                     src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
-                                                    style="max-width: 100%" class="">
+                                                    style="width: 100%; max-width: 100%" class="">
                                                 </iframe>
                                             </div>
                         
@@ -604,7 +605,7 @@
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <iframe
                                                     src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
-                                                    style="max-width: 100%" class="">
+                                                    style="width: 100%; max-width: 100%" class="">
                                                 </iframe>
                                             </div>
                                         </div>
@@ -965,6 +966,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 <script>
     console.clear();
@@ -1733,17 +1735,44 @@
 </script>
 <script>
 
-    //Function to display back page when clicked from consent & payment tab
-    document.querySelector(".backButtonPrimaryConcern").addEventListener("click", function() {
-        document.getElementById("progress-form__panel-5").setAttribute("hidden", "");
-        document.getElementById("progress-form__panel-4").removeAttribute("hidden");
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle back button click from primary concern page
+    const backButtonPrimaryConcern = document.querySelector(".backButtonPrimaryConcern");
+    if (backButtonPrimaryConcern) {
+        backButtonPrimaryConcern.addEventListener("click", function() {
+            const panel5 = document.getElementById("progress-form__panel-5");
+            const panel4 = document.getElementById("progress-form__panel-4");
 
-    //Function to display back page when clicked from payment details page
-    document.querySelector(".backButtonPaymentDetails").addEventListener("click", function() {
-        document.getElementById("progress-form__panel-6").setAttribute("hidden", "");
-        document.getElementById("progress-form__panel-5").removeAttribute("hidden");
-    });
+            if (panel5 && panel4) {
+                panel5.setAttribute("hidden", "");
+                panel4.removeAttribute("hidden");
+            } else {
+                console.error("One or both of the panels (panel 5 or panel 4) not found.");
+            }
+        });
+    } else {
+        console.error("Element with class 'backButtonPrimaryConcern' not found.");
+    }
+
+    // Handle back button click from payment details page
+    const backButtonPaymentDetails = document.querySelector(".backButtonPaymentDetails");
+    if (backButtonPaymentDetails) {
+        backButtonPaymentDetails.addEventListener("click", function() {
+            const panel6 = document.getElementById("progress-form__panel-6");
+            const panel5 = document.getElementById("progress-form__panel-5");
+
+            if (panel6 && panel5) {
+                panel6.setAttribute("hidden", "");
+                panel5.removeAttribute("hidden");
+            } else {
+                console.error("One or both of the panels (panel 6 or panel 5) not found.");
+            }
+        });
+    } else {
+        console.error("Element with class 'backButtonPaymentDetails' not found.");
+    }
+});
+
 
     // Function to check the state of all checkboxes and enable/disable the submit button for payment
     const submitBtn = document.getElementById('customButton');
@@ -1772,8 +1801,12 @@
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
     
-    document.querySelector('#re_type_name').addEventListener('keyup', function() {
-        if (this.value.trim() !== '') {
+    document.addEventListener('DOMContentLoaded', function() {
+    const typeNameField = document.querySelector('#re_type_name');
+    const submitBtn = document.querySelector('#submitBtn'); // Ensure this is correctly set to your submit button
+
+    function checkForm() {
+        if (typeNameField.value.trim() !== '') {
             const checkboxes = document.querySelectorAll('.patientAgreement');
             let allChecked = true;
 
@@ -1783,37 +1816,20 @@
                 }
             });
 
-            if (allChecked){
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
+            submitBtn.disabled = !allChecked;
         } else {
             submitBtn.disabled = true;
         }
+    }
 
-    });
+    if (typeNameField) {
+        typeNameField.addEventListener('keyup', checkForm);
+        typeNameField.addEventListener('blur', checkForm);
+    } else {
+        console.error("Element with ID 're_type_name' not found.");
+    }
+});
 
-    document.querySelector('#re_type_name').addEventListener('blur', function() {
-        if (this.value.trim() !== '') {
-            const checkboxes = document.querySelectorAll('.patientAgreement');
-            let allChecked = true;
-
-            checkboxes.forEach(checkbox => {
-                if (!checkbox.checked) {
-                    allChecked = false;
-                }
-            });
-
-            if (allChecked) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        } else {
-            submitBtn.disabled = true;
-        }
-    });
 
     document.getElementById("email_step1").addEventListener("blur", function() {
         document.getElementById("relationship_email").value = this.value;
@@ -1888,9 +1904,7 @@
     document.querySelectorAll('#continueButton').forEach(checkbox => {
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
-    $("#continueButton").on("click", function() {
-        // Perform your desired action here
-    });
+
     $(document).ready(function() {
     let typingTimer;
     let doneTypingInterval = 1000; // time in ms (1 second)
@@ -2146,8 +2160,7 @@
     });
 </script>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script>
 $(document).ready(function () {
     var stripe = Stripe("{{ config('services.stripe.stripe_key') }}");
@@ -2338,6 +2351,21 @@ $(document).ready(function () {
             }
         });
     }
+
+
+
+$('#surgery_description').removeAttr('required');
+$('#surgery_description').closest('.form__field').hide();
+    $('input[name="treated_before"]').on('change', function() {
+                if ($('#yesRadio').is(':checked')) {
+                    $('#surgery_description').attr('required', 'required');
+                    $('#surgery_description').closest('.form__field').show();
+                }else if($('#noRadio').is(':checked')) {
+                    $('#surgery_description').removeAttr('required');
+                    $('#surgery_description').closest('.form__field').hide();
+                }
+
+            });
 });
 </script>
 @endsection
