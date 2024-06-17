@@ -331,11 +331,14 @@ class PatientController extends Controller
 
     public function checkEmail(Request $request)
     {
-        $request->validate([
-            'email' => ['required', 'email', new UniqueEmail],
-        ]);
+        $email = $request->input('email');
+        if ($email) {
+            $emailExists = PatientsRegistrationDetail::where('email', $email)->exists();
+            return response()->json(['exists' => $emailExists]);
+        }
+        return response()->json(['exists' => false]);
+    }
     
-        return response()->json(['exists' => true]);    }
 
     // Helper method to check form completion and clear session if complete
     private function checkFormCompletion($patientId)
