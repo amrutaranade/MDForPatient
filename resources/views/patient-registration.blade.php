@@ -54,7 +54,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
                             <div class="p-5 mx-3">
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -62,14 +62,14 @@
                                         First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{isset($patientDetails->first_name) ?? null}}">
+                                    <input id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{isset($patientDetails->first_name) ? $patientDetails->first_name : ''}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="first-name">
                                         Middle Name
                                     </label>
-                                    <input id="middle-name" type="text" name="middlename" autocomplete="given-name" value="{{isset($patientDetails->middle_name) ?? null}}">
+                                    <input id="middle-name" type="text" name="middlename" autocomplete="given-name" value="{{isset($patientDetails->middle_name) ? $patientDetails->middle_name : ''}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -77,7 +77,7 @@
                                         Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="last-name" type="text" name="lastname" autocomplete="family-name" required value="{{isset($patientDetails->last_name) ?? null}}">
+                                    <input id="last-name" type="text" name="lastname" autocomplete="family-name" required value="{{isset($patientDetails->last_name) ? $patientDetails->last_name : ''}}">
                                     </div>
                                 </div>
 
@@ -87,7 +87,7 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" value="{{isset($patientDetails->date_of_birth) ?? null}}">
+                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@
                                             Street Address
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        <input id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{isset($patientDetails->street_address) ?? null}}">
+                                        <input id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{isset($patientDetails->street_address) ? $patientDetails->street_address : ''}}">
                                         </div>
                                     </div>
                                     <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -111,7 +111,7 @@
                                             City
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{isset($patientDetails->city) ?? null}}">
+                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{isset($patientDetails->city) ? $patientDetails->city : ''}}">
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                         Postal Code
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{isset($patientDetails->postal_code) ?? null}}">
+                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{isset($patientDetails->postal_code) ? $patientDetails->postal_code: ''}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="Country">
@@ -158,7 +158,7 @@
                                         Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{isset($patientDetails->email) ?? null}}">
+                                    <input id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{isset($patientDetails->email) ? $patientDetails->email : ''}}">
                                     <label id="email-check-result"></label>
                                     </div>
 
@@ -167,7 +167,7 @@
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{isset($patientDetails->email) ?? null}}">
+                                    <input id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{isset($patientDetails->email) ? $patientDetails->email : ''}}">
                                     <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                     </div>
                                 </div>
@@ -209,21 +209,21 @@
                                         Your First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" value="{{isset($contactParty->first_name) ?? null}}">
+                                    <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" value="{{isset($contactParty->first_name) ? $contactParty->first_name : ''}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_confirm_email">
                                         Your Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" value="{{isset($contactParty->last_name) ?? null}}">
+                                    <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" value="{{isset($contactParty->last_name) ? $contactParty->last_name : ''}}">
 
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_npi">
                                         NPI
                                     </label>
-                                    <input id="relationship_npi" type="text" name="relationship_npi" value="{{isset($contactParty->NPI)??null}}">
+                                    <input id="relationship_npi" type="text" name="relationship_npi" value="{{isset($contactParty->NPI)? $contactParty->NPI : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -232,7 +232,7 @@
                                         Specify your relationship to the patient
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" value="{{isset($contactParty->relationship_other) ?? null}}">
+                                    <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" value="{{isset($contactParty->relationship_other) ? $contactParty->relationship_other : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -241,7 +241,7 @@
                                         <label for="relationship_street_address">
                                             Street Address
                                         </label>
-                                        <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" value="{{isset($contactParty->street_address) ?? null}}">
+                                        <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" value="{{isset($contactParty->street_address) ? $contactParty->street_address : ''}}">
                                         </div>
                                     </div>
                                     <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -249,14 +249,14 @@
                                         <label for="relationship_city">
                                             City
                                         </label>
-                                        <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" value="{{isset($contactParty->city) ?? null}}">
+                                        <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" value="{{isset($contactParty->city) ? $contactParty->city : ''}}">
                                         </div>
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_postal_code">
                                         Postal Code
                                     </label>
-                                    <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" value="{{isset($contactParty->postal_code) ?? null}}">
+                                    <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" value="{{isset($contactParty->postal_code) ? $contactParty->postal_code : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
@@ -293,14 +293,14 @@
                                         Email Address
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" value="{{isset($contactParty->email) ?? null}}">
+                                    <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" value="{{isset($contactParty->email) ? $contactParty->email : ''}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_confirm_email">
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" value="{{isset($contactParty->email) ?? null}}">
+                                    <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" value="{{isset($contactParty->email) ? $contactParty->email : ''}}">
 
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -308,7 +308,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_phone_number" type="text" name="relationship_phone_number" value="{{isset($contactParty->phone_number) ?? null}}">
+                                    <input id="relationship_phone_number" type="text" name="relationship_phone_number" value="{{isset($contactParty->phone_number) ? $contactParty->phone_number : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -316,13 +316,13 @@
                                     <label for="relationship_institution">
                                         Institution
                                     </label>
-                                    <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  value="{{isset($contactParty->Instituton) ?? null}}">
+                                    <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  value="{{isset($contactParty->Instituton) ? $contactParty->Instituton : ''}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_fax_no">
                                         Fax No.
                                     </label>
-                                    <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" value="{{isset($contactParty->fax_number) ?? null}}">
+                                    <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" value="{{isset($contactParty->fax_number) ? $contactParty->fax_number : ''}}">
 
                                     </div>
 
@@ -390,7 +390,7 @@
                                         First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="first-name-step3" type="text" name="firstnamestep3" autocomplete="given-name" required value="{{isset($referringPhysician->first_name) ?? null}}">
+                                    <input id="first-name-step3" type="text" name="firstnamestep3" autocomplete="given-name" required value="{{isset($referringPhysician->first_name) ? $referringPhysician->first_name : ''}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -398,7 +398,7 @@
                                         Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="last-name-step3" type="text" name="lastnamestep3" autocomplete="family-name" required value="{{isset($referringPhysician->last_name) ?? null}}">
+                                    <input id="last-name-step3" type="text" name="lastnamestep3" autocomplete="family-name" required value="{{isset($referringPhysician->last_name) ? $referringPhysician->last_name : ''}}">
                                     </div>
                                 </div>
 
@@ -407,7 +407,7 @@
                                     <label for="institution">
                                         Institution
                                     </label>
-                                    <input id="institution" type="text" name="institution" autocomplete="given-name" value="{{isset($referringPhysician->institution) ?? null}}">
+                                    <input id="institution" type="text" name="institution" autocomplete="given-name" value="{{isset($referringPhysician->institution) ? $referringPhysician->institution : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -416,7 +416,7 @@
                                         Street Address
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" required value="{{isset($referringPhysician->street_address) ?? null}}">
+                                    <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" required value="{{isset($referringPhysician->street_address) ? $referringPhysician->street_address : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -425,14 +425,14 @@
                                         City
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="city-step3" type="text" name="citystep3" autocomplete="given-name" required value="{{isset($referringPhysician->city) ?? null}}">
+                                    <input id="city-step3" type="text" name="citystep3" autocomplete="given-name" required value="{{isset($referringPhysician->city) ? $referringPhysician->city : ''}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="postal_code">
                                         Postal Code
                                     </label>
-                                    <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postalcodestep3" autocomplete="given-name" value="{{isset($referringPhysician->postal_code) ?? null}}">
+                                    <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postalcodestep3" autocomplete="given-name" value="{{isset($referringPhysician->postal_code) ? $referringPhysician->postal_code : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -470,7 +470,7 @@
                                         Email Address 
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="email_step3" type="email" name="email_step3" class ="email" autocomplete="given-name" required value="{{isset($referringPhysician->email) ?? null}}">
+                                    <input id="email_step3" type="email" name="email_step3" class ="email" autocomplete="given-name" required value="{{isset($referringPhysician->email) ? $referringPhysician->email : ''}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -478,7 +478,7 @@
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="confirm_email_step3" type="email" name="confirm_email_step3" class ="confirm_email" autocomplete="given-name" required value="{{isset($referringPhysician->email) ?? null}}">
+                                    <input id="confirm_email_step3" type="email" name="confirm_email_step3" class ="confirm_email" autocomplete="given-name" required value="{{isset($referringPhysician->email) ? $referringPhysician->email : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -487,7 +487,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="phone_number_step3" type="text" name="phonenumberstep3" autocomplete="given-name" required value="{{isset($referringPhysician->phone_number) ?? null}}">
+                                    <input id="phone_number_step3" type="text" name="phonenumberstep3" autocomplete="given-name" required value="{{isset($referringPhysician->phone_number) ? $referringPhysician->phone_number : ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -509,10 +509,10 @@
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="primary_diagnosis">
-                                        Please provide the primary diagnosis* (If unknown, please list unknown)
+                                        Please provide the Primary Diagnosis* (If knows, please let us know)
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{isset($patientPrimaryConcern->primary_diagnosis) ?? null}}">
+                                    <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{isset($patientPrimaryConcern->primary_diagnosis) ? $patientPrimaryConcern->primary_diagnosis : ''}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field ">
                                         <label for="address-city">
@@ -540,7 +540,7 @@
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
                                         
-                                        <input id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required value="{{isset($patientPrimaryConcern->surgery_description)??null}}"> 
+                                        <input id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required value="{{isset($patientPrimaryConcern->surgery_description)? $patientPrimaryConcern->surgery_description : ''}}"> 
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -549,7 +549,7 @@
                                     Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other information you wish to provide.
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required>{{isset($patientPrimaryConcern->request_description)??null}}</textarea>
+                                    <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required>{{isset($patientPrimaryConcern->request_description)? $patientPrimaryConcern->request_description : ''}}</textarea>
                                     </div>
                                 </div>
 
@@ -646,7 +646,7 @@
                                                         as specified in the Patient Agreement and in each Appendix
                                                     </label>
                                                     <input id="re_type_name" type="text" name="digital_signature"
-                                                        autocomplete="given-name" value="{{isset($expertOpinionRequests->re_type_name) ?? null}}">
+                                                        autocomplete="given-name" value="{{isset($expertOpinionRequests->re_type_name) ? $expertOpinionRequests->re_type_name : ''}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -658,8 +658,9 @@
                                     Back
                                 </button>
                                 <button class="btn btn-success btn-fw agreeButton" id="agreeButton" onclick="nextTab()">Agree & Proceed</button>
-                                
-                                <button class="btn btn-success btn-fw" disabled id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>                                
+                                @if(session("stripe_charge_id") == null)
+                                <button class="btn btn-success btn-fw" disabled id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>    
+                                @endif                            
                                 
                                 <button class="btn btn-success btn-fw agreeAfterPaymentButton" data-action="next" hidden>Agree & Proceed</button>
                                     
@@ -755,7 +756,7 @@
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" >
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
@@ -764,31 +765,17 @@
                                                 <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
                                             </div>                              
-                                            <div class="mt-3 sm:mt-0 form__field">   
-                                                <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
-
-                                                <!-- <div>
+                                            <div class="mt-3 sm:mt-0 form__field">                                            
+                                                <div class="">          
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
                                                         @csrf
                                                         <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
                                                     </form>
-                                                </div>                                          -->
-                                                <div class="dropzone p-0">          
-                                                    <label for="file-input" class="file-drop-label" id="files-count">
-                                                        <img src="/dist/assets/images/download.png" alt="">
-                                                        Drop files here to upload
-                                                    </label>
-                                                    <input type="file" id="file-input" class="file-drop-input" multiple>
                                                 </div>
-                                                <div class="text-end mt-3"><button id="upload-btn" class="upload-btn">Upload</button></div>
-                                                <div id="connectivity-message" style="display: none;">You are offline. Uploads will resume when the connection is back.</div>
-                                                <div id="file-list" class="file-list"></div>
+
                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
                                                 <script>
-                                                    
-
                                                     Dropzone.options.fileUpload = {
-                                                        url:"{{ url('/upload') }}",
                                                         paramName: "file", // The name that will be used to transfer the file
                                                         maxFilesize: 1000, // MB
                                                         acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
@@ -804,21 +791,6 @@
                                                             // this.on("processing", function() {
                                                             //     document.getElementById("loading-screen").style.display = "block";
                                                             // });
-                                                            
-                                                            // Check initial network status
-                                                            if (!navigator.onLine) {
-                                                            document.getElementById('connectivity-message').style.display = 'block';
-                                                            }
-
-                                                            // Event listeners for online and offline status
-                                                            window.addEventListener('online', function () {
-                                                            document.getElementById('connectivity-message').style.display = 'none';
-                                                            resumeUploads();
-                                                            });
-
-                                                            window.addEventListener('offline', function () {
-                                                            document.getElementById('connectivity-message').style.display = 'block';
-                                                            });
 
                                                             // Add event listener to the Confirm Upload button
                                                             document.getElementById("confirm-upload").addEventListener("click", function() {
@@ -827,11 +799,6 @@
 
                                                             // Handle file removal
                                                             this.on("addedfile", function(file) {
-
-                                                                if (navigator.onLine) {
-                                                                    myDropzone.processQueue(); // Process the queue if online
-                                                                }
-
                                                                 // Create the remove button
                                                                 var removeButton = Dropzone.createElement("<button class='btn btn-danger btn-sm mt-2'>Delete</button>");
                                                                 
@@ -859,156 +826,19 @@
 
                                                             // Handling the success event
                                                             this.on("success", function(file, response) {
+                                                                console.log("success", response);
+                                                                console.log('file->', file);
                                                             });
 
                                                             // Handling the error event
                                                             this.on("error", function(file, response) {
-                                                                if (!navigator.onLine) {
-                                                                    console.log('Upload paused, waiting for connection to resume.');
-                                                                } else {
-                                                                    console.log('Retrying upload...');
-                                                                    myDropzone.retryUpload(file); // Retry uploading the file
-                                                                }
-
                                                                 console.error("error", response);
                                                                 console.error('file->', file);
                                                             });
                                                         }
                                                     };
-                                                    // Custom retry logic for Dropzone (not built-in)
-                                                    Dropzone.prototype.retryUpload = function(file) {
-                                                        setTimeout(function() {
-                                                            if (navigator.onLine) {
-                                                                myDropzone.uploadFile(file);
-                                                            } else {
-                                                                myDropzone.retryUpload(file); // Keep retrying until online
-                                                            }
-                                                        }, 3000); // Retry every 3 seconds
-                                                    };
-                                                    
-                                                    // Function to resume uploads
-                                                    function resumeUploads() {
-                                                        if (navigator.onLine) {
-                                                            myDropzone.processQueue(); // Start processing the queue again
-                                                        }
-                                                    }
-
-                                                    function formatDate() {
-                                                        // Create a new Date object from the date string
-                                                        const date = new Date();
-                                                        // Get the day, month, and year
-                                                        const day = String(date.getDate()).padStart(2, '0'); // Ensure day is two digits
-                                                        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure month is two digits, getMonth() returns 0-11
-                                                        const year = date.getFullYear();
-
-                                                        // Get the hours and minutes
-                                                        const hours = String(date.getHours()).padStart(2, '0'); // Ensure hours are two digits
-                                                        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure minutes are two digits
-                                                        // Return the formatted date as dd-mm-yyyy
-                                                        return `${day}/${month}/${year} - ${hours}:${minutes}`;
-                                                    };
-                                                   
-                                                    document.addEventListener("DOMContentLoaded", () => {
-                                                        const fileInput = document.getElementById("file-input");
-                                                        const uploadBtn = document.getElementById("upload-btn");
-                                                        const fileList = document.getElementById("file-list");
-                                                        const filesCount = document.getElementById("files-count");
-                                                        let filesArray = [];
-
-                                                        fileInput.addEventListener("change", (event) => {
-                                                            filesArray = Array.from(event.target.files);
-                                                            if(filesArray.length > 1){
-                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
-                                                            }else{
-                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
-                                                            }
-                                                        });
-
-                                                        uploadBtn.addEventListener("click", () => {
-                                                            if (filesArray.length > 0) {
-                                                            // Handle the upload action, for example:
-                                                            displayFiles(filesArray);
-                                                            fileInput.value = "";
-                                                            console.log("Files to upload:", filesArray);
-                                                            } else {
-                                                            alert("Please select files to upload");
-                                                            }
-                                                        });
-
-                                                        function displayFiles(files) {
-                                                            const htmlString = files
-                                                            .map(
-                                                                (item, ind) => `
-                                                                <div class="stat-row">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}">
-                                                                        <div class="pl-2"><b>Description:</b> ${item.name}</div>
-                                                                    </div>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="pr-4">
-                                                                            <b>Uploaded:</b>
-                                                                            ${formatDate()}
-                                                                        </div>
-                                                                        <button class="delete-btn">
-                                                                            <img src="/dist/assets/images/delete.png" alt="">
-                                                                            Delete
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                                `
-                                                            )
-                                                            .join("");
-                                                            fileList.innerHTML = "";
-                                                            fileList.innerHTML = htmlString;
-                                                            filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
-                                                        }
-                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
-
-                                                        async function uploadFiles() {
-                                                            const apiUrl = "{{route('upload')}}";
-                                                            const formData = new FormData();
-
-                                                            for (const file of filesArray) {
-                                                                formData.append("file[]", file);
-                                                            }
-                                                            formData.append("file", filesArray);
-                                                            try {
-                                                                const response = await fetch(apiUrl, {
-                                                                    method: "POST",
-                                                                    body: formData,
-                                                                    headers: {
-                                                                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                                                                    },
-                                                                });
-
-                                                                if (response.ok) {
-                                                                    window.location = "{{ route('final-submission') }}";
-                                                                } else {
-                                                                    console.error("Failed to upload files");
-                                                                }
-                                                            } catch (error) {
-                                                                console.error("An error occurred while uploading files");
-                                                            }
-                                                        }
-
-                                                        function readFileAsBinary(file) {
-                                                            return new Promise((resolve, reject) => {
-                                                                const reader = new FileReader();
-
-                                                                reader.onload = () => {
-                                                                    resolve(reader.result);
-                                                                };
-
-                                                                reader.onerror = () => {
-                                                                    reject(new Error("Failed to read file as binary"));
-                                                                };
-
-                                                                reader.readAsBinaryString(file);
-                                                            });
-                                                        }
-                                                    });
-
                                                 </script>
+
                                             </div>   
                                         </div>
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
@@ -1943,15 +1773,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Next tab function to advance to the next tab and enable previously visited tabs
     function nextTab() {
         let tabs = document.getElementsByClassName("tab");
-        if (currentTab < tabs.length - 1) {
+        //if (currentTab < tabs.length - 1) {
             currentTab++;
             showTab(currentTab);
             enableTabButtons();
-            document.getElementById("agreeAndProceedButton").removeAttribute("hidden");
-            document.getElementById("agreeButton").setAttribute("hidden", '');
-            document.getElementById("agreeAfterPaymentButton").setAttribute("hidden", '');
-
-        }
+            var charge_id = '{{session("stripe_charge_id")}}';
+            if(charge_id == null || charge_id == "") {
+                document.getElementById("agreeAndProceedButton").removeAttribute("hidden");
+                document.getElementById("agreeButton").setAttribute("hidden", '');
+                document.getElementById("agreeAfterPaymentButton").setAttribute("hidden", '');
+            } else {
+                document.getElementById("agreeAfterPaymentButton").removeAttribute("hidden");
+            }
+        //}
     }
 
     // Previous tab function to go back to the previous tab

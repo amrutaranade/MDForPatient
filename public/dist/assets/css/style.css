@@ -26495,9 +26495,10 @@ span.menu-title{
   background-color: #000000;
 }
 .btnDiscardRequest{
-  font-size:1.2rem !important;
+  font-size: 1.2rem !important;
   font-family: Open Sans, sans-serif !important;
   font-weight: bold;
+  border-radius: 5px !important;
 }
 .btn{
   color:black !important;
@@ -26700,4 +26701,14 @@ div.payment {
 }
 #card-errors{
   font-size: 1.3rem;
+}
+
+.fa-trash-o{
+  font-size: 1.8rem !important;
+}
+.modal-dialog{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 80vh;
 }

@@ -500,7 +500,7 @@
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="primary_diagnosis">
-                                        Please provide the primary diagnosis* (If unknown, please list unknown)
+                                        Please provide the Primary Diagnosis* (If knows, please let us know)
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     <input disabled  id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{$patientPrimaryConcern->primary_diagnosis}}">
