@@ -22,6 +22,7 @@ use App\Models\PatientMedicalRecords;
 use App\Models\PatientExpertOpinionRequest;
 use App\Http\Controllers\EmailController;
 use App\Rules\UniqueEmail;
+use App\Models\Transaction;
 
 
 class PatientController extends Controller
@@ -41,6 +42,39 @@ class PatientController extends Controller
     {     
         $getCountriesData = Country::get()->toArray();
         $getStatesData = State::get()->toArray();
+        echo "session_id---". session("patient_id");
+        echo "<br>charge id-----".session("stripe_charge_id");
+        //Check if patient_id is present in session, if yes fetch all the data 
+        if(!empty(session("patient_id"))) {
+            $patientId = session("patient_id");
+            $patientDetails = PatientsRegistrationDetail::find($patientId);
+            $contactParty = ContactParty::where('patient_id', $patientId)->first();
+            $referringPhysician = ReferringPhysician::where('patient_id', $patientId)->first();
+            $patientPrimaryConcern = PatientPrimaryConcern::where('patient_id', $patientId)->first();
+            $expertOpinionRequests = PatientExpertOpinionRequest::where('patient_id', $patientId)->first();
+            $medicalRecords = PatientMedicalRecords::where('patient_id', $patientId)->first();
+            $paymentDetails = Transaction::where('patient_id', $patientId)->first();
+            $countries = Country::get()->toArray();
+            $states = State::get()->toArray();
+            if($medicalRecords) {
+                $customeShareFiles = $this->getShareFilesByFolderId($medicalRecords->folder_id);
+            } else {
+                $customeShareFiles = [];
+            }
+            
+            return view('patient-registration', [
+                'patientDetails' => $patientDetails,
+                'contactParty' => $contactParty,
+                'referringPhysician' => $referringPhysician,
+                'patientPrimaryConcern' => $patientPrimaryConcern,
+                'expertOpinionRequests' => $expertOpinionRequests,
+                'paymentDetails' => $paymentDetails,
+                'medicalRecords' => $medicalRecords,
+                'countries' => $countries,
+                'states' => $states,
+                'customeShareFiles' => $customeShareFiles
+            ]);
+        }
 
         return view('patient-registration', [
             'countries' => $getCountriesData,
@@ -188,7 +222,7 @@ class PatientController extends Controller
         if (!$formId) {
             return response()->json(['error' => 'Session expired or invalid form ID.'], 400);
         }
-
+        
         // Save or update the data to the database
         $contactParty = ContactParty::updateOrCreate(
             ['patient_id' => $requestData['patientId']], // Find by patient_id

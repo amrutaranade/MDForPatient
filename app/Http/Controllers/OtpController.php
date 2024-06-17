@@ -147,19 +147,35 @@ class OtpController extends Controller
         //     $customeShareFiles = [];
         // }
        
-        return view('patient_consultation_view', [
-            'patientDetails' => $patientDetails,
-            'contactParty' => $contactParty,
-            'referringPhysician' => $referringPhysician,
-            'patientPrimaryConcern' => $patientPrimaryConcern,
-            'expertOpinionRequests' => $expertOpinionRequests,
-            'paymentDetails' => $paymentDetails,
-            'medicalRecords' => $medicalRecords,
-            "customeShareFiles" => compact("customeShareFiles"),
-            'countries' => $countries,
-            'states' => $states,
-            'authToken' => $this->shareFileService->getAccessToken()
-        ]);
+        if(!empty($patientDetails && $contactParty && $referringPhysician && $patientPrimaryConcern && $expertOpinionRequests && $paymentDetails && $medicalRecords && $customeShareFiles)) {
+            return view('patient_consultation_view', [
+                'patientDetails' => $patientDetails,
+                'contactParty' => $contactParty,
+                'referringPhysician' => $referringPhysician,
+                'patientPrimaryConcern' => $patientPrimaryConcern,
+                'expertOpinionRequests' => $expertOpinionRequests,
+                'paymentDetails' => $paymentDetails,
+                'medicalRecords' => $medicalRecords,
+                "customeShareFiles" => compact("customeShareFiles"),
+                'countries' => $countries,
+                'states' => $states,
+                'authToken' => $this->shareFileService->getAccessToken()
+            ]);
+        } else {       
+            return view('patient_consultation_view', [
+                'patientDetails' => $patientDetails,
+                'contactParty' => $contactParty,
+                'referringPhysician' => $referringPhysician,
+                'patientPrimaryConcern' => $patientPrimaryConcern,
+                'expertOpinionRequests' => $expertOpinionRequests,
+                'paymentDetails' => $paymentDetails,
+                'medicalRecords' => $medicalRecords,
+                "customeShareFiles" => compact("customeShareFiles"),
+                'countries' => $countries,
+                'states' => $states,
+                'authToken' => $this->shareFileService->getAccessToken()
+            ]);
+        }
     }
 
     public function downloadFile($id, $localPath) {

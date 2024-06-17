@@ -1,5 +1,10 @@
 @extends("layoutView")
 @section("content")
+<div id="loading-screen" style="display: none;" class="fullScreenLoader">
+    <div class="loading-icon">
+        <img src="/dist/assets/images/loader.gif" />
+    </div>
+</div>
 <div class="">
     <div class="">
         <div class="row">
@@ -15,154 +20,158 @@
         </div>
         <div class="row">
             <div class="col-md-2 col-lg-2"></div>
-            <div class="col-md-8 col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- Progress Form -->
-                        <form id="progress-form" class="p-4 progress-form" action="#" lang="en" novalidate type="post">
-                        <!-- Step Navigation -->
-                        
-                        <div class="d-flex align-items-start mb-3 sm:mb-5 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-disabled="true" data-complete="true" aria-selected="false">
-                                <span class="" aria-hidden="true"><div class="step-number">1</div>
-                                <div>Patient Details</div></span>
+            <div class="col-md-8 col-lg-8">                
+                <div class="">
+                    <!-- Progress Form -->
+                    <form id="progress-form" class="progress-form rounded-bottom-0" action="#" lang="en" novalidate type="post">
+                    <!-- Step Navigation -->
+                    
+                        <div class="d-flex align-items-start p-0 progress-form__tabs step-container" role="tablist">
+                            <button id="progress-form__tab-1" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true" data-complete="true">
+                                <div class="step-number">1</div>
+                                <div>Patient Details</div>
                             </button>
-                            <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" data-complete="true" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span  aria-hidden="true"><div class="step-number">2</div>
-                                <div>Contact Party</div></span>
+                            <button id="progress-form__tab-2" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true" data-complete="true">
+                                <div class="step-number">2</div>
+                                <div>Contact Party</div>
                             </button>
-                            <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" data-complete="true" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                <span  aria-hidden="true"><div class="step-number">3</div><div>Patient's Physician</div></span>                                
+                            <button id="progress-form__tab-3" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true" data-complete="true">
+                                    <div class="step-number">3</div><div>Patient's Physician</div>                               
                             </button>
-                            <button id="progress-form__tab-4" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true">
-                                <span  aria-hidden="true"><div class="step-number">4</div><div>Primary Concern</div></span>                                
+                            <button id="progress-form__tab-4" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true" data-complete="true">
+                                <div class="step-number">4</div><div>Primary Concern</div>                                
                             </button>                            
-                            <button id="progress-form__tab-5" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true">
-                                <span  aria-hidden="true"><div class="step-number">5</div><div>Consent & Payment</div></span>                                
+                            <button id="progress-form__tab-5" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true" data-complete="true">
+                                <div class="step-number">5</div><div>Consent & Payment</div>                                
                             </button>
-                            <button id="progress-form__tab-6" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true">
-                                <span  aria-hidden="true"><div class="step-number">6</div><div>Payment Details</div></span>                            
+                            <button id="progress-form__tab-6" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true" data-complete="true">
+                                <div class="step-number">6</div><div>Payment Details</div>                            
                             </button>
-                            <button id="progress-form__tab-7" class="flex-1 px-0 pt-2 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" data-complete="true" aria-selected="false"tabindex="-1" aria-disabled="true" hidden>
-                                <span  aria-hidden="true"><div class="step-number">7</div><div>Medical Document</div></span>                            
-                            </button>
-                            
+                            <button id="progress-form__tab-7" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="false" tabindex="-1" aria-disabled="true" data-complete="true" >
+                                <div class="step-number">7</div><div>Medical Document</div>                            
+                            </button>                            
                         </div>
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >                            
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
+                            <div class="p-5 mx-3">
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
-                                    First Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="first-name" type="text" name="first-name" autocomplete="given-name" required value="{{$patientDetails->first_name}}">
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
-                                    Middle Name
-                                </label>
-                                <input disabled id="middle-name" type="text" name="middle-name" autocomplete="given-name" value="{{$patientDetails->middle_name}}">
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="last-name">
-                                    Last Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="last-name" type="text" name="last-name" autocomplete="family-name" required value="{{$patientDetails->last_name}}">
-                                </div>
-                            </div>
-
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="date_of_birth">
-                                    Date Of Birth
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required value="{{$patientDetails->date_of_birth}}">
-                                </div>
-                            </div>
-                            <br/><span id="patientMailingAddressHrTag" class="fw-bold" >Patient Mailing Address</span><hr></hr>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="street_address">
-                                        Street Address
+                                    <label for="first-name">
+                                        First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{$patientDetails->street_address}}">
+                                    <input disabled  id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{$patientDetails->first_name}}">
                                     </div>
-                                </div>
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+
                                     <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="City">
-                                        City
+                                    <label for="first-name">
+                                        Middle Name
+                                    </label>
+                                    <input disabled  id="middle-name" type="text" name="middlename" autocomplete="given-name" value="{{$patientDetails->middle_name}}">
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="last-name">
+                                        Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled id="city" type="text" name="city" autocomplete="given-name" required value="{{$patientDetails->city}}">
+                                    <input disabled  id="last-name" type="text" name="lastname" autocomplete="family-name" required value="{{$patientDetails->last_name}}">
+                                    </div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="date_of_birth">
+                                        Date Of Birth
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" required value="{{$patientDetails->date_of_birth}}">
+                                    </div>
+                                </div>
+
+                                <div id="patientMailingAddressHrTag" class="sm:d-grid sm:grid-col-3 sm:mt-3 fw-bold mt-5" >
+                                    <div class="left-border-heading">Patient Mailing Address</div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="street_address">
+                                            Street Address
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <input disabled  id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{$patientDetails->street_address}}">
+                                        </div>
+                                    </div>
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="City">
+                                            City
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <input disabled  id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{$patientDetails->city}}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="postal_code">
+                                        Postal Code
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{$patientDetails->postal_code}}">
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="Country">
+                                        Country
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select disabled  class="countries" name="countries" id="countries" required>
+                                        <option value="">--Select--</option>
+                                        @foreach($countries as $country)
+                                            <option {{($patientDetails->country==$country['id']) ? 'selected' : null }} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="states">
+                                        State
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select disabled  class="states" name="states" id="states" required>
+                                        @foreach($states as $state)
+                                            <option {{($patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="email">
+                                        Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{$patientDetails->email}}">
+                                    <label id="email-check-result"></label>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="confirm_email">
+                                        Confirm Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{$patientDetails->email}}">
+                                    <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="postal_code">
-                                    Postal Code
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="postal_code" type="text" name="postal_code" autocomplete="given-name" required value="{{$patientDetails->postal_code}}">
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="Country">
-                                    Country
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select disabled  class="countries" name="countries" id="countries" required>
-                                    <option value="">--Select--</option>
-                                    @foreach($countries as $country)
-                                        <option {{($patientDetails->country==$country['id']) ? 'selected' : null }} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="states">
-                                    State
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <select disabled  class="states" name="states" id="states" required>
-                                    <option value="">--Select--</option>
-                                    <option value="">--Select--</option>
-                                    @foreach($states as $state)
-                                        <option {{($patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="email">
-                                    Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="email_step1" type="email" name="email" class ="email" autocomplete="given-name" required value="{{$patientDetails->email}}">
-                                <label id="email-check-result"></label>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="confirm_email">
-                                    Confirm Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="confirm_email_step1" type="email" name="confirm_email" class="confirm_email" autocomplete="given-name" required value="{{$patientDetails->email}}">
-                                <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="continueButton step1 btn btn-success btn-fw" id="continueButton">
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButton">
                                 Next
                                 </button>
                             </div>
@@ -171,199 +180,193 @@
 
                         <!-- Step 2 -->
                         <section id="progress-form__panel-2" role="tabpanel" aria-labelledby="progress-form__tab-2" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h4 class="fw-bold">This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                            <div class="p-5 mx-3">
                                 <div class="mt-3 form__field">
-                                    <label for="relationship_to_patient">
-                                    Select Relationship To The Patient
-                                    <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <select disabled  id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
-                                        <option value="" disabled >Please select</option>
-                                        <option value="Patient" @if($contactParty->relationrelationship_to_patient == "Patient") ? 'selected' : null @endif selected>Patient</option>
-                                        <option value="Caregiver" @if($contactParty->relationrelationship_to_patient == "Caregiver") ? 'selected' : null @endif>Caregiver</option>
-                                        <option value="Referring or local physician" @if ($contactParty->relationrelationship_to_patient == "Referring or local physician") ? 'selected' : null @endif>Referring or local physician</option>
-                                        <option value="Parent" @if ($contactParty->relationrelationship_to_patient == "Parent") ? 'selected' : null @endif > Parent</option>
-                                        <option value="Legal Guardian" @if($contactParty->relationrelationship_to_patient == "Legal Guardian") ? 'selected' : null @endif>Legal Guardian</option>
-                                        <option value="Other" @if($contactParty->relationrelationship_to_patient == "Other") ? 'selected' : null @endif >Other</option>
-                                    </select>
+                                <h4 class="fw-bold">This is the party responsible for this case. They may be contacted about patient information, medical records, payment, and the case report as applicable.<br/><br/></h4>
                                 </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_first_name">
-                                    Your First Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" value="{{$contactParty->first_name}}">
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_confirm_email">
-                                    Your Last Name
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name"  value="{{$contactParty->last_name}}">
-
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_npi">
-                                    NPI
-                                </label>
-                                <input disabled id="relationship_npi" type="text" name="relationship_npi"  value="{{$contactParty->NPI}}">
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_other">
-                                    Specify your relationship to the patient
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="relationship_other" type="text" name="relationship_other" class ="relationship_other"  value="{{$contactParty->relationship_other}}">
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="relationship_street_address">
-                                        Street Address
-                                    </label>
-                                    <input disabled id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name"  value="{{$contactParty->street_address}}">
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 form__field">
+                                        <label for="relationship_to_patient">
+                                        Select Relationship To The Patient
+                                        <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <select disabled  id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
+                                            <option value="" disabled >Please select</option>
+                                            <option value="Patient" @if($contactParty->relationrelationship_to_patient == "Patient") ? 'selected' : null @endif selected>Patient</option>
+                                            <option value="Caregiver" @if($contactParty->relationrelationship_to_patient == "Caregiver") ? 'selected' : null @endif>Caregiver</option>
+                                            <option value="Referring or local physician" @if ($contactParty->relationrelationship_to_patient == "Referring or local physician") ? 'selected' : null @endif>Referring or local physician</option>
+                                            <option value="Parent" @if ($contactParty->relationrelationship_to_patient == "Parent") ? 'selected' : null @endif > Parent</option>
+                                            <option value="Legal Guardian" @if($contactParty->relationrelationship_to_patient == "Legal Guardian") ? 'selected' : null @endif>Legal Guardian</option>
+                                            <option value="Other" @if($contactParty->relationrelationship_to_patient == "Other") ? 'selected' : null @endif >Other</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="relationship_city">
-                                        City
-                                    </label>
-                                    <input disabled id="relationship_city" type="text" name="relationship_city" autocomplete="given-name"  value="{{$contactParty->city}}">
-                                    </div>
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_postal_code">
-                                    Postal Code
-                                </label>
-                                <input disabled id="relationship_postal_code" type="text" name="relationship_postal_code" autocomplete="given-name"  value="{{$contactParty->postal_code}}">
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship__country">
-                                    Country
-                                </label>
-                                <select disabled  class="relationship_countries" name="relationship_countries" id="relationship_countries" >
-                                    <option value="">--Select--</option>
-                                    @foreach($countries as $country)
-                                        <option {{($contactParty->country == $country["id"]) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_states">
-                                    State
-                                </label>
-                                <select disabled  class="relationship_states" name="relationship_states" id="relationship_states" >
-                                    <option value="">--Select--</option>
-                                    @foreach($states as $state)
-                                        <option {{($contactParty->state == $state["id"]) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_email">
-                                    Email Address
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="relationship_email" type="email" name="relationship_email" class ="relationship_email"  value="{{$contactParty->email}}">
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_confirm_email">
-                                    Confirm Email
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email"  value="{{$contactParty->email}}">
-
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_phone_number">
-                                    Phone Number
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="relationship_phone_number" type="text" name="relationship_phone_number"  value="{{$contactParty->phone_number}}">
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_institution">
-                                    Institution
-                                </label>
-                                <input disabled id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  value="{{$contactParty->Instituton}}" >
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="relationship_fax_no">
-                                    Fax No.
-                                </label>
-                                <input disabled id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no"  value="{{$contactParty->fax_number}}">
-
-                                </div>
-
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
-                                <fieldset class="mt-3 sm:mt-0 form__field ">
-                                    <label for="relationship_preferred_mode_of_communication">
-                                        Preferred Mode Of Communication
+                                    <label for="relationship_first_name">
+                                        Your First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    
-                                    <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" {{ ($contactParty->preferred_mode_of_communication ==1) ? 'checked' : null}}>
-                                        <label class="form-check-label" for="phoneRadio">Phone</label>
+                                    <input disabled  id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" value="{{$contactParty->first_name}}">
                                     </div>
-                                    <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" {{ ($contactParty->preferred_mode_of_communication =='Email') ? 'checked' : null}}>
-                                        <label class="form-check-label" for="emailRadio">Email</label>
-                                    </div>  
-                                </fieldset>
-                            
-                                <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="relationship_preferred_contact_time">
-                                        Preferred Contact Time
-                                    </label>  
-                                    
-                                    <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning" {{ ($contactParty->preferred_contact_time ==1) ? 'checked' : null}}>
-                                        <label class="form-check-label" for="MorningRadio">Morning</label>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_confirm_email">
+                                        Your Last Name
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" value="{{$contactParty->last_name}}">
+
                                     </div>
-                                    <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon" {{ ($contactParty->preferred_contact_time =='Afternoon') ? 'checked' : null}}>
-                                        <label class="form-check-label" for="AfternoonRadio">Afternoon</label>
-                                    </div> 
-                                    
-                                    <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening" {{ ($contactParty->preferred_contact_time =='Evening') ? 'checked' : null}}>
-                                        <label class="form-check-label" for="EveningRadio">Evening</label>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_npi">
+                                        NPI
+                                    </label>
+                                    <input disabled  id="relationship_npi" type="text" name="relationship_npi" value="{{$contactParty->NPI}}">
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_other">
+                                        Specify your relationship to the patient
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="relationship_other" type="text" name="relationship_other" class ="relationship_other" value="{{$contactParty->relationship_other}}">
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="relationship_street_address">
+                                            Street Address
+                                        </label>
+                                        <input disabled  id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" value="{{$contactParty->street_address}}">
+                                        </div>
+                                    </div>
+                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="relationship_city">
+                                            City
+                                        </label>
+                                        <input disabled  id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" value="{{$contactParty->city}}">
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_postal_code">
+                                        Postal Code
+                                    </label>
+                                    <input disabled  id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" value="{{$contactParty->postal_code}}">
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship__country">
+                                        Country
+                                    </label>
+                                    <select disabled  class="relationship_countries" name="relationship_countries" id="relationship_countries" >
+                                        <option value="">--Select--</option>
+                                        @foreach($countries as $country)
+                                            <option {{($contactParty->country == $country["id"]) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_states">
+                                        State
+                                    </label>
+                                    <select disabled  class="relationship_states" name="relationship_states" id="relationship_states" >
+                                        @foreach($states as $state)
+                                            <option {{($contactParty->state == $state["id"]) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_email">
+                                        Email Address
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="relationship_email" type="email" name="relationship_email" class ="relationship_email"  value="{{$contactParty->email}}">
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_confirm_email">
+                                        Confirm Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" value="{{$contactParty->email}}">
+
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_phone_number">
+                                        Phone Number
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="relationship_phone_number" type="text" name="relationship_phone_number" value="{{$contactParty->phone_number}}">
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_institution">
+                                        Institution
+                                    </label>
+                                    <input disabled  id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  value="{{$contactParty->Instituton}}">
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_fax_no">
+                                        Fax No.
+                                    </label>
+                                    <input disabled  id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" value="{{$contactParty->fax_number}}">
+
+                                    </div>
+
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
+                                    <fieldset class="mt-3 sm:mt-0 form__field ">
+                                        <label for="relationship_preferred_mode_of_communication">
+                                            Preferred Mode Of Communication
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <div class="d-flex">
+                                            <div class="form-check-inline d-flex">
+                                                <input disabled  class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" {{ ($contactParty->preferred_mode_of_communication =='Phone') ? 'checked' : null}}>
+                                                <label class="form-check-label pl-1" for="phoneRadio">Phone</label>
+                                            </div>
+                                            <div class="form-check-inline d-flex pl-2">
+                                                <input disabled  class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" {{ ($contactParty->preferred_mode_of_communication =='Email') ? 'checked' : null}}>
+                                                <label class="form-check-label pl-1" for="emailRadio">Email</label>
+                                            </div>  
+                                        </div>
+                                    </fieldset>
+                                
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="relationship_preferred_contact_time">
+                                            Preferred Contact Time
+                                        </label>  
+                                        <div class="d-flex justify-content-between">
+                                            <div class=" form-check-inline d-flex">
+                                                <input disabled  class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning" {{ ($contactParty->preferred_contact_time =='Morning') ? 'checked' : null}}>
+                                                <label class="form-check-label pl-1" for="MorningRadio">Morning</label>
+                                            </div>
+                                            <div class=" form-check-inline d-flex">
+                                                <input disabled  class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon" {{ ($contactParty->preferred_contact_time =='Afternoon') ? 'checked' : null}}>
+                                                <label class="form-check-label pl-1" for="AfternoonRadio">Afternoon</label>
+                                            </div> 
+                                            
+                                            <div class=" form-check-inline d-flex">
+                                                <input disabled  class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening" {{ ($contactParty->preferred_contact_time =='Evening') ? 'checked' : null}}>
+                                                <label class="form-check-label pl-1" for="EveningRadio">Evening</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton continueButtonStep" id="continueButtonStep2">
-                                Continue
-                                </button>
-                            </div> -->
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
-                                Back
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary rounded">
+                                    Back
                                 </button> &nbsp;&nbsp;
-                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep2">
-                                Next
+                                <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep2">
+                                    Next
                                 </button>
                             </div>
                         </section>
@@ -371,109 +374,120 @@
 
                         <!-- Step 3 -->
                         <section id="progress-form__panel-3" role="tabpanel" aria-labelledby="progress-form__tab-3" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h4 class="fw-bold">This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="first-name">
-                                    First Name
-                                </label>
-                                <input disabled id="first-name-step3" type="text" name="first-name" autocomplete="given-name" value="{{$referringPhysician->first_name}}">
+                            <div class="p-5 mx-3">
+                                <div class="mt-3 form__field">
+                                    <h4 class="fw-bold">This physician can be requested to take action on this case and may receive a copy of any resulting reports.<br/><br/></h4>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="first-name">
+                                        First Name
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="first-name-step3" type="text" name="firstnamestep3" autocomplete="given-name" required value="{{$referringPhysician->first_name}}">
+                                    </div>
+
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="last-name">
+                                        Last Name
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="last-name-step3" type="text" name="lastnamestep3" autocomplete="family-name" required value="{{$referringPhysician->last_name}}">
+                                    </div>
                                 </div>
 
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="last-name">
-                                    Last Name
-                                </label>
-                                <input disabled id="last-name-step3" type="text" name="last-name" autocomplete="family-name" value="{{$referringPhysician->last_name}}" >
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="institution">
+                                        Institution
+                                    </label>
+                                    <input disabled  id="institution" type="text" name="institution" autocomplete="given-name" value="{{$referringPhysician->institution}}">
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="street_address">
+                                        Street Address
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="street_address_step3" type="text" name="street_address" autocomplete="given-name" required value="{{$referringPhysician->street_address}}">
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="city">
+                                        City
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="city-step3" type="text" name="citystep3" autocomplete="given-name" required value="{{$referringPhysician->city}}">
+                                    </div>
 
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="institution">
-                                    Institution
-                                </label>
-                                <input disabled id="institution" type="text" name="institution" autocomplete="given-name" value="{{$referringPhysician->institution}}">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="postal_code">
+                                        Postal Code
+                                    </label>
+                                    <input disabled  id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postalcodestep3" autocomplete="given-name" value="{{$referringPhysician->postal_code}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="street_address">
-                                    Street Address
-                                </label>
-                                <input disabled id="street_address_step3" type="text" name="street_address" autocomplete="given-name" value="{{$referringPhysician->street_address}}">
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="city">
-                                    City
-                                </label>
-                                <input disabled id="city-step3" type="text" name="city" autocomplete="given-name" value="{{$referringPhysician->city}}">
-                                </div>
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="Country">
+                                        Country
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select disabled  class="countries" name="countries" id="countries-step3" required>
+                                        <option value="">--Select--</option>
+                                        @foreach($countries as $country)
+                                            <option {{($referringPhysician->country==$country['id']) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
 
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="postal_code">
-                                    Postal Code
-                                </label>
-                                <input disabled id="postal_code_step3" type="text" name="postal_code" autocomplete="given-name" value="{{$referringPhysician->postal_code}}">
-                                </div>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="Country">
-                                    Country
-                                </label>
-                                <select disabled  class="countries" name="countries" id="countries-step3">
-                                    <option value="">--Select--</option>
-                                    @foreach($countries as $country)
-                                        <option {{($referringPhysician->country==$country['id']) ? 'selected' : null}}  value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="states">
+                                        State
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <select disabled  class="states" name="states" id="states-step3" required>
+                                        @foreach($states as $state)
+                                            <option {{($referringPhysician->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+                                </div>                            
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="email">
+                                        Email Address 
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="email_step3" type="email" name="email_step3" class ="email" autocomplete="given-name" required value="{{$referringPhysician->email}}">
+                                    </div>
 
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="states">
-                                    State
-                                </label>
-                                <select disabled  class="states" name="states" id="states-step3">
-                                    <option value="">--Select--</option>
-                                    @foreach($states as $state)
-                                        <option {{($referringPhysician->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
-                                    @endforeach
-                                </select>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="confirm_email">
+                                        Confirm Email
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="confirm_email_step3" type="email" name="confirm_email_step3" class ="confirm_email" autocomplete="given-name" required value="{{$referringPhysician->email}}">
+                                    </div>
                                 </div>
-                            </div>                            
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="email">
-                                    Email Address
-                                </label>
-                                <input disabled id="email_step3" type="email" name="email" class ="email" autocomplete="given-name" value="{{$referringPhysician->email}}">
-                                </div>
-
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="confirm_email">
-                                    Confirm Email
-                                </label>
-                                <input disabled id="confirm_email_step3" type="email" name="confirm_email" class ="confirm_email" autocomplete="given-name" value="{{$referringPhysician->email}}">
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="phone_number">
+                                        Phone Number
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input disabled  id="phone_number_step3" type="text" name="phonenumberstep3" autocomplete="given-name" required value="{{$referringPhysician->phone_number}}">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="phone_number">
-                                    Phone Number
-                                </label>
-                                <input disabled id="phone_number_step3" type="text" name="phone_number" autocomplete="given-name" value="{{$referringPhysician->phone_number}}">
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                            <!-- <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo"> -->
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button data-action="prev" type="button" class="btn btn-secondary rounded">
                                 Back
                                 </button> &nbsp;&nbsp;
-                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep3">
+                                <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep3">
                                 Next
                                 </button>
                             </div>
@@ -482,65 +496,59 @@
 
                         <!-- Step 4 -->
                         <section id="progress-form__panel-4" role="tabpanel" aria-labelledby="progress-form__tab-4" tabindex="0" hidden>
-                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="primary_diagnosis">
-                                    Please Provide The Primary Diagnosis* (If unknown, please list unknown)
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <input disabled id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{$patientPrimaryConcern->primary_diagnosis}}">
-                                </div>
-                                <div class="mt-3 sm:mt-0 form__field ">
-                                    <label for="address-city">
-                                    Has The Patient Been Treated Or Had Surgery For This Condition Before?
+                            <div class="p-5 mx-3">
+                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="primary_diagnosis">
+                                        Please provide the primary diagnosis* (If unknown, please list unknown)
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    
-                                    <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes" {{$patientPrimaryConcern->treated_before =="Yes" ? 'checked' : null}}>
-                                        <label class="form-check-label" for="yesRadio">Yes</label>
+                                    <input disabled  id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{$patientPrimaryConcern->primary_diagnosis}}">
                                     </div>
-                                    <div class=" form-check-inline">
-                                        <input disabled class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No" {{$patientPrimaryConcern->treated_before =="No" ? 'checked' : null}}>
-                                        <label class="form-check-label" for="noRadio">No</label>
-                                    </div>  
+                                    <div class="mt-3 sm:mt-0 form__field ">
+                                        <label for="address-city">
+                                        Has the patient been treated or had surgery for this condition before?
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <div class="d-flex align-items-center h-50">
+                                            <div class=" form-check-inline d-flex align-items-center pr-2">
+                                                <input disabled  class="form-check-input" type="radio" name="treated_before" id="yesRadio" value="Yes" required {{$patientPrimaryConcern->treated_before =="Yes" ? 'checked' : null}}>
+                                                <label class="form-check-label pb-0 pl-2" for="yesRadio">Yes</label>
+                                            </div>
+                                            <div class="form-check-inline d-flex align-items-center pl-2">
+                                                <input disabled  class="form-check-input" type="radio" name="treated_before" id="noRadio" value="No" required {{$patientPrimaryConcern->treated_before =="No" ? 'checked' : null}}>
+                                                <label class="form-check-label pb-0 pl-2" for="noRadio">No</label>
+                                            </div>  
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                
-                                <div class="mt-3 sm:mt-0 form__field ">
-                                    <label for="address-city">
-                                    If so, please describe
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3" id="surgeryDescriptionDiv">
+                                    
+                                    <div class="mt-3 sm:mt-0 form__field ">
+                                        <label for="address-city">
+                                        If so, please describe
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        
+                                        <input disabled  id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required value="{{$patientPrimaryConcern->surgery_description}}"> 
+                                    </div>
+                                </div>
+                                <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="request_description">
+                                    Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other information you wish to provide.
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    
-                                    <input disabled id="surgery_description" type="text" name="surgery_description" autocomplete="given-name" required value="{{$patientPrimaryConcern->surgery_description}}"> 
+                                    <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required>{{$patientPrimaryConcern->request_description}}</textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
-                                <div class="mt-3 sm:mt-0 form__field">
-                                <label for="request_description">
-                                Please add a description of your request including a brief medical history, current treatment plan, specific questions you may have, and any other information you wish to provide.
-                                    <span data-required="true" aria-hidden="true"></span>
-                                </label>
-                                <textarea rows="5" cols="40" id="request_description" type="text" name="request_description" autocomplete="given-name" required>{{$patientPrimaryConcern->request_description}}</textarea>
-                                </div>
-                            </div>
-
-                            <!-- <div class="d-flex flex-column-reverse sm:flex-row align-items-center justify-center sm:justify-end mt-4 sm:mt-5">
-                                <button type="button" class="mt-1 sm:mt-0 button--simple" data-action="prev">
-                                Back
-                                </button>
-                                <button type="button" data-action="next" class="continueButton" id="continueButtonStep4">
-                                Continue
-                                </button>
-                            </div> -->
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                <button data-action="prev" type="button" class="btn btn-secondary rounded" >
                                 Back
                                 </button> &nbsp;&nbsp;
-                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep4">
+                                <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep4">
                                 Next
                                 </button>
                             </div>
@@ -549,189 +557,179 @@
 
                         <!-- Step 5 -->
                         <section id="progress-form__panel-5" role="tabpanel" aria-labelledby="progress-form__tab-5" tabindex="0" hidden>
-                            <div class="mt-3 form__field">
-                            <h4 class="fw-bold">Documents to review:<br/><br/></h4>
-                            </div>
-                            <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                <div id="tabs">
-                                    <span class="tab-button active" onclick="goToTab(0)" id="tabButton0">Patient Cover Letter</span>
-                                    <span class="tab-button" onclick="goToTab(1)" id="tabButton1">Patient Agreement</span>
+                            <div class="p-5 mx-3">
+                                <div class="mt-3 form__field">
+                                    <h4 class="fw-bold fs-3">Documents to review:<br /><br /></h4>
                                 </div>
-                            
-                                <div class="tab tab-content">
-                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="mt-3 sm:mt-0 form__field">
-                                            <iframe src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
-                                            </iframe>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
-                                            Back
-                                            </button> &nbsp;&nbsp;
-                                            <button type="button"  class="btn btn-success btn-fw agreeButton" onclick="nextTab()">
-                                                Next
-                                                </button>
-                                        </div>                                        
+                                <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                    <div id="tabs">
+                                        <span class="tab-button active" onclick="goToTab(0)" id="tabButton0">Patient Cover Letter</span>
+                                        <span style="margin-left: -3px;" class="tab-button" onclick="goToTab(1)" id="tabButton1">Patient Agreement</span>
                                     </div>
-                                </div>
-                                <div class="tab tab-content">
-                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="mt-3 sm:mt-0 form__field">
-                                            <iframe src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0" class="">                                    
-                                            </iframe>
-                                        </div>
-                                    </div>
-                                    <div class="sm:d-grid sm:grid-col-2 sm:mt-3">                                        
-                                        <div class="mt-1 form__field">
-                                            <label class="">
-                                                <input id="select_all_appendixes" type="checkbox" name="select_all_appendixes" value="Yes" class="select_all_appendixes"><span>I agree to all of the following:</span>
-                                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
-                                                <span>Patient Agreement</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
-                                                <span>Appendix 1 : Payment Terms</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
-                                                <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
-                                                <span>Appendix 3: Medicare Opt-Out Agreement</span>                                            
-                                            </label>
-                                            <label class="form__choice-wrapper">
-                                                <input disabled id="email-newsletter" type="checkbox" name="email-newsletter" value="Yes" class="patientAgreement" checked>
-                                                <span>Appendix 4: Informed Consent</span>                                            
-                                            </label>
-                                        </div>
-                                        <div class="mt-1 form__field">
+                        
+                                    <div class="tab tab-content" style="display: block">
+                                        <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                             <div class="mt-3 sm:mt-0 form__field">
-                                                <label for="digital_signature">
-                                                By typing my full legal name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
-                                                </label>
-                                                <input disabled id="digital_signature" type="text" name="digital_signature" autocomplete="given-name" >
+                                                <iframe
+                                                    src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
+                                                    style="width: 100%; max-width: 100%" class="">
+                                                </iframe>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                        
+                                    <div class="tab tab-content">
+                                        <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                            <div class="mt-3 sm:mt-0 form__field">
+                                                <iframe
+                                                    src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
+                                                    style="width: 100%; max-width: 100%" class="">
+                                                </iframe>
                                             </div>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                        <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
-                                            Back
-                                            </button> &nbsp;&nbsp;
-                                        <form action="#" method="POST" id="payment-form">
-                                            @csrf
-                                            <div id="card-element" style="display:none"></div>
-                                            <button type="button" id="customButton" class="agreeButton btn btn-success btn-fw">Next</button>
-                                        </form>
+                                        <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                            <div class="mt-1 form__field">
+                                                <label class="">
+                                                    <span>I confirm that, I have read the Patient Agreement and each appendix checked
+                                                        below</span>
+                        
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input checked disabled  id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Patient Agreement</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input checked disabled  id="appendix_1" type="checkbox" name="appendix_1" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 1 : Payment Terms</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input checked disabled  id="appendix_2" type="checkbox" name="appendix_2" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input checked disabled  id="appendix_3" type="checkbox" name="appendix_3" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 3: Medicare Opt-Out Agreement</span>
+                                                </label>
+                                                <label class="form__choice-wrapper">
+                                                    <input checked disabled  id="appendix_4" type="checkbox" name="appendix_4" value="Yes"
+                                                        class="patientAgreement">
+                                                    <span>Appendix 4: Informed Consent</span>
+                                                </label>
+                                            </div>
+                                            <div class="mt-1 form__field">
+                                                <div class="mt-3 sm:mt-0 form__field">
+                                                    <label for="digital_signature">
+                                                        By typing the full name below, I hereby indicate that I understand and accept all terms
+                                                        as specified in the Patient Agreement and in each Appendix
+                                                    </label>
+                                                    <input disabled  id="re_type_name" type="text" name="digital_signature"
+                                                        autocomplete="given-name" value="{{$expertOpinionRequests->re_type_name}}">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="px-5 py-4 text-end border-top sm:mt-5 mt-0 bg-white">
+                                <button data-action="prev" type="button" class="btn btn-secondary rounded">
+                                    Back
+                                </button>&nbsp;&nbsp;
+                                <button class="step1 btn btn-success rounded agreeButton" id="agreeButton" onclick="nextTab()">Agree & Proceed</button>&nbsp;&nbsp;                             
+                                <button class="step1 btn btn-success rounded agreeAfterPaymentButton" id="agreeAfterPaymentButton" onclick="nextTab()" hidden>Next</button>
                             </div>
                         </section>
                         <!-- / End Step 5 -->
 
                         <!-- Step 6 -->
-                        <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden>
-                            <div class="payment-details">
-                                <h3 class="fw-bold">Payment Details</h3>
-                                <br/>                                
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-
-                                            <td><strong>Transaction Id:</strong></td>
-                                            <td>{{$paymentDetails->card_last4}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Card Used:</strong></td>
-                                            <td>**** **** **** {{$paymentDetails->card_last4}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Payment Date:</strong></td>
-                                            <td>{{$paymentDetails->created_at}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Amount Paid:</strong></td>
-                                            <td>$199.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Payment Status:</strong></td>
-                                            <td class="payment-status"><span class="status-icon">&#x2714;</span> PAID</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">
-                                <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
-                                Back
-                                </button> &nbsp;&nbsp;
-                                <button type="button" data-action="next" class="continueButton continueButtonStep btn btn-success btn-fw" id="continueButtonStep6">
-                                Next
-                                </button>
+                        <section id="progress-form__panel-6" role="tabpanel" aria-labelledby="progress-form__tab-6" tabindex="0" hidden> 
+                            <div class="card">
+                                <div class="card-body p-0">
+                                <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                    <div class="px-5 py-3 mx-3">
+                                        <div class="payment-details">
+                                            <h3 class="fw-bold">Payment Details</h3>
+                                            <br/>                                
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>Transaction Id:</strong></td>
+                                                        <td><p id="chargeId">{{$paymentDetails->charge_id}}</p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Card Used:</strong></td>
+                                                        <td><p id="cardNumber">**** **** **** {{$paymentDetails->card_last4}}</p></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Payment Date:</strong></td>
+                                                        <td class="paymentDate">{{$paymentDetails->created_at}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Amount Paid:</strong></td>
+                                                        <td class=>{{config("services.stripe.stripe_amount")}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Payment Status:</strong></td>
+                                                        <td class="payment-status"><span class="status-icon">&#x2714;</span> PAID</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                        <button data-action="prev" type="button" class="btn btn-secondary rounded" >
+                                        Back
+                                        </button> &nbsp;&nbsp;
+                                        <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep4">
+                                        Next
+                                        </button>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
                         </section>
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
                         <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">      
-                                            <div class="mt-3 sm:mt-0 form__field">
-                                                <h3>UPLOAD MEDICAL DOCUMENTS<br></h3>
-                                                <h4>These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
-                                            </div>    <br/>
-                                            <div class="mt-3 sm:mt-0 form__field">  
-                                                <h3>Previously Uploaded Documents<br></h3>
-                                            </div>  
+                            <div class="card rounded-top-0">
+                                <div class="card-body p-0">
+                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                        <div class="p-5 mx-3">      
+                                            <div class="sm:mt-0 form__field">
+                                                <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
+                                                <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
+                                            </div>                              
+                                            <div class="mt-3 sm:mt-0 form__field">   
+                                                    <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
+                                                    <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
+                                                    <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
 
-                                            @foreach ($customeShareFiles['customeShareFiles']['value'] as $file)
-                                                <!-- <tr>
-                                                    <td>{{ $file['Name'] }}</td>
-                                                    <td>
-                                                        <a target="_blank" href="{{ $file['url'] }}" target="_blank">View</a>
-                                                        <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}">Download</a>
-                                                    </td>
-                                                </tr> -->
-
-                                                <div class="stat-row">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="/dist/assets/images/photo.png" alt="ssss">
-                                                    <div class="pl-2"><b>Description:</b>{{$file['Name'] }}</div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="pr-4">
-                                                        <b>Uploaded:</b>
-                                                        {{ (new DateTime($file["CreationDate"]))->format("m-d-Y") }}
-                                                    </div>
-                                                    <button class="delete-btn">
-                                                        <a href="{{ route('view-file', ['id' => $file['Id']]) }}" target="_blank">View</a>
-                                                    </button>&nbsp;&nbsp;
-                                                    <button class="delete-btn">
-                                                        <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}"><span class="fa fa-download"></span>Download</a>
-
-                                                        
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <br/>
-                                            @endforeach
-                                            <div class="mt-3 sm:mt-0 form__field">                                            
-                                                <div class="">          
+                                                <!-- <div>
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
                                                         @csrf
-                                                        <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
-                                                        <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
-                                                        <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
+                                                        <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
                                                     </form>
+                                                </div>                                          -->
+                                                <div class="dropzone p-0">          
+                                                    <label for="file-input" class="file-drop-label" id="files-count">
+                                                        <img src="/dist/assets/images/download.png" alt="">
+                                                        Drop files here to upload
+                                                    </label>
+                                                    <input type="file" id="file-input" class="file-drop-input" multiple>
                                                 </div>
-
+                                                <div class="text-end mt-3"><button id="upload-btn" class="upload-btn">Upload</button></div>
+                                                <div id="connectivity-message" style="display: none;">You are offline. Uploads will resume when the connection is back.</div>
+                                                <div id="file-list" class="file-list"></div>
                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
-                                                <script>
+                                                <script>                                                   
+
                                                     Dropzone.options.fileUpload = {
+                                                        url:"{{ url('/upload') }}",
                                                         paramName: "file", // The name that will be used to transfer the file
                                                         maxFilesize: 1000, // MB
                                                         acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
@@ -743,6 +741,26 @@
                                                         init: function() {
                                                             var myDropzone = this;
 
+                                                            // Show loading screen when files start processing
+                                                            // this.on("processing", function() {
+                                                            //     document.getElementById("loading-screen").style.display = "block";
+                                                            // });
+                                                            
+                                                            // Check initial network status
+                                                            if (!navigator.onLine) {
+                                                            document.getElementById('connectivity-message').style.display = 'block';
+                                                            }
+
+                                                            // Event listeners for online and offline status
+                                                            window.addEventListener('online', function () {
+                                                            document.getElementById('connectivity-message').style.display = 'none';
+                                                            resumeUploads();
+                                                            });
+
+                                                            window.addEventListener('offline', function () {
+                                                            document.getElementById('connectivity-message').style.display = 'block';
+                                                            });
+
                                                             // Add event listener to the Confirm Upload button
                                                             document.getElementById("confirm-upload").addEventListener("click", function() {
                                                                 myDropzone.processQueue(); // Trigger file upload on button click
@@ -750,6 +768,11 @@
 
                                                             // Handle file removal
                                                             this.on("addedfile", function(file) {
+
+                                                                if (navigator.onLine) {
+                                                                    myDropzone.processQueue(); // Process the queue if online
+                                                                }
+
                                                                 // Create the remove button
                                                                 var removeButton = Dropzone.createElement("<button class='btn btn-danger btn-sm mt-2'>Delete</button>");
                                                                 
@@ -768,37 +791,174 @@
 
                                                             // Handling the queue complete event
                                                             this.on("queuecomplete", function() {
+                                                                // document.getElementById("loading-screen").style.display = "none";
                                                                 //console.log("All files have been uploaded.");
-                                                                document.getElementById('progress-form__panel-1').removeAttribute("hidden");
-                                                                document.getElementById('progress-form__panel-7').setAttribute("hidden","");
-                                                                alert("Your Files have been uploaded successfully");
-
-                                                                window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+                                                                document.getElementById('progress-form__panel-7').setAttribute("hidden", "");
+                                                                window.location = "{{ route('final-submission') }}";
 
                                                             });
 
                                                             // Handling the success event
                                                             this.on("success", function(file, response) {
-                                                                console.log("success", response);
-                                                                console.log('file->', file);
                                                             });
 
                                                             // Handling the error event
                                                             this.on("error", function(file, response) {
+                                                                if (!navigator.onLine) {
+                                                                    console.log('Upload paused, waiting for connection to resume.');
+                                                                } else {
+                                                                    console.log('Retrying upload...');
+                                                                    myDropzone.retryUpload(file); // Retry uploading the file
+                                                                }
+
                                                                 console.error("error", response);
                                                                 console.error('file->', file);
                                                             });
                                                         }
                                                     };
-                                                </script>
+                                                    // Custom retry logic for Dropzone (not built-in)
+                                                    Dropzone.prototype.retryUpload = function(file) {
+                                                        setTimeout(function() {
+                                                            if (navigator.onLine) {
+                                                                myDropzone.uploadFile(file);
+                                                            } else {
+                                                                myDropzone.retryUpload(file); // Keep retrying until online
+                                                            }
+                                                        }, 3000); // Retry every 3 seconds
+                                                    };
+                                                    
+                                                    // Function to resume uploads
+                                                    function resumeUploads() {
+                                                        if (navigator.onLine) {
+                                                            myDropzone.processQueue(); // Start processing the queue again
+                                                        }
+                                                    }
 
-                                            </div>   
-                                        <div class="d-flex align-items-center justify-center sm:justify-end mt-4 sm:mt-5 template-demo">  
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary btn-fw" >
+                                                    function formatDate() {
+                                                        // Create a new Date object from the date string
+                                                        const date = new Date();
+                                                        // Get the day, month, and year
+                                                        const day = String(date.getDate()).padStart(2, '0'); // Ensure day is two digits
+                                                        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure month is two digits, getMonth() returns 0-11
+                                                        const year = date.getFullYear();
+
+                                                        // Get the hours and minutes
+                                                        const hours = String(date.getHours()).padStart(2, '0'); // Ensure hours are two digits
+                                                        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure minutes are two digits
+                                                        // Return the formatted date as dd-mm-yyyy
+                                                        return `${day}/${month}/${year} - ${hours}:${minutes}`;
+                                                    };
+                                                   
+                                                    document.addEventListener("DOMContentLoaded", () => {
+                                                        const fileInput = document.getElementById("file-input");
+                                                        const uploadBtn = document.getElementById("upload-btn");
+                                                        const fileList = document.getElementById("file-list");
+                                                        const filesCount = document.getElementById("files-count");
+                                                        let filesArray = [];
+
+                                                        fileInput.addEventListener("change", (event) => {
+                                                            filesArray = Array.from(event.target.files);
+                                                            if(filesArray.length > 1){
+                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
+                                                            }else{
+                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
+                                                            }
+                                                        });
+
+                                                        uploadBtn.addEventListener("click", () => {
+                                                            if (filesArray.length > 0) {
+                                                            // Handle the upload action, for example:
+                                                            displayFiles(filesArray);
+                                                            fileInput.value = "";
+                                                            console.log("Files to upload:", filesArray);
+                                                            } else {
+                                                            alert("Please select files to upload");
+                                                            }
+                                                        });
+
+                                                        function displayFiles(files) {
+                                                            const htmlString = files
+                                                            .map(
+                                                                (item, ind) => `
+                                                                <div class="stat-row">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}">
+                                                                        <div class="pl-2"><b>Description:</b> ${item.name}</div>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="pr-4">
+                                                                            <b>Uploaded:</b>
+                                                                            ${formatDate()}
+                                                                        </div>
+                                                                        <button class="delete-btn">
+                                                                            <img src="/dist/assets/images/delete.png" alt="">
+                                                                            Delete
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                `
+                                                            )
+                                                            .join("");
+                                                            fileList.innerHTML = "";
+                                                            fileList.innerHTML = htmlString;
+                                                            filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
+                                                        }
+                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
+
+                                                        async function uploadFiles() {
+                                                            const apiUrl = "{{route('upload')}}";
+                                                            const formData = new FormData();
+
+                                                            for (const file of filesArray) {
+                                                                formData.append("file[]", file);
+                                                            }
+                                                            formData.append("file", filesArray);
+                                                            try {
+                                                                const response = await fetch(apiUrl, {
+                                                                    method: "POST",
+                                                                    body: formData,
+                                                                    headers: {
+                                                                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                                                    },
+                                                                });
+
+                                                                if (response.ok) {
+                                                                    alert("Files uploaded successfully");
+                                                                    window.location = "{{ route('final-submission') }}";
+                                                                } else {
+                                                                    console.error("Failed to upload files");
+                                                                }
+                                                            } catch (error) {
+                                                                console.error("An error occurred while uploading files");
+                                                            }
+                                                        }
+
+                                                        function readFileAsBinary(file) {
+                                                            return new Promise((resolve, reject) => {
+                                                                const reader = new FileReader();
+
+                                                                reader.onload = () => {
+                                                                    resolve(reader.result);
+                                                                };
+
+                                                                reader.onerror = () => {
+                                                                    reject(new Error("Failed to read file as binary"));
+                                                                };
+
+                                                                reader.readAsBinaryString(file);
+                                                            });
+                                                        }
+                                                    });
+
+                                                </script>
+                                            </div>  
+                                        </div>
+                                        <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
+                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary" >
                                                 Back
                                             </button> &nbsp;&nbsp;
 
-                                            <button id="confirm-upload" class="continueButton step1 btn btn-success btn-fw">Confirm Upload</button>
+                                            <button id="confirm-upload" class="step1 btn btn-success" type="button" >Submit</button>
                                         </div>
                                     </div>
                                 </div>                            
@@ -808,8 +968,7 @@
 
                     </form>
                     <!-- / End Progress Form -->
-                    </div>
-                </div>
+                </div>                
             </div>
             <div class="col-md-2 col-lg-2"></div>
         </div>
@@ -820,10 +979,14 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 
 <script>
     console.clear();
 
+    //Set Agree to Payment button off on payload
+    
     function ready(fn) {
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setTimeout(fn, 1);
@@ -887,13 +1050,16 @@
         const val = field.value.trim();
 
         if (val === '' && field.required) {
-        return {
-            isValid: false
-        };
-        } else {
-        return {
-            isValid: true
-        };
+            return {
+                isValid: false
+            };
+        } //else if (!/^[a-zA-Z0-9-_,\/ ]+$/.test(val)) {
+        //     return { isValid: false, message: 'Only alphanumeric characters, hyphens, underscores, commas, and slashes are allowed.' };
+        // }
+        else {
+            return {
+                isValid: true
+            };
         }
     };
 
@@ -971,7 +1137,6 @@
      */
 
     const validateChoice = field => {
-        console.log(field.closest('fieldset'));
         return validateGroup(field.closest('fieldset'));
     };
 
@@ -1050,6 +1215,10 @@
         case  'hidden': return {
             isValid: true
         };
+        case  'file': return {
+            isValid: true
+        };
+        
         default:
             throw new Error(`The provided field type '${field.tagName}:${field.type}' is not supported in this form.`);
         }
@@ -1238,7 +1407,6 @@
      */
 
     function activateTab(index) {
-        console.log(tabPanels);
         const thisTab   = tabItems[index]
             , thisPanel = tabPanels[index];
 
@@ -1586,8 +1754,39 @@
 </script>
 <script>
 
-    // Function to check the state of all checkboxes and enable/disable the submit button
+document.addEventListener('DOMContentLoaded', function() {
+    
+    $(".backButtonPaymentDetails").click(function() {
+        const panel6 = document.getElementById("progress-form__panel-6");
+        const panel5 = document.getElementById("progress-form__panel-5");
+
+        if (panel6 && panel5) {
+            panel6.setAttribute("hidden", "");
+            panel5.removeAttribute("hidden");
+        } else {
+            console.error("One or both of the panels (panel 6 or panel 5) not found.");
+        }
+    });
+
+    $(".agreeAfterPaymentButton").click(function() {
+        const panel6 = document.getElementById("progress-form__panel-6");
+        const panel5 = document.getElementById("progress-form__panel-5");
+
+        if (panel6 && panel5) {
+            panel5.setAttribute("hidden", "");
+            panel6.removeAttribute("hidden");
+        } else {
+            console.error("One or both of the panels (panel 6 or panel 5) not found.");
+        }
+    });
+});
+
+
+    // Function to check the state of all checkboxes and enable/disable the submit button for payment
+    const submitBtn = document.getElementById('customButton');
     function updateSubmitButtonState() {
+        
+        const digital_signature = document.getElementById('re_type_name').value.trim();
         const checkboxes = document.querySelectorAll('.patientAgreement');
         let allChecked = true;
 
@@ -1597,10 +1796,8 @@
             }
         });
 
-        // Enable button if all checkboxes are checked
-        const submitBtn = document.getElementById('customButton');
-        const digital_signature = document.getElementById('digital_signature');
-        if (allChecked && digital_signature != null) {
+        
+        if (allChecked && digital_signature !== ""){
             submitBtn.disabled = false;
         } else {
             submitBtn.disabled = true;
@@ -1611,14 +1808,45 @@
     document.querySelectorAll('.patientAgreement').forEach(checkbox => {
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
-    // Add event listeners to textbox where user has to retype his name
-    document.querySelectorAll('#digital_signature').forEach(textbox => {
-        textbox.addEventListener('blur', updateSubmitButtonState);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    const typeNameField = document.querySelector('#re_type_name');
+    const submitBtn = document.querySelector('#submitBtn'); // Ensure this is correctly set to your submit button
+
+    function checkForm() {
+        if (typeNameField.value.trim() !== '') {
+            const checkboxes = document.querySelectorAll('.patientAgreement');
+            let allChecked = true;
+
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    allChecked = false;
+                }
+            });
+
+            submitBtn.disabled = !allChecked;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+
+    if (typeNameField) {
+        typeNameField.addEventListener('keyup', checkForm);
+        typeNameField.addEventListener('blur', checkForm);
+    } else {
+        console.error("Element with ID 're_type_name' not found.");
+    }
+});
+
+
+    document.getElementById("email_step1").addEventListener("blur", function() {
+        document.getElementById("relationship_email").value = this.value;
+        document.getElementById("relationship_confirm_email").value = this.value;
     });
 
     let currentTab = 0;
     document.addEventListener("DOMContentLoaded", function () {
-        showTab(currentTab);
+        showTab(currentTab);        
     });
 
     function showTab(n) {
@@ -1631,11 +1859,11 @@
         tabs[n].style.display = "block";
         tabButtons[n].classList.add("active");
 
-        if (n === 2) {
-            document.getElementById("submitBtn").classList.remove("hidden");
-        } else {
-            document.getElementById("submitBtn").classList.add("hidden");
-        }
+        // if (n === 2) {
+        //     document.getElementById("submitBtn").classList.remove("hidden");
+        // } else {
+        //     document.getElementById("submitBtn").classList.add("hidden");
+        // }
     }
 
     function enableTabButton(tabIndex) {
@@ -1657,6 +1885,9 @@
             currentTab++;
             showTab(currentTab);
             enableTabButtons();
+            document.getElementById("agreeButton").setAttribute("hidden", '');
+            document.getElementById("agreeAfterPaymentButton").removeAttribute("hidden");
+
         }
     }
 
@@ -1670,148 +1901,26 @@
 
     // Function to go to a specific tab
     function goToTab(n) {
-        if (document.getElementById(`tabButton${n}`).style.pointerEvents === "auto") {
-            currentTab = n;
-            showTab(currentTab);
-        }
+        showTab(n);
+        // if (document.getElementById(`tabButton${n}`).style.pointerEvents === "auto") {
+        //     currentTab = n;
+        //     showTab(currentTab);
+        // }
     }
 
     document.querySelectorAll('#continueButton').forEach(checkbox => {
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
-    $("#continueButton").on("click", function() {
-        // Perform your desired action here
-    });
-    $(document).ready(function() {
-    let typingTimer;
-    let doneTypingInterval = 1000; // time in ms (1 second)
-
-    // on keyup, start the countdown
-    $('#email_step1, #confirm_email_step1').on('keyup', function() {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    });
-
-    // on keydown, clear the countdown
-    $('#email_step1, #confirm_email_step1').on('keydown', function() {
-        clearTimeout(typingTimer);
-    });
-
-    // user is "finished typing," do something
-    function doneTyping() {
-        // Get the values of the email fields
-        let email = $('#email_step1').val();
-        let confirmEmail = $('#confirm_email_step1').val();
-        if(confirmEmail != ""){
-        // Check if the emails match
-        if (email !== confirmEmail) {
-            $('#emailMatchMessage').show();
-            $('#emailMatchMessage').addClass('form__error-text');
-            $('#continueButton').prop('disabled', true);
-        } else {
-            $('#emailMatchMessage').hide();
-            $('#emailMatchMessage').removeClass('form__error-text');
-            $('#continueButton').prop('disabled', false);
-        }
-        }
-
-    }
-    });
-
-    $(document).ready(function() {
-    // Function to show/hide fields based on the selected relationship
-    function toggleFields() {
-        var relationship = $('#relationship_to_patient').val();
-
-        // Hide all fields initially
-        $('#relationship_first_name, #relationship_last_name, #relationship_npi, #relationship_street_address, #relationship_city, #relationship_postal_code, #relationship_countries, #relationship_states, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_institution, #relationship_fax_no, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').hide();
-
-        $('#relationship_email').removeAttr('required');
-            $('#relationship_confirm_email').removeAttr('required');
-            $('#relationship_phone_number').removeAttr('required');
-            $('#phoneRadio').removeAttr('required');
-            $('#emailRadio').removeAttr('required');
-            $('#relationship_first_name').removeAttr('required');
-            $('#relationship_last_name').removeAttr('required');
-            $('#relationship_other').removeAttr('required');
-
-        if (relationship === 'Patient') {
-            // Show specific fields for 'Patient'
-            $('#relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
-            $('#relationship_email').attr('required', 'required');
-            $('#relationship_confirm_email').attr('required', 'required');
-            $('#relationship_phone_number').attr('required', 'required');
-            $('#phoneRadio').attr('required', 'required');
-            $('#emailRadio').attr('required', 'required');
-
-        } else if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian') {
-            // Show specific fields for 'Caregiver'
-            $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
-            $('#relationship_email').attr('required', 'required');
-            $('#relationship_confirm_email').attr('required', 'required');
-            $('#relationship_phone_number').attr('required', 'required');
-            $('#relationship_first_name').attr('required', 'required');
-            $('#relationship_last_name').attr('required', 'required');
-            $('#phoneRadio').attr('required', 'required');
-            $('#emailRadio').attr('required', 'required');
-
-        }else if(relationship === 'Referring or local physician'){
-            $('#relationship_first_name, #relationship_last_name, #relationship_email,#relationship_npi,#relationship_countries,#relationship_states,#relationship_postal_code, #relationship_street_address, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_institution,#relationship_fax_no, #relationship_city').closest('.form__field').show();
-            $('#relationship_email').attr('required', 'required');
-            $('#relationship_confirm_email').attr('required', 'required');
-            $('#relationship_phone_number').attr('required', 'required');
-            $('#relationship_first_name').attr('required', 'required');
-            $('#relationship_last_name').attr('required', 'required');
-            $('#phoneRadio').attr('required', 'required');
-            $('#emailRadio').attr('required', 'required');
-        }else if(relationship === 'Other'){
-             // Show specific fields for 'Caregiver'
-             $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').show();
-            $('#relationship_email').attr('required', 'required');
-            $('#relationship_confirm_email').attr('required', 'required');
-            $('#relationship_phone_number').attr('required', 'required');
-            $('#relationship_first_name').attr('required', 'required');
-            $('#relationship_last_name').attr('required', 'required');
-            $('#relationship_other').attr('required', 'required');
-            $('#phoneRadio').attr('required', 'required');
-            $('#emailRadio').attr('required', 'required');
-        }
-    }
-
-    // Trigger the function on page load and when the relationship select changes
-    toggleFields();
-    $('#relationship_to_patient').change(toggleFields);
-});
-
-
-
 </script>
 
 </script>
-<script src="https://js.stripe.com/v3/"></script>
-<script src="https://checkout.stripe.com/checkout.js"></script>
 
-<script type="text/javascript">    
-
-    var paymentConsentDetails = document.getElementById('progress-form__panel-5');
+<script type="text/javascript">
     var paymentDetails = document.getElementById('progress-form__panel-6');
-    var documentUpload = document.getElementById('progress-form__panel-7');
-    var card4Digits = "";    
-
-    document.querySelector('#customButton').addEventListener('click', function(e) {
-        paymentConsentDetails.setAttribute('hidden', '');
-        paymentDetails.removeAttribute('hidden');
-        paymentDetails.setAttribute('aria-selected', 'true');
-        paymentDetails.setAttribute('data-complete', 'true');
-    });
-
-    window.addEventListener('popstate', function() {
-        handler.close();
-    });
-
     document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {
         paymentDetails.setAttribute('hidden', '');
         documentUpload.removeAttribute('hidden');
     });
 </script>
+
 @endsection

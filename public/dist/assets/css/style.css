@@ -26691,6 +26691,13 @@ table td{
 div.payment {
   background-color: white;
 }
-.ButtonContainer--save, .ButtonContainer--pay, .ButtonContainer--use{
+.OffsetContainer{
   display: none !important;
+}
+.paymentLogo{
+  left:35%;
+  position:relative;
+}
+#card-errors{
+  font-size: 1.3rem;
 }
