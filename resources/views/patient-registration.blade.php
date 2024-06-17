@@ -307,7 +307,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_phone_number" type="text" name="relationship_phone_number" value="{{isset($contactParty->phone_number) ? $contactParty->phone_number : ''}}">
+                                    <input id="relationship_phone_number" type="text" maxlength="15" name="relationship_phone_number" value="{{isset($contactParty->phone_number) ? $contactParty->phone_number : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -486,7 +486,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="phone_number_step3" type="text" name="phonenumberstep3" autocomplete="given-name" required value="{{isset($referringPhysician->phone_number) ? $referringPhysician->phone_number : ''}}">
+                                    <input id="phone_number_step3" type="text" maxlength="15" name="phonenumberstep3" autocomplete="given-name" required value="{{isset($referringPhysician->phone_number) ? $referringPhysician->phone_number : ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -2224,32 +2224,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 $(document).ready(function () {
-
-    // Function to hide the autofill button
-    function hideAutofillButton() {
-        const autofillPayButton = document.querySelector('.link-pay');
-        const autofillSaveButton = document.querySelector('.link-save');
-        if (autofillPayButton) {
-            autofillPayButton.style.display = 'none';
-            autofillSaveButton.style.display = 'none';
-        }
-    }
-
-    // MutationObserver to monitor DOM changes
-    const observer = new MutationObserver((mutationsList) => {
-        for (let mutation of mutationsList) {
-            if (mutation.type === 'childList' || mutation.type === 'subtree') {
-                hideAutofillButton();
-            }
-        }
-    });
-
-    // Start observing the document for changes
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Initial call to hide the button if it is already present
-    hideAutofillButton();
-
 
     var stripe = Stripe("{{ config('services.stripe.stripe_key') }}");
     var elements = stripe.elements();
