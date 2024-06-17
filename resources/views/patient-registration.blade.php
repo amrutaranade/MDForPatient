@@ -52,7 +52,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
                             <div class="p-5 mx-3">
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -754,7 +754,7 @@
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" >
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
@@ -763,17 +763,31 @@
                                                 <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
                                             </div>                              
-                                            <div class="mt-3 sm:mt-0 form__field">                                            
-                                                <div class="">          
+                                            <div class="mt-3 sm:mt-0 form__field">   
+                                                <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
+
+                                                <!-- <div>
                                                     <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
                                                         @csrf
                                                         <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
                                                     </form>
+                                                </div>                                          -->
+                                                <div class="dropzone p-0">          
+                                                    <label for="file-input" class="file-drop-label" id="files-count">
+                                                        <img src="/dist/assets/images/download.png" alt="">
+                                                        Drop files here to upload
+                                                    </label>
+                                                    <input type="file" id="file-input" class="file-drop-input" multiple>
                                                 </div>
-
+                                                <div class="text-end mt-3"><button id="upload-btn" class="upload-btn">Upload</button></div>
+                                                <div id="connectivity-message" style="display: none;">You are offline. Uploads will resume when the connection is back.</div>
+                                                <div id="file-list" class="file-list"></div>
                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
                                                 <script>
+                                                    
+
                                                     Dropzone.options.fileUpload = {
+                                                        url:"{{ url('/upload') }}",
                                                         paramName: "file", // The name that will be used to transfer the file
                                                         maxFilesize: 1000, // MB
                                                         acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
@@ -789,6 +803,21 @@
                                                             // this.on("processing", function() {
                                                             //     document.getElementById("loading-screen").style.display = "block";
                                                             // });
+                                                            
+                                                            // Check initial network status
+                                                            if (!navigator.onLine) {
+                                                            document.getElementById('connectivity-message').style.display = 'block';
+                                                            }
+
+                                                            // Event listeners for online and offline status
+                                                            window.addEventListener('online', function () {
+                                                            document.getElementById('connectivity-message').style.display = 'none';
+                                                            resumeUploads();
+                                                            });
+
+                                                            window.addEventListener('offline', function () {
+                                                            document.getElementById('connectivity-message').style.display = 'block';
+                                                            });
 
                                                             // Add event listener to the Confirm Upload button
                                                             document.getElementById("confirm-upload").addEventListener("click", function() {
@@ -797,6 +826,11 @@
 
                                                             // Handle file removal
                                                             this.on("addedfile", function(file) {
+
+                                                                if (navigator.onLine) {
+                                                                    myDropzone.processQueue(); // Process the queue if online
+                                                                }
+
                                                                 // Create the remove button
                                                                 var removeButton = Dropzone.createElement("<button class='btn btn-danger btn-sm mt-2'>Delete</button>");
                                                                 
@@ -824,19 +858,156 @@
 
                                                             // Handling the success event
                                                             this.on("success", function(file, response) {
-                                                                console.log("success", response);
-                                                                console.log('file->', file);
                                                             });
 
                                                             // Handling the error event
                                                             this.on("error", function(file, response) {
+                                                                if (!navigator.onLine) {
+                                                                    console.log('Upload paused, waiting for connection to resume.');
+                                                                } else {
+                                                                    console.log('Retrying upload...');
+                                                                    myDropzone.retryUpload(file); // Retry uploading the file
+                                                                }
+
                                                                 console.error("error", response);
                                                                 console.error('file->', file);
                                                             });
                                                         }
                                                     };
-                                                </script>
+                                                    // Custom retry logic for Dropzone (not built-in)
+                                                    Dropzone.prototype.retryUpload = function(file) {
+                                                        setTimeout(function() {
+                                                            if (navigator.onLine) {
+                                                                myDropzone.uploadFile(file);
+                                                            } else {
+                                                                myDropzone.retryUpload(file); // Keep retrying until online
+                                                            }
+                                                        }, 3000); // Retry every 3 seconds
+                                                    };
+                                                    
+                                                    // Function to resume uploads
+                                                    function resumeUploads() {
+                                                        if (navigator.onLine) {
+                                                            myDropzone.processQueue(); // Start processing the queue again
+                                                        }
+                                                    }
 
+                                                    function formatDate() {
+                                                        // Create a new Date object from the date string
+                                                        const date = new Date();
+                                                        // Get the day, month, and year
+                                                        const day = String(date.getDate()).padStart(2, '0'); // Ensure day is two digits
+                                                        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure month is two digits, getMonth() returns 0-11
+                                                        const year = date.getFullYear();
+
+                                                        // Get the hours and minutes
+                                                        const hours = String(date.getHours()).padStart(2, '0'); // Ensure hours are two digits
+                                                        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure minutes are two digits
+                                                        // Return the formatted date as dd-mm-yyyy
+                                                        return `${day}/${month}/${year} - ${hours}:${minutes}`;
+                                                    };
+                                                   
+                                                    document.addEventListener("DOMContentLoaded", () => {
+                                                        const fileInput = document.getElementById("file-input");
+                                                        const uploadBtn = document.getElementById("upload-btn");
+                                                        const fileList = document.getElementById("file-list");
+                                                        const filesCount = document.getElementById("files-count");
+                                                        let filesArray = [];
+
+                                                        fileInput.addEventListener("change", (event) => {
+                                                            filesArray = Array.from(event.target.files);
+                                                            if(filesArray.length > 1){
+                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
+                                                            }else{
+                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
+                                                            }
+                                                        });
+
+                                                        uploadBtn.addEventListener("click", () => {
+                                                            if (filesArray.length > 0) {
+                                                            // Handle the upload action, for example:
+                                                            displayFiles(filesArray);
+                                                            fileInput.value = "";
+                                                            console.log("Files to upload:", filesArray);
+                                                            } else {
+                                                            alert("Please select files to upload");
+                                                            }
+                                                        });
+
+                                                        function displayFiles(files) {
+                                                            const htmlString = files
+                                                            .map(
+                                                                (item, ind) => `
+                                                                <div class="stat-row">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}">
+                                                                        <div class="pl-2"><b>Description:</b> ${item.name}</div>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="pr-4">
+                                                                            <b>Uploaded:</b>
+                                                                            ${formatDate()}
+                                                                        </div>
+                                                                        <button class="delete-btn">
+                                                                            <img src="/dist/assets/images/delete.png" alt="">
+                                                                            Delete
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                `
+                                                            )
+                                                            .join("");
+                                                            fileList.innerHTML = "";
+                                                            fileList.innerHTML = htmlString;
+                                                            filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
+                                                        }
+                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
+
+                                                        async function uploadFiles() {
+                                                            const apiUrl = "{{route('upload')}}";
+                                                            const formData = new FormData();
+
+                                                            for (const file of filesArray) {
+                                                                formData.append("file[]", file);
+                                                            }
+                                                            formData.append("file", filesArray);
+                                                            try {
+                                                                const response = await fetch(apiUrl, {
+                                                                    method: "POST",
+                                                                    body: formData,
+                                                                    headers: {
+                                                                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                                                    },
+                                                                });
+
+                                                                if (response.ok) {
+                                                                    window.location = "{{ route('final-submission') }}";
+                                                                } else {
+                                                                    console.error("Failed to upload files");
+                                                                }
+                                                            } catch (error) {
+                                                                console.error("An error occurred while uploading files");
+                                                            }
+                                                        }
+
+                                                        function readFileAsBinary(file) {
+                                                            return new Promise((resolve, reject) => {
+                                                                const reader = new FileReader();
+
+                                                                reader.onload = () => {
+                                                                    resolve(reader.result);
+                                                                };
+
+                                                                reader.onerror = () => {
+                                                                    reject(new Error("Failed to read file as binary"));
+                                                                };
+
+                                                                reader.readAsBinaryString(file);
+                                                            });
+                                                        }
+                                                    });
+
+                                                </script>
                                             </div>   
                                         </div>
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
