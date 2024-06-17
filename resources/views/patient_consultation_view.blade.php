@@ -683,7 +683,7 @@
                                         <button data-action="prev" type="button" class="btn btn-secondary rounded" >
                                         Back
                                         </button> &nbsp;&nbsp;
-                                        <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep4">
+                                        <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep6">
                                         Next
                                         </button>
                                     </div>
@@ -932,7 +932,7 @@
                                                             });
                                                         }
                                                     });
-                                                </script>
+                                                </script> 
                                             </div>   
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
                                             <button data-action="prev" type="button" data-action="next" class="btn btn-secondary" >
@@ -1834,9 +1834,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const panel6 = document.getElementById("progress-form__panel-6");
         const panel5 = document.getElementById("progress-form__panel-5");
 
+        const tab6 = document.getElementById("progress-form__tab-6");
+        const tab5 = document.getElementById("progress-form__tab-5");
+
         if (panel6 && panel5) {
             panel5.setAttribute("hidden", "");
             panel6.removeAttribute("hidden");
+            tab5.setAttribute("data-complete", "true");
+            tab5.setAttribute("aria-selected", "false");
+            tab6.setAttribute("aria-selected", "true");
         } else {
             console.error("One or both of the panels (panel 6 or panel 5) not found.");
         }
@@ -1980,8 +1986,23 @@ document.addEventListener('DOMContentLoaded', function() {
 <script type="text/javascript">
     var paymentDetails = document.getElementById('progress-form__panel-6');
     document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {
-        paymentDetails.setAttribute('hidden', '');
-        documentUpload.removeAttribute('hidden');
+        const panel7 = document.getElementById("progress-form__panel-7");
+        const panel6 = document.getElementById("progress-form__panel-6");
+
+        const tab7 = document.getElementById("progress-form__tab-7");
+        const tab6 = document.getElementById("progress-form__tab-6");
+        const tab5 = document.getElementById("progress-form__tab-5");
+
+        if (panel7 && panel6) {
+            panel6.setAttribute("hidden", "");
+            panel7.removeAttribute("hidden");
+            tab6.setAttribute("data-complete", "true");
+            tab7.setAttribute("aria-selected", "true");
+            tab6.setAttribute("aria-selected", "false");
+            tab5.setAttribute("aria-selected", "false");
+            tab5.setAttribute("data-complete", "true");
+        }
+        
     });
 </script>
 
