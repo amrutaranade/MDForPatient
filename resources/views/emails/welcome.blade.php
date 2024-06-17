@@ -43,7 +43,7 @@
         <div class="content">
             <p>Thank you for your consultation request and payment.</p>
             <p>Please save your consultation request number,</p>
-            <p><strong>Consultation Number  : {{ $details['body'] }}</strong></p>
+            <p><strong>Consultation Number: {{ $details['body'] }}</strong></p>
             <p>We will be in touch with you shortly.</p>
             <p>Client Services<br>MD for Patients</p>
         </div>
