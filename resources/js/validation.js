@@ -34,6 +34,13 @@ $.validator.addMethod('emailExists', function(value, element) {
     });
     return !exists; // If exists is true, return false (invalid); if false, return true (valid)
 }, 'This email is already taken.');
+
+    // Custom rule for strict email validation
+$.validator.addMethod('strictEmail', function(value, element) {
+    // Regex pattern for validating email addresses
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return this.optional(element) || emailPattern.test(value);
+}, 'Please enter a valid email address.');
     $('#progress-form').validate({
         rules: {
             firstname: {
@@ -52,7 +59,7 @@ $.validator.addMethod('emailExists', function(value, element) {
                 digits:true
             },
             emailstep1: {
-                email: true,
+                strictEmail: true,
                 emailExists: true // Validate email format
             },
             confirmemailstep1: {
@@ -77,7 +84,7 @@ $.validator.addMethod('emailExists', function(value, element) {
 
             },
             relationship_email: {
-                email: true // Validate email format
+                strictEmail: true // Validate email format
             },
             relationship_confirm_email: {
                 equalTo: "#relationship_email" // Ensure it matches the email field
@@ -114,7 +121,7 @@ $.validator.addMethod('emailExists', function(value, element) {
                 maxlength: 12
             },
             email_step3: {
-                email: true // Validate email format
+                strictEmail: true // Validate email format
             },
             confirm_email_step3: {
                 equalTo: "#email_step3" // Ensure it matches the email field
@@ -137,7 +144,7 @@ $.validator.addMethod('emailExists', function(value, element) {
                 digits: "Please enter only digits."
             },
             emailstep1: {
-               email: "Please enter a valid email address",
+                strictEmail: "Please enter a valid email address",
                 emailExists: "This email is already exists."
             },
             confirmemailstep1: {
@@ -161,7 +168,7 @@ $.validator.addMethod('emailExists', function(value, element) {
                 digits: "Please enter only digits."
             },
             relationship_email: {
-                email: "Please enter a valid email addres.s"
+                strictEmail: "Please enter a valid email addres.s"
              },
              relationship_confirm_email: {
                 equalTo: "Email addresses do not match."
@@ -201,7 +208,7 @@ $.validator.addMethod('emailExists', function(value, element) {
                 maxlength: "Phone number must not exceed 15 digits" // Adjust as per phone number requirements
             },
             email_step3: {
-                email: "Please enter a valid email addres.s"
+                strictEmail: "Please enter a valid email addres.s"
              },
              confirm_email_step3: {
                 equalTo: "Email addresses do not match."
