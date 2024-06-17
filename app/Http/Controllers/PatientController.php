@@ -42,8 +42,7 @@ class PatientController extends Controller
     {     
         $getCountriesData = Country::get()->toArray();
         $getStatesData = State::get()->toArray();
-        echo "session_id---". session("patient_id");
-        echo "<br>charge id-----".session("stripe_charge_id");
+        
         //Check if patient_id is present in session, if yes fetch all the data 
         if(!empty(session("patient_id"))) {
             $patientId = session("patient_id");

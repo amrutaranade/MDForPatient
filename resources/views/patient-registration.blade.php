@@ -27,27 +27,27 @@
                     <!-- Step Navigation -->
                     
                         <div class="d-flex align-items-start p-0 progress-form__tabs step-container" role="tablist">
-                            <button id="progress-form__tab-1" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true" data-completed="{{(!empty($patientDetails)) ? 'true':'false'}}">
+                            <button id="progress-form__tab-1" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-1" aria-selected="true" aria-disabled="true">
                                 <div class="step-number">1</div>
                                 <div>Patient Details</div>
                             </button>
-                            <button id="progress-form__tab-2" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true" data-completed="{{(!empty($contactParty)) ? 'true':'false'}}">
+                            <button id="progress-form__tab-2" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true" >
                                 <div class="step-number">2</div>
                                 <div>Contact Party</div>
                             </button>
-                            <button id="progress-form__tab-3" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true" data-completed="{{(!empty($referringPhysician)) ? 'true':'false'}}">
+                            <button id="progress-form__tab-3" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true" >
                                     <div class="step-number">3</div><div>Patient's Physician</div>                               
                             </button>
-                            <button id="progress-form__tab-4" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true" data-completed="{{(!empty($patientPrimaryConcern)) ? 'true':'false'}}">
+                            <button id="progress-form__tab-4" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-4" aria-selected="false" tabindex="-1" aria-disabled="true" >
                                 <div class="step-number">4</div><div>Primary Concern</div>                                
                             </button>                            
-                            <button id="progress-form__tab-5" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true" data-completed="{{(!empty($expertOpinionRequests)) ? 'true':'false'}}">
+                            <button id="progress-form__tab-5" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-5" aria-selected="false" tabindex="-1" aria-disabled="true" >
                                 <div class="step-number">5</div><div>Consent & Payment</div>                                
                             </button>
-                            <button id="progress-form__tab-6" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true" data-completed="{{(!empty($paymentDetails)) ? 'true':'false'}}">
+                            <button id="progress-form__tab-6" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-6" aria-selected="false" tabindex="-1" aria-disabled="true" >
                                 <div class="step-number">6</div><div>Payment Details</div>                            
                             </button>
-                            <button id="progress-form__tab-7" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="false" tabindex="-1" aria-disabled="true" data-completed="{{(!empty($medicalRecords)) ? 'true':'false'}}">
+                            <button id="progress-form__tab-7" class="col m-0 progress-form__tabs-item step" type="button" role="tab" aria-controls="progress-form__panel-7" aria-selected="false" tabindex="-1" aria-disabled="true" >
                                 <div class="step-number">7</div><div>Medical Document</div>                            
                             </button>                            
                         </div>
@@ -62,14 +62,14 @@
                                         First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{$patientDetails->first_name}}">
+                                    <input id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{isset($patientDetails->first_name) ?? null}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="first-name">
                                         Middle Name
                                     </label>
-                                    <input id="middle-name" type="text" name="middlename" autocomplete="given-name" value="{{$patientDetails->middle_name}}">
+                                    <input id="middle-name" type="text" name="middlename" autocomplete="given-name" value="{{isset($patientDetails->middle_name) ?? null}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -77,7 +77,7 @@
                                         Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="last-name" type="text" name="lastname" autocomplete="family-name" required value="{{$patientDetails->last_name}}">
+                                    <input id="last-name" type="text" name="lastname" autocomplete="family-name" required value="{{isset($patientDetails->last_name) ?? null}}">
                                     </div>
                                 </div>
 
@@ -87,7 +87,7 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" value="{{$patientDetails->date_of_birth}}">
+                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" value="{{isset($patientDetails->date_of_birth) ?? null}}">
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@
                                             Street Address
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        <input id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{$patientDetails->street_address}}">
+                                        <input id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{isset($patientDetails->street_address) ?? null}}">
                                         </div>
                                     </div>
                                     <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -111,7 +111,7 @@
                                             City
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{$patientDetails->city}}">
+                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{isset($patientDetails->city) ?? null}}">
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                         Postal Code
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{$patientDetails->postal_code}}">
+                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{isset($patientDetails->postal_code) ?? null}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="Country">
@@ -132,7 +132,7 @@
                                     <select class="countries" name="countries" id="countries" required>
                                         <option value="">--Select--</option>
                                         @foreach($countries as $country)
-                                            <option {{($patientDetails->country==$country['id']) ? 'selected' : null }} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                            <option {{(isset($patientDetails->country) && $patientDetails->country==$country['id']) ? 'selected' : null }} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
                                         @endforeach
                                     </select>
                                     </div>
@@ -143,9 +143,11 @@
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     <select class="states" name="states" id="states" required>
-                                        @foreach($states as $state)
-                                            <option {{($patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
-                                        @endforeach
+                                        @if(isset($patientDetails->state))
+                                            @foreach($states as $state)
+                                                <option {{(isset($patientDetails->state) && $patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     </div>
                                 </div>
@@ -156,7 +158,7 @@
                                         Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{$patientDetails->email}}">
+                                    <input id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{isset($patientDetails->email) ?? null}}">
                                     <label id="email-check-result"></label>
                                     </div>
 
@@ -165,7 +167,7 @@
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{$patientDetails->email}}">
+                                    <input id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{isset($patientDetails->email) ?? null}}">
                                     <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                     </div>
                                 </div>
@@ -192,12 +194,12 @@
                                         </label>
                                         <select id="relationship_to_patient" name="relationship_to_patient" autocomplete="shipping address-level1" required>
                                             <option value="" disabled >Please select</option>
-                                            <option value="Patient" @if($contactParty->relationrelationship_to_patient == "Patient") ? 'selected' : null @endif selected>Patient</option>
-                                            <option value="Caregiver" @if($contactParty->relationrelationship_to_patient == "Caregiver") ? 'selected' : null @endif>Caregiver</option>
-                                            <option value="Referring or local physician" @if ($contactParty->relationrelationship_to_patient == "Referring or local physician") ? 'selected' : null @endif>Referring or local physician</option>
-                                            <option value="Parent" @if ($contactParty->relationrelationship_to_patient == "Parent") ? 'selected' : null @endif > Parent</option>
-                                            <option value="Legal Guardian" @if($contactParty->relationrelationship_to_patient == "Legal Guardian") ? 'selected' : null @endif>Legal Guardian</option>
-                                            <option value="Other" @if($contactParty->relationrelationship_to_patient == "Other") ? 'selected' : null @endif >Other</option>
+                                            <option value="Patient" @if(isset($contactParty->relationrelationship_to_patient) && $contactParty->relationrelationship_to_patient == "Patient") ? 'selected' : null @endif selected>Patient</option>
+                                            <option value="Caregiver" @if(isset($contactParty->relationrelationship_to_patient) &&$contactParty->relationrelationship_to_patient == "Caregiver") ? 'selected' : null @endif>Caregiver</option>
+                                            <option value="Referring or local physician" @if(isset($contactParty->relationrelationship_to_patient) &&$contactParty->relationrelationship_to_patient == "Referring or local physician") ? 'selected' : null @endif>Referring or local physician</option>
+                                            <option value="Parent" @if(isset($contactParty->relationrelationship_to_patient) &&$contactParty->relationrelationship_to_patient == "Parent") ? 'selected' : null @endif > Parent</option>
+                                            <option value="Legal Guardian" @if(isset($contactParty->relationrelationship_to_patient) &&$contactParty->relationrelationship_to_patient == "Legal Guardian") ? 'selected' : null @endif>Legal Guardian</option>
+                                            <option value="Other" @if(isset($contactParty->relationrelationship_to_patient) &&$contactParty->relationrelationship_to_patient == "Other") ? 'selected' : null @endif >Other</option>
                                         </select>
                                     </div>
                                 </div>
@@ -207,21 +209,21 @@
                                         Your First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" value="{{$contactParty->first_name}}">
+                                    <input id="relationship_first_name" type="text" name="relationship_first_name" class ="relationship_first_name" value="{{isset($contactParty->first_name) ?? null}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_confirm_email">
                                         Your Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" value="{{$contactParty->last_name}}">
+                                    <input id="relationship_last_name" type="text" name="relationship_last_name" class ="relationship_last_name" value="{{isset($contactParty->last_name) ?? null}}">
 
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_npi">
                                         NPI
                                     </label>
-                                    <input id="relationship_npi" type="text" name="relationship_npi" value="{{$contactParty->NPI}}">
+                                    <input id="relationship_npi" type="text" name="relationship_npi" value="{{isset($contactParty->NPI)??null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -230,7 +232,7 @@
                                         Specify your relationship to the patient
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" value="{{$contactParty->relationship_other}}">
+                                    <input id="relationship_other" type="text" name="relationship_other" class ="relationship_other" value="{{isset($contactParty->relationship_other) ?? null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -239,7 +241,7 @@
                                         <label for="relationship_street_address">
                                             Street Address
                                         </label>
-                                        <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" value="{{$contactParty->street_address}}">
+                                        <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" value="{{isset($contactParty->street_address) ?? null}}">
                                         </div>
                                     </div>
                                     <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -247,14 +249,14 @@
                                         <label for="relationship_city">
                                             City
                                         </label>
-                                        <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" value="{{$contactParty->city}}">
+                                        <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" value="{{isset($contactParty->city) ?? null}}">
                                         </div>
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_postal_code">
                                         Postal Code
                                     </label>
-                                    <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" value="{{$contactParty->postal_code}}">
+                                    <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" value="{{isset($contactParty->postal_code) ?? null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
@@ -265,7 +267,7 @@
                                     <select class="relationship_countries" name="relationship_countries" id="relationship_countries" >
                                         <option value="">--Select--</option>
                                         @foreach($countries as $country)
-                                            <option {{($contactParty->country == $country["id"]) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                            <option {{(isset($contactParty->country) && $contactParty->country == $country["id"]) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
                                         @endforeach
                                     </select>
                                     </div>
@@ -275,7 +277,7 @@
                                         State
                                     </label>
                                     <select class="relationship_states" name="relationship_states" id="relationship_states" >
-                                        @if($contactParty->country != '')
+                                        @if(isset($contactParty->country) && $contactParty->country != '')
                                             @foreach($states as $state)
                                                 <option {{($contactParty->state == $state["id"]) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
                                             @endforeach
@@ -291,14 +293,14 @@
                                         Email Address
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" value="{{$contactParty->email}}">
+                                    <input id="relationship_email" type="email" name="relationship_email" class ="relationship_email" value="{{isset($contactParty->email) ?? null}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_confirm_email">
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" value="{{$contactParty->email}}">
+                                    <input id="relationship_confirm_email" type="email" name="relationship_confirm_email" class ="relationship_confirm_email" value="{{isset($contactParty->email) ?? null}}">
 
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -306,7 +308,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_phone_number" type="text" name="relationship_phone_number" value="{{$contactParty->phone_number}}">
+                                    <input id="relationship_phone_number" type="text" name="relationship_phone_number" value="{{isset($contactParty->phone_number) ?? null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -314,13 +316,13 @@
                                     <label for="relationship_institution">
                                         Institution
                                     </label>
-                                    <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  value="{{$contactParty->Instituton}}">
+                                    <input id="relationship_institution" type="text" name="relationship_institution" class ="relationship_institution"  value="{{isset($contactParty->Instituton) ?? null}}">
                                     </div>
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="relationship_fax_no">
                                         Fax No.
                                     </label>
-                                    <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" value="{{$contactParty->fax_number}}">
+                                    <input id="relationship_fax_no" type="text" name="relationship_fax_no" class ="relationship_fax_no" value="{{isset($contactParty->fax_number) ?? null}}">
 
                                     </div>
 
@@ -333,11 +335,11 @@
                                         </label>
                                         <div class="d-flex">
                                             <div class="form-check-inline d-flex">
-                                                <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" {{ ($contactParty->preferred_mode_of_communication =='Phone') ? 'checked' : null}}>
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="phoneRadio" value="Phone" {{ (isset($contactParty->preferred_mode_of_communication) && $contactParty->preferred_mode_of_communication =='Phone') ? 'checked' : null}}>
                                                 <label class="form-check-label pl-1" for="phoneRadio">Phone</label>
                                             </div>
                                             <div class="form-check-inline d-flex pl-2">
-                                                <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" {{ ($contactParty->preferred_mode_of_communication =='Email') ? 'checked' : null}}>
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_mode_of_communication" id="emailRadio" value="Email" {{ (isset($contactParty->preferred_mode_of_communication) && $contactParty->preferred_mode_of_communication =='Email') ? 'checked' : null}}>
                                                 <label class="form-check-label pl-1" for="emailRadio">Email</label>
                                             </div>  
                                         </div>
@@ -349,16 +351,16 @@
                                         </label>  
                                         <div class="d-flex justify-content-between">
                                             <div class=" form-check-inline d-flex">
-                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning" {{ ($contactParty->preferred_contact_time =='Morning') ? 'checked' : null}}>
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="MorningRadio" value="Morning" {{ (isset($contactParty->preferred_contact_time) && $contactParty->preferred_contact_time =='Morning') ? 'checked' : null}}>
                                                 <label class="form-check-label pl-1" for="MorningRadio">Morning</label>
                                             </div>
                                             <div class=" form-check-inline d-flex">
-                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon" {{ ($contactParty->preferred_contact_time =='Afternoon') ? 'checked' : null}}>
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="AfternoonRadio" value="Afternoon" {{ (isset($contactParty->preferred_contact_time) && $contactParty->preferred_contact_time =='Afternoon') ? 'checked' : null}}>
                                                 <label class="form-check-label pl-1" for="AfternoonRadio">Afternoon</label>
                                             </div> 
                                             
                                             <div class=" form-check-inline d-flex">
-                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening" {{ ($contactParty->preferred_contact_time =='Evening') ? 'checked' : null}}>
+                                                <input class="form-check-input" type="radio" name="relationship_preferred_contact_time" id="EveningRadio" value="Evening" {{ (isset($contactParty->preferred_contact_time) && $contactParty->preferred_contact_time =='Evening') ? 'checked' : null}}>
                                                 <label class="form-check-label pl-1" for="EveningRadio">Evening</label>
                                             </div>
                                         </div>
@@ -388,7 +390,7 @@
                                         First Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="first-name-step3" type="text" name="firstnamestep3" autocomplete="given-name" required value="{{$referringPhysician->first_name}}">
+                                    <input id="first-name-step3" type="text" name="firstnamestep3" autocomplete="given-name" required value="{{isset($referringPhysician->first_name) ?? null}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -396,7 +398,7 @@
                                         Last Name
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="last-name-step3" type="text" name="lastnamestep3" autocomplete="family-name" required value="{{$referringPhysician->last_name}}">
+                                    <input id="last-name-step3" type="text" name="lastnamestep3" autocomplete="family-name" required value="{{isset($referringPhysician->last_name) ?? null}}">
                                     </div>
                                 </div>
 
@@ -405,7 +407,7 @@
                                     <label for="institution">
                                         Institution
                                     </label>
-                                    <input id="institution" type="text" name="institution" autocomplete="given-name" value="{{$referringPhysician->institution}}">
+                                    <input id="institution" type="text" name="institution" autocomplete="given-name" value="{{isset($referringPhysician->institution) ?? null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
@@ -414,7 +416,7 @@
                                         Street Address
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" required value="{{$referringPhysician->street_address}}">
+                                    <input id="street_address_step3" type="text" name="street_address" autocomplete="given-name" required value="{{isset($referringPhysician->street_address) ?? null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -423,14 +425,14 @@
                                         City
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="city-step3" type="text" name="citystep3" autocomplete="given-name" required value="{{$referringPhysician->city}}">
+                                    <input id="city-step3" type="text" name="citystep3" autocomplete="given-name" required value="{{isset($referringPhysician->city) ?? null}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="postal_code">
                                         Postal Code
                                     </label>
-                                    <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postalcodestep3" autocomplete="given-name" value="{{$referringPhysician->postal_code}}">
+                                    <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postalcodestep3" autocomplete="given-name" value="{{isset($referringPhysician->postal_code) ?? null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -442,7 +444,7 @@
                                     <select class="countries" name="countries" id="countries-step3" required>
                                         <option value="">--Select--</option>
                                         @foreach($countries as $country)
-                                            <option {{($referringPhysician->country==$country['id']) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                            <option {{(isset($referringPhysician->country) && $referringPhysician->country==$country['id']) ? 'selected' : null}} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
                                         @endforeach
                                     </select>
                                     </div>
@@ -453,7 +455,7 @@
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     <select class="states" name="states" id="states-step3" required>
-                                        @if(!empty($referringPhysician->state))
+                                        @if( isset($referringPhysician->state) && !empty($referringPhysician->state))
                                             @foreach($states as $state)
                                                 <option {{($referringPhysician->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
                                             @endforeach
@@ -468,7 +470,7 @@
                                         Email Address 
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="email_step3" type="email" name="email_step3" class ="email" autocomplete="given-name" required value="{{$referringPhysician->email}}">
+                                    <input id="email_step3" type="email" name="email_step3" class ="email" autocomplete="given-name" required value="{{isset($referringPhysician->email) ?? null}}">
                                     </div>
 
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -476,7 +478,7 @@
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="confirm_email_step3" type="email" name="confirm_email_step3" class ="confirm_email" autocomplete="given-name" required value="{{$referringPhysician->email}}">
+                                    <input id="confirm_email_step3" type="email" name="confirm_email_step3" class ="confirm_email" autocomplete="given-name" required value="{{isset($referringPhysician->email) ?? null}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -485,7 +487,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="phone_number_step3" type="text" name="phonenumberstep3" autocomplete="given-name" required value="{{$referringPhysician->phone_number}}">
+                                    <input id="phone_number_step3" type="text" name="phonenumberstep3" autocomplete="given-name" required value="{{isset($referringPhysician->phone_number) ?? null}}">
                                     </div>
                                 </div>
                             </div>
