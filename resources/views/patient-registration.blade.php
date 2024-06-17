@@ -53,7 +53,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" hidden>
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
                             <div class="p-5 mx-3">
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -754,7 +754,7 @@
                         <!-- / End Step 6 -->
 
                         <!-- Step 7 -->
-                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0">
+                        <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
@@ -887,7 +887,7 @@
                                                             const htmlString = files.map((item, ind) => `
                                                                 <div class="stat-row">
                                                                     <div class="d-flex align-items-center">
-                                                                        <img src="${URL.createObjectURL(item)}" alt="${item.name}" style="max-width: 50px; margin-right: 10px;">
+                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}" style="max-width: 50px; margin-right: 10px;">
                                                                         <div class="pl-2"><b>Description:</b> ${item.name}</div>
                                                                     </div>
                                                                     <div class="d-flex align-items-center">

@@ -26733,6 +26733,6 @@ div.payment {
 .documentIframe {
   height:500px !important;
 }
-#link-save{
+#link-save, #link-pay{
   display:none !important;
 }
