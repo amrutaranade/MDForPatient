@@ -2,6 +2,7 @@
 @section("content")
 <div id="loading-screen">
         <img src="/dist/assets/images/loader.gif" />
+        <p class="fw-bold">Please wait till process finishes...</p>
 </div>
 <div class="">
     <div class="">
@@ -660,7 +661,7 @@
                                 <button class="btn btn-success btn-fw" disabled id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>    
                                 @endif                            
                                 
-                                <button class="btn btn-success btn-fw agreeAfterPaymentButton" data-action="next" hidden>Agree & Proceed</button>
+                                <button class="btn btn-success btn-fw agreeAfterPaymentButton" id="agreeAfterPaymentButton" data-action="next" hidden>Agree & Proceed</button>
                                     
                                 <div class="container mt-5">
                                     <!-- Modal -->
@@ -716,15 +717,15 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><strong>Transaction Id:</strong></td>
-                                                        <td><p id="chargeId"></p></td>
+                                                        <td><p id="chargeId">{{isset($paymentDetails->charge_id) ? $paymentDetails->charge_id: ''}}</p></td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Card Used:</strong></td>
-                                                        <td><p id="cardNumber"></p></td>
+                                                        <td><p id="cardNumber">{{isset($paymentDetails->card_last4) ? '**** **** **** '.$paymentDetails->card_last4 : ''}}</p></td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Payment Date:</strong></td>
-                                                        <td class="paymentDate">{{date("m-d-Y")}}</td>
+                                                        <td class="paymentDate">{{isset($paymentDetails->created_at) ? date("m-d-Y", strtotime($paymentDetails->created_at)) : ''}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Amount Paid:</strong></td>
@@ -964,6 +965,7 @@
                                                         document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
 
                                                         async function uploadFiles() {
+                                                            $('#loading-screen').show(); // Show loader
                                                             const apiUrl = "{{route('upload')}}";
                                                             const formData = new FormData();
 
@@ -1829,9 +1831,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const panel6 = document.getElementById("progress-form__panel-6");
         const panel5 = document.getElementById("progress-form__panel-5");
 
+        const tab6 = document.getElementById("progress-form__tab-6");
+        const tab5 = document.getElementById("progress-form__tab-5");
+
         if (panel6 && panel5) {
             panel5.setAttribute("hidden", "");
             panel6.removeAttribute("hidden");
+            tab5.setAttribute("data-complete", "true");
+            tab5.setAttribute("aria-selected", "false");
+            tab6.setAttribute("aria-selected", "true");
         } else {
             console.error("One or both of the panels (panel 6 or panel 5) not found.");
         }
@@ -1953,6 +1961,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("agreeAfterPaymentButton").setAttribute("hidden", '');
             } else {
                 document.getElementById("agreeAfterPaymentButton").removeAttribute("hidden");
+                document.getElementById("agreeButton").setAttribute("hidden", '');
             }
         //}
     }
@@ -2194,8 +2203,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // });
 
     document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {
-        paymentDetails.setAttribute('hidden', '');
-        documentUpload.removeAttribute('hidden');
+        const panel7 = document.getElementById("progress-form__panel-7");
+        const panel6 = document.getElementById("progress-form__panel-6");
+
+        const tab7 = document.getElementById("progress-form__tab-7");
+        const tab6 = document.getElementById("progress-form__tab-6");
+        const tab5 = document.getElementById("progress-form__tab-5");
+
+        if (panel7 && panel6) {
+            panel6.setAttribute("hidden", "");
+            panel7.removeAttribute("hidden");
+            tab6.setAttribute("data-complete", "true");
+            tab7.setAttribute("aria-selected", "true");
+            tab6.setAttribute("aria-selected", "false");
+            tab5.setAttribute("aria-selected", "false");
+            tab5.setAttribute("data-complete", "true");
+        }
+        
     });
 </script>
 

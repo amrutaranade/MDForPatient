@@ -26726,6 +26726,8 @@ div.payment {
   border-radius: 10px; /* Optional: rounded corners */
   text-align: center; /* Center text */
   font-size: 20px; /* Adjust font size as needed */
+  width:100%;
+  height:100%
 }
 
 .documentIframe {
