@@ -86,7 +86,7 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
+                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="{{date('Y-m-d')}}" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
                                     </div>
                                 </div>
 
@@ -508,7 +508,7 @@
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="primary_diagnosis">
-                                        Please provide the Primary Diagnosis* (If knows, please let us know)
+                                        Please provide the Primary Diagnosis* (If known, please let us know)
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{isset($patientPrimaryConcern->primary_diagnosis) ? $patientPrimaryConcern->primary_diagnosis : ''}}">
@@ -607,33 +607,33 @@
                                         </div>
                                         <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                             <div class="mt-1 form__field">
-                                                <label class="">
-                                                    <span>I confirm that, I have read the Patient Agreement and each appendix checked
-                                                        below</span>
-                        
+                                                <label class="form__choice-wrapper">
+                                                <input  id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" class="checkAllAppendix" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}
+                                                        class="patientAgreement">
+                                                    <span>I agree to all of the following:</span>                        
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}
+                                                    <input disabled id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}
                                                         class="patientAgreement">
                                                     <span>Patient Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="appendix_1" type="checkbox" name="appendix_1" value="Yes"
+                                                    <input disabled id="appendix_1" type="checkbox" name="appendix_1" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_1) ? 'checked' : ''}}>
                                                     <span>Appendix 1 : Payment Terms</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="appendix_2" type="checkbox" name="appendix_2" value="Yes"
+                                                    <input disabled id="appendix_2" type="checkbox" name="appendix_2" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_2) ? 'checked' : ''}}>
                                                     <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="appendix_3" type="checkbox" name="appendix_3" value="Yes"
+                                                    <input disabled id="appendix_3" type="checkbox" name="appendix_3" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_3) ? 'checked' : ''}}> 
                                                     <span>Appendix 3: Medicare Opt-Out Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input id="appendix_4" type="checkbox" name="appendix_4" value="Yes"
+                                                    <input disabled id="appendix_4" type="checkbox" name="appendix_4" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_4) ? 'checked' : ''}}>
                                                     <span>Appendix 4: Informed Consent</span>
                                                 </label>
@@ -641,8 +641,7 @@
                                             <div class="mt-1 form__field">
                                                 <div class="mt-3 sm:mt-0 form__field">
                                                     <label for="digital_signature">
-                                                        By typing the full name below, I hereby indicate that I understand and accept all terms
-                                                        as specified in the Patient Agreement and in each Appendix
+                                                    By typing my full legal name below, I hereby indicate that I understand and accept all terms as specified in the Patient Agreement and in each Appendix
                                                     </label>
                                                     <input id="re_type_name" type="text" name="digital_signature"
                                                         autocomplete="given-name" value="{{isset($expertOpinionRequests->re_type_name) ? $expertOpinionRequests->re_type_name : ''}}">
@@ -762,7 +761,7 @@
                                         <div class="p-5 mx-3">      
                                             <div class="sm:mt-0 form__field">
                                                 <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
-                                                <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, other medical reports, videos or pictures of symptoms, etc.</h4>
+                                                <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
                                             </div>                              
                                             <div class="mt-3 sm:mt-0 form__field">   
                                                 <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
@@ -1853,12 +1852,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const digital_signature = document.getElementById('re_type_name').value.trim();
         const checkboxes = document.querySelectorAll('.patientAgreement');
-        let allChecked = true;
+        let allChecked = false;
 
         checkboxes.forEach(checkbox => {
-            if (!checkbox.checked) {
-                allChecked = false;
-            }
+            checkbox.checked = true;
+            allChecked = true;
         });
 
         
@@ -1870,7 +1868,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add event listeners to each checkbox
-    document.querySelectorAll('.patientAgreement').forEach(checkbox => {
+    document.querySelectorAll('.checkAllAppendix').forEach(checkbox => {
         checkbox.addEventListener('change', updateSubmitButtonState);
     });
     
