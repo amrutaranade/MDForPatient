@@ -1,9 +1,7 @@
 @extends("layout")
 @section("content")
-<div id="loading-screen" style="display: none;" class="fullScreenLoader">
-    <div class="loading-icon">
+<div id="loading-screen">
         <img src="/dist/assets/images/loader.gif" />
-    </div>
 </div>
 <div class="">
     <div class="">
@@ -2240,7 +2238,7 @@ $(document).ready(function () {
             $('#card-errors').text('Card holder name and email are required.');
             return;
         }
-
+        $('#loading-screen').show(); // Show loader
         try {
             // Create customer first
             const customerResponse = await $.ajax({
@@ -2269,12 +2267,14 @@ $(document).ready(function () {
             if (error) {
                 console.error('Error creating payment method: ', error);
                 $('#card-errors').text('Error creating payment method. Please try again.');
+                $('#loading-screen').hide(); 
                 return;
             }
 
             const attachResponse = await attachPaymentMethodToCustomer(paymentMethod.id, customerId);
             if (!attachResponse) {
                 $('#card-errors').text('Error attaching payment method. Please try again.');
+                $('#loading-screen').hide(); 
                 return;
             }
 
@@ -2331,8 +2331,10 @@ $(document).ready(function () {
         if (error) {
             console.error('Error confirming card payment:', error.message);
             $('#card-errors').text('Error confirming card payment. Please try again.');
+            $('#loading-screen').hide(); 
         } else if (paymentIntent.status === 'succeeded') {
             $('#card-errors').text('Payment successful!');
+            $('#loading-screen').hide(); 
         }
     }
 
@@ -2348,6 +2350,7 @@ $(document).ready(function () {
         }).then(function (result) {
             if (result.error) {
                 $('#card-errors').text(result.error.message);
+                $('#loading-screen').hide(); 
             } else {
                 $.ajax({
                     url: '/handle-payment',
@@ -2366,6 +2369,7 @@ $(document).ready(function () {
 
                     },
                     success: function (response) {
+                        $('#loading-screen').hide(); 
                         if (response.success) {
                             $('#paymentModal').modal('hide');
                             $('.modal-backdrop').remove();
@@ -2389,6 +2393,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.error('Error handling payment: ', error);
+                        $('#loading-screen').hide(); 
                     }
                 });
             }

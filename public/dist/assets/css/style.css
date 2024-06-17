@@ -26712,6 +26712,22 @@ div.payment {
   justify-content: center;
   height: 80vh;
 }
+
+#loading-screen {
+  display: none; /* Initially hide the loader */
+  position: fixed; /* Stay in place even when scrolling */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset to truly center */
+  z-index: 9999; /* Ensure it's above other elements */
+  /* Add any additional styling like background color, loader graphic, etc. */
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background */
+  padding: 20px; /* Optional: padding for the loader content */
+  border-radius: 10px; /* Optional: rounded corners */
+  text-align: center; /* Center text */
+  font-size: 20px; /* Adjust font size as needed */
+}
+
 .documentIframe {
   height:500px !important;
 }
