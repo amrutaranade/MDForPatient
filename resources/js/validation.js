@@ -12,6 +12,28 @@ $.validator.addMethod('alphaWithHyphenApostrophe', function(value, element) {
 $.validator.addMethod("alphaNumericWithSpaces", function(value, element) {
     return this.optional(element) || /^[a-zA-Z0-9\s]+$/i.test(value);
 }, "Please enter a valid value with alphanumeric characters and spaces only.");
+
+$.validator.addMethod('emailExists', function(value, element) {
+    let exists = false;
+    $.ajax({
+        type: 'POST',
+        url: '/check-email',
+        data: {
+            email: value,
+            _token: $('meta[name="csrf-token"]').attr('content') // Include the CSRF token
+        },
+        dataType: 'json',
+        async: false,
+        success: function(response) {
+            exists = response.exists;
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            console.error('Response:', xhr.responseText);
+        }
+    });
+    return !exists; // If exists is true, return false (invalid); if false, return true (valid)
+}, 'This email is already taken.');
     $('#progress-form').validate({
         rules: {
             firstname: {
@@ -30,7 +52,8 @@ $.validator.addMethod("alphaNumericWithSpaces", function(value, element) {
                 digits:true
             },
             emailstep1: {
-                email: true // Validate email format
+                email: true,
+                emailExists: true // Validate email format
             },
             confirmemailstep1: {
                 equalTo: "#email_step1" // Ensure it matches the email field
@@ -114,7 +137,8 @@ $.validator.addMethod("alphaNumericWithSpaces", function(value, element) {
                 digits: "Please enter only digits."
             },
             emailstep1: {
-               email: "Please enter a valid email addres.s"
+               email: "Please enter a valid email address",
+                emailExists: "This email is already exists."
             },
             confirmemailstep1: {
                equalTo: "Email addresses do not match."
@@ -191,7 +215,8 @@ $.validator.addMethod("alphaNumericWithSpaces", function(value, element) {
         },
         unhighlight: function(element) {
             $(element).removeAttr('aria-invalid');
-        }
+        },
+        
        
     });
 });
