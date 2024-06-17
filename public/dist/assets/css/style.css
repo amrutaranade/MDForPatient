@@ -26712,3 +26712,6 @@ div.payment {
   justify-content: center;
   height: 80vh;
 }
+.documentIframe {
+  height:500px !important;
+}

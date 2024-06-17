@@ -1,4 +1,4 @@
-@extends("layout")
+@extends("layoutView")
 @section("content")
 <style>
     .container {

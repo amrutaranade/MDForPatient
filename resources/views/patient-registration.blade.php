@@ -514,7 +514,7 @@
                                     </label>
                                     <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{isset($patientPrimaryConcern->primary_diagnosis) ? $patientPrimaryConcern->primary_diagnosis : ''}}">
                                     </div>
-                                    <div class="mt-3 sm:mt-0 form__field ">
+                                    <fieldset class="mt-3 sm:mt-0 form__field ">
                                         <label for="address-city">
                                         Has the patient been treated or had surgery for this condition before?
                                             <span data-required="true" aria-hidden="true"></span>
@@ -529,7 +529,7 @@
                                                 <label class="form-check-label pb-0 pl-2" for="noRadio">No</label>
                                             </div>  
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
 
                                 <div class="sm:d-grid sm:grid-col-1 sm:mt-3" id="surgeryDescriptionDiv">
@@ -590,7 +590,7 @@
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <iframe
                                                     src="/files/EV_MD_For_Patients_Agreement1_PatientCoverLetter.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
-                                                    style="width: 100%; max-width: 100%" class="">
+                                                    style="width: 100%; max-width: 100%" class="documentIframe">
                                                 </iframe>
                                             </div>
                         
@@ -602,7 +602,7 @@
                                             <div class="mt-3 sm:mt-0 form__field">
                                                 <iframe
                                                     src="/files/EV_MD_For_Patients_Agreement_1_Patient_Agreement.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0"
-                                                    style="width: 100%; max-width: 100%" class="">
+                                                    style="width: 100%; max-width: 100%" class="documentIframe">
                                                 </iframe>
                                             </div>
                                         </div>
