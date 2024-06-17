@@ -698,141 +698,54 @@
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="p-5 mx-3">      
+                                        <div class="p-5 mx-3"> 
+                                            <div class="mt-3 sm:mt-0 form__field">  
+                                                <h3>Previously Uploaded Documents<br></h3>
+                                            </div>  
+                                            @foreach ($customeShareFiles['customeShareFiles']['value'] as $file)  
+                                                <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
+                                                <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
+                                                <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
+                                                <div class="stat-row">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="/dist/assets/images/photo.png" alt="ssss">
+                                                    <div class="pl-2"><b>Description:</b>{{$file['Name'] }}</div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="pr-4">
+                                                        <b>Uploaded:</b>
+                                                        {{ (new DateTime($file["CreationDate"]))->format("m-d-Y") }}
+                                                    </div>
+                                                    <button class="delete-btn">
+                                                        <a href="{{ route('view-file', ['id' => $file['Id']]) }}" target="_blank">View</a>
+                                                    </button>&nbsp;&nbsp;
+                                                    <button class="delete-btn">
+                                                        <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}"><span class="fa fa-download"></span>Download</a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            @endforeach      
                                             <div class="sm:mt-0 form__field">
                                                 <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
-                                            </div>                              
+                                            </div>                     
                                             <div class="mt-3 sm:mt-0 form__field">   
-                                                    <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
-                                                    <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
-                                                    <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
-
-                                                <!-- <div>
-                                                    <form action="{{ url('/upload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input type="hidden" name="patient_id" id="patientId" value="{{ session('patient_id') }}" />
-                                                    </form>
-                                                </div>                                          -->
-                                                <div class="dropzone p-0">          
-                                                    <label for="file-input" class="file-drop-label" id="files-count">
-                                                        <img src="/dist/assets/images/download.png" alt="">
-                                                        Drop files here to upload
-                                                    </label>
-                                                    <input type="file" id="file-input" class="file-drop-input" multiple>
+                                                <div>
+                                                    <h1>File Upload</h1>
+                                                    <div class="dropzone p-0" id="drop-zone">
+                                                        <label for="file-input" class="file-drop-label" id="files-count">
+                                                            <img src="/dist/assets/images/download.png" alt="">
+                                                            Drop files here to upload
+                                                        </label>
+                                                        <input type="file" id="file-input" class="file-drop-input" multiple>
+                                                        <input type="file" id="file-input-folder" class="file-drop-input" multiple webkitdirectory>
+                                                    </div>
+                                                    <button id="upload-btn" style="display: none">Upload</button>
+                                                    <div id="file-list"></div>
+                                                    <!-- <button id="confirm-upload">Confirm Upload</button> -->
                                                 </div>
-                                                <div class="text-end mt-3"><button id="upload-btn" class="upload-btn">Upload</button></div>
-                                                <div id="connectivity-message" style="display: none;">You are offline. Uploads will resume when the connection is back.</div>
-                                                <div id="file-list" class="file-list"></div>
-                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
-                                                <script>                                                   
-
-                                                    Dropzone.options.fileUpload = {
-                                                        url:"{{ url('/upload') }}",
-                                                        paramName: "file", // The name that will be used to transfer the file
-                                                        maxFilesize: 1000, // MB
-                                                        acceptedFiles: ".jpeg,.jpg,.png,.pdf,.docx,.xlsx,.zip",
-                                                        autoProcessQueue: false,
-                                                        parallelUploads: 50, // Upload files one at a time
-                                                        addRemoveLinks: true, // Enable the built-in remove links
-                                                        totalMaxFilesize: 50, 
-                                                        dictDefaultMessage: "<span class='fa fa-download'>Drop files here to upload</span>", // Hide the default message
-                                                        init: function() {
-                                                            var myDropzone = this;
-
-                                                            // Show loading screen when files start processing
-                                                            // this.on("processing", function() {
-                                                            //     document.getElementById("loading-screen").style.display = "block";
-                                                            // });
-                                                            
-                                                            // Check initial network status
-                                                            if (!navigator.onLine) {
-                                                            document.getElementById('connectivity-message').style.display = 'block';
-                                                            }
-
-                                                            // Event listeners for online and offline status
-                                                            window.addEventListener('online', function () {
-                                                            document.getElementById('connectivity-message').style.display = 'none';
-                                                            resumeUploads();
-                                                            });
-
-                                                            window.addEventListener('offline', function () {
-                                                            document.getElementById('connectivity-message').style.display = 'block';
-                                                            });
-
-                                                            // Add event listener to the Confirm Upload button
-                                                            document.getElementById("confirm-upload").addEventListener("click", function() {
-                                                                myDropzone.processQueue(); // Trigger file upload on button click
-                                                            });
-
-                                                            // Handle file removal
-                                                            this.on("addedfile", function(file) {
-
-                                                                if (navigator.onLine) {
-                                                                    myDropzone.processQueue(); // Process the queue if online
-                                                                }
-
-                                                                // Create the remove button
-                                                                var removeButton = Dropzone.createElement("<button class='btn btn-danger btn-sm mt-2'>Delete</button>");
-                                                                
-                                                                // Listen to the click event
-                                                                removeButton.addEventListener("click", function(e) {
-                                                                    e.preventDefault();
-                                                                    e.stopPropagation();
-
-                                                                    // Remove the file preview and the file itself from the Dropzone instance
-                                                                    myDropzone.removeFile(file);
-                                                                });
-
-                                                                // Append the remove button to the file preview element
-                                                                file.previewElement.appendChild(removeButton);
-                                                            });
-
-                                                            // Handling the queue complete event
-                                                            this.on("queuecomplete", function() {
-                                                                // document.getElementById("loading-screen").style.display = "none";
-                                                                //console.log("All files have been uploaded.");
-                                                                document.getElementById('progress-form__panel-7').setAttribute("hidden", "");
-                                                                window.location = "{{ route('final-submission') }}";
-
-                                                            });
-
-                                                            // Handling the success event
-                                                            this.on("success", function(file, response) {
-                                                            });
-
-                                                            // Handling the error event
-                                                            this.on("error", function(file, response) {
-                                                                if (!navigator.onLine) {
-                                                                    console.log('Upload paused, waiting for connection to resume.');
-                                                                } else {
-                                                                    console.log('Retrying upload...');
-                                                                    myDropzone.retryUpload(file); // Retry uploading the file
-                                                                }
-
-                                                                console.error("error", response);
-                                                                console.error('file->', file);
-                                                            });
-                                                        }
-                                                    };
-                                                    // Custom retry logic for Dropzone (not built-in)
-                                                    Dropzone.prototype.retryUpload = function(file) {
-                                                        setTimeout(function() {
-                                                            if (navigator.onLine) {
-                                                                myDropzone.uploadFile(file);
-                                                            } else {
-                                                                myDropzone.retryUpload(file); // Keep retrying until online
-                                                            }
-                                                        }, 3000); // Retry every 3 seconds
-                                                    };
-                                                    
-                                                    // Function to resume uploads
-                                                    function resumeUploads() {
-                                                        if (navigator.onLine) {
-                                                            myDropzone.processQueue(); // Start processing the queue again
-                                                        }
-                                                    }
-
+                                                <script>
                                                     function formatDate() {
                                                         // Create a new Date object from the date string
                                                         const date = new Date();
@@ -850,68 +763,133 @@
                                                    
                                                     document.addEventListener("DOMContentLoaded", () => {
                                                         const fileInput = document.getElementById("file-input");
+                                                        const fileInputFolder = document.getElementById("file-input-folder");
                                                         const uploadBtn = document.getElementById("upload-btn");
                                                         const fileList = document.getElementById("file-list");
                                                         const filesCount = document.getElementById("files-count");
+                                                        const dropZone = document.getElementById("drop-zone");
                                                         let filesArray = [];
 
                                                         fileInput.addEventListener("change", (event) => {
-                                                            filesArray = Array.from(event.target.files);
-                                                            if(filesArray.length > 1){
-                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
-                                                            }else{
-                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
-                                                            }
+                                                            handleFiles(event.target.files);
+                                                        });
+
+                                                        fileInputFolder.addEventListener("change", (event) => {
+                                                            handleFiles(event.target.files);
                                                         });
 
                                                         uploadBtn.addEventListener("click", () => {
                                                             if (filesArray.length > 0) {
-                                                            // Handle the upload action, for example:
-                                                            displayFiles(filesArray);
-                                                            fileInput.value = "";
-                                                            console.log("Files to upload:", filesArray);
+                                                                displayFiles(filesArray);
+                                                                console.log("Files to upload:", filesArray);
                                                             } else {
-                                                            alert("Please select files to upload");
+                                                                alert("Please select files to upload");
                                                             }
                                                         });
 
+                                                        dropZone.addEventListener("dragover", (event) => {
+                                                            event.preventDefault();
+                                                            dropZone.classList.add("dragover");
+                                                        });
+
+                                                        dropZone.addEventListener("dragleave", () => {
+                                                            dropZone.classList.remove("dragover");
+                                                        });
+
+                                                        dropZone.addEventListener("drop", (event) => {
+                                                            event.preventDefault();
+                                                            dropZone.classList.remove("dragover");
+                                                            handleDrop(event.dataTransfer.items);
+                                                        });
+
+                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
+
+                                                        function handleFiles(files) {
+                                                            filesArray = filesArray.concat(Array.from(files));
+                                                            updateFilesCount();
+                                                            displayFiles(filesArray);
+                                                        }
+
+                                                        function handleDrop(items) {
+                                                            for (const item of items) {
+                                                                const entry = item.webkitGetAsEntry();
+                                                                if (entry.isFile) {
+                                                                    handleFile(entry);
+                                                                } else if (entry.isDirectory) {
+                                                                    handleDirectory(entry);
+                                                                }
+                                                            }
+                                                        }
+
+                                                        function handleFile(fileEntry) {
+                                                            fileEntry.file((file) => {
+                                                                filesArray.push(file);
+                                                                updateFilesCount();
+                                                                displayFiles(filesArray);
+                                                            });
+                                                        }
+
+                                                        function handleDirectory(directoryEntry) {
+                                                            const reader = directoryEntry.createReader();
+                                                            reader.readEntries((entries) => {
+                                                                for (const entry of entries) {
+                                                                    if (entry.isFile) {
+                                                                        handleFile(entry);
+                                                                    } else if (entry.isDirectory) {
+                                                                        handleDirectory(entry);
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+
+                                                        function updateFilesCount() {
+                                                            if (filesArray.length > 1) {
+                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
+                                                            } else {
+                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
+                                                            }
+                                                        }
+
                                                         function displayFiles(files) {
-                                                            const htmlString = files
-                                                            .map(
-                                                                (item, ind) => `
+                                                            const htmlString = files.map((item, ind) => `
                                                                 <div class="stat-row">
                                                                     <div class="d-flex align-items-center">
-                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}">
+                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}" style="max-width: 50px; margin-right: 10px;">
                                                                         <div class="pl-2"><b>Description:</b> ${item.name}</div>
                                                                     </div>
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="pr-4">
-                                                                            <b>Uploaded:</b>
-                                                                            ${formatDate()}
+                                                                            <b>Uploaded:</b> ${formatDate(new Date())}
                                                                         </div>
-                                                                        <button class="delete-btn">
-                                                                            <img src="/dist/assets/images/delete.png" alt="">
+                                                                        <button class="delete-btn" onclick="removeFile(${ind})">
+                                                                            <img src="/dist/assets/images/delete.png" alt="Delete">
                                                                             Delete
                                                                         </button>
                                                                     </div>
                                                                 </div>
-                                                                `
-                                                            )
-                                                            .join("");
-                                                            fileList.innerHTML = "";
+                                                            `).join("");
                                                             fileList.innerHTML = htmlString;
                                                             filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
                                                         }
-                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
+
+                                                        window.removeFile = function(index) {
+                                                            filesArray.splice(index, 1);
+                                                            displayFiles(filesArray);
+                                                            updateFilesCount();
+                                                        };
 
                                                         async function uploadFiles() {
+                                                            $('#loading-screen').show(); // Show loader
                                                             const apiUrl = "{{route('upload')}}";
                                                             const formData = new FormData();
 
                                                             for (const file of filesArray) {
                                                                 formData.append("file[]", file);
                                                             }
-                                                            formData.append("file", filesArray);
+                                                            formData.append("patient_id", document.getElementById("patientId").value);
+                                                            formData.append("folder_id", document.getElementById("folder_id").value);
+                                                            formData.append("patient_consulatation_number", document.getElementById("patient_consulatation_number").value);
+
                                                             try {
                                                                 const response = await fetch(apiUrl, {
                                                                     method: "POST",
@@ -922,14 +900,20 @@
                                                                 });
 
                                                                 if (response.ok) {
-                                                                    alert("Files uploaded successfully");
-                                                                    window.location = "{{ route('final-submission') }}";
+                                                                    window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
                                                                 } else {
                                                                     console.error("Failed to upload files");
                                                                 }
                                                             } catch (error) {
                                                                 console.error("An error occurred while uploading files");
                                                             }
+                                                        };
+
+                                                        function formatDate(date) {
+                                                            const day = String(date.getDate()).padStart(2, '0');
+                                                            const month = String(date.getMonth() + 1).padStart(2, '0');
+                                                            const year = date.getFullYear();
+                                                            return `${day}-${month}-${year}`;
                                                         }
 
                                                         function readFileAsBinary(file) {
@@ -948,10 +932,8 @@
                                                             });
                                                         }
                                                     });
-
                                                 </script>
-                                            </div>  
-                                        </div>
+                                            </div>   
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
                                             <button data-action="prev" type="button" data-action="next" class="btn btn-secondary" >
                                                 Back
@@ -987,6 +969,87 @@
     //Set Agree to Payment button off on payload
     
     function ready(fn) {
+    //var hasTreated = $('input[name="treated_before"]')
+    if ($('#yesRadio').is(':checked')) {
+        $('#surgery_description').attr('required', 'required');
+        $('#surgery_description').closest('.form__field').show();
+    }else if($('#noRadio').is(':checked')) {
+        $('#surgery_description').removeAttr('required');
+        $('#surgery_description').closest('.form__field').hide();
+    }
+
+    function toggleFields() {
+        var relationship = $('#relationship_to_patient').val();
+        var email_step1 = document.getElementById("email_step1").value;
+
+        // Hide all fields initially
+        $('#relationship_first_name, #relationship_last_name, #relationship_npi, #relationship_street_address, #relationship_city, #relationship_postal_code, #relationship_countries, #relationship_states, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_institution, #relationship_fax_no, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').hide();
+
+        $('#relationship_email').removeAttr('required');
+            $('#relationship_confirm_email').removeAttr('required');
+            $('#relationship_phone_number').removeAttr('required');
+            $('#phoneRadio').removeAttr('required');
+            $('#emailRadio').removeAttr('required');
+            $('#relationship_first_name').removeAttr('required');
+            $('#relationship_last_name').removeAttr('required');
+            $('#relationship_other').removeAttr('required');
+
+        if (relationship === 'Patient') {
+            // Show specific fields for 'Patient'
+            $('#relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = email_step1;
+            document.getElementById("relationship_confirm_email").value = email_step1;
+
+        } else if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian') {
+            // Show specific fields for 'Caregiver'
+            $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#relationship_first_name').attr('required', 'required');
+            $('#relationship_last_name').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
+
+        }else if(relationship === 'Referring or local physician'){
+            $('#relationship_first_name, #relationship_last_name, #relationship_email,#relationship_npi,#relationship_countries,#relationship_states,#relationship_postal_code, #relationship_street_address, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_institution,#relationship_fax_no, #relationship_city').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#relationship_first_name').attr('required', 'required');
+            $('#relationship_last_name').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
+        }else if(relationship === 'Other'){
+             // Show specific fields for 'Caregiver'
+             $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time, #relationship_other').closest('.form__field').show();
+            $('#relationship_email').attr('required', 'required');
+            $('#relationship_confirm_email').attr('required', 'required');
+            $('#relationship_phone_number').attr('required', 'required');
+            $('#relationship_first_name').attr('required', 'required');
+            $('#relationship_last_name').attr('required', 'required');
+            $('#relationship_other').attr('required', 'required');
+            $('#phoneRadio').attr('required', 'required');
+            $('#emailRadio').attr('required', 'required');
+            document.getElementById("relationship_email").value = null;
+            document.getElementById("relationship_confirm_email").value = null;
+        }
+    }
+
+    // Trigger the function on page load and when the relationship select changes
+    toggleFields();
+    $('#relationship_to_patient').change(toggleFields);
+
+
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setTimeout(fn, 1);
         document.removeEventListener('DOMContentLoaded', fn);

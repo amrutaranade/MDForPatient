@@ -764,20 +764,20 @@
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
                                             </div>                              
                                             <div class="mt-3 sm:mt-0 form__field">   
-                                            <div>
-                                                <h1>File Upload</h1>
-                                                <div class="dropzone p-0" id="drop-zone">
-                                                    <label for="file-input" class="file-drop-label" id="files-count">
-                                                        <img src="/dist/assets/images/download.png" alt="">
-                                                        Drop files here to upload
-                                                    </label>
-                                                    <input type="file" id="file-input" class="file-drop-input" multiple>
-                                                    <input type="file" id="file-input-folder" class="file-drop-input" multiple webkitdirectory>
+                                                <div>
+                                                    <h1>File Upload</h1>
+                                                    <div class="dropzone p-0" id="drop-zone">
+                                                        <label for="file-input" class="file-drop-label" id="files-count">
+                                                            <img src="/dist/assets/images/download.png" alt="">
+                                                            Drop files here to upload
+                                                        </label>
+                                                        <input type="file" id="file-input" class="file-drop-input" multiple>
+                                                        <input type="file" id="file-input-folder" class="file-drop-input" multiple webkitdirectory>
+                                                    </div>
+                                                    <button id="upload-btn" style="display: none">Upload</button>
+                                                    <div id="file-list"></div>
+                                                    <!-- <button id="confirm-upload">Confirm Upload</button> -->
                                                 </div>
-                                                <button id="upload-btn" style="display: none">Upload</button>
-                                                <div id="file-list"></div>
-                                                <!-- <button id="confirm-upload">Confirm Upload</button> -->
-                                            </div>
                                                 <script>
                                                     function formatDate() {
                                                         // Create a new Date object from the date string
