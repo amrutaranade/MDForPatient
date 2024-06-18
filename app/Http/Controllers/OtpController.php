@@ -162,7 +162,7 @@ class OtpController extends Controller
                 'authToken' => $this->shareFileService->getAccessToken()
             ]);
         } else {       
-            return view('patient_consultation_view', [
+            return view('patient-registration', [
                 'patientDetails' => $patientDetails,
                 'contactParty' => $contactParty,
                 'referringPhysician' => $referringPhysician,

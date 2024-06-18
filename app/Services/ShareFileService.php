@@ -28,6 +28,9 @@ class ShareFileService
     }
 
     public function getAccessToken() {
+        if(!$this->checkInternetConnection()) {
+            return response()->json(['error' => 'No internet connection'], 500);
+        }
         try {
             $response = $this->client->post("https://{$this->subdomain}.sharefile.com/oauth/token", [
                 'form_params' => [
@@ -54,6 +57,9 @@ class ShareFileService
     }
 
     public function getFolderId($parentId, $folderName) {
+        if(!$this->checkInternetConnection()) {
+            return response()->json(['error' => 'No internet connection'], 500);
+        }
         $accessToken = $this->getAccessToken();
 
         try {
@@ -79,6 +85,9 @@ class ShareFileService
     }
 
     public function createFolder($parentId, $folderName) {
+        if(!$this->checkInternetConnection()) {
+            return response()->json(['error' => 'No internet connection'], 500);
+        }
         $accessToken = $this->getAccessToken();
 
         try {
@@ -100,12 +109,16 @@ class ShareFileService
         }
     }    
 
-    public function uploadFile($request, $files, $folderId)
+    public function uploadFile($request, $file, $folderId)
     {
+        if(!$this->checkInternetConnection()) {
+            return response()->json(['error' => 'No internet connection'], 500);
+        }
+        
         $token = $this->getAccessToken();
         $successCount = 0;
         
-        foreach ($files as $file) {            
+        //foreach ($files as $file) {            
             
             $local_path = $file->getPathname();
             if (!$file) {
@@ -161,13 +174,15 @@ class ShareFileService
                     return response()->json(['error' => 'Failed to connect to server'], 500);
                 }
             }
-        }
+        //}
 
-        if($successCount == count($files)){
-            return response()->json(['success']);
-        } else {
-            return response()->json(['error']);
-        }
+        return array("success" => true);
+
+        // if($successCount == count($files)){
+        //     return response()->json(['success']);
+        // } else {
+        //     return response()->json(['error']);
+        // }
 
         /*
         $token = $this->getAccessToken();    
@@ -244,7 +259,40 @@ class ShareFileService
         ];
     }
 
+    public function checkInternetConnection()
+    {
+        $connected = @fsockopen("www.google.com", 80);
+        if ($connected) {
+            fclose($connected);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkShareFileConnection()
+    {
+        $accessToken = $this->getAccessToken();
+
+        try {
+            $response = $this->client->get("https://{$this->subdomain}.sharefile.com/sf/v3/Items", [
+                'headers' => [
+                    'Authorization' => "Bearer $accessToken",
+                    'Accept' => 'application/json',
+                ]
+            ]);
+
+            return true;
+        } catch (RequestException $e) {
+            return false;
+        }
+    }
+
     public function ensureFolderExistsAndUploadFile($request, $folderName, $files) {
+        if(!$this->checkInternetConnection()) {
+            return response()->json(['error' => 'No internet connection'], 500);
+        }
+
         $rootFolderId = $this->getPersonalRootFolderId();
 
         if ($rootFolderId === null) {
@@ -261,6 +309,9 @@ class ShareFileService
     }
 
     public function getPersonalRootFolderId() {
+        if(!$this->checkInternetConnection()) {
+            return response()->json(['error' => 'No internet connection'], 500);
+        }
         $accessToken = $this->getAccessToken();
 
         try {

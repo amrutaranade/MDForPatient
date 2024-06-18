@@ -1,9 +1,9 @@
-@extends("layout")
-@section("content")
+
+
 <div class="col-lg-4 mx-auto">
   <div class="auth-form-light text-left p-5">
         <div id="consultation-section">
-            <h3 class="fw-bold">To check the status of a consultation request please enter the consultation number in the field below.</h3>
+            <h3 class="fw-bold">Check status of an existing consultation request.</h3>
             <form id="case-form">
                 @csrf
                 <input type="text" id="case_number" name="case_number" placeholder="Case Number"><br/>
@@ -55,4 +55,3 @@
         //         });
         // });
     </script>
-@endsection

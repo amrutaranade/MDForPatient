@@ -85,3 +85,13 @@ Route::post('create-payment-intent', [StripeController::class, 'createPaymentInt
 Route::post('create-customer', [StripeController::class, 'createCustomer']);
 Route::post('handle-payment', [StripeController::class, 'handlePayment']);
 Route::post('/attach-payment-method', [StripeController::class, 'attachPaymentMethodToCustomer']);
+
+Route::get('/ping', function () {
+    return response()->json(['status' => 'ok'], 200);
+});
+
+Route::get('/fineUpload', function () {
+    return view('fineUpload');
+});
+Route::post('/handleUpload', [PatientController::class, 'handleUpload']);
+Route::delete('/deleteFineUpload', [PatientController::class, 'handleDelete']);

@@ -23,18 +23,22 @@ use App\Models\PatientExpertOpinionRequest;
 use App\Http\Controllers\EmailController;
 use App\Rules\UniqueEmail;
 use App\Models\Transaction;
+use App\Services\UploadHandler;
 
 
 class PatientController extends Controller
 {
     protected $shareFileService;
     protected $emailController;
+    protected $uploadHandler;
 
     
-    public function __construct(ShareFileService $shareFileService,EmailController $emailController)
+    public function __construct(ShareFileService $shareFileService,EmailController $emailController, UploadHandler $uploadHandler)
     {
         $this->shareFileService = $shareFileService;
         $this->emailController = $emailController;
+        $this->uploadHandler = $uploadHandler;
+
 
     }
 
@@ -408,7 +412,7 @@ class PatientController extends Controller
     public function upload(Request $request)
     {        
         $folderName = session("patient_consulatation_number") ?? $request->input('patient_consulatation_number');
-        $file = $request->files->get('file');
+        $file = $request->files->get('qqfile');
 
         try {
             $result = $this->shareFileService->ensureFolderExistsAndUploadFile($request, $folderName, $file);
@@ -461,6 +465,41 @@ class PatientController extends Controller
         session()->flush();
         return redirect()->route('home');
     }
+
     
+    public function handleUpload(Request $request)
+    {     
+        // Specify the list of valid extensions, ex. array("jpeg", "xml", "bmp")
+        $this->uploadHandler->allowedExtensions = []; // all file types allowed by default
+
+        // Specify max file size in bytes.
+        $this->uploadHandler->sizeLimit = null;
+
+        // Specify the input name set in the JavaScript.
+        $this->uploadHandler->inputName = "qqfile"; // matches Fine uploadHandler's default inputName value by default
+
+        // If you want to use the chunking/resume feature, specify the folder to temporarily save parts.
+        $this->uploadHandler->chunksFolder = storage_path('app/public/chunks'); // adjust as per your needs
+
+        // Handle the upload
+        $result = $this->uploadHandler->handleUpload(storage_path('app/public')); // adjust as per your needs
+
+        // Check if it's a chunked upload completion request
+        if ($request->has('done')) {
+            $result = $this->uploadHandler->combineChunks(storage_path('app/public'));
+        }
+
+        // Return JSON response
+        return response()->json($result);
+    }
+
+    public function handleDelete(Request $request)
+    {        
+        // Handle delete request
+        $result = $this->uploadHandler->handleDelete(storage_path('app/public')); // adjust as per your needs
+
+        // Return JSON response
+        return response()->json($result);
+    }
 }
 ?>

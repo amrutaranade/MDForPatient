@@ -26,6 +26,28 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="/dist/assets/images/favicon.png" />
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <style>
+        #trigger-upload {
+            color: white;
+            background-color: #00ABC7;
+            font-size: 14px;
+            padding: 7px 20px;
+            background-image: none;
+        }
+
+        #fine-uploader-manual-trigger .qq-upload-button {
+            margin-right: 15px;
+        }
+
+        #fine-uploader-manual-trigger .buttons {
+            width: 36%;
+        }
+
+        #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
+            width: 60%;
+        }
+    </style>
+    <link href="/fine-uploader/fine-uploader-new.css" rel="stylesheet">
   </head>
   <body>
     <div class="container-scroller">
@@ -45,6 +67,7 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+     
     <script src="/dist/assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
@@ -77,5 +100,6 @@
         }
       });
      </script>
+
   </body>
 </html>
