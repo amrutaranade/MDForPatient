@@ -41,6 +41,11 @@ $.validator.addMethod('strictEmail', function(value, element) {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return this.optional(element) || emailPattern.test(value);
 }, 'Please enter a valid email address.');
+
+$.validator.addMethod("faxNumber", function(value, element) {
+    // Adjusted regex to accept digits, spaces, hyphens, plus sign, and parentheses
+    return this.optional(element) || /^[+()?\d\s-]+$/.test(value);
+}, "Please enter a valid fax number.");
     $('#progress-form').validate({
         rules: {
             firstname: {
@@ -91,17 +96,17 @@ $.validator.addMethod('strictEmail', function(value, element) {
             },
             relationship_phone_number:{
                 digits: true,
-                minlength: 10,
-                maxlength: 12
+                minlength: 9,
+                maxlength: 15
             },
             relationship_institution: {
                 maxlength: 100, // Adjust max length as needed
                 alphaNumericWithSpaces: true // Custom rule for alphanumeric characters with spaces
             },
             relationship_fax_no: {
-                digits: true,
-                minlength: 10, // Adjust as per fax number requirements
-                maxlength: 15 // Adjust as per fax number requirements
+                faxNumber: true,
+                minlength: 9,
+                maxlength: 20 // Adjust as per fax number requirements
             },
             firstnamestep3:{
                 alphaWithHyphenApostrophe:true
@@ -117,8 +122,8 @@ $.validator.addMethod('strictEmail', function(value, element) {
             },
             phonenumberstep3:{
                 digits: true,
-                minlength: 10,
-                maxlength: 12
+                minlength: 9,
+                maxlength: 15
             },
             email_step3: {
                 strictEmail: true // Validate email format
@@ -178,7 +183,7 @@ $.validator.addMethod('strictEmail', function(value, element) {
              },
              relationship_phone_number: {
                 digits: "Phone number must contain only digits",
-                minlength: "Phone number must be at least 10 digits long", // Adjust as per phone number requirements
+                minlength: "Phone number must be at least 9 digits",
                 maxlength: "Phone number must not exceed 15 digits" // Adjust as per phone number requirements
             },
             relationship_institution: {
@@ -186,9 +191,8 @@ $.validator.addMethod('strictEmail', function(value, element) {
                 alphaNumericWithSpaces: "Please enter a valid institution name with alphanumeric characters and spaces only"
             },
             relationship_fax_no: {
-                digits: "Fax number must contain only digits",
-                minlength: "Fax number must be at least 10 digits long", // Adjust as per fax number requirements
-                maxlength: "Fax number must not exceed 15 digits" // Adjust as per fax number requirements
+                minlength: "Fax number must be at least 9 digits long",
+                maxlength: "Fax number must not exceed 20 digits" // Adjust as per fax number requirements
             },
             firstnamestep3: {
                alphaWithHyphenApostrophe: "Please enter a valid first name."
@@ -204,7 +208,7 @@ $.validator.addMethod('strictEmail', function(value, element) {
             },
             phonenumberstep3:{
                 digits: "Phone number must contain only digits",
-                minlength: "Phone number must be at least 10 digits long", // Adjust as per phone number requirements
+                minlength: "Phone number must be at least 9 digits ",
                 maxlength: "Phone number must not exceed 15 digits" // Adjust as per phone number requirements
             },
             email_step3: {
