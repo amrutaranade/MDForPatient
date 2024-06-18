@@ -23,27 +23,24 @@ use App\Models\PatientExpertOpinionRequest;
 use App\Http\Controllers\EmailController;
 use App\Rules\UniqueEmail;
 use App\Models\Transaction;
-use App\Services\UploadHandler;
 
 
 class PatientController extends Controller
 {
     protected $shareFileService;
     protected $emailController;
-    protected $uploadHandler;
 
     
-    public function __construct(ShareFileService $shareFileService,EmailController $emailController, UploadHandler $uploadHandler)
+    public function __construct(ShareFileService $shareFileService,EmailController $emailController)
     {
         $this->shareFileService = $shareFileService;
         $this->emailController = $emailController;
-        $this->uploadHandler = $uploadHandler;
 
 
     }
 
     public function patientFormView()
-    {     
+    {   
         $getCountriesData = Country::get()->toArray();
         $getStatesData = State::get()->toArray();
         
@@ -467,39 +464,5 @@ class PatientController extends Controller
     }
 
     
-    public function handleUpload(Request $request)
-    {     
-        // Specify the list of valid extensions, ex. array("jpeg", "xml", "bmp")
-        $this->uploadHandler->allowedExtensions = []; // all file types allowed by default
-
-        // Specify max file size in bytes.
-        $this->uploadHandler->sizeLimit = null;
-
-        // Specify the input name set in the JavaScript.
-        $this->uploadHandler->inputName = "qqfile"; // matches Fine uploadHandler's default inputName value by default
-
-        // If you want to use the chunking/resume feature, specify the folder to temporarily save parts.
-        $this->uploadHandler->chunksFolder = storage_path('app/public/chunks'); // adjust as per your needs
-
-        // Handle the upload
-        $result = $this->uploadHandler->handleUpload(storage_path('app/public')); // adjust as per your needs
-
-        // Check if it's a chunked upload completion request
-        if ($request->has('done')) {
-            $result = $this->uploadHandler->combineChunks(storage_path('app/public'));
-        }
-
-        // Return JSON response
-        return response()->json($result);
-    }
-
-    public function handleDelete(Request $request)
-    {        
-        // Handle delete request
-        $result = $this->uploadHandler->handleDelete(storage_path('app/public')); // adjust as per your needs
-
-        // Return JSON response
-        return response()->json($result);
-    }
 }
 ?>

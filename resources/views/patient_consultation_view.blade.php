@@ -997,7 +997,7 @@
                                                         }
                                                     });
                                                 </script> 
-                                                
+
                                                 <div id="fine-uploader-manual-trigger"></div>
                                             </div>   
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
@@ -2134,38 +2134,32 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="/fine-uploader/jquery.fine-uploader.js"></script>
-    
     <script>
-        var csrfToken = null;
-        document.addEventListener("DOMContentLoaded", function() {
-            csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    document.addEventListener("DOMContentLoaded", function() {
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            $('#fine-uploader-manual-trigger').fineUploader({
-                template: 'qq-template-manual-trigger',
-                request: {
-                    endpoint: '/upload',
-                    customHeaders: {
-                        'X-CSRF-TOKEN': csrfToken
-                    }
-                },
-                thumbnails: {
-                    placeholders: {
-                        waitingPath: '/fine-uploader/placeholders/waiting-generic.png',
-                        notAvailablePath: '/fine-uploader/placeholders/not_available-generic.png'
-                    }
-                },
-                autoUpload: false
-            });
-
-            $('#trigger-upload').click(function() {
-                $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
-            });
-
-
+        $('#fine-uploader-manual-trigger').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/upload',
+                customHeaders: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '/fine-uploader/placeholders/waiting-generic.png',
+                    notAvailablePath: '/fine-uploader/placeholders/not_available-generic.png'
+                }
+            },
+            autoUpload: false
         });
-    </script>
+
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+        });
+    });
+</script>
+
 
 @endsection

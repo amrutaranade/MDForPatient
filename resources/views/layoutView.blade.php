@@ -25,6 +25,28 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="/dist/assets/images/favicon.png" />
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <link href="/fine-uploader/fine-uploader-new.css" rel="stylesheet">
+    <style>
+        #trigger-upload {
+            color: white;
+            background-color: #00ABC7;
+            font-size: 14px;
+            padding: 7px 20px;
+            background-image: none;
+        }
+
+        #fine-uploader-manual-trigger .qq-upload-button {
+            margin-right: 15px;
+        }
+
+        #fine-uploader-manual-trigger .buttons {
+            width: 36%;
+        }
+
+        #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
+            width: 60%;
+        }
+    </style>
   </head>
   <body>
     <div class="container-scroller">
@@ -65,6 +87,7 @@
     
     
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="/fine-uploader/jquery.fine-uploader.js"></script>
     <!-- End custom js for this page -->
   </body>
 </html>

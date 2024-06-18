@@ -764,205 +764,7 @@
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
                                             </div>                              
                                             <div class="mt-3 sm:mt-0 form__field">   
-                                                <div>
-                                                    <h1>File Upload</h1>
-                                                    <div class="dropzone p-0" id="drop-zone">
-                                                        <label for="file-input" class="file-drop-label" id="files-count">
-                                                            <img src="/dist/assets/images/download.png" alt="">
-                                                            Drop files here to upload
-                                                        </label>
-                                                        <input type="file" id="file-input" class="file-drop-input" multiple>
-                                                        <input type="file" id="file-input-folder" class="file-drop-input" multiple webkitdirectory>
-                                                    </div>
-                                                    <button id="upload-btn" style="display: none">Upload</button>
-                                                    <div id="file-list"></div>
-                                                    <!-- <button id="confirm-upload">Confirm Upload</button> -->
-                                                </div>
-                                                <script>
-                                                    function formatDate() {
-                                                        // Create a new Date object from the date string
-                                                        const date = new Date();
-                                                        // Get the day, month, and year
-                                                        const day = String(date.getDate()).padStart(2, '0'); // Ensure day is two digits
-                                                        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure month is two digits, getMonth() returns 0-11
-                                                        const year = date.getFullYear();
-
-                                                        // Get the hours and minutes
-                                                        const hours = String(date.getHours()).padStart(2, '0'); // Ensure hours are two digits
-                                                        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure minutes are two digits
-                                                        // Return the formatted date as dd-mm-yyyy
-                                                        return `${day}/${month}/${year} - ${hours}:${minutes}`;
-                                                    };
-                                                   
-                                                    document.addEventListener("DOMContentLoaded", () => {
-                                                        const fileInput = document.getElementById("file-input");
-                                                        const fileInputFolder = document.getElementById("file-input-folder");
-                                                        const uploadBtn = document.getElementById("upload-btn");
-                                                        const fileList = document.getElementById("file-list");
-                                                        const filesCount = document.getElementById("files-count");
-                                                        const dropZone = document.getElementById("drop-zone");
-                                                        let filesArray = [];
-
-                                                        fileInput.addEventListener("change", (event) => {
-                                                            handleFiles(event.target.files);
-                                                        });
-
-                                                        fileInputFolder.addEventListener("change", (event) => {
-                                                            handleFiles(event.target.files);
-                                                        });
-
-                                                        uploadBtn.addEventListener("click", () => {
-                                                            if (filesArray.length > 0) {
-                                                                displayFiles(filesArray);
-                                                                console.log("Files to upload:", filesArray);
-                                                            } else {
-                                                                alert("Please select files to upload");
-                                                            }
-                                                        });
-
-                                                        dropZone.addEventListener("dragover", (event) => {
-                                                            event.preventDefault();
-                                                            dropZone.classList.add("dragover");
-                                                        });
-
-                                                        dropZone.addEventListener("dragleave", () => {
-                                                            dropZone.classList.remove("dragover");
-                                                        });
-
-                                                        dropZone.addEventListener("drop", (event) => {
-                                                            event.preventDefault();
-                                                            dropZone.classList.remove("dragover");
-                                                            handleDrop(event.dataTransfer.items);
-                                                        });
-
-                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
-
-                                                        function handleFiles(files) {
-                                                            filesArray = filesArray.concat(Array.from(files));
-                                                            updateFilesCount();
-                                                            displayFiles(filesArray);
-                                                        }
-
-                                                        function handleDrop(items) {
-                                                            for (const item of items) {
-                                                                const entry = item.webkitGetAsEntry();
-                                                                if (entry.isFile) {
-                                                                    handleFile(entry);
-                                                                } else if (entry.isDirectory) {
-                                                                    handleDirectory(entry);
-                                                                }
-                                                            }
-                                                        }
-
-                                                        function handleFile(fileEntry) {
-                                                            fileEntry.file((file) => {
-                                                                filesArray.push(file);
-                                                                updateFilesCount();
-                                                                displayFiles(filesArray);
-                                                            });
-                                                        }
-
-                                                        function handleDirectory(directoryEntry) {
-                                                            const reader = directoryEntry.createReader();
-                                                            reader.readEntries((entries) => {
-                                                                for (const entry of entries) {
-                                                                    if (entry.isFile) {
-                                                                        handleFile(entry);
-                                                                    } else if (entry.isDirectory) {
-                                                                        handleDirectory(entry);
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-
-                                                        function updateFilesCount() {
-                                                            if (filesArray.length > 1) {
-                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
-                                                            } else {
-                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
-                                                            }
-                                                        }
-
-                                                        function displayFiles(files) {
-                                                            const htmlString = files.map((item, ind) => `
-                                                                <div class="stat-row">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}" style="max-width: 50px; margin-right: 10px;">
-                                                                        <div class="pl-2"><b>Description:</b> ${item.name}</div>
-                                                                    </div>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="pr-4">
-                                                                            <b>Uploaded:</b> ${formatDate(new Date())}
-                                                                        </div>
-                                                                        <button class="delete-btn" onclick="removeFile(${ind})">
-                                                                            <img src="/dist/assets/images/delete.png" alt="Delete">
-                                                                            Delete
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            `).join("");
-                                                            fileList.innerHTML = htmlString;
-                                                            filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
-                                                        }
-
-                                                        window.removeFile = function(index) {
-                                                            filesArray.splice(index, 1);
-                                                            displayFiles(filesArray);
-                                                            updateFilesCount();
-                                                        };
-
-                                                        async function uploadFiles() {
-                                                            $('#loading-screen').show(); // Show loader
-                                                            const apiUrl = "{{route('upload')}}";
-                                                            const formData = new FormData();
-
-                                                            for (const file of filesArray) {
-                                                                formData.append("file[]", file);
-                                                            }
-
-                                                            try {
-                                                                const response = await fetch(apiUrl, {
-                                                                    method: "POST",
-                                                                    body: formData,
-                                                                    headers: {
-                                                                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                                                                    },
-                                                                });
-
-                                                                if (response.ok) {
-                                                                    window.location = "{{ route('final-submission') }}";
-                                                                } else {
-                                                                    console.error("Failed to upload files");
-                                                                }
-                                                            } catch (error) {
-                                                                console.error("An error occurred while uploading files");
-                                                            }
-                                                        };
-
-                                                        function formatDate(date) {
-                                                            const day = String(date.getDate()).padStart(2, '0');
-                                                            const month = String(date.getMonth() + 1).padStart(2, '0');
-                                                            const year = date.getFullYear();
-                                                            return `${day}-${month}-${year}`;
-                                                        }
-
-                                                        function readFileAsBinary(file) {
-                                                            return new Promise((resolve, reject) => {
-                                                                const reader = new FileReader();
-
-                                                                reader.onload = () => {
-                                                                    resolve(reader.result);
-                                                                };
-
-                                                                reader.onerror = () => {
-                                                                    reject(new Error("Failed to read file as binary"));
-                                                                };
-
-                                                                reader.readAsBinaryString(file);
-                                                            });
-                                                        }
-                                                    });
-                                                </script>
+                                                <div id="fine-uploader-manual-trigger"></div>
                                             </div>   
                                         </div>
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
@@ -2391,5 +2193,93 @@ $(document).ready(function () {
     });
 
 });
+</script>
+
+<script type="text/template" id="qq-template-manual-trigger">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="buttons">
+                <div class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
+                    <div>Select files</div>
+                </div>
+                <button type="button" id="trigger-upload" class="btn btn-success rounded">
+                    <i class="icon-upload icon-white"></i> Upload
+                </button>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Delete</button>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        $('#fine-uploader-manual-trigger').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/upload',
+                customHeaders: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '/fine-uploader/placeholders/waiting-generic.png',
+                    notAvailablePath: '/fine-uploader/placeholders/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        });
+
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+        });
+    });
 </script>
 @endsection
