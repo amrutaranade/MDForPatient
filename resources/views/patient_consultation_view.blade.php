@@ -8,7 +8,7 @@
 <div class="">
     <div class="">
         <div class="row">
-            <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-2 col-2"></div>
             <div class="col-md-8 col-lg-8">
                 <div class="containerHeader">
                     <div class="titleHeader">Expert Opinion Request</div>
