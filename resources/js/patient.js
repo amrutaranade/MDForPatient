@@ -56,8 +56,8 @@ $(document).ready(function() {
 
 
     //patient registration details  section 1
-    document.getElementById('continueButton').addEventListener('click', function() {
-    const data = {
+    document.getElementById('continueButton').addEventListener('click', async function() {
+        const data = {
         firstName: document.getElementById('first-name').value,
         middleName: document.getElementById('middle-name').value ?? "",
         lastName: document.getElementById('last-name').value,
@@ -73,6 +73,11 @@ $(document).ready(function() {
 
 
     $('.error-message').text('');
+
+  if (!await checkConnection()) {
+    alert("Internet connection lost! Please reconnect and try again.");
+    return; 
+  }
     if(data.firstName && data.lastName && data.dateOfBirth && data.city && data.postalCode && data.streetAddress){
     // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -110,7 +115,7 @@ $(document).ready(function() {
 
 //contact parties section 2
 
-document.getElementById('continueButtonStep2').addEventListener('click', function() {
+document.getElementById('continueButtonStep2').addEventListener('click', async function() {
     // console.log(document.getElementById('first-name').value);
     const data = {
         relationship_to_patient: document.getElementById('relationship_to_patient').value,
@@ -133,8 +138,11 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
     };
     data.patientId = patientId;
 
-    console.log(data);
-    // Get CSRF token from the page's meta tag
+    // Check internet connection before proceeding
+    if (!await checkConnection()) {
+        alert("Internet connection lost! Please reconnect and try again.");
+        return; 
+    }    
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
     // Add CSRF token to the headers of the AJAX request
@@ -161,7 +169,7 @@ document.getElementById('continueButtonStep2').addEventListener('click', functio
 
 //patient physician  section 3
 
-document.getElementById('continueButtonStep3').addEventListener('click', function() {
+document.getElementById('continueButtonStep3').addEventListener('click',async function() {
     // console.log(document.getElementById('first-name').value);
     const data = {
         firstName: document.getElementById('first-name-step3').value ?? '',
@@ -178,8 +186,11 @@ document.getElementById('continueButtonStep3').addEventListener('click', functio
     };
     data.patientId = patientId;
 
-    console.log(data);
-    // Get CSRF token from the page's meta tag
+    // Check internet connection before proceeding
+    if (!await checkConnection()) {
+        alert("Internet connection lost! Please reconnect and try again.");
+        return; 
+    }      // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
     // Add CSRF token to the headers of the AJAX request
@@ -204,7 +215,7 @@ document.getElementById('continueButtonStep3').addEventListener('click', functio
 
 //primary concerns  section 4
 
-document.getElementById('continueButtonStep4').addEventListener('click', function() {
+document.getElementById('continueButtonStep4').addEventListener('click', async function() {
     // console.log(document.getElementById('first-name').value);
     const data = {
         primary_diagnosis: document.getElementById('primary_diagnosis').value ?? '',
@@ -215,8 +226,11 @@ document.getElementById('continueButtonStep4').addEventListener('click', functio
     };
     data.patientId = patientId;
 
-    console.log(data);
-    // Get CSRF token from the page's meta tag
+    // Check internet connection before proceeding
+    if (!await checkConnection()) {
+        alert("Internet connection lost! Please reconnect and try again.");
+        return; 
+    }      // Get CSRF token from the page's meta tag
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
     // Add CSRF token to the headers of the AJAX request
@@ -281,4 +295,28 @@ function getBrowserAgent() {
 //     });
 // });
 
+
+async function checkConnection() {
+    try {
+      const response = await fetch('https://www.google.com/generate_204', {
+        mode: 'no-cors'
+      });
+      // The response is opaque, but the fetch succeeded
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  
+  // Usage example
+  checkConnection().then(isConnected => {
+    if (isConnected) {
+      console.log('Internet is working');
+    } else {
+      console.log('No internet connection');
+    }
+  });
+  
+  
+  
 });
