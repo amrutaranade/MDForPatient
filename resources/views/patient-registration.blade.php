@@ -2227,7 +2227,8 @@ $(document).ready(function () {
             dateFormat: 'yy-mm-dd', 
             changeMonth: true,
             changeYear: true,
-            yearRange: '-300:+0'
+            yearRange: '-300:+0',
+            maxDate: 'today',
         });
 
 });
