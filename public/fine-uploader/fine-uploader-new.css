@@ -140,7 +140,7 @@
 /* Uploaded Elements
 ------------------------------------------ */
 .qq-upload-list li {
-    margin: 0;
+    margin-bottom: 20px;
     padding: 9px;
     line-height: 15px;
     font-size: 16px;
@@ -233,7 +233,7 @@
 .qq-progress-bar {
     display: block;
     display: block;
-    background: #00abc7;
+    background: #1bcfb4;
     width: 0%;
     height: 15px;
     border-radius: 6px;

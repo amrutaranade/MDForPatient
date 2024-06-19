@@ -769,7 +769,7 @@
                                             </div>   
                                         </div>
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary" >
+                                            <button type="button" class="btn btn-secondary" id="backBtnMedicalRecords">
                                                 Back
                                             </button> &nbsp;&nbsp;
 
@@ -1574,37 +1574,28 @@
     });
 </script>
 <script>
+const panel6 = document.getElementById("progress-form__panel-6");
+const panel5 = document.getElementById("progress-form__panel-5");
 
+const tab6 = document.getElementById("progress-form__tab-6");
+const tab5 = document.getElementById("progress-form__tab-5");
+const panel7 = document.getElementById("progress-form__panel-7");
+
+const tab7 = document.getElementById("progress-form__tab-7");
 document.addEventListener('DOMContentLoaded', function() {
     
-    $(".backButtonPaymentDetails").click(function() {
-        const panel6 = document.getElementById("progress-form__panel-6");
-        const panel5 = document.getElementById("progress-form__panel-5");
-
-        if (panel6 && panel5) {
-            panel6.setAttribute("hidden", "");
-            panel5.removeAttribute("hidden");
-        } else {
-            console.error("One or both of the panels (panel 6 or panel 5) not found.");
-        }
+    $(".backButtonPaymentDetails").click(function() {        
+        panel6.setAttribute("hidden", "");
+        panel5.removeAttribute("hidden");
     });
 
     $(".agreeAfterPaymentButton").click(function() {
-        const panel6 = document.getElementById("progress-form__panel-6");
-        const panel5 = document.getElementById("progress-form__panel-5");
-
-        const tab6 = document.getElementById("progress-form__tab-6");
-        const tab5 = document.getElementById("progress-form__tab-5");
-
-        if (panel6 && panel5) {
-            panel5.setAttribute("hidden", "");
-            panel6.removeAttribute("hidden");
-            tab5.setAttribute("data-complete", "true");
-            tab5.setAttribute("aria-selected", "false");
-            tab6.setAttribute("aria-selected", "true");
-        } else {
-            console.error("One or both of the panels (panel 6 or panel 5) not found.");
-        }
+        panel5.setAttribute("hidden", "");
+        panel6.removeAttribute("hidden");        
+        tab6.setAttribute("aria-selected", "true");                      
+        tab5.setAttribute("aria-selected", "false");
+        tab5.setAttribute("data-complete", "true");
+              
     });
 });
 
@@ -1976,24 +1967,17 @@ document.addEventListener('DOMContentLoaded', function() {
     //     handler.close();
     // });
 
-    document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {
-        const panel7 = document.getElementById("progress-form__panel-7");
-        const panel6 = document.getElementById("progress-form__panel-6");
-
-        const tab7 = document.getElementById("progress-form__tab-7");
-        const tab6 = document.getElementById("progress-form__tab-6");
-        const tab5 = document.getElementById("progress-form__tab-5");
-
-        if (panel7 && panel6) {
-            panel6.setAttribute("hidden", "");
-            panel7.removeAttribute("hidden");
-            tab6.setAttribute("data-complete", "true");
-            tab7.setAttribute("aria-selected", "true");
-            tab6.setAttribute("aria-selected", "false");
-            tab5.setAttribute("aria-selected", "false");
-            tab5.setAttribute("data-complete", "true");
-        }
-        
+    document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {            
+        panel6.setAttribute("hidden", "");
+        panel7.removeAttribute("hidden");
+        tab6.setAttribute("data-complete", "true");
+        tab7.setAttribute("aria-selected", "true");
+        tab6.setAttribute("aria-selected", "false");
+        tab5.setAttribute("aria-selected", "false"); 
+    });
+    document.querySelector('#backBtnMedicalRecords').addEventListener('click', function(e) {
+        panel7.setAttribute("hidden", "");
+        panel6.removeAttribute("hidden");
     });
 </script>
 
@@ -2029,12 +2013,7 @@ $(document).ready(function () {
         disableLink : true
     });
 
-    cardElement.mount('#card-element');
-
-    cardElement.on('change', function(event) {
-        document.getElementById("link-save").style = "display:none";
-        document.getElementById("link-pay").style = "display:none";
-    });
+    cardElement.mount('#card-element');    
 
     $('#card-button').on('click', async function (e) {
         e.preventDefault();
@@ -2185,12 +2164,17 @@ $(document).ready(function () {
                             $(".agreeAfterPaymentButton").removeAttr("hidden");
                             $("#agreeAndProceedButton").attr("hidden", 'hidden');
                             
-                            paymentConsentDetails.setAttribute('hidden', '');
-                            paymentDetails.removeAttribute('hidden');
-                            paymentDetails.setAttribute('aria-selected', 'true');
-                            paymentDetails.setAttribute('data-complete', 'true');
+                            // paymentConsentDetails.setAttribute('hidden', '');
+                            // paymentDetails.removeAttribute('hidden');
+                            // paymentDetails.setAttribute('aria-selected', 'true');
+                            // paymentConsentDetails.setAttribute('data-complete', 'true');
                             document.getElementById("chargeId").textContent = response.paymentDetails.charge_id;
                             document.getElementById("cardNumber").textContent = "**** **** ****" + response.paymentDetails.last4;
+                            panel5.setAttribute("hidden", "");
+                            panel6.removeAttribute("hidden");                            
+                            tab5.setAttribute("aria-selected", "false");
+                            tab5.setAttribute("data-complete", "true");
+                            tab6.setAttribute("aria-selected", "true");
 
                         } else {
                             alert('Payment failed: ' + response.error);
@@ -2264,9 +2248,10 @@ $(document).ready(function () {
                     <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                     <span class="qq-upload-size-selector qq-upload-size"></span>
                     <button type="button" class="qq-btn qq-upload-cancel-selector btn btn-danger qq-upload-cancel">Delete</button>
+                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
                     <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
                     
-                </li><br/><br/>
+                </li>
             </ul>
 
             <dialog class="qq-alert-dialog-selector">
