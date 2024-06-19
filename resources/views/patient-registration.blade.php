@@ -60,6 +60,7 @@
                                     <label for="first-name">
                                         First Name
                                         <span data-required="true" aria-hidden="true"></span>
+                                        <input type="hidden" name="patient_id" id="patientId" value="{{isset($patientDetails->id) ? $patientDetails->id : ''}}">
                                     </label>
                                     <input id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{isset($patientDetails->first_name) ? $patientDetails->first_name : ''}}">
                                     </div>
@@ -678,10 +679,12 @@
                                                     
                                                         <div class="form-group">
                                                             <label for="card-holder-name">Card Holder Name</label>
+                                                            <span data-required="true" aria-hidden="true"></span>
                                                             <input type="text" id="card-holder-name" class="form-control" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="card-holder-email">Card Holder Email</label>
+                                                            <span data-required="true" aria-hidden="true"></span>
                                                             <input type="email" id="card-holder-email" class="form-control" required>
                                                         </div>
                                                         <div id="card-element" class="form-control">
@@ -692,7 +695,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button id="card-button" class="btn btn-primary btn-success" data-secret="">Pay</button>
+                                                    <button id="card-button" class="btn btn-primary btn-success" data-secret="">Pay $199.00</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -798,6 +801,12 @@
 
 <script>
     console.clear();
+
+    document.querySelectorAll("#confirm-upload").forEach(button => {
+        button.addEventListener("click", () => {
+            window.location = "/final-submission";
+        });
+    });
 
     //Set Agree to Payment button off on payload
     
@@ -1771,7 +1780,6 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#emailRadio').attr('required', 'required');
             document.getElementById("relationship_email").value = email_step1;
             document.getElementById("relationship_confirm_email").value = email_step1;
-
         } else if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian') {
             // Show specific fields for 'Caregiver'
             $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
@@ -1987,11 +1995,13 @@ $(document).ready(function () {
     var style = {
         base: {
             color: '#32325d',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
             fontSmoothing: 'antialiased',
             fontSize: '16px',
             '::placeholder': {
                 color: '#aab7c4'
+            },
+            ':-webkit-autofill': {
+                color: '#e39f48',
             }
         },
         invalid: {
@@ -2002,10 +2012,16 @@ $(document).ready(function () {
 
     var cardElement = elements.create('card', {
         style: style,
-        hidePostalCode: true  // Hide the postal code field
+        hidePostalCode: true,  // Hide the postal code field
+        hideAutoLink: true
     });
 
     cardElement.mount('#card-element');
+
+    cardElement.on('change', function(event) {
+        document.getElementById("link-save").style = "display:none";
+        document.getElementById("link-pay").style = "display:none";
+    });
 
     $('#card-button').on('click', async function (e) {
         e.preventDefault();
@@ -2207,10 +2223,11 @@ $(document).ready(function () {
                 <div class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <div>Select files</div>
                 </div>
-                <button type="button" id="trigger-upload" class="btn btn-success rounded">
+                <button type="button" id="trigger-upload" class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <i class="icon-upload icon-white"></i> Upload
                 </button>
             </div>
+            <br/>
             <span class="qq-drop-processing-selector qq-drop-processing">
                 <span>Processing dropped files...</span>
                 <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
@@ -2225,8 +2242,9 @@ $(document).ready(function () {
                     <span class="qq-upload-file-selector qq-upload-file"></span>
                     <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                     <span class="qq-upload-size-selector qq-upload-size"></span>
-                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Delete</button>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector btn btn-danger qq-upload-cancel">Delete</button>
                     <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                    <br/>
                 </li>
             </ul>
 
@@ -2252,7 +2270,7 @@ $(document).ready(function () {
                     <button type="button" class="qq-cancel-button-selector">Cancel</button>
                     <button type="button" class="qq-ok-button-selector">Ok</button>
                 </div>
-            </dialog>
+            </dialog><br/><br/><br/>
         </div>
     </script>
 
@@ -2278,6 +2296,7 @@ $(document).ready(function () {
         });
 
         $('#trigger-upload').click(function() {
+            $('#loading-screen').show();
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });

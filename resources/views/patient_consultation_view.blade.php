@@ -54,7 +54,7 @@
                         <!-- / End Step Navigation -->
 
                         <!-- Step 1 -->
-                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
+                        <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
                             <div class="p-5 mx-3">
                             <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
@@ -707,297 +707,30 @@
                                                 <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
                                                 <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
                                                 <div class="stat-row">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="/dist/assets/images/photo.png" alt="ssss">
-                                                    <div class="pl-2"><b>Description:</b>{{$file['Name'] }}</div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="pr-4">
-                                                        <b>Uploaded:</b>
-                                                        {{ (new DateTime($file["CreationDate"]))->format("m-d-Y") }}
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="/dist/assets/images/photo.png" alt="ssss">
+                                                        <div class="pl-2"><b>Description:</b>{{$file['Name'] }}</div>
                                                     </div>
-                                                    <button class="delete-btn">
-                                                        <a href="{{ route('view-file', ['id' => $file['Id']]) }}" target="_blank">View</a>
-                                                    </button>&nbsp;&nbsp;
-                                                    <button class="delete-btn">
-                                                        <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}"><span class="fa fa-download"></span>Download</a>
-                                                    </button>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="pr-4">
+                                                            <b>Uploaded:</b>
+                                                            {{ (new DateTime($file["CreationDate"]))->format("m-d-Y") }}
+                                                        </div>
+                                                        <button class="delete-btn">
+                                                            <a href="{{ route('view-file', ['id' => $file['Id']]) }}" target="_blank">View</a>
+                                                        </button>&nbsp;&nbsp;
+                                                        <button class="delete-btn">
+                                                            <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}"><span class="fa fa-download"></span>Download</a>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <br/>
+                                                <br/>
                                             @endforeach      
                                             <div class="sm:mt-0 form__field">
                                                 <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
                                             </div>                     
                                             <div class="mt-3 sm:mt-0 form__field">   
-                                                <div>
-                                                    <h1>File Upload</h1>
-                                                    <div class="dropzone p-0" id="drop-zone">
-                                                        <label for="file-input" class="file-drop-label" id="files-count">
-                                                            <img src="/dist/assets/images/download.png" alt="">
-                                                            Drop files here to upload
-                                                        </label>
-                                                        <input type="file" id="file-input" class="file-drop-input" multiple>
-                                                        <input type="file" id="file-input-folder" class="file-drop-input" multiple webkitdirectory>
-                                                        
-                                                    </div>
-                                                    <div id="connection-status" hidden>Checking connection...</div>
-                                                    <button id="upload-btn" style="display: none">Upload</button>
-                                                    <div id="file-list"></div>
-                                                    <!-- <button id="confirm-upload">Confirm Upload</button> -->
-                                                </div>
-                                                <script>
-                                                    function formatDate() {
-                                                        // Create a new Date object from the date string
-                                                        const date = new Date();
-                                                        // Get the day, month, and year
-                                                        const day = String(date.getDate()).padStart(2, '0'); // Ensure day is two digits
-                                                        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure month is two digits, getMonth() returns 0-11
-                                                        const year = date.getFullYear();
-
-                                                        // Get the hours and minutes
-                                                        const hours = String(date.getHours()).padStart(2, '0'); // Ensure hours are two digits
-                                                        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure minutes are two digits
-                                                        // Return the formatted date as dd-mm-yyyy
-                                                        return `${day}/${month}/${year} - ${hours}:${minutes}`;
-                                                    };
-                                                   
-                                                    document.addEventListener("DOMContentLoaded", () => {
-                                                        const fileInput = document.getElementById("file-input");
-                                                        const fileInputFolder = document.getElementById("file-input-folder");
-                                                        const uploadBtn = document.getElementById("upload-btn");
-                                                        const fileList = document.getElementById("file-list");
-                                                        const filesCount = document.getElementById("files-count");
-                                                        const dropZone = document.getElementById("drop-zone");
-                                                        let filesArray = [];
-
-                                                        //Below code will be come in picture when it will check for connection -- Start
-                                                        setInterval(updateConnectionStatus, 3000);
-                                                        var connectionStatus = document.getElementById('connection-status');
-                                                        var uploadInProgress = false;
-
-                                                        // Function to check the connection
-                                                        function checkConnection() {
-                                                            return new Promise((resolve) => {
-                                                            if (navigator.onLine) {
-                                                                // Try fetching a small image or resource to confirm the connection
-                                                                fetch('/ping')
-                                                                .then(() => resolve(true))
-                                                                .catch(() => resolve(false));
-                                                            } else {
-                                                                resolve(false);
-                                                            }
-                                                            });
-                                                        }
-
-                                                        // Update the connection status
-                                                        function updateConnectionStatus() {
-                                                            checkConnection().then(isOnline => {
-                                                            if (isOnline) {
-                                                                connectionStatus.textContent = 'Connected';
-                                                                if (uploadInProgress) {
-                                                                    dropZone.processQueue(); // Resume the upload if it was paused
-                                                                }
-                                                            } else {
-                                                                connectionStatus.textContent = 'Connection lost';
-                                                                if (uploadInProgress) {
-                                                                    dropZone.pause(); // Pause the upload
-                                                                }
-                                                            }
-                                                            });
-                                                        }
-
-                                                       // Dropzone events using addEventListener
-                                                        dropZone.addEventListener('sending', function(file) {
-                                                            console.log("inside sending");
-                                                            uploadInProgress = true;
-                                                            updateConnectionStatus();
-                                                        });
-
-                                                        dropZone.addEventListener('error', function(file, errorMessage) {
-                                                            console.log("inside error");
-                                                            uploadInProgress = false;
-                                                            console.log('Error during upload:', errorMessage);
-                                                        });
-
-                                                        dropZone.addEventListener('queuecomplete', function() {
-                                                            console.log("inside queuecomplete");
-                                                            uploadInProgress = false;
-                                                        });
-
-                                                        // Start upload manually when files are added
-                                                        dropZone.addEventListener('addedfile', function(file) {
-                                                            console.log("inside addedFile");
-                                                            myDropzone.processQueue();
-                                                        });
-                                                        //Internet connection code ends here Ends
-
-                                                        fileInput.addEventListener("change", (event) => {
-                                                            handleFiles(event.target.files);
-                                                        });
-
-                                                        fileInputFolder.addEventListener("change", (event) => {
-                                                            handleFiles(event.target.files);
-                                                        });
-
-                                                        uploadBtn.addEventListener("click", () => {
-                                                            if (filesArray.length > 0) {
-                                                                displayFiles(filesArray);
-                                                                console.log("Files to upload:", filesArray);
-                                                            } else {
-                                                                alert("Please select files to upload");
-                                                            }
-                                                        });                                                        
-
-                                                        dropZone.addEventListener("dragover", (event) => {
-                                                            event.preventDefault();
-                                                            dropZone.classList.add("dragover");
-                                                        });
-
-                                                        dropZone.addEventListener("dragleave", () => {
-                                                            dropZone.classList.remove("dragover");
-                                                        });
-
-                                                        dropZone.addEventListener("drop", (event) => {
-                                                            event.preventDefault();
-                                                            dropZone.classList.remove("dragover");
-                                                            handleDrop(event.dataTransfer.items);
-                                                        });
-
-                                                        document.getElementById("confirm-upload").addEventListener("click", uploadFiles);
-
-                                                        function handleFiles(files) {
-                                                            filesArray = filesArray.concat(Array.from(files));
-                                                            updateFilesCount();
-                                                            displayFiles(filesArray);
-                                                        }
-
-                                                        function handleDrop(items) {
-                                                            for (const item of items) {
-                                                                const entry = item.webkitGetAsEntry();
-                                                                if (entry.isFile) {
-                                                                    handleFile(entry);
-                                                                } else if (entry.isDirectory) {
-                                                                    handleDirectory(entry);
-                                                                }
-                                                            }
-                                                        }
-
-                                                        function handleFile(fileEntry) {
-                                                            fileEntry.file((file) => {
-                                                                filesArray.push(file);
-                                                                updateFilesCount();
-                                                                displayFiles(filesArray);
-                                                            });
-                                                        }
-
-                                                        function handleDirectory(directoryEntry) {
-                                                            const reader = directoryEntry.createReader();
-                                                            reader.readEntries((entries) => {
-                                                                for (const entry of entries) {
-                                                                    if (entry.isFile) {
-                                                                        handleFile(entry);
-                                                                    } else if (entry.isDirectory) {
-                                                                        handleDirectory(entry);
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-
-                                                        function updateFilesCount() {
-                                                            if (filesArray.length > 1) {
-                                                                filesCount.innerHTML = `<b>${filesArray.length} files uploaded</b>`;
-                                                            } else {
-                                                                filesCount.innerHTML = `<b>${filesArray.length} file uploaded</b>`;
-                                                            }
-                                                        }
-
-                                                        function displayFiles(files) {
-                                                            const htmlString = files.map((item, ind) => `
-                                                                <div class="stat-row">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <img src="/dist/assets/images/photo.png" alt="${item.name}" style="max-width: 50px; margin-right: 10px;">
-                                                                        <div class="pl-2"><b>Description:</b> ${item.name}</div>
-                                                                    </div>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="pr-4">
-                                                                            <b>Uploaded:</b> ${formatDate(new Date())}
-                                                                        </div>
-                                                                        <button class="delete-btn" onclick="removeFile(${ind})">
-                                                                            <img src="/dist/assets/images/delete.png" alt="Delete">
-                                                                            Delete
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            `).join("");
-                                                            fileList.innerHTML = htmlString;
-                                                            filesCount.innerHTML = `<img src="/dist/assets/images/download.png" alt="">Drop files here to upload`;
-                                                        }
-
-                                                        window.removeFile = function(index) {
-                                                            filesArray.splice(index, 1);
-                                                            displayFiles(filesArray);
-                                                            updateFilesCount();
-                                                        };
-
-                                                        async function uploadFiles() {
-                                                            uploadInProgress = true;
-                                                            $('#loading-screen').show(); // Show loader
-                                                            const apiUrl = "{{route('upload')}}";
-                                                            const formData = new FormData();
-
-                                                            for (const file of filesArray) {
-                                                                formData.append("file[]", file);
-                                                            }
-                                                            formData.append("patient_id", document.getElementById("patientId").value);
-                                                            formData.append("folder_id", document.getElementById("folder_id").value);
-                                                            formData.append("patient_consulatation_number", document.getElementById("patient_consulatation_number").value);
-
-                                                            try {
-                                                                const response = await fetch(apiUrl, {
-                                                                    method: "POST",
-                                                                    body: formData,
-                                                                    headers: {
-                                                                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                                                                    },
-                                                                });
-                                                                
-                                                                if (response.ok) {
-                                                                    window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
-                                                                } else {
-                                                                    console.error("Failed to upload files");
-                                                                }
-                                                            } catch (error) {
-                                                                console.error("An error occurred while uploading files");
-                                                            }
-                                                        };
-
-                                                        function formatDate(date) {
-                                                            const day = String(date.getDate()).padStart(2, '0');
-                                                            const month = String(date.getMonth() + 1).padStart(2, '0');
-                                                            const year = date.getFullYear();
-                                                            return `${day}-${month}-${year}`;
-                                                        }
-
-                                                        function readFileAsBinary(file) {
-                                                            return new Promise((resolve, reject) => {
-                                                                const reader = new FileReader();
-
-                                                                reader.onload = () => {
-                                                                    resolve(reader.result);
-                                                                };
-
-                                                                reader.onerror = () => {
-                                                                    reject(new Error("Failed to read file as binary"));
-                                                                };
-
-                                                                reader.readAsBinaryString(file);
-                                                            });
-                                                        }
-                                                    });
-                                                </script> 
-
                                                 <div id="fine-uploader-manual-trigger"></div>
                                             </div>   
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
@@ -1030,9 +763,13 @@
 
 
 <script>
-    //console.clear();
+    console.clear();
+    document.querySelectorAll("#confirm-upload").forEach(button => {
+        button.addEventListener("click", () => {
+            window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+        });
+    });
 
-    //Set Agree to Payment button off on payload
     
     function ready(fn) {
     //var hasTreated = $('input[name="treated_before"]')
@@ -2070,7 +1807,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 </script>
 
-    <script type="text/template" id="qq-template-manual-trigger">
+<script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
                 <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
@@ -2079,13 +1816,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="qq-upload-drop-area-text-selector"></span>
             </div>
             <div class="buttons">
-                <div class="qq-upload-button-selector qq-upload-button">
+                <div class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <div>Select files</div>
                 </div>
-                <button type="button" id="trigger-upload" class="btn btn-primary">
+                <button type="button" id="trigger-upload" class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <i class="icon-upload icon-white"></i> Upload
                 </button>
             </div>
+            <br/>
             <span class="qq-drop-processing-selector qq-drop-processing">
                 <span>Processing dropped files...</span>
                 <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
@@ -2098,13 +1836,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
                     <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
                     <span class="qq-upload-file-selector qq-upload-file"></span>
-                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
                     <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                     <span class="qq-upload-size-selector qq-upload-size"></span>
-                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>
-                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
-                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector btn btn-danger qq-upload-cancel">Delete</button>
                     <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                    <br/>
                 </li>
             </ul>
 
@@ -2130,7 +1866,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="button" class="qq-cancel-button-selector">Cancel</button>
                     <button type="button" class="qq-ok-button-selector">Ok</button>
                 </div>
-            </dialog>
+            </dialog><br/><br/><br/>
         </div>
     </script>
 
@@ -2156,7 +1892,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         $('#trigger-upload').click(function() {
+            $('#loading-screen').show();
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+            $('#loading-screen').hide();
         });
     });
 </script>

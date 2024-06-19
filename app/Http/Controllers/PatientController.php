@@ -408,7 +408,7 @@ class PatientController extends Controller
 
     public function upload(Request $request)
     {        
-        $folderName = session("patient_consulatation_number") ?? $request->input('patient_consulatation_number');
+        $folderName = session("patient_consulatation_number");
         $file = $request->files->get('qqfile');
 
         try {

@@ -147,7 +147,10 @@ class OtpController extends Controller
         //     $customeShareFiles = [];
         // }
        
+        session(['patient_consulatation_number' => $patientDetails->patient_consulatation_number, 'patient_id' => $patientId]);
+
         if(!empty($patientDetails && $contactParty && $referringPhysician && $patientPrimaryConcern && $expertOpinionRequests && $paymentDetails && $medicalRecords && $customeShareFiles)) {
+            
             return view('patient_consultation_view', [
                 'patientDetails' => $patientDetails,
                 'contactParty' => $contactParty,

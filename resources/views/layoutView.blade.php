@@ -27,13 +27,6 @@
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <link href="/fine-uploader/fine-uploader-new.css" rel="stylesheet">
     <style>
-        #trigger-upload {
-            color: white;
-            background-color: #00ABC7;
-            font-size: 14px;
-            padding: 7px 20px;
-            background-image: none;
-        }
 
         #fine-uploader-manual-trigger .qq-upload-button {
             margin-right: 15px;

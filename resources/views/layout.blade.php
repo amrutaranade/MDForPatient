@@ -30,13 +30,6 @@
     <link href="/fine-uploader/fine-uploader-new.css" rel="stylesheet">
     
     <style>
-        #trigger-upload {
-            color: white;
-            background-color: #00ABC7;
-            font-size: 14px;
-            padding: 7px 20px;
-            background-image: none;
-        }
 
         #fine-uploader-manual-trigger .qq-upload-button {
             margin-right: 15px;
