@@ -661,11 +661,7 @@
                                 <button class="btn btn-success rounded btn-fw" disabled id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>    
                                 @endif                            
                                 
-<<<<<<< HEAD
-                                <button class="btn btn-success btn-fw agreeAfterPaymentButton" id="agreeAfterPaymentButton" hidden>Agree & Proceed</button>
-=======
                                 <button class="btn btn-success rounded btn-fw agreeAfterPaymentButton" id="agreeAfterPaymentButton" data-action="next" hidden>Agree & Proceed</button>
->>>>>>> e2dbd71fd9f25254dd3b9a315e2accce9631c297
                                     
                                 <div class="container mt-5">
                                     <!-- Modal -->
