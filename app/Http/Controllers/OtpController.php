@@ -159,7 +159,7 @@ class OtpController extends Controller
                 'expertOpinionRequests' => $expertOpinionRequests,
                 'paymentDetails' => $paymentDetails,
                 'medicalRecords' => $medicalRecords,
-                "customeShareFiles" => compact("customeShareFiles"),
+                "customeShareFiles" => $customeShareFiles->getStatusCode() != "500" ? compact("customeShareFiles") : null,
                 'countries' => $countries,
                 'states' => $states,
                 'authToken' => $this->shareFileService->getAccessToken()

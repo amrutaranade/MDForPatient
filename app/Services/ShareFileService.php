@@ -335,22 +335,26 @@ class ShareFileService
     }
 
     public function getShareFilesByFolderId($folderId) {
-        $accessToken = $this->getAccessToken();
-        $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")/Children";
+        try{
+            $accessToken = $this->getAccessToken();
+            $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")/Children";
 
-        $headers = $this->getAuthorizationHeader($accessToken);
+            $headers = $this->getAuthorizationHeader($accessToken);
 
-        $client = new Client();
-        $response = $client->request('GET', $uri, [
-            'timeout' => 30,
-            'verify' => false,
-            'headers' => $headers
-        ]);
+            $client = new Client();
+            $response = $client->request('GET', $uri, [
+                'timeout' => 30,
+                'verify' => false,
+                'headers' => $headers
+            ]);
 
-        $http_code = $response->getStatusCode();
-        $curl_response = json_decode((string) $response->getBody(), true);       
+            $http_code = $response->getStatusCode();
+            $curl_response = json_decode((string) $response->getBody(), true);       
 
-        return $curl_response;
+            return $curl_response;
+        }catch (RequestException $e) {
+            throw new \Exception("folder ID Not found: " . $e->getMessage());
+        }        
     }
 
     function downloadFileOld($item_id, $local_path) {
