@@ -661,7 +661,7 @@
                                 <button class="btn btn-success btn-fw" disabled id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>    
                                 @endif                            
                                 
-                                <button class="btn btn-success btn-fw agreeAfterPaymentButton" id="agreeAfterPaymentButton" data-action="next" hidden>Agree & Proceed</button>
+                                <button class="btn btn-success btn-fw agreeAfterPaymentButton" id="agreeAfterPaymentButton" hidden>Agree & Proceed</button>
                                     
                                 <div class="container mt-5">
                                     <!-- Modal -->
@@ -744,7 +744,7 @@
                                             Back
                                         </button>
                                         
-                                        <button type="button" data-action="next" class="btn btn-success rounded" id="continueButtonStep6">
+                                        <button type="button" class="btn btn-success rounded" id="continueButtonStep6">
                                         Save & Next
                                         </button>
                                     </div>
@@ -1592,9 +1592,10 @@ document.addEventListener('DOMContentLoaded', function() {
     $(".agreeAfterPaymentButton").click(function() {
         panel5.setAttribute("hidden", "");
         panel6.removeAttribute("hidden");        
+        tab5.setAttribute("data-complete", "true");
         tab6.setAttribute("aria-selected", "true");                      
         tab5.setAttribute("aria-selected", "false");
-        tab5.setAttribute("data-complete", "true");
+        
               
     });
 });
