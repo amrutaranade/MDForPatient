@@ -688,7 +688,6 @@
                                                             <input type="email" id="card-holder-email" class="form-control" required>
                                                         </div>
                                                         <div id="card-element" class="form-control">
-                                                            <!-- A Stripe Element will be inserted here. -->
                                                         </div>
                                                         <div id="card-errors" role="alert" class="text-danger mt-2"></div>
                                                     
@@ -699,8 +698,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
+                                    </div>                                    
                                 </div>
                             </div>
                         </section>
@@ -2027,7 +2025,8 @@ $(document).ready(function () {
     var cardElement = elements.create('card', {
         style: style,
         hidePostalCode: true,  // Hide the postal code field
-        hideAutoLink: true
+        hideAutoLink: true,
+        disableLink : true
     });
 
     cardElement.mount('#card-element');
@@ -2258,8 +2257,8 @@ $(document).ready(function () {
                     <span class="qq-upload-size-selector qq-upload-size"></span>
                     <button type="button" class="qq-btn qq-upload-cancel-selector btn btn-danger qq-upload-cancel">Delete</button>
                     <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                    <br/>
-                </li>
+                    
+                </li><br/><br/>
             </ul>
 
             <dialog class="qq-alert-dialog-selector">
