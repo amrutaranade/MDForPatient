@@ -7,19 +7,19 @@
 <div class="">
     <div class="">
         <div class="row">
-            <div class="col-md-2 col-lg-2"></div>
-            <div class="col-md-8 col-lg-8">
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
+            <div class="col-lg-12 col-xl-8 px-xl-0">
                 <div class="containerHeader">
                     <div class="titleHeader">Expert Opinion Request</div>
                     <div class="alertHeader">If this is a time-sensitive or urgent request, please contact 911 or seek local medical care as appropriate.</div>
                 </div>
                 <br/>
             </div>
-            <div class="col-md-2 col-lg-2"></div>
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
         </div>
         <div class="row">
-            <div class="col-md-2 col-lg-2"></div>
-            <div class="col-md-8 col-lg-8">                
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
+            <div class="col-lg-12 col-xl-8 px-xl-0">                
                 <div class="">
                     <!-- Progress Form -->
                     <form id="progress-form" class="progress-form rounded-bottom-0" action="#" lang="en" novalidate type="post">
@@ -655,13 +655,13 @@
                             <div class="px-5 py-4 text-end border-top sm:mt-5 mt-0 bg-white">
                                 <button data-action="prev" type="button" class="btn btn-secondary rounded">
                                     Back
-                                </button>
-                                <button class="btn btn-success btn-fw agreeButton" id="agreeButton" onclick="nextTab()">Agree & Proceed</button>
+                                </button> &nbsp;&nbsp;
+                                <button class="btn btn-success rounded btn-fw agreeButton" id="agreeButton" onclick="nextTab()">Agree & Proceed</button>
                                 @if(session("stripe_charge_id") == null)
-                                <button class="btn btn-success btn-fw" disabled id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>    
+                                <button class="btn btn-success rounded btn-fw" disabled id="agreeAndProceedButton" data-toggle="modal" data-target="#paymentModal" hidden>Agree & Proceed To Payment</button>    
                                 @endif                            
                                 
-                                <button class="btn btn-success btn-fw agreeAfterPaymentButton" id="agreeAfterPaymentButton" data-action="next" hidden>Agree & Proceed</button>
+                                <button class="btn btn-success rounded btn-fw agreeAfterPaymentButton" id="agreeAfterPaymentButton" data-action="next" hidden>Agree & Proceed</button>
                                     
                                 <div class="container mt-5">
                                     <!-- Modal -->
@@ -745,7 +745,7 @@
                                         <button data-action="pre" type="button" class="btn btn-secondary mr-3 rounded backButtonPaymentDetails" >
                                             Back
                                         </button>
-                                        
+                                        &nbsp;&nbsp;
                                         <button type="button" data-action="next" class="btn btn-success rounded" id="continueButtonStep6">
                                         Save & Next
                                         </button>
@@ -771,11 +771,11 @@
                                             </div>   
                                         </div>
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary" >
+                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary rounded" >
                                                 Back
                                             </button> &nbsp;&nbsp;
 
-                                            <button id="confirm-upload" class="step1 btn btn-success" type="button" >Submit</button>
+                                            <button id="confirm-upload" class="step1 btn btn-success rounded" type="button" >Submit</button>
                                         </div>
                                     </div>
                                 </div>                            
@@ -787,7 +787,7 @@
                     <!-- / End Progress Form -->
                 </div>                
             </div>
-            <div class="col-md-2 col-lg-2"></div>
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
         </div>
     </div>
     
