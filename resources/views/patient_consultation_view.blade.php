@@ -1841,6 +1841,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                     <span class="qq-upload-size-selector qq-upload-size"></span>
                     <button type="button" class="qq-btn qq-upload-cancel-selector btn btn-danger qq-upload-cancel">Delete</button>
+                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
                     <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
                     <br/>
                 </li>

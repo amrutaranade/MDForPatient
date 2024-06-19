@@ -28,6 +28,10 @@
     <link rel="shortcut icon" href="/dist/assets/images/favicon.png" />
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <link href="/fine-uploader/fine-uploader-new.css" rel="stylesheet">
+    <link href=
+'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' 
+         rel='stylesheet'>
+
     
     <style>
 
@@ -85,6 +89,9 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="{{ mix('js/validation.js') }}"></script>
     <script src="/fine-uploader/jquery.fine-uploader.js"></script>
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
+</script>
     <!-- End custom js for this page -->
     <script>
         $(document).on('click', '.btnDiscardRequest', function() {
