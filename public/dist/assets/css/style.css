@@ -26736,3 +26736,33 @@ div.payment {
 #link-save, #link-pay{
   display:none !important;
 }
+.ui-datepicker {
+  width: 35em !important;
+    height: 22em !important;
+}
+.ui-datepicker .ui-datepicker-title {
+  margin: 0 2.3em;
+  line-height: 1.8em;
+  text-align: center;
+  display: flex !important;
+}
+.ui-widget-header {
+  border: 1px solid #e78f08;
+  background: #1bcfb4 !important;
+  color: #ffffff;
+  font-weight: bold;
+}
+.ui-datepicker .ui-datepicker-title select {
+  font-size: 1.3em !important;
+  margin: 4px !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+  border: 1px solid #cccccc;
+  background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+  font-weight: bold;
+  color: #616e73 !important;
+}
+.ui-datepicker th {
+  font-size: 12px !important;
+}

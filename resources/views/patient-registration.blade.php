@@ -87,7 +87,7 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="{{date('Y-m-d')}}" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
+                                    <input id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('Y-m-d')}}" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
                                     </div>
                                 </div>
 
@@ -2220,6 +2220,14 @@ $(document).ready(function () {
         }
 
     });
+
+
+      $("#date_of_birth").datepicker({
+            dateFormat: 'yy-mm-dd', 
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-300:+0'
+        });
 
 });
 </script>
