@@ -3160,6 +3160,7 @@ button:disabled {
   white-space: normal;
   font-weight: bold;
   padding: 15px;
+  height: 60px;
 }
 
 /* .progress-form__tabs-item .step-number{
@@ -3169,6 +3170,8 @@ button:disabled {
 
 .step-container{
   box-shadow: none !important;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .progress-form__tabs-item:active {

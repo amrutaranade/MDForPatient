@@ -8,19 +8,19 @@
 <div class="">
     <div class="">
         <div class="row">
-            <div class="col-md-2 col-2"></div>
-            <div class="col-md-8 col-lg-8">
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
+            <div class="col-lg-12 col-xl-8 px-xl-0">
                 <div class="containerHeader">
                     <div class="titleHeader">Expert Opinion Request</div>
                     <div class="alertHeader">If this is a time-sensitive or urgent request, please contact 911 or seek local medical care as appropriate.</div>
                 </div>
                 <br/>
             </div>
-            <div class="col-md-2 col-lg-2"></div>
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
         </div>
         <div class="row">
-            <div class="col-md-2 col-lg-2"></div>
-            <div class="col-md-8 col-lg-8">                
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
+            <div class="col-lg-12 col-xl-8 px-xl-0">                
                 <div class="">
                     <!-- Progress Form -->
                     <form id="progress-form" class="progress-form rounded-bottom-0" action="#" lang="en" novalidate type="post">
@@ -752,7 +752,7 @@
                     <!-- / End Progress Form -->
                 </div>                
             </div>
-            <div class="col-md-2 col-lg-2"></div>
+            <div class="d-lg-none d-xl-block col-xl-2"></div>
         </div>
     </div>
     
@@ -1821,7 +1821,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <div>Select files</div>
                 </div>
-                <button type="button" id="trigger-upload" class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
+                <button type="button" id="trigger-upload" class="qq-upload-button-selector qq-upload-button btn btn-success rounded mt-lg-0 mt-md-3">
                     <i class="icon-upload icon-white"></i> Upload
                 </button>
             </div>
