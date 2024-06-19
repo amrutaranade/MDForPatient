@@ -2296,7 +2296,6 @@ $(document).ready(function () {
         });
 
         $('#trigger-upload').click(function() {
-            $('#loading-screen').show();
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });
