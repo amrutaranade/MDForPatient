@@ -702,30 +702,32 @@
                                             <div class="mt-3 sm:mt-0 form__field">  
                                                 <h3>Previously Uploaded Documents<br></h3>
                                             </div>  
-                                            @foreach ($customeShareFiles['customeShareFiles']['value'] as $file)  
-                                                <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
-                                                <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
-                                                <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
-                                                <div class="stat-row">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/dist/assets/images/photo.png" alt="ssss">
-                                                        <div class="pl-2"><b>Description:</b>{{$file['Name'] }}</div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="pr-4">
-                                                            <b>Uploaded:</b>
-                                                            {{ (new DateTime($file["CreationDate"]))->format("m-d-Y") }}
+                                            @if(isset($customeShareFiles['customeShareFiles']['value']) && count($customeShareFiles['customeShareFiles']['value']) > 0)
+                                                @foreach ($customeShareFiles['customeShareFiles']['value'] as $file)  
+                                                    <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
+                                                    <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
+                                                    <input type="hidden" name="patient_consulatation_number" id="patient_consulatation_number" value="{{ $patientDetails->patient_consulatation_number}}" />
+                                                    <div class="stat-row">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="/dist/assets/images/photo.png" alt="ssss">
+                                                            <div class="pl-2"><b>Description:</b>{{$file['Name'] }}</div>
                                                         </div>
-                                                        <button class="delete-btn">
-                                                            <a href="{{ route('view-file', ['id' => $file['Id']]) }}" target="_blank">View</a>
-                                                        </button>&nbsp;&nbsp;
-                                                        <button class="delete-btn">
-                                                            <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}"><span class="fa fa-download"></span>Download</a>
-                                                        </button>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="pr-4">
+                                                                <b>Uploaded:</b>
+                                                                {{ (new DateTime($file["CreationDate"]))->format("m-d-Y") }}
+                                                            </div>
+                                                            <button class="delete-btn">
+                                                                <a href="{{ route('view-file', ['id' => $file['Id']]) }}" target="_blank">View</a>
+                                                            </button>&nbsp;&nbsp;
+                                                            <button class="delete-btn">
+                                                                <a target="_blank" href="{{ route('download', ['id' => $file['Id']]) }}"><span class="fa fa-download"></span>Download</a>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <br/>
-                                            @endforeach      
+                                                    <br/>
+                                                @endforeach      
+                                            @endif
                                             <div class="sm:mt-0 form__field">
                                                 <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
