@@ -1780,6 +1780,20 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#emailRadio').attr('required', 'required');
             document.getElementById("relationship_email").value = email_step1;
             document.getElementById("relationship_confirm_email").value = email_step1;
+            if(document.getElementById('relationship_email').value != ""){
+                $('#relationship_email').removeAttr('aria-invalid');
+                var nextErrorElement = document.getElementById('relationship_email').nextElementSibling;
+                if (nextErrorElement && nextErrorElement.tagName.toLowerCase() === 'p' && nextErrorElement.classList.contains('form__error-text')) {
+                    nextErrorElement.remove();
+                }
+            }
+            if(document.getElementById('relationship_confirm_email').value != ""){
+                $('#relationship_confirm_email').removeAttr('aria-invalid');
+                var nextErrorElement = document.getElementById('relationship_confirm_email').nextElementSibling;
+                if (nextErrorElement && nextErrorElement.tagName.toLowerCase() === 'p' && nextErrorElement.classList.contains('form__error-text')) {
+                    nextErrorElement.remove();
+                }
+            }
         } else if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian') {
             // Show specific fields for 'Caregiver'
             $('#relationship_first_name, #relationship_last_name, #relationship_email, #relationship_confirm_email, #relationship_phone_number, #relationship_preferred_mode_of_communication, #relationship_preferred_contact_time').closest('.form__field').show();
