@@ -1,8 +1,9 @@
 @extends("layoutView")
 @section("content")
-<div id="loading-screen">
+<div id="loading-screen" style="display: none;" class="fullScreenLoader">
+    <div class="loading-icon">
         <img src="/dist/assets/images/loader.gif" />
-        <p class="fw-bold">Please wait we are processing your request...</p>
+    </div>
 </div>
 <div class="">
     <div class="">
@@ -754,6 +755,12 @@
 
 <script>
     console.clear();
+    document.querySelectorAll(".confirm-upload").forEach(button => {
+        button.addEventListener("click", () => {
+            window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+        });
+    });
+
     
     function ready(fn) {
     //var hasTreated = $('input[name="treated_before"]')
@@ -1235,16 +1242,14 @@
      * Resets the state of all tabs and tab panels.
      */
 
+    // Function to deactivate all tabs
     function deactivateTabs() {
-        // Reset state of all tab items
-        tabItems.forEach(tab => {
-        tab.setAttribute('aria-selected', 'false');
-        tab.setAttribute('tabindex', '-1');
+        tabItems.forEach((tab) => {
+            tab.setAttribute('aria-selected', 'false');
+            tab.setAttribute('tabindex', '-1');
         });
-
-        // Reset state of all panels
-        tabPanels.forEach(panel => {
-        panel.setAttribute('hidden', '');
+        tabPanels.forEach((panel) => {
+            panel.setAttribute('hidden', 'true');
         });
     }
 
@@ -1255,9 +1260,10 @@
      * current step to match the tab's index.
      */
 
+    // Function to activate a tab and its corresponding panel
     function activateTab(index) {
-        const thisTab   = tabItems[index]
-            , thisPanel = tabPanels[index];
+        const thisTab = tabItems[index];
+        const thisPanel = tabPanels[index];
 
         // Close all other tabs
         deactivateTabs();
@@ -1280,42 +1286,38 @@
      * Expects an event from a click listener.
      */
 
+    // Function to handle tab clicks
     function clickTab(e) {
         activateTab([...tabItems].indexOf(e.currentTarget));
     }
-
     /*****************************************************************************
      * Expects an event from a keydown listener.
      */
 
+    // Function to handle keyboard navigation
     function arrowTab(e) {
         const { keyCode, target } = e;
 
-        /**
-         * If the current tab has an enabled next/previous sibling, activate it.
-         * Otherwise, activate the tab at the beginning/end of the list.
-         */
-
-        const targetPrev  = target.previousElementSibling
-            , targetNext  = target.nextElementSibling
-            , targetFirst = target.parentElement.firstElementChild
-            , targetLast  = target.parentElement.lastElementChild;
-
-        const isDisabled = node => node.hasAttribute('aria-disabled');
+        const targetPrev = target.previousElementSibling;
+        const targetNext = target.nextElementSibling;
+        const targetFirst = target.parentElement.firstElementChild;
+        const targetLast = target.parentElement.lastElementChild;
 
         switch (keyCode) {
-        case 37: // Left arrow
-            if (progressForm.contains(targetPrev) && !isDisabled(targetPrev)) {
-            activateTab(currentStep - 1);
-            } else if (!isDisabled(targetLast)) {
-            activateTab(tabItems.length - 1);
-            } break;
-        case 39: // Right arrow
-            if (progressForm.contains(targetNext) && !isDisabled(targetNext)) {
-            activateTab(currentStep + 1);
-            } else if (!isDisabled(targetFirst)) {
-            activateTab(0);
-            } break;
+            case 37: // Left arrow
+                if (targetPrev) {
+                    activateTab([...tabItems].indexOf(targetPrev));
+                } else {
+                    activateTab(tabItems.length - 1);
+                }
+                break;
+            case 39: // Right arrow
+                if (targetNext) {
+                    activateTab([...tabItems].indexOf(targetNext));
+                } else {
+                    activateTab(0);
+                }
+                break;
         }
     }
 
@@ -1326,34 +1328,26 @@
      * available for interaction (if there is a next tab).
      */
 
-    // Immediately attach event listeners to the first tab (happens only once)
-    tabItems[0].addEventListener('click', clickTab);
-    tabItems[0].addEventListener('keydown', arrowTab);
-
+    // Function to update the progress and enable the next tab if a step is completed
     function handleProgress(isComplete) {
-        const currentTab = tabItems[currentStep]
-            , nextTab    = tabItems[currentStep + 1];
+        const currentTab = tabItems[currentStep];
+        const nextTab = tabItems[currentStep + 1];
 
         if (isComplete) {
-        currentTab.setAttribute('data-complete', 'true');
-
-        /**
-         * Verify that there is, indeed, a next tab before modifying or listening
-         * to it. In case we've reached the last item in the tablist.
-         */
-
-        if (progressForm.contains(nextTab)) {
-            nextTab.removeAttribute('aria-disabled');
-
-            nextTab.addEventListener('click', clickTab);
-            nextTab.addEventListener('keydown', arrowTab);
-        }
-
+            currentTab.setAttribute('data-complete', 'true');
+            if (nextTab) {
+                nextTab.removeAttribute('aria-disabled');
+            }
         } else {
-        currentTab.setAttribute('data-complete', 'false');
+            currentTab.setAttribute('data-complete', 'false');
         }
     }
 
+    // Attach event listeners to all tabs immediately
+    tabItems.forEach((tab, index) => {
+        tab.addEventListener('click', clickTab);
+        tab.addEventListener('keydown', arrowTab);
+    });
     // Form Interactions
 
     /*****************************************************************************
@@ -1852,13 +1846,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         return false; // Prevent file from being added to the queue
                     }
                     return true; // Allow file to be added to the queue
-                },
-                onAllComplete: function(succeeded, failed) {
-                    if (failed.length === 0) {
-                        window.location = "/patient_consultation_view/{{ $patientDetails->id }}";
-                    } else {
-                        alert('Some files failed to upload. Please try again.');
-                    }
                 }
             },
             request: {
@@ -1873,12 +1860,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     notAvailablePath: '/fine-uploader/placeholders/not_available-generic.png'
                 }
             },
-            autoUpload: false            
+            autoUpload: false
         });
 
         $('#trigger-upload').click(function() {
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
-            $('#loading-screen').show(); 
         });
     });
 </script>
