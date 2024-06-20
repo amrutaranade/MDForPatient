@@ -1,9 +1,8 @@
 @extends("layoutView")
 @section("content")
-<div id="loading-screen" style="display: none;" class="fullScreenLoader">
-    <div class="loading-icon">
+<div id="loading-screen">
         <img src="/dist/assets/images/loader.gif" />
-    </div>
+        <p class="fw-bold">Please wait we are processing your request...</p>
 </div>
 <div class="">
     <div class="">
@@ -755,12 +754,6 @@
 
 <script>
     console.clear();
-    document.querySelectorAll(".confirm-upload").forEach(button => {
-        button.addEventListener("click", () => {
-            window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
-        });
-    });
-
     
     function ready(fn) {
     //var hasTreated = $('input[name="treated_before"]')
@@ -1859,6 +1852,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         return false; // Prevent file from being added to the queue
                     }
                     return true; // Allow file to be added to the queue
+                },
+                onAllComplete: function(succeeded, failed) {
+                    if (failed.length === 0) {
+                        window.location = "/patient_consultation_view/{{ $patientDetails->id }}";
+                    } else {
+                        alert('Some files failed to upload. Please try again.');
+                    }
                 }
             },
             request: {
@@ -1873,11 +1873,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     notAvailablePath: '/fine-uploader/placeholders/not_available-generic.png'
                 }
             },
-            autoUpload: false
+            autoUpload: false            
         });
 
         $('#trigger-upload').click(function() {
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+            $('#loading-screen').show(); 
         });
     });
 </script>

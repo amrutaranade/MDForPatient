@@ -2,7 +2,7 @@
 @section("content")
 <div id="loading-screen">
         <img src="/dist/assets/images/loader.gif" />
-        <p class="fw-bold">Please wait till process finishes...</p>
+        <p class="fw-bold">Please wait we are processing your request...</p>
 </div>
 <div class="">
     <div class="">
@@ -2299,6 +2299,13 @@ $(document).ready(function () {
                         return false; // Prevent file from being added to the queue
                     }
                     return true; // Allow file to be added to the queue
+                },
+                onAllComplete: function(succeeded, failed) {
+                    if (failed.length === 0) {
+                        window.location = "/patient_consultation_view/{{ $patientDetails->id }}";
+                    } else {
+                        alert('Some files failed to upload. Please try again.');
+                    }
                 }
             },
             request: {
