@@ -596,29 +596,19 @@
                                                     <span>I agree to all of the following:</span>                        
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled checked id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}
-                                                        class="patientAgreement">
-                                                    <span>Patient Agreement</span>
+                                                    <span class="tickedpatientAgreementView fa fa-check" ></span><span class="text-nowrap ps-2">Patient Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled checked id="appendix_1" type="checkbox" name="appendix_1" value="Yes"
-                                                        class="patientAgreement" {{isset($expertOpinionRequests->appendix_1) ? 'checked' : ''}}>
-                                                    <span>Appendix 1 : Payment Terms</span>
+                                                    <span class="tickedpatientAgreementView fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 1 : Payment Terms</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled checked id="appendix_2" type="checkbox" name="appendix_2" value="Yes"
-                                                        class="patientAgreement" {{isset($expertOpinionRequests->appendix_2) ? 'checked' : ''}}>
-                                                    <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>
+                                                    <span class="tickedpatientAgreementView fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 2 : Patient Enrollment Form – MD for Patients</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled checked id="appendix_3" type="checkbox" name="appendix_3" value="Yes"
-                                                        class="patientAgreement" {{isset($expertOpinionRequests->appendix_3) ? 'checked' : ''}}> 
-                                                    <span>Appendix 3: Medicare Opt-Out Agreement</span>
+                                                    <span class="tickedpatientAgreementView fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 3: Medicare Opt-Out Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled checked id="appendix_4" type="checkbox" name="appendix_4" value="Yes"
-                                                        class="patientAgreement" {{isset($expertOpinionRequests->appendix_4) ? 'checked' : ''}}>
-                                                    <span>Appendix 4: Informed Consent</span>
+                                                    <span class="tickedpatientAgreementView fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 4: Informed Consent</span>
                                                 </label>
                                             </div>
                                             <div class="mt-1 form__field">

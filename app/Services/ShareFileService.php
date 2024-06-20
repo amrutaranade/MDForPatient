@@ -293,16 +293,32 @@ class ShareFileService
             return response()->json(['error' => 'No internet connection'], 500);
         }
 
-        $rootFolderId = $this->getPersonalRootFolderId();
+        try {
+            $rootFolderId = $this->getPersonalRootFolderId();
+        } catch (\Exception $e) {
+            Log::info('Error in finding personal root folder: ' . $e->getMessage());
+            throw new \Exception("Error obtaining personal root folder ID: " . $e->getMessage());
+        }
 
         if ($rootFolderId === null) {
+            Log::info('Error in finding Root folder');
             throw new \Exception("Root folder ID not found.");
         }
 
-        $folderId = $this->getFolderId($rootFolderId, $folderName);
+        try {
+            $folderId = $this->getFolderId($rootFolderId, $folderName);
+        } catch (\Exception $e) {
+            Log::info('Error in obtaining folder: ' . $e->getMessage());
+            throw new \Exception("Error obtaining folder ID: " . $e->getMessage());
+        }
 
         if ($folderId === null) {
-            $folderId = $this->createFolder($rootFolderId, $folderName);
+            try {
+                $folderId = $this->createFolder($rootFolderId, $folderName);
+            } catch (\Exception $e) {
+                Log::info('Error in creating folder: ' . $e->getMessage());
+                throw new \Exception("Error creating folder: " . $e->getMessage());
+            }
         }
 
         return $this->uploadFile($request, $files, $folderId);

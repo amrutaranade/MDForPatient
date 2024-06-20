@@ -26766,3 +26766,9 @@ div.payment {
 .ui-datepicker th {
   font-size: 12px !important;
 }
+.tickedpatientAgreement{
+  opacity : 0;
+}
+.tickedpatientAgreementView{
+  opacity : 1;
+}

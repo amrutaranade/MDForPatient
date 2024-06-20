@@ -133,20 +133,8 @@ class OtpController extends Controller
         $countries = Country::get()->toArray();
         $states = State::get()->toArray();
 
-        $customeShareFiles = $this->patientController->getShareFilesByFolderId($medicalRecords->folder_id);
-        // if(!empty($customeShareFiles)) {
-        //     $customeShareFiles = array_map(function ($item) {
-        //                             return [
-        //                                 'fileName' => $item['FileName'],
-        //                                 'url' => $item['url'],
-        //                                 'creationDate' => $item['CreationDate'],
-        //                                 'id' => $item['Id']
-        //                             ];
-        //                         }, $customeShareFiles);
-        // } else {
-        //     $customeShareFiles = [];
-        // }
-       
+        $customeShareFiles = (isset($medicalRecords->folder_id)) ? $this->patientController->getShareFilesByFolderId($medicalRecords->folder_id) : null;
+        
         session(['patient_consulatation_number' => $patientDetails->patient_consulatation_number, 'patient_id' => $patientId]);
 
         if(!empty($patientDetails && $contactParty && $referringPhysician && $patientPrimaryConcern && $expertOpinionRequests && $paymentDetails && $medicalRecords && $customeShareFiles)) {

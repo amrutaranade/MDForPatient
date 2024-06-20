@@ -614,29 +614,29 @@
                                                     <span>I agree to all of the following:</span>                        
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}
+                                                    <input hidden id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}
                                                         class="patientAgreement">
-                                                    <span>Patient Agreement</span>
+                                                    <span class="tickedpatientAgreement fa fa-check" ></span><span class="text-nowrap ps-2">Patient Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled id="appendix_1" type="checkbox" name="appendix_1" value="Yes"
+                                                    <input hidden id="appendix_1" type="checkbox" name="appendix_1" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_1) ? 'checked' : ''}}>
-                                                    <span>Appendix 1 : Payment Terms</span>
+                                                    <span class="tickedpatientAgreement fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 1 : Payment Terms</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled id="appendix_2" type="checkbox" name="appendix_2" value="Yes"
+                                                    <input hidden id="appendix_2" type="checkbox" name="appendix_2" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_2) ? 'checked' : ''}}>
-                                                    <span>Appendix 2 : Patient Enrollment Form – MD for Patients</span>
+                                                    <span class="tickedpatientAgreement fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 2 : Patient Enrollment Form – MD for Patients</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled id="appendix_3" type="checkbox" name="appendix_3" value="Yes"
+                                                    <input hidden id="appendix_3" type="checkbox" name="appendix_3" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_3) ? 'checked' : ''}}> 
-                                                    <span>Appendix 3: Medicare Opt-Out Agreement</span>
+                                                    <span class="tickedpatientAgreement fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 3: Medicare Opt-Out Agreement</span>
                                                 </label>
                                                 <label class="form__choice-wrapper">
-                                                    <input disabled id="appendix_4" type="checkbox" name="appendix_4" value="Yes"
+                                                    <input hidden id="appendix_4" type="checkbox" name="appendix_4" value="Yes"
                                                         class="patientAgreement" {{isset($expertOpinionRequests->appendix_4) ? 'checked' : ''}}>
-                                                    <span>Appendix 4: Informed Consent</span>
+                                                    <span class="tickedpatientAgreement fa fa-check" ></span><span class="text-nowrap ps-2">Appendix 4: Informed Consent</span>
                                                 </label>
                                             </div>
                                             <div class="mt-1 form__field">
@@ -725,7 +725,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Payment Date:</strong></td>
-                                                        <td class="paymentDate">{{isset($paymentDetails->created_at) ? date("m-d-Y", strtotime($paymentDetails->created_at)) : ''}}</td>
+                                                        <td class="paymentDate">{{isset($paymentDetails->created_at) ? date("m-d-Y", strtotime($paymentDetails->created_at)) : date("m-d-Y")}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Amount Paid:</strong></td>
@@ -773,7 +773,7 @@
                                                 Back
                                             </button> &nbsp;&nbsp;
 
-                                            <button id="confirm-upload" class="step1 btn btn-success rounded" type="button" >Submit</button>
+                                            <button id="trigger-upload" class="step1 btn btn-success rounded confirm-upload" type="button" >Submit</button>
                                         </div>
                                     </div>
                                 </div>                            
@@ -800,8 +800,9 @@
 <script>
     console.clear();
 
-    document.querySelectorAll("#confirm-upload").forEach(button => {
+    document.querySelectorAll(".confirm-upload").forEach(button => {
         button.addEventListener("click", () => {
+            $('#loading-screen').show(); 
             window.location = "/final-submission";
         });
     });
@@ -1611,9 +1612,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         checkboxes.forEach(checkbox => {
             checkbox.checked = true;
-            allChecked = true;
+            allChecked = true;            
         });
 
+        document.querySelectorAll(".tickedpatientAgreement").forEach(checkbox => {
+            checkbox.style.opacity = 1;
+        });
         
         if (allChecked && digital_signature !== ""){
             submitBtn.disabled = false;
@@ -2230,9 +2234,9 @@ $(document).ready(function () {
                 <div class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <div>Select files</div>
                 </div>
-                <button type="button" id="trigger-upload" class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
+                <!-- <button hidden type="button" id="trigger-upload" class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <i class="icon-upload icon-white"></i> Upload
-                </button>
+                </button> -->
             </div>
             <br/>
             <span class="qq-drop-processing-selector qq-drop-processing">
@@ -2288,6 +2292,17 @@ $(document).ready(function () {
 
         $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
+            callbacks: {
+                onValidate: function (file) {
+                    // Get the file extension
+                    var extension = file.name.split('.').pop().toLowerCase();
+                    if (extension === 'dcm') {
+                        alert('Please create a zip file for .dcm files and upload again.');
+                        return false; // Prevent file from being added to the queue
+                    }
+                    return true; // Allow file to be added to the queue
+                }
+            },
             request: {
                 endpoint: '/upload',
                 customHeaders: {
