@@ -1796,9 +1796,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="qq-upload-button-selector qq-upload-button btn btn-success rounded">
                     <div>Select files</div>
                 </div>
-                <button type="button" id="trigger-upload" class="qq-upload-button-selector qq-upload-button btn btn-success rounded mt-lg-0 mt-md-3">
-                    <i class="icon-upload icon-white"></i> Upload
-                </button>
             </div>
             <br/>
             <span class="qq-drop-processing-selector qq-drop-processing">
