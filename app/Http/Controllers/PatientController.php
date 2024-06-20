@@ -132,7 +132,7 @@ class PatientController extends Controller
     }    
 
     // Check if a patient already exists with the provided email and ID
-    $existingPatient = $patientId ? PatientsRegistrationDetail::where('id', $patientId)->first() : null;
+    $existingPatient = $patientId ? PatientsRegistrationDetail::where(['id' => $patientId, "email"=>$requestData["email"]])->first() : null;
 
     if ($existingPatient) {
         // If the email is different from the existing one, validate for uniqueness
