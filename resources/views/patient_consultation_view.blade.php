@@ -688,11 +688,11 @@
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="p-5 mx-3"> 
+                                        <div class="p-5 mx-3">                                               
+                                            @if(isset($customeShareFiles['customeShareFiles']['value']) && count($customeShareFiles['customeShareFiles']['value']) > 0)
                                             <div class="mt-3 sm:mt-0 form__field">  
                                                 <h3>Previously Uploaded Documents<br></h3>
-                                            </div>  
-                                            @if(isset($customeShareFiles['customeShareFiles']['value']) && count($customeShareFiles['customeShareFiles']['value']) > 0)
+                                            </div>
                                                 @foreach ($customeShareFiles['customeShareFiles']['value'] as $file)  
                                                     <input type="hidden" name="patient_id" id="patientId" value="{{ $patientDetails->id}}" />
                                                     <input type="hidden" name="folder_id" id="folder_id" value="{{ $medicalRecords->folder_id}}" />
@@ -715,7 +715,6 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <br/>
                                                 @endforeach      
                                             @endif
                                             <div class="sm:mt-0 form__field">
@@ -1851,6 +1850,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
+            callbacks: {
+                onValidate: function (file) {
+                    // Get the file extension
+                    var extension = file.name.split('.').pop().toLowerCase();
+                    if (extension === 'dcm') {
+                        alert('Please create a zip file for .dcm files and upload again.');
+                        return false; // Prevent file from being added to the queue
+                    }
+                    return true; // Allow file to be added to the queue
+                }
+            },
             request: {
                 endpoint: '/upload',
                 customHeaders: {
