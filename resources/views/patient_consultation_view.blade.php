@@ -730,7 +730,7 @@
                                                 Back
                                             </button> &nbsp;&nbsp;
 
-                                            <button id="confirm-upload" class="step1 btn btn-success" type="button" >Submit</button>
+                                            <button id="trigger-upload" class="step1 btn btn-success rounded confirm-upload" type="button" >Submit</button>
                                         </div>
                                     </div>
                                 </div>                            
@@ -756,7 +756,7 @@
 
 <script>
     console.clear();
-    document.querySelectorAll("#confirm-upload").forEach(button => {
+    document.querySelectorAll(".confirm-upload").forEach(button => {
         button.addEventListener("click", () => {
             window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
         });
@@ -1610,7 +1610,14 @@
     });
 </script>
 <script>
+const panel6 = document.getElementById("progress-form__panel-6");
+const panel5 = document.getElementById("progress-form__panel-5");
 
+const tab6 = document.getElementById("progress-form__tab-6");
+const tab5 = document.getElementById("progress-form__tab-5");
+const panel7 = document.getElementById("progress-form__panel-7");
+
+const tab7 = document.getElementById("progress-form__tab-7");
 document.addEventListener('DOMContentLoaded', function() {
     
     $(".backButtonPaymentDetails").click(function() {
@@ -1626,21 +1633,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     $(".agreeAfterPaymentButton").click(function() {
-        const panel6 = document.getElementById("progress-form__panel-6");
-        const panel5 = document.getElementById("progress-form__panel-5");
-
-        const tab6 = document.getElementById("progress-form__tab-6");
-        const tab5 = document.getElementById("progress-form__tab-5");
-
-        if (panel6 && panel5) {
-            panel5.setAttribute("hidden", "");
-            panel6.removeAttribute("hidden");
-            tab5.setAttribute("data-complete", "true");
-            tab5.setAttribute("aria-selected", "false");
-            tab6.setAttribute("aria-selected", "true");
-        } else {
-            console.error("One or both of the panels (panel 6 or panel 5) not found.");
-        }
+        panel5.setAttribute("hidden", "");
+        panel6.removeAttribute("hidden");        
+        tab6.setAttribute("aria-selected", "true");                      
+        tab5.setAttribute("aria-selected", "false");
     });
 });
 
@@ -1780,22 +1776,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script type="text/javascript">
     var paymentDetails = document.getElementById('progress-form__panel-6');
-    document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {
-        const panel7 = document.getElementById("progress-form__panel-7");
-        const panel6 = document.getElementById("progress-form__panel-6");
-
-        const tab7 = document.getElementById("progress-form__tab-7");
-        const tab6 = document.getElementById("progress-form__tab-6");
-        const tab5 = document.getElementById("progress-form__tab-5");
-
-        if (panel7 && panel6) {
-            panel6.setAttribute("hidden", "");
-            panel7.removeAttribute("hidden");
-            
-            tab6.setAttribute("aria-selected", "false");
-            tab7.setAttribute("aria-selected", "true");
-        }
-        
+    document.querySelector('#continueButtonStep6').addEventListener('click', function(e) {            
+        panel6.setAttribute("hidden", "");
+        panel7.removeAttribute("hidden");
+        tab7.setAttribute("aria-selected", "true");
+        tab6.setAttribute("aria-selected", "false");
+        tab5.setAttribute("aria-selected", "false"); 
     });
 </script>
 

@@ -365,9 +365,12 @@ class ShareFileService
             ]);
 
             $http_code = $response->getStatusCode();
-            $curl_response = json_decode((string) $response->getBody(), true);       
-
-            return $curl_response;
+            if($http_code == "200") {
+                $curl_response = json_decode((string) $response->getBody(), true);
+                return $curl_response;
+            } else {
+                return [];
+            }
         }catch (RequestException $e) {
             throw new \Exception("folder ID Not found: " . $e->getMessage());
         }        

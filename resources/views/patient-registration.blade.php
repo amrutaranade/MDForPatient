@@ -1595,9 +1595,7 @@ document.addEventListener('DOMContentLoaded', function() {
         panel6.removeAttribute("hidden");        
         tab5.setAttribute("data-complete", "true");
         tab6.setAttribute("aria-selected", "true");                      
-        tab5.setAttribute("aria-selected", "false");
-        
-              
+        tab5.setAttribute("aria-selected", "false");              
     });
 });
 
