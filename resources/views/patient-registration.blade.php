@@ -87,7 +87,7 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('Y-m-d')}}" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
+                                    <input readonly id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('Y-m-d')}}" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
                                     </div>
                                 </div>
 
@@ -2308,7 +2308,7 @@ $(document).ready(function () {
                 },
                 onAllComplete: function(succeeded, failed) {
                     if (failed.length === 0) {
-                        window.location = "/patient_consultation_view/{{ $patientDetails->id }}";
+                        window.location = "/final-submission";
                     } else {
                         alert('Some files failed to upload. Please try again.');
                     }
