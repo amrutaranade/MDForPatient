@@ -665,36 +665,42 @@
                                     
                                 <div class="container mt-5">
                                     <!-- Modal -->
-                                    
                                     <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content payment">
                                                 <div class="modal-header">
-                                                    <div class="paymentLogo">
-                                                        <img src="/dist/assets/images/logo-mini.png" alt="Logo" class="mb-3">
-                                                        <p class="mb-0">Consultation Deposit</p>
+                                                    <div class="paymentLogo text-center mt-5">
+                                                        <img src="/dist/assets/images/logo-mini.png" alt="Logo" class="mb-3"style="  max-width: 100px;
+                                                        display: inline-block;">
+                                                        <p class="mb-0"><b>Consultation Deposit</b></p>
                                                     </div>
                                                 </div>
-                                                <div class="modal-body text-left">
-                                                    
-                                                        <div class="form-group">
-                                                            <label for="card-holder-name">Card Holder Name</label>
-                                                            <span data-required="true" aria-hidden="true"></span>
-                                                            <input type="text" id="card-holder-name" class="form-control" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="card-holder-email">Card Holder Email</label>
-                                                            <span data-required="true" aria-hidden="true"></span>
-                                                            <input type="email" id="card-holder-email" class="form-control" required>
-                                                        </div>
-                                                        <div id="card-element" class="form-control">
-                                                        </div>
-                                                        <div id="card-errors" role="alert" class="text-danger mt-2"></div>
-                                                    
+                                                <div class="modal-body text-left" style="padding: 4rem;">
+                                                    <div class="form-group">
+                                                        <label for="card-holder-name">Card Holder Name</label>
+                                                        <span data-required="true" aria-hidden="true"></span>
+                                                        <input type="text" id="card-holder-name" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="card-holder-email">Card Holder Email</label>
+                                                        <span data-required="true" aria-hidden="true"></span>
+                                                        <input type="email" id="card-holder-email" class="form-control" required>
+                                                    </div>
+                                                    <div id="card-element" class="form-control">
+                                                        <!-- Stripe Card Element will be inserted here -->
+                                                    </div>
+                                                    <div id="card-errors" role="alert" class="text-danger mt-2"></div>
                                                 </div>
-                                                <div class="modal-footer">
+                                                <div class="modal-footer d-flex justify-content-between align-items-center">
+                                                    <div class="mt-5 mb-5">
+                                                        <img src="/dist/assets/images/blurple.svg" alt="Stripe Logo" style="height: 30px; vertical-align: middle; padding-left: 28px;">
+                                                    </div>
+                                                    <div style="padding-right: 28px;" class="mt-5 mb-5">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button id="card-button" class="btn btn-primary btn-success" data-secret="">Pay $199.00</button>
+                                                    <button id="card-button" class="btn btn-primary btn-success" data-secret="">
+                                                        Pay $199.00
+                                                    </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
