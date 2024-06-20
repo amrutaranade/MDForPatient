@@ -670,10 +670,10 @@
                                         </div>
                                     </div>
                                     <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
-                                        <button data-action="prev" type="button" class="btn btn-secondary rounded" >
+                                        <button type="button" class="btn btn-secondary rounded" >
                                         Back
                                         </button> &nbsp;&nbsp;
-                                        <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButtonStep6">
+                                        <button type="button" class="step1 btn btn-success rounded" id="continueButtonStep6">
                                         Next
                                         </button>
                                     </div>
@@ -726,7 +726,7 @@
                                                 <div id="fine-uploader-manual-trigger"></div>
                                             </div>   
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
-                                            <button data-action="prev" type="button" data-action="next" class="btn btn-secondary" >
+                                            <button type="button" class="btn btn-secondary" >
                                                 Back
                                             </button> &nbsp;&nbsp;
 
@@ -1781,7 +1781,6 @@ document.addEventListener('DOMContentLoaded', function() {
         panel7.removeAttribute("hidden");
         tab7.setAttribute("aria-selected", "true");
         tab6.setAttribute("aria-selected", "false");
-        tab5.setAttribute("aria-selected", "false"); 
     });
 </script>
 
