@@ -26795,3 +26795,8 @@ ol li{
     margin-right:.5em;
   }
 }
+.swal2-confirm {
+  background-color: #1bcfb4 !important;
+    border-left-color: #1bcfb4 !important;
+    border-right-color: #1bcfb4 !important;
+}

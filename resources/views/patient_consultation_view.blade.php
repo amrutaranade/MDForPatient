@@ -775,7 +775,7 @@
                                                 <div id="fine-uploader-manual-trigger"></div>
                                             </div>   
                                         <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
-                                            <button type="button" class="btn btn-secondary" >
+                                            <button type="button" class="btn btn-secondary backBtnMedicalRecords" >
                                                 Back
                                             </button> &nbsp;&nbsp;
 
@@ -805,11 +805,11 @@
 
 <script>
     console.clear();
-    document.querySelectorAll(".confirm-upload").forEach(button => {
-        button.addEventListener("click", () => {
-            window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
-        });
-    });
+    // document.querySelectorAll(".confirm-upload").forEach(button => {
+    //     button.addEventListener("click", () => {
+    //         window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+    //     });
+    // });
 
     
     function ready(fn) {
@@ -1849,7 +1849,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                     <span class="qq-upload-size-selector qq-upload-size"></span>
                     <button type="button" class="qq-btn qq-upload-cancel-selector btn btn-danger qq-upload-cancel">Delete</button>
-                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
                     <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
                     <br/>
                 </li>
@@ -1881,26 +1880,37 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
+            retry: {
+                enableAuto: true
+            },
             callbacks: {
                 onValidate: function (file) {
                     // Get the file extension
                     var extension = file.name.split('.').pop().toLowerCase();
                     if (extension === 'dcm') {
-                        alert('Please create a zip file for .dcm files and upload again.');
+                        swal(
+                            'Error!',
+                            'Please create a zip file for .dcm files and upload again.',
+                            'error'
+                        );
                         return false; // Prevent file from being added to the queue
                     }
                     return true; // Allow file to be added to the queue
                 },
-                onComplete: function(id, name, responseJSON, xhr) {
-                    if (this.getInProgress() === 0) {
-                        // All files are uploaded
-                        window.location = "/final-submission";
+                onAllComplete: function(succeeded, failed) {
+                    var totalFiles = succeeded.length + failed.length;
+                    if (succeeded.length === totalFiles) {
+                        // All files are successfully uploaded
+                        window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+                    } else {
+                        window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
                     }
                 }
             },
@@ -1920,11 +1930,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         $('#trigger-upload').click(function() {
-            $('#loading-screen').show(); 
+            $("#trigger-upload").attr('disabled', 'disabled');
+            $(".backBtnMedicalRecords").attr('disabled', 'disabled');
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });
 </script>
-
-
 @endsection

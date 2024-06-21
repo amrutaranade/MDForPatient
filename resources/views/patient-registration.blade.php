@@ -855,12 +855,7 @@
 <script>
     console.clear();
 
-    document.querySelectorAll(".confirm-upload").forEach(button => {
-        button.addEventListener("click", () => {
-            $('#loading-screen').show(); 
-            window.location = "/final-submission";
-        });
-    });
+   
 
     //Set Agree to Payment button off on payload
     
@@ -2306,7 +2301,6 @@ $(document).ready(function () {
                     <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
                     <span class="qq-upload-size-selector qq-upload-size"></span>
                     <button type="button" class="qq-btn qq-upload-cancel-selector btn btn-danger qq-upload-cancel">Delete</button>
-                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
                     <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
                     
                 </li>
@@ -2338,24 +2332,26 @@ $(document).ready(function () {
         </div>
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
+            retry: {
+                enableAuto: true
+            },
             callbacks: {
                 onValidate: function (file) {
                     // Get the file extension
                     var extension = file.name.split('.').pop().toLowerCase();
                     if (extension === 'dcm') {
-                        alert('Please create a zip file for .dcm files and upload again.');
-                        // Swal.fire({
-                        //     icon: "error",
-                        //     title: "Oops...",
-                        //     text: "Something went wrong!",
-                        //     footer: '<a href="#">Why do I have this issue?</a>'
-                        // });
+                        swal(
+                            'Error!',
+                            'Please create a zip file for .dcm files and upload again.',
+                            'error'
+                        );
                         return false; // Prevent file from being added to the queue
                     }
                     return true; // Allow file to be added to the queue
@@ -2366,7 +2362,7 @@ $(document).ready(function () {
                         // All files are successfully uploaded
                         window.location = "/final-submission";
                     } else {
-                        alert('Some files failed to upload. Please try again.');
+                        window.location = "/final-submission";
                     }
                 }
             },
@@ -2386,7 +2382,8 @@ $(document).ready(function () {
         });
 
         $('#trigger-upload').click(function() {
-            $('#loading-screen').show(); 
+            $("#trigger-upload").attr('disabled', 'disabled');
+            $("#backBtnMedicalRecords").attr('disabled', 'disabled');
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });
