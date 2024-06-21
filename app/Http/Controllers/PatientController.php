@@ -17,12 +17,13 @@ use App\Services\ShareFileService;
 use DateTime;
 use Google\Service\AdExchangeBuyerII\Date;
 use Google\Service\AdMob\Date as AdMobDate;
-use Illuminate\Support\Facades\Crypt;
 use App\Models\PatientMedicalRecords;
 use App\Models\PatientExpertOpinionRequest;
 use App\Http\Controllers\EmailController;
 use App\Rules\UniqueEmail;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 
 class PatientController extends Controller
@@ -48,6 +49,10 @@ class PatientController extends Controller
         if(!empty(session("patient_id"))) {
             $patientId = session("patient_id");
             $patientDetails = PatientsRegistrationDetail::find($patientId);
+            // Decrypt the email before passing it to the view
+            if ($patientDetails && !empty($patientDetails->email)) {
+                $patientDetails->email = Crypt::decryptString($patientDetails->email);
+            }
             $contactParty = ContactParty::where('patient_id', $patientId)->first();
             $referringPhysician = ReferringPhysician::where('patient_id', $patientId)->first();
             $patientPrimaryConcern = PatientPrimaryConcern::where('patient_id', $patientId)->first();
@@ -176,13 +181,14 @@ class PatientController extends Controller
             $patientConsulatationNumber = "{$randomNum}_{$patientName}_{$dateOfBirth}_{$currentDate}";
         }
 
-
+        $encryptedEmail = Crypt::encryptString($requestData["email"]);
+        $emailHash = hash('sha256', $requestData["email"]);
         // Insert new patient data
         $patient = PatientsRegistrationDetail::create([
             "first_name" => $requestData["firstName"],
             "middle_name" => $requestData["middleName"],
             "last_name" => $requestData["lastName"],
-            "email" => $requestData["email"],
+            "email" => $encryptedEmail,
             "date_of_birth" => $requestData["dateOfBirth"],
             "country" => $requestData["country"],
             "state" => $requestData["state"],
@@ -190,6 +196,7 @@ class PatientController extends Controller
             "postal_code" => $requestData["postalCode"],
             "street_address" => $requestData["streetAddress"],
             "patient_consulatation_number" => $patientConsulatationNumber,
+            "email_hash" => $emailHash,
         ]);
 
         // Store the patient ID in the session
@@ -333,8 +340,9 @@ class PatientController extends Controller
     public function checkEmail(Request $request)
     {
         $email = $request->input('email');
+        $emailHash = hash('sha256', $email);
         if ($email) {
-            $emailExists = PatientsRegistrationDetail::where('email', $email)->exists();
+            $emailExists = PatientsRegistrationDetail::where('email_hash', $emailHash)->exists();
             return response()->json(['exists' => $emailExists]);
         }
         return response()->json(['exists' => false]);

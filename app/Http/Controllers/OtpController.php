@@ -21,6 +21,9 @@ use App\Http\Controllers\PatientController;
 use App\Services\ShareFileService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+
 
 class OtpController extends Controller
 {
@@ -107,14 +110,25 @@ class OtpController extends Controller
 
     public function validateCaseNumber(Request $request) {
         $caseNumber = $request->input('case_number');
-        // Replace with actual validation logic
-        $validCaseNumbers = PatientsRegistrationDetail::Where('patient_consulatation_number', $caseNumber)->first();
-
-        if ($caseNumber == $validCaseNumbers->patient_consulatation_number) {
-            $this->generateOtp($validCaseNumbers->id);
-            return response()->json(['message' => 'Valid case number.']);
+        
+        // Fetch all patient records
+        $patients = PatientsRegistrationDetail::all();
+        
+        foreach ($patients as $patient) {
+            try {
+                // Accessing the decrypted value using the model's accessor
+                $decryptedCaseNumber = $patient->patient_consulatation_number;
+                
+                if ($caseNumber === $decryptedCaseNumber) {
+                    $this->generateOtp($patient->id);
+                    return response()->json(['message' => 'Valid case number.']);
+                }
+            } catch (DecryptException $e) {
+                // Handle decryption failure if necessary
+                continue;
+            }
         }
-
+    
         return response()->json(['message' => 'Invalid case number.'], 400);
     }
 
@@ -124,6 +138,10 @@ class OtpController extends Controller
             return redirect()->route('show.otp.form');
         }
         $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
+        // Decrypt the email before passing it to the view
+        if ($patientDetails && !empty($patientDetails->email)) {
+            $patientDetails->email = Crypt::decryptString($patientDetails->email);
+        }
         $contactParty = ContactParty::Where('patient_id', $patientId)->first();
         $referringPhysician = ReferringPhysician::Where('patient_id', $patientId)->first();
         $patientPrimaryConcern = PatientPrimaryConcern::Where('patient_id', $patientId)->first();

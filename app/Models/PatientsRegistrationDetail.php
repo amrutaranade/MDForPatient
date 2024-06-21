@@ -25,26 +25,47 @@ class PatientsRegistrationDetail extends Model
         'city',
         'postal_code',
         'street_address',
-        'patient_consulatation_number'
+        'patient_consulatation_number',
+        'email_hash'
     ];
 
-    // Encrypt specific fields before saving
-    // public function setAttribute($key, $value)
-    // {
-    //     if (in_array($key, $this->fillable) && !is_null($value) && $key !== 'date_of_birth') {
-    //         $this->attributes[$key] = Crypt::encryptString($value);
-    //     } else {
-    //         parent::setAttribute($key, $value);
-    //     }
-    // }
+    protected $encryptable = [
+        'first_name',
+        'middle_name',
+        'last_name',
+        'country',
+        'state',
+        'city',
+        'postal_code',
+        'street_address',
+        'patient_consulatation_number',
 
-    // // Decrypt specific fields
-    // public function getAttribute($key)
-    // {
-    //     if (in_array($key, $this->fillable) && isset($this->attributes[$key]) && $key !== 'date_of_birth') {
-    //         return Crypt::decryptString($this->attributes[$key]);
-    //     } else {
-    //         return parent::getAttribute($key);
-    //     }
-    // }
+    ];
+ 
+    public function setAttribute($key, $value)
+    {
+        if (in_array($key, $this->encryptable)) {
+            // Ensure the value is encrypted before saving
+            $value = Crypt::encryptString($value);
+        }
+ 
+        return parent::setAttribute($key, $value);
+    }
+ 
+    public function getAttribute($key)
+    {
+        $value = parent::getAttribute($key);
+ 
+        if (in_array($key, $this->encryptable) && !is_null($value)) {
+            try {
+                // Ensure the value is decrypted if it was encrypted
+                $value = Crypt::decryptString($value);
+            } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                // Handle the case where the decryption fails
+                $value = null;
+            }
+        }
+ 
+        return $value;
+    }
 }
