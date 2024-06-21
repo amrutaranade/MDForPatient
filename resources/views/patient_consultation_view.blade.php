@@ -688,6 +688,61 @@
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                        <div class="p-5 mx-3">      
+                                            <div class="sm:mt-0 form__field">
+                                                <h3 class="fw-bold fs-3">How to Zip a Folder/File</h3><br>
+                                            </div>    
+                                        </div>
+                                        <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
+                                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                                <div class="mt-1 form__field">                                                    
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">On Windows:</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">1. Press and hold (or right-click) the file or folder.</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">2. Select "Send to" -> "Compressed (zipped) folder".</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">3. A new zipped folder with the same name is created<br/> in the same location.</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">4. To rename it, press and hold (or right-click) the folder,<br/> select "Rename", and type the new name.</span>
+                                                    </label>
+                                                </div>
+                                                <div class="mt-1 form__field">                                                    
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">On Mac:</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">1. Control-click the file or folder.</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">2. Choose "Compress" from the shortcut menu. A new folder <br/>will be created near the original folder titled "Archive.zip."</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2"></span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                         <div class="p-5 mx-3">                                               
                                             @if(isset($customeShareFiles['customeShareFiles']['value']) && count($customeShareFiles['customeShareFiles']['value']) > 0)
                                             <div class="mt-3 sm:mt-0 form__field">  
@@ -717,6 +772,7 @@
                                                     </div>
                                                 @endforeach      
                                             @endif
+                                        
                                             <div class="sm:mt-0 form__field">
                                                 <h3 class="fw-bold fs-3">Upload Medical Documents</h3><br>
                                                 <h4 class="fw-bold fs-4">These may include: medical imaging or digital pathology, radiology or pathology reports, exam or office notes, and/or other medical records.</h4>
@@ -1846,6 +1902,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         return false; // Prevent file from being added to the queue
                     }
                     return true; // Allow file to be added to the queue
+                },
+                onComplete: function(id, name, responseJSON, xhr) {
+                    if (this.getInProgress() === 0) {
+                        // All files are uploaded
+                        window.location = "/final-submission";
+                    }
                 }
             },
             request: {
@@ -1864,6 +1926,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         $('#trigger-upload').click(function() {
+            $('#loading-screen').show(); 
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });

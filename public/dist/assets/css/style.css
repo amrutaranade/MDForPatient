@@ -26769,8 +26769,12 @@ div.payment {
 .tickedpatientAgreement{
   opacity : 0;  
   margin-left: 30px;
+  margin-top: 5px;  
+  color: #1bcfb4;
 }
 .tickedpatientAgreementView{
   opacity : 1;
   margin-left: 30px;
+  margin-top: 5px;
+  color: #1bcfb4;
 }

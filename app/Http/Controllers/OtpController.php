@@ -137,7 +137,7 @@ class OtpController extends Controller
         
         session(['patient_consulatation_number' => $patientDetails->patient_consulatation_number, 'patient_id' => $patientId]);
 
-        if(!empty($patientDetails && $contactParty && $referringPhysician && $patientPrimaryConcern && $expertOpinionRequests && $paymentDetails && $medicalRecords && $customeShareFiles)) {
+        if(!empty($patientDetails && $contactParty && $referringPhysician && $patientPrimaryConcern && $expertOpinionRequests && $paymentDetails)) {
             
             return view('patient_consultation_view', [
                 'patientDetails' => $patientDetails,
@@ -153,19 +153,7 @@ class OtpController extends Controller
                 'authToken' => $this->shareFileService->getAccessToken()
             ]);
         } else {       
-            return view('patient-registration', [
-                'patientDetails' => $patientDetails,
-                'contactParty' => $contactParty,
-                'referringPhysician' => $referringPhysician,
-                'patientPrimaryConcern' => $patientPrimaryConcern,
-                'expertOpinionRequests' => $expertOpinionRequests,
-                'paymentDetails' => $paymentDetails,
-                'medicalRecords' => $medicalRecords,
-                "customeShareFiles" => compact("customeShareFiles"),
-                'countries' => $countries,
-                'states' => $states,
-                'authToken' => $this->shareFileService->getAccessToken()
-            ]);
+            return false;
         }
     }
 

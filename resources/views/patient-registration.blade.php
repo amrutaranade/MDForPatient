@@ -650,7 +650,7 @@
                                             </div>
                                         </div>
                                     </div>
-                            </div>
+                                </div>
                             </div>
                             <div class="px-5 py-4 text-end border-top sm:mt-5 mt-0 bg-white">
                                 <button data-action="prev" type="button" class="btn btn-secondary rounded">
@@ -764,6 +764,61 @@
                         <section id="progress-form__panel-7" role="tabpanel" aria-labelledby="progress-form__tab-7" tabindex="0" hidden>
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
+                                    <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
+                                        <div class="p-5 mx-3">      
+                                            <div class="sm:mt-0 form__field">
+                                                <h3 class="fw-bold fs-3">How to Zip a Folder/File</h3><br>
+                                            </div>    
+                                        </div>
+                                        <div class="px-5 py-4 text-end border-top mt-0 sm:mt-5">
+                                            <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                                <div class="mt-1 form__field">                                                    
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">On Windows:</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">1. Press and hold (or right-click) the file or folder.</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">2. Select "Send to" -> "Compressed (zipped) folder".</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">3. A new zipped folder with the same name is created<br/> in the same location.</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">4. To rename it, press and hold (or right-click) the folder,<br/> select "Rename", and type the new name.</span>
+                                                    </label>
+                                                </div>
+                                                <div class="mt-1 form__field">                                                    
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">On Mac:</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">1. Control-click the file or folder.</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2">2. Choose "Compress" from the shortcut menu. A new folder <br/>will be created near the original folder titled "Archive.zip."</span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2"></span>
+                                                    </label>
+                                                    <label class="form__choice-wrapper">
+                                                        
+                                                        <span class="text-nowrap ps-2"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
                                         <div class="p-5 mx-3">      
                                             <div class="sm:mt-0 form__field">
@@ -2329,6 +2384,7 @@ $(document).ready(function () {
         });
 
         $('#trigger-upload').click(function() {
+            $('#loading-screen').show(); 
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });
