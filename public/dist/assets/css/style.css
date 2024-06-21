@@ -26767,8 +26767,10 @@ div.payment {
   font-size: 12px !important;
 }
 .tickedpatientAgreement{
-  opacity : 0;
+  opacity : 0;  
+  margin-left: 30px;
 }
 .tickedpatientAgreementView{
   opacity : 1;
+  margin-left: 30px;
 }

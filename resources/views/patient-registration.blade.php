@@ -1842,7 +1842,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 </script>
-<script src="{{ mix('js/patient.js') }}"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
 
@@ -2068,8 +2067,8 @@ $(document).ready(function () {
             }
 
             const attachResponse = await attachPaymentMethodToCustomer(paymentMethod.id, customerId);
-            if (!attachResponse) {
-                $('#card-errors').text('Error attaching payment method. Please try again.');
+            if (attachResponse.success !== true) {
+                $('#card-errors').text(attachResponse.error);
                 $('#loading-screen').hide(); 
                 return;
             }
@@ -2106,7 +2105,7 @@ $(document).ready(function () {
                 })
             });
             const data = await response.json();
-            return data.success;
+            return data;
         } catch (error) {
             console.error('Error attaching payment method:', error);
             return false;
