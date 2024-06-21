@@ -26800,3 +26800,7 @@ ol li{
     border-left-color: #1bcfb4 !important;
     border-right-color: #1bcfb4 !important;
 }
+.zipContentHeader{
+  padding-top: 10px !important;
+  padding-bottom: 0px !important;
+}

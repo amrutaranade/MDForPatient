@@ -688,7 +688,7 @@
                             <div class="card rounded-top-0">
                                 <div class="card-body p-0">
                                     <div class="sm:d-grid sm:grid-col-12 sm:mt-3">
-                                        <div class="p-5 mx-3">      
+                                        <div class="p-5 mx-3 zipContentHeader">      
                                             <div class="sm:mt-0 form__field">
                                                 <h3 class="fw-bold fs-3">How to Zip a Folder/File</h3><br>
                                             </div>    
