@@ -26779,5 +26779,19 @@ div.payment {
   color: #1bcfb4;
 }
 ol.zipContent{
-  margin-right:12px;
+  margin-left:12px;
+}
+ol li{
+  line-height: 1.8;
+  font-size: 1.4rem;
+  font-family: "Mulish", sans-serif;
+}
+.alert{
+  display:none;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  .fa {
+    margin-right:.5em;
+  }
 }
