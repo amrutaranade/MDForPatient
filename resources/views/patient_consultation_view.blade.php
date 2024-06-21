@@ -700,7 +700,13 @@
                                                         
                                                         <span class="text-nowrap ps-2">On Windows:</span>
                                                     </label>
-                                                    <label class="form__choice-wrapper">
+                                                    <ol class="text-start zipContent">
+                                                        <li>Press and hold (or right-click) the file or folder.</li>
+                                                        <li>Select "Send to" -> "Compressed (zipped) folder".</li>
+                                                        <li>A new zipped folder with the same name is created in the same location.</li>
+                                                        <li>To rename it, press and hold (or right-click) the folder, select "Rename", and type the new name.</li>
+                                                    </ol>
+                                                    <!-- <label class="form__choice-wrapper">
                                                         
                                                         <span class="text-nowrap ps-2">1. Press and hold (or right-click) the file or folder.</span>
                                                     </label>
@@ -715,29 +721,17 @@
                                                     <label class="form__choice-wrapper">
                                                         
                                                         <span class="text-nowrap ps-2">4. To rename it, press and hold (or right-click) the folder,<br/> select "Rename", and type the new name.</span>
-                                                    </label>
+                                                    </label> -->
                                                 </div>
                                                 <div class="mt-1 form__field">                                                    
                                                     <label class="form__choice-wrapper">
                                                         
                                                         <span class="text-nowrap ps-2">On Mac:</span>
                                                     </label>
-                                                    <label class="form__choice-wrapper">
-                                                        
-                                                        <span class="text-nowrap ps-2">1. Control-click the file or folder.</span>
-                                                    </label>
-                                                    <label class="form__choice-wrapper">
-                                                        
-                                                        <span class="text-nowrap ps-2">2. Choose "Compress" from the shortcut menu. A new folder <br/>will be created near the original folder titled "Archive.zip."</span>
-                                                    </label>
-                                                    <label class="form__choice-wrapper">
-                                                        
-                                                        <span class="text-nowrap ps-2"></span>
-                                                    </label>
-                                                    <label class="form__choice-wrapper">
-                                                        
-                                                        <span class="text-nowrap ps-2"></span>
-                                                    </label>
+                                                    <ol class="text-start zipContent">
+                                                        <li>Control-click the file or folder.</li>
+                                                        <li>Choose "Compress" from the shortcut menu. A new folder <br/>will be created near the original folder titled "Archive.zip."</li>
+                                                    </ol>
                                                 </div>
                                             </div>
                                         </div>
