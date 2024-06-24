@@ -308,7 +308,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="relationship_phone_number" type="text" maxlength="15" name="relationship_phone_number" value="{{isset($contactParty->phone_number) ? $contactParty->phone_number : ''}}">
+                                    <input id="relationship_phone_number" type="tel" maxlength="15" name="relationship_phone_number" value="{{isset($contactParty->phone_number) ? $contactParty->phone_number : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
@@ -487,7 +487,7 @@
                                         Phone Number
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input id="phone_number_step3" type="text" maxlength="15" name="phonenumberstep3" autocomplete="given-name" required value="{{isset($referringPhysician->phone_number) ? $referringPhysician->phone_number : ''}}">
+                                    <input id="phone_number_step3" type="tel" maxlength="15" name="phonenumberstep3" autocomplete="given-name" required value="{{isset($referringPhysician->phone_number) ? $referringPhysician->phone_number : ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -918,23 +918,47 @@
      * Expects a Node (input[type="text"] or textarea).
      */
 
-    const validateText = field => {
+     const validateText = field => {
         const val = field.value.trim();
 
         if (val === '' && field.required) {
-            return {
-                isValid: false
-            };
-        } //else if (!/^[a-zA-Z0-9-_,\/ ]+$/.test(val)) {
-        //     return { isValid: false, message: 'Only alphanumeric characters, hyphens, underscores, commas, and slashes are allowed.' };
-        // }
+            return { isValid: false, message: 'This field is required.' };
+        }else if (field.name === 'middlename' || field.name === 'relationship_city' && val === '') {
+        // Middle name is not required, so it's valid if empty
+        return { isValid: true }
+        }
+        else if (field.name === 'relationship_street_address' || field.name === 'street_address') {
+            const val = field.value.trim();
+             if (val.length > 255) {
+                return { isValid: false, message: 'Street address must be at most 255 characters long.' };
+            } else if (!/^[a-zA-Z0-9\s\.,#\-]*$/.test(val)) {
+                return { isValid: false, message: 'Please enter a valid street address with alphanumeric characters, spaces, and special characters like , . # - only.' };
+            } else {
+                return { isValid: true };
+            }
+        }
+        else if (!/^[a-zA-Z'-]+$/.test(val)) {
+            return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
+        }
         else {
-            return {
-                isValid: true
-            };
+            return { isValid: true };
         }
     };
 
+    const validateDateOfBirth = field => {
+        const val = field.value.trim();
+
+        // Adjust this regex based on your date format from the date picker
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+        if (val === '' && field.required) {
+            return { isValid: false, message: 'This field is required.' };
+        } else if (!dateRegex.test(val)) {
+            return { isValid: false, message: 'Please enter a valid date of birth.' };
+        } else {
+            return { isValid: true };
+        }
+    };
     /*****************************************************************************
      * Expects a Node (input[type="date"]).
      */
@@ -952,6 +976,83 @@
         };
         }
     };
+
+
+    const validatePostalCode = field => {
+        const val = field.value.trim();
+
+        if (val === '' && field.required) {
+            return { isValid: false, message: 'This field is required.' };
+        }else if (field.name === 'relationship_postal_code' || field.name === 'postalcodestep3' && val === '') {
+        // Middle name is not required, so it's valid if empty
+        return { isValid: true }
+        }else if (field.name === 'postalcodestep3'  && val === '') {
+        // Middle name is not required, so it's valid if empty
+        return { isValid: true }
+        } else if (!/^\d+$/.test(val)) {
+            return { isValid: false, message: 'Please enter a valid postal code with digits only.' };
+        } else {
+            return { isValid: true };
+        }
+    };
+
+
+    const validateNpi = field => {
+        const val = field.value.trim();
+        if (val === '') {
+            return { isValid: true};
+        }
+        else if (!/^\d{10}$/.test(val)) {
+            return { isValid: false, message: 'Please enter a valid 10-digit NPI number.' };
+        } else {
+            return { isValid: true };
+        }
+    };
+
+
+    const validateFaxNumber = field => {
+        const val = field.value.trim();
+
+        if (val === '') {
+            return { isValid: true};
+        } else if (!/^\d{9,20}$/.test(val)) {
+            return { isValid: false, message: 'Please enter a valid fax number with 9 to 20 digits.' };
+        } else {
+            return { isValid: true };
+        }
+    };
+
+    const validateInstitutionName = field => {
+        const val = field.value.trim();
+
+        if (val === '' && field.required) {
+            return { isValid: false, message: 'This field is required.' };
+        } else if (val.length > 100) {
+            return { isValid: false, message: 'Institution name must be at most 100 characters long.' };
+        } else if (field.name === 'institution' && val === '') {
+        // Middle name is not required, so it's valid if empty
+        return { isValid: true }
+        }  else if (!/^[a-zA-Z0-9\s]*$/.test(val)) {
+            return { isValid: false, message: 'Please enter a valid institution name with alphanumeric characters and spaces only.' };
+        } else {
+            return { isValid: true };
+        }
+    };
+
+
+
+    const validatePhoneNumber = field => {
+        const val = field.value.trim();
+
+        if (val === '' && field.required) {
+            return { isValid: false, message: 'This field is required.' };
+        } else if (!/^\d{9,15}$/.test(val)) {
+            return { isValid: false, message: 'Please enter a valid phone number with 9 to 15 digits.' };
+        } else {
+            return { isValid: true };
+        }
+    };
+
 
     /*****************************************************************************
      * Expects a Node (select).
@@ -1070,7 +1171,23 @@
         switch (field.type) {
         case 'text':
         case 'textarea':
-            return validateText(field);
+            if (field.name === 'postalcodestep1' || field.name === 'relationship_postal_code') {
+                return validatePostalCode(field);
+            }else if(field.name === 'date_of_birth'){
+                return validateDateOfBirth(field);
+
+            }else if(field.name === 'relationship_fax_no'){
+                return validateFaxNumber(field);
+
+            }else if(field.name === 'relationship_institution'){
+                return validateInstitutionName(field);
+
+            }else if(field.name === 'relationship_npi'){
+                return validateNpi(field);
+
+            }else {
+                return validateText(field);
+            }
         case 'select-one':
             return validateSelect(field);
         case 'fieldset':
@@ -1079,11 +1196,13 @@
         case 'checkbox':
             return validateChoice(field);
         case 'tel':
-            return validatePhone(field);
+            return validatePhoneNumber(field);
         case 'email':
             return validateEmail(field);
         case 'date':
             return validateDate(field);  
+        case 'fax':
+            return validateFaxNumber(field); // Assuming you have a custom type 'fax'
         case  'hidden': return {
             isValid: true
         };
@@ -1623,6 +1742,7 @@
         });
     });
     });
+
 </script>
 <script>
 const panel6 = document.getElementById("progress-form__panel-6");
