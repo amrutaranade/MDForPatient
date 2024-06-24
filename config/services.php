@@ -34,6 +34,7 @@ return [
 		'stripe_secret_key' => env('STRIPE_SECRET'),
         'stripe_currency' => 'usd',
         'stripe_amount' => 19900,
+        'stripe_display_amount' => '$199.00',
 	],
     'shareFile' => [
         'sharefile_client_id' => "FnQaFTXG1JGb2DdjyODW2XTOlMo4LeXJ",

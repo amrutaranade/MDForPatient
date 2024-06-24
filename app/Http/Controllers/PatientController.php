@@ -435,7 +435,8 @@ class PatientController extends Controller
 
         // Get patient email
         $patient = PatientsRegistrationDetail::find($patientId);
-        $recipientEmail = $patient->email;
+        $patientDetailsEmail = Crypt::decryptString($patient->email);
+        $recipientEmail = $patientDetailsEmail;
         $details = [
             'title' => 'Welcome to MD For Patients',
             'body' => $patientConsulatationNumber

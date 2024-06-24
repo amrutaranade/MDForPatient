@@ -659,7 +659,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Amount Paid:</strong></td>
-                                                        <td class=>{{config("services.stripe.stripe_amount")}}</td>
+                                                        <td class=>{{config("services.stripe.stripe_display_amount")}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Payment Status:</strong></td>
@@ -670,7 +670,7 @@
                                         </div>
                                     </div>
                                     <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
-                                        <button type="button" class="btn btn-secondary rounded" >
+                                        <button type="button" class="btn btn-secondary rounded backButtonPaymentDetails" >
                                         Back
                                         </button> &nbsp;&nbsp;
                                         <button type="button" class="step1 btn btn-success rounded" id="continueButtonStep6">
@@ -1934,6 +1934,15 @@ document.addEventListener('DOMContentLoaded', function() {
             $(".backBtnMedicalRecords").attr('disabled', 'disabled');
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
+    });
+
+    document.querySelector('.backBtnMedicalRecords').addEventListener('click', function(e) {
+        panel7.setAttribute("hidden", "");
+        panel6.removeAttribute("hidden");
+    });
+    document.querySelector('.backButtonPaymentDetails').addEventListener('click', function(e) {        
+        panel6.setAttribute("hidden", "");
+        panel5.removeAttribute("hidden");
     });
 </script>
 @endsection
