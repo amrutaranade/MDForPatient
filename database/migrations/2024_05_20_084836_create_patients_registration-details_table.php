@@ -15,11 +15,12 @@ class CreatePatientsRegistrationDetailsTable extends Migration
     {
         Schema::create('patients_registration_details', function (Blueprint $table) {
             $table->id();
-            $table->string('patient_consulatation_number');
+            $table->text('patient_consulatation_number');
             $table->string('first_name');
             $table->string('middle_name')->nullable();  
             $table->string('last_name'); 
             $table->string('email'); 
+            $table->string('email_hash'); 
             $table->date('date_of_birth');  
             $table->enum('gender', ['Male', 'Female', 'Non-binary','Other'])->nullable(); 
             $table->string('country');
