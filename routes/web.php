@@ -95,3 +95,6 @@ Route::get('/fineUpload', function () {
 });
 Route::post('/handleUpload', [PatientController::class, 'handleUpload']);
 Route::delete('/deleteFineUpload', [PatientController::class, 'handleDelete']);
+
+Route::get("thank-you",[PatientController::class, 'thankYou'])->name("thank-you");
+Route::get("redirectToHome",[PatientController::class, 'redirectToHome'])->name("redirectToHome");

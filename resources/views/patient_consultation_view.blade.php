@@ -1908,9 +1908,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     var totalFiles = succeeded.length + failed.length;
                     if (succeeded.length === totalFiles) {
                         // All files are successfully uploaded
-                        window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+                        window.location = "/thank-you";
                     } else {
-                        window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+                        window.location = "/thank-you";
                     }
                 }
             },
