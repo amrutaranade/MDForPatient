@@ -88,7 +88,7 @@
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ mix('js/patient.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="{{ mix('js/validation.js') }}"></script>
+    <!-- <script src="{{ mix('js/validation.js') }}"></script> -->
     <script src="/fine-uploader/jquery.fine-uploader.js"></script>
     <script src=
 "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
