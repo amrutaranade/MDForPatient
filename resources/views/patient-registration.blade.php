@@ -1176,7 +1176,7 @@
      * Expects a Node (input[type="email"]).
      */
 
-     const validateEmail = field => {
+     const validateEmail  = async(field) => {
         const val = field.value.trim();
 
         if (field.name === 'emailstep1' || field.name === 'confirmemailstep1' ||
@@ -1198,21 +1198,26 @@
                     message: 'Emails do not match.'
                 };
             }else if (field.name === 'emailstep1') {
-
-                $exist = isEmailInDatabase(val);
-                if(!$exist && document.getElementById("patientId").value == null) {
+                $exist = await isEmailInDatabase(val);
+                console.log( $exist);
+                if($exist)
+                {
                     return {
-                        isValid: false,
-                        message: 'This email already exists.'
-                    };
-                } else {
+                    isValid: false,
+                   message: 'This email is already registered.'
+                };
+                }
+                else {
                     return {
-                        isValid: true
-                    };
-                }               
+                    isValid: true,
+                    message:""
+                };
+                }
+                
             } else {
                 return {
-                    isValid: true
+                    isValid: true,
+                    message:""
                 };
             }
         }
@@ -1489,9 +1494,9 @@ const isEmailInDatabase = (email) => {
      * within `getValidationData()`.
      */
 
-    function reportValidity(field) {
-        const validation = getValidationData(field);
-
+   async  function reportValidity(field) {
+        const validation = await  getValidationData(field);
+        console.log('validation->', validation)
         if (!validation.isValid && validation.message) {
         reportError(field, validation.message);
         } else if (!validation.isValid) {
@@ -1655,7 +1660,7 @@ const isEmailInDatabase = (email) => {
      * both performance and user experience.
      */
 
-    progressForm.addEventListener('input', debounce(e => {
+    progressForm.addEventListener('input', debounce(async e  => {
         const { target } = e;
 
         validateStep(currentStep).then(() => {
@@ -1671,12 +1676,12 @@ const isEmailInDatabase = (email) => {
         });
 
         // Display or remove any error messages
-        reportValidity(target);
+       await reportValidity(target);
     }));
 
     /****************************************************************************/
 
-    progressForm.addEventListener('click', e => {
+    progressForm.addEventListener('click', async e => {
         const { target } = e;
 
         if (target.matches('[data-action="next"]')) {
@@ -1686,15 +1691,15 @@ const isEmailInDatabase = (email) => {
             // Progress to the next step
             activateTab(currentStep + 1);
 
-        }).catch(invalidFields => {
+        }).catch(  invalidFields => {
             // Update the progress bar (step incomplete)
             handleProgress(false);
 
             // Show errors for any invalid fields
             if (invalidFields!=null && Array.isArray(invalidFields)) {
                 // Show errors for any invalid fields
-                invalidFields.forEach(field => {
-                    reportValidity(field);
+                invalidFields.forEach( async field => {
+                   await  reportValidity(field);
                 });
 
                 // Focus the first found invalid field for the user
@@ -1860,8 +1865,8 @@ const isEmailInDatabase = (email) => {
         }).catch(invalidFields => {
 
         // Show errors for any invalid fields
-        invalidFields.forEach(field => {
-            reportValidity(field);
+        invalidFields.forEach(async field => {
+           await reportValidity(field);
         });
 
         // Focus the first found invalid field for the user
