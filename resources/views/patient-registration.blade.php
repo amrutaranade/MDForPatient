@@ -684,11 +684,13 @@
                                                         <label for="card-holder-name">Card Holder Name</label>
                                                         <span data-required="true" aria-hidden="true"></span>
                                                         <input type="text" id="card-holder-name" class="form-control" required>
+                                                        <div id="card-holder-name-errors" role="alert" class="text-danger mt-2"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="card-holder-email">Card Holder Email</label>
                                                         <span data-required="true" aria-hidden="true"></span>
                                                         <input type="email" id="card-holder-email" class="form-control" required>
+                                                        <div id="card-holder-email-errors" role="alert" class="text-danger mt-2"></div>
                                                     </div>
                                                     <div id="card-element" class="form-control">
                                                         <!-- Stripe Card Element will be inserted here -->
@@ -927,9 +929,18 @@
 
         if (val === '' && field.required) {
             return { isValid: false, message: 'This field is required.' };
-        }else if (field.name === 'middlename' || field.name === 'relationship_city' && val === '') {
-        // Middle name is not required, so it's valid if empty
-        return { isValid: true }
+        }else if (field.name === 'middlename') {
+        // Check middle name if it's entered
+            if (val !== '' && !/^[a-zA-Z'-]+$/.test(val)) {
+                return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
+            } else {
+                return { isValid: true };
+            }
+        }
+ 
+        else if (field.name === 'relationship_city' && val === '') {
+            // Relationship city is not required, so it's valid if empty
+            return { isValid: true };
         }
         else if (field.name === 'relationship_street_address' || field.name === 'street_address') {
             const val = field.value.trim();
@@ -1236,33 +1247,34 @@
 //     }
 // };
 
-// const isEmailInDatabase = (email) => {
-//     // Get CSRF token from the page's meta tag
-//     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+const isEmailInDatabase = (email) => {
+    // Get CSRF token from the page's meta tag
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-//     // Make the AJAX request to check the email
-//     return fetch('/check-email', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'X-CSRF-TOKEN': csrfToken
-//         },
-//         body: JSON.stringify({ email: email })
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         return data.exists; // Assuming the response contains a boolean indicating if the email exists
-//     })
-//     .catch(error => {
-//         console.error('Error checking email in database:', error);
-//         return false; // Return false if there's an error or the email does not exist
-//     });
-// };
+    // Make the AJAX request to check the email
+    return fetch('/check-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("amruta", data.exists);
+        return data.exists; // Assuming the response contains a boolean indicating if the email exists
+    })
+    .catch(error => {
+        console.error('Error checking email in database:', error);
+        return false; // Return false if there's an error or the email does not exist
+    });
+};
 
 
     /*****************************************************************************
@@ -1358,8 +1370,8 @@
         }
 
         const invalidFields = [...fields].filter(field => {
-            //console.log(field.id);
-            return !isValid(field);
+            console.log(field.id);
+        return !isValid(field);
         });
 
         return new Promise((resolve, reject) => {
@@ -1847,7 +1859,7 @@
         }).catch(invalidFields => {
 
         // Show errors for any invalid fields
-        invalidFields.forEach( field => {
+        invalidFields.forEach(async field => {
             reportValidity(field);
         });
 
@@ -2304,6 +2316,18 @@ $(document).ready(function () {
 
     cardElement.mount('#card-element');    
 
+    //Check for data validation for email here
+    function validateEmail(email) {
+        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    //check for data validations here
+    function validateCardHolderName(cardHolderName) {
+        var regex = /^[a-zA-Z]+$/;
+        return regex.test(cardHolderName);
+    }
+
     $('#card-button').on('click', async function (e) {
         e.preventDefault();
 
@@ -2313,7 +2337,26 @@ $(document).ready(function () {
         if (!cardHolderName || !email) {
             $('#card-errors').text('Card holder name and email are required.');
             return;
+        } else {
+            $('#card-errors').text(null);
+        }        
+
+        if (!validateCardHolderName(cardHolderName)) {
+            $('#card-holder-name-errors').text('Only alphabetic characters are allowed.');
+            return;
+        } else {
+            $('#card-holder-name-errors').text(null);
         }
+
+        
+
+        if (!validateEmail(email)) {
+            $('#card-holder-email-errors').text('Please provide a valid email address.');
+            return;
+        } else {
+            $('#card-holder-email-errors').text(null);
+        }
+
         $('#loading-screen').show(); // Show loader
         try {
             // Create customer first
@@ -2625,5 +2668,13 @@ $(document).ready(function () {
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });
+
+    document.getElementById('re_type_name').addEventListener('input', function (event) {
+            const input = event.target;
+            const cleanedValue = input.value.replace(/[^a-zA-Z\s]/g, '');
+            if (input.value !== cleanedValue) {
+                input.value = cleanedValue;
+            }
+        });
 </script>
 @endsection

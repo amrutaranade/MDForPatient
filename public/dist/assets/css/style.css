@@ -26699,7 +26699,7 @@ div.payment {
   left:35%;
   position:relative;
 }
-#card-errors{
+#card-errors, #card-holder-name-errors, #card-holder-email-errors{
   font-size: 1.3rem;
 }
 
