@@ -1172,24 +1172,36 @@
      * Expects a Node (input[type="email"]).
      */
 
-    const validateEmail = field => {
+     const validateEmail = field => {
         const val = field.value.trim();
 
-        if (val === '' && field.required) {
-        return {
-            isValid: false
-        };
-        } else if (val !== '' && !isValidEmail(val)) {
-        return {
-            isValid: false,
-            message: 'Please provide a valid email address.'
-        };
-        } else {
-        return {
-            isValid: true
-        };
+        if (field.name === 'emailstep1' || field.name === 'confirmemailstep1' ||
+            field.name === 'relationship_email' || field.name === 'relationship_confirm_email' ||
+            field.name === 'email_step3' || field.name === 'confirm_email_step3') {
+            if (val === '' && field.required) {
+                return {
+                    isValid: false
+                };
+            } else if (val !== '' && !isValidEmail(val)) {
+                return {
+                    isValid: false,
+                    message: 'Please provide a valid email address.'
+                };
+            } else if ((field.name === 'confirmemailstep1' || field.name === 'relationship_confirm_email' || field.name === 'confirm_email_step3') && 
+                    val !== document.getElementById(field.name === 'confirmemailstep1' ? 'email_step1' : field.name === 'relationship_confirm_email' ? 'relationship_email' : 'email_step3').value) {
+                return {
+                    isValid: false,
+                    message: 'Emails do not match.'
+                };
+            } else {
+                return {
+                    isValid: true
+                };
+            }
         }
-    };
+};
+
+
 
     /*****************************************************************************
      * Expects a Node (field or fieldset).
