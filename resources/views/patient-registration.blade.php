@@ -1193,6 +1193,14 @@
                     isValid: false,
                     message: 'Emails do not match.'
                 };
+            }else if (field.name === 'emailstep1') {
+
+                $exist = isEmailInDatabase(val);
+                console.log( $exist);
+                return {
+                    isValid: false,
+                   message: 'This email is already registered.'
+                };
             } else {
                 return {
                     isValid: true
@@ -1200,6 +1208,37 @@
             }
         }
 };
+
+
+const isEmailInDatabase = async (email) => {
+    try {
+        // Get CSRF token from the page's meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Make the AJAX request to check the email
+        const response = await fetch('/check-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify({ email: email })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log(data.exists);
+        return data.exists; // Assuming the response contains a boolean indicating if the email exists
+
+    } catch (error) {
+        console.error('Error checking email in database:', error);
+        return false; // Return false if there's an error or the email does not exist
+    }
+};
+
 
 
 
