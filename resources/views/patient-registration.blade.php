@@ -931,7 +931,7 @@
             return { isValid: false, message: 'This field is required.' };
         }else if (field.name === 'middlename') {
         // Check middle name if it's entered
-            if (val !== '' && !/^[a-zA-Z'-]+$/.test(val)) {
+            if (val !== '' && !/^[a-z A-Z'-]+$/.test(val)) {
                 return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
             } else {
                 return { isValid: true };
@@ -946,13 +946,13 @@
             const val = field.value.trim();
              if (val.length > 255) {
                 return { isValid: false, message: 'Street address must be at most 255 characters long.' };
-            } else if (!/^[a-zA-Z0-9\s\.,#\-]*$/.test(val)) {
+            } else if (!/^[a-z A-Z0-9\s\.,#\-]*$/.test(val)) {
                 return { isValid: false, message: 'Please enter a valid street address with alphanumeric characters, spaces, and special characters like , . # - only.' };
             } else {
                 return { isValid: true };
             }
         }
-        else if (!/^[a-zA-Z'-]+$/.test(val)) {
+        else if (!/^[a-z A-Z'-]+$/.test(val)) {
             return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
         }
         else {
@@ -966,7 +966,7 @@
         if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian' || relationship === 'Other' || relationship === 'Referring or local physician') {
             if (val === '' && field.required) {
                 return { isValid: false, message: 'This field is required.' };
-            } else if (!/^[a-zA-Z'-]+$/.test(val)) {
+            } else if (!/^[a-z A-Z'-]+$/.test(val)) {
                 return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
             }
         }
@@ -980,7 +980,7 @@
         if (relationship === 'Other') {
             if (val === '' && field.required) {
                 return { isValid: false, message: 'This field is required.' };
-            } else if (!/^[a-zA-Z'-]+$/.test(val)) {
+            } else if (!/^[a-z A-Z'-]+$/.test(val)) {
                 return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
             }
         }
@@ -1066,7 +1066,7 @@
             return { isValid: false, message: 'Institution name must be at most 100 characters long.' };
         } else if (field.name === 'institution' && val === '') {
            return { isValid: true }
-        }  else if (!/^[a-zA-Z0-9\s]*$/.test(val)) {
+        }  else if (!/^[a-z A-Z0-9\s]*$/.test(val)) {
             return { isValid: false, message: 'Please enter a valid institution name with alphanumeric characters and spaces only.' };
         } else {
             return { isValid: true };
@@ -1079,7 +1079,7 @@
 
         if (val === '' && field.required) {
             return { isValid: false, message: 'This field is required.' };
-        }  else if (!/^[a-zA-Z0-9\s\-']*$/.test(val)) {
+        }  else if (!/^[a-z A-Z0-9\s\-']*$/.test(val)) {
             return { isValid: false, message: 'Please enter a valid data.' };
         } else {
             return { isValid: true };
