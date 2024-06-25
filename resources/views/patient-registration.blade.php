@@ -2324,7 +2324,7 @@ $(document).ready(function () {
 
     //check for data validations here
     function validateCardHolderName(cardHolderName) {
-        var regex = /^[a-zA-Z]+$/;
+        var regex = /^[a-z A-Z]+$/;
         return regex.test(cardHolderName);
     }
 
@@ -2671,7 +2671,7 @@ $(document).ready(function () {
 
     document.getElementById('re_type_name').addEventListener('input', function (event) {
             const input = event.target;
-            const cleanedValue = input.value.replace(/[^a-zA-Z\s]/g, '');
+            const cleanedValue = input.value.replace(/[^a-z A-Z\s]/g, '');
             if (input.value !== cleanedValue) {
                 input.value = cleanedValue;
             }
