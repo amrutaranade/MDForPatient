@@ -122,7 +122,7 @@ class PatientController extends Controller
         'middleName' => 'nullable|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
         'lastName' => 'required|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
         'email' => 'required|string|email|max:255',
-        'dateOfBirth' => 'required|date',
+        'dateOfBirth' => 'required',
         'country' => 'nullable|integer',
         'state' => 'nullable|integer',
         'city' => 'required|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
@@ -143,6 +143,11 @@ class PatientController extends Controller
     // Check if a patient already exists with the provided email and ID
     $existingPatient = $patientId ? PatientsRegistrationDetail::where(['id' => $patientId, "email"=>$requestData["email"]])->first() : null;
 
+    $dateString = $requestData["dateOfBirth"];
+    $dob = DateTime::createFromFormat('m-d-Y', $dateString);      
+    $dateOfBirth = $dob->format('Ymd'); 
+    $dob = $dob->format('Y-m-d');
+    
     if ($existingPatient) {
         // If the email is different from the existing one, validate for uniqueness
         if ($existingPatient->email !== $requestData['email']) {
@@ -157,7 +162,7 @@ class PatientController extends Controller
             "middle_name" => $requestData["middleName"],
             "last_name" => $requestData["lastName"],
             "email" => $requestData["email"],
-            "date_of_birth" => $requestData["dateOfBirth"],
+            "date_of_birth" => $dob,
             "country" => $requestData["country"],
             "state" => $requestData["state"],
             "city" => $requestData["city"],
@@ -171,8 +176,6 @@ class PatientController extends Controller
         // Generate the string
         $randomNum = rand(10000, 99999);
         $patientName = $requestData["firstName"].$requestData["middleName"].$requestData["lastName"];
-        $dateOfBirth = new DateTime($requestData["dateOfBirth"]);
-        $dateOfBirth = $dateOfBirth->format('Ymd');
         $currentDate = new DateTime();
         $currentDate = $currentDate->format('Ymd');
         $patientConsulatationNumber = "{$randomNum}_{$patientName}_{$dateOfBirth}_{$currentDate}";
@@ -193,7 +196,7 @@ class PatientController extends Controller
             "middle_name" => $requestData["middleName"],
             "last_name" => $requestData["lastName"],
             "email" => $encryptedEmail,
-            "date_of_birth" => $requestData["dateOfBirth"],
+            "date_of_birth" => $dob,
             "country" => $requestData["country"],
             "state" => $requestData["state"],
             "city" => $requestData["city"],
@@ -223,19 +226,19 @@ class PatientController extends Controller
         $validatedData = $request->validate([
             'relationship_to_patient' => 'nullable|string|max:255',
             'relationship_email' => 'required|string|max:255',
-            'relationship_phone_number' => 'required|integer|min:9|max:15|regex:/^[0-9-]*$/',
+            'relationship_phone_number' => 'required|string|min:9|max:15|regex:/^[0-9-]*$/',
             'relationship_preferred_mode_of_communication' => 'required|string',
-            'patientId' => 'required|integer',
-            'relationship_first_name' => 'string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
-            'relationship_last_name' => 'string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
-            'relationship_city' => 'string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
-            'relationship_postal_code' => 'string|min:5|max:6|regex:/^[0-9-]*$/',
+            'patientId' => 'required|integer'
         ]);
 
         // Check the form ID in the session
         $formId = session('form_id');
         if (!$formId) {
             return response()->json(['error' => 'Session expired or invalid form ID.'], 400);
+        }
+
+        if($requestData["relationship_email"] !== $requestData["relationship_confirm_email"]) {
+            return response()->json(['error' => 'Email and Confirm Email do not match.'], 422);
         }
         
         // Save or update the data to the database
@@ -279,7 +282,7 @@ class PatientController extends Controller
             'postalCode' => 'nullable|string|min:5|max:6|regex:/^[0-9-]*$/',
             'streetAddress' => 'nullable|string|max:255',
             'email' => 'nullable|string|max:255',
-            'phone_number' => 'nullable|integer|min:9|max:15|regex:/^[0-9-]*$/',
+            'phone_number' => 'nullable|string|min:9|max:15|regex:/^[0-9-]*$/',
             'patientId' => 'required|integer',
         ]);
 
@@ -320,11 +323,12 @@ class PatientController extends Controller
         // Validate the request
         $validatedData = $request->validate([
             'primary_diagnosis' => 'nullable|string|max:255|regex:/^[a-zA-Z-,\'\s]*$/',
-            'treated_before' => 'nullable|string|max:255|regex:/^[a-zA-Z-,\'\s]*$/',
-            'surgery_description' => 'nullable|string|regex:/^[a-zA-Z-,\'\s]*$/',
+            'treated_before' => 'nullable|string|max:255|regex:/^[a-zA-Z-,\'\s]*$/',            
             'request_description' => 'nullable|string|regex:/^[a-zA-Z-,\'\s]*$/',
             'patientId' => 'required|integer',
         ]);
+
+        
 
         // Check the form ID in the session
         $formId = session('form_id');
@@ -342,9 +346,6 @@ class PatientController extends Controller
                 "request_description" => $requestData["request_description"],
             ]
         );
-
-        // Check if the form is completed and clear the session
-        $this->checkFormCompletion($requestData["patientId"]);
 
         return response()->json(['id' => $data->id], 201);
     }
@@ -491,7 +492,8 @@ class PatientController extends Controller
 
     public function redirectToHome() {
         session()->flush();
-        return redirect()->route('home');
+        
+        return redirect()->route('show.otp.form');
     }
     
 }

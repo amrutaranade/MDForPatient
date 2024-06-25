@@ -40,7 +40,7 @@
                         <div class="status-icon"><img src="/dist/assets/images/verified_logo.svg"/></div>
                         <br/>
                         <div class="status-message">
-                                    Your file have been uploaded successfully. To check your profile again <a href="{{route('redirectToHome')}}">Click here</a
+                                    Your file have been uploaded successfully. To check your profile again <a href="{{route('redirectToHome')}}">Click here</a>
                         </div><br/>
                         
                     </div>

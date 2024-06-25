@@ -62,6 +62,7 @@ $(document).ready(function() {
         middleName: document.getElementById('middle-name').value ?? "",
         lastName: document.getElementById('last-name').value,
         email: document.getElementById('email_step1').value,
+        confirm_email: document.getElementById('confirm_email_step1').value,
         dateOfBirth: document.getElementById('date_of_birth').value,
         gender: document.querySelector('input[name="gender"]:checked')?.value ?? '',
         country: document.getElementById('countries').value ?? '',
@@ -120,6 +121,7 @@ document.getElementById('continueButtonStep2').addEventListener('click', async f
     const data = {
         relationship_to_patient: document.getElementById('relationship_to_patient').value,
         relationship_email: document.getElementById('relationship_email').value ,
+        relationship_confirm_email: document.getElementById('relationship_confirm_email').value ,
         relationship_phone_number: document.getElementById('relationship_phone_number').value,
         relationship_preferred_mode_of_communication: document.querySelector('input[name="relationship_preferred_mode_of_communication"]:checked')?.value ?? '',
         relationship_preferred_contact_time: document.querySelector('input[name="relationship_preferred_contact_time"]:checked')?.value ?? '',
@@ -181,6 +183,7 @@ document.getElementById('continueButtonStep3').addEventListener('click',async fu
         postalCode: document.getElementById('postal_code_step3').value ?? '' ,
         streetAddress: document.getElementById('street_address_step3').value ?? '',
         email: document.getElementById('email_step3').value ?? '',
+        confirm_email: document.getElementById('confirm_email_step3').value ?? '',
         phone_number: document.getElementById('phone_number_step3').value ?? '',
 
     };

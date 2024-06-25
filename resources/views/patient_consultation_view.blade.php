@@ -87,7 +87,11 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled  id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" required value="{{date('m-d-y', strtotime($patientDetails->date_of_birth))}}">
+                                    <?php 
+                                    $dateOfBirth = isset($patientDetails->date_of_birth) ? new DateTime($patientDetails->date_of_birth) : null;
+                                    $formattedDateOfBirth = $dateOfBirth ? $dateOfBirth->format('m-d-Y') : '';
+                                    ?>
+                                    <input disabled  id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required value="{{$formattedDateOfBirth}}">
                                     </div>
                                 </div>
 

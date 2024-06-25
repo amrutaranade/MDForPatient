@@ -87,8 +87,13 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input readonly id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('Y-m-d')}}" value="{{isset($patientDetails->date_of_birth) ? $patientDetails->date_of_birth: ''}}">
+                                    <?php 
+                                    $dateOfBirth = isset($patientDetails->date_of_birth) ? new DateTime($patientDetails->date_of_birth) : null;
+                                    $formattedDateOfBirth = $dateOfBirth ? $dateOfBirth->format('m-d-Y') : '';
+                                    ?>
+                                    <input readonly id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('m-d-Y')}}" value="{{$formattedDateOfBirth}}">
                                     </div>
+
                                 </div>
 
                                 <div id="patientMailingAddressHrTag" class="sm:d-grid sm:grid-col-3 sm:mt-3 fw-bold mt-5" >
@@ -1195,11 +1200,16 @@
             }else if (field.name === 'emailstep1') {
 
                 $exist = isEmailInDatabase(val);
-                console.log( $exist);
-                return {
-                    isValid: false,
-                   message: 'This email is already registered.'
-                };
+                if(!$exist && document.getElementById("patientId").value == null) {
+                    return {
+                        isValid: false,
+                        message: 'This email already exists.'
+                    };
+                } else {
+                    return {
+                        isValid: true
+                    };
+                }               
             } else {
                 return {
                     isValid: true
@@ -1209,36 +1219,63 @@
 };
 
 
-const isEmailInDatabase = async (email) => {
-    try {
-        // Get CSRF token from the page's meta tag
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+// const isEmailInDatabase = async (email) => {
+//     try {
+//         // Get CSRF token from the page's meta tag
+//         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        // Make the AJAX request to check the email
-        const response = await fetch('/check-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            },
-            body: JSON.stringify({ email: email })
-        });
+//         // Make the AJAX request to check the email
+//         const response = await fetch('/check-email', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'X-CSRF-TOKEN': csrfToken
+//             },
+//             body: JSON.stringify({ email: email })
+//         });
 
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+
+//         const data = await response.json();
+//         console.log(data.exists);
+//         return data.exists; // Assuming the response contains a boolean indicating if the email exists
+
+//     } catch (error) {
+//         console.error('Error checking email in database:', error);
+//         return false; // Return false if there's an error or the email does not exist
+//     }
+// };
+
+const isEmailInDatabase = (email) => {
+    // Get CSRF token from the page's meta tag
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // Make the AJAX request to check the email
+    return fetch('/check-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
-        const data = await response.json();
-        console.log(data.exists);
+        return response.json();
+    })
+    .then(data => {
+        console.log("amruta", data.exists);
         return data.exists; // Assuming the response contains a boolean indicating if the email exists
-
-    } catch (error) {
+    })
+    .catch(error => {
         console.error('Error checking email in database:', error);
         return false; // Return false if there's an error or the email does not exist
-    }
+    });
 };
-
-
 
 
     /*****************************************************************************
@@ -2464,6 +2501,7 @@ $(document).ready(function () {
             $('#surgery_description').attr('required', 'required');
             $('#surgery_description').closest('.form__field').show();
         }else if($('#noRadio').is(':checked')) {
+            $('#surgery_description').val(null);
             $('#surgery_description').removeAttr('required');
             $('#surgery_description').closest('.form__field').hide();
         }
