@@ -945,16 +945,38 @@
         }
     };
 
-    const validateDateOfBirth = field => {
+    const validateNames = (field, relationship) => {
         const val = field.value.trim();
 
-        // Adjust this regex based on your date format from the date picker
-        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (relationship === 'Caregiver' || relationship === 'Parent' || relationship === 'Legal Guardian' || relationship === 'Other' || relationship === 'Referring or local physician') {
+            if (val === '' && field.required) {
+                return { isValid: false, message: 'This field is required.' };
+            } else if (!/^[a-zA-Z'-]+$/.test(val)) {
+                return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
+            }
+        }
 
+        return { isValid: true };
+    };
+
+    const validateOtherNames = (field, relationship) => {
+        const val = field.value.trim();
+
+        if (relationship === 'Other') {
+            if (val === '' && field.required) {
+                return { isValid: false, message: 'This field is required.' };
+            } else if (!/^[a-zA-Z'-]+$/.test(val)) {
+                return { isValid: false, message: 'Only alphabetic characters, hyphens, and apostrophes are allowed.' };
+            }
+        }
+
+        return { isValid: true };
+    };
+
+    const validateDateOfBirth = field => {
+        const val = field.value.trim();
         if (val === '' && field.required) {
             return { isValid: false, message: 'This field is required.' };
-        } else if (!dateRegex.test(val)) {
-            return { isValid: false, message: 'Please enter a valid date of birth.' };
         } else {
             return { isValid: true };
         }
@@ -983,11 +1005,9 @@
 
         if (val === '' && field.required) {
             return { isValid: false, message: 'This field is required.' };
-        }else if (field.name === 'relationship_postal_code' || field.name === 'postalcodestep3' && val === '') {
-        // Middle name is not required, so it's valid if empty
+        }else if (field.name === 'relationship_postal_code' && val === '') {
         return { isValid: true }
         }else if (field.name === 'postalcodestep3'  && val === '') {
-        // Middle name is not required, so it's valid if empty
         return { isValid: true }
         } else if (!/^\d+$/.test(val)) {
             return { isValid: false, message: 'Please enter a valid postal code with digits only.' };
@@ -1015,7 +1035,7 @@
 
         if (val === '') {
             return { isValid: true};
-        } else if (!/^\d{9,20}$/.test(val)) {
+        } else if (!/^[+()?\d\s-]+$/.test(val)) {
             return { isValid: false, message: 'Please enter a valid fax number with 9 to 20 digits.' };
         } else {
             return { isValid: true };
@@ -1030,10 +1050,22 @@
         } else if (val.length > 100) {
             return { isValid: false, message: 'Institution name must be at most 100 characters long.' };
         } else if (field.name === 'institution' && val === '') {
-        // Middle name is not required, so it's valid if empty
-        return { isValid: true }
+           return { isValid: true }
         }  else if (!/^[a-zA-Z0-9\s]*$/.test(val)) {
             return { isValid: false, message: 'Please enter a valid institution name with alphanumeric characters and spaces only.' };
+        } else {
+            return { isValid: true };
+        }
+    };
+
+
+    const validateString = field => {
+        const val = field.value.trim();
+
+        if (val === '' && field.required) {
+            return { isValid: false, message: 'This field is required.' };
+        }  else if (!/^[a-zA-Z0-9\s\-']*$/.test(val)) {
+            return { isValid: false, message: 'Please enter a valid data.' };
         } else {
             return { isValid: true };
         }
@@ -1171,7 +1203,7 @@
         switch (field.type) {
         case 'text':
         case 'textarea':
-            if (field.name === 'postalcodestep1' || field.name === 'relationship_postal_code') {
+            if (field.name === 'postalcodestep1' || field.name === 'relationship_postal_code' || field.name === 'postalcodestep3')  {
                 return validatePostalCode(field);
             }else if(field.name === 'date_of_birth'){
                 return validateDateOfBirth(field);
@@ -1179,13 +1211,23 @@
             }else if(field.name === 'relationship_fax_no'){
                 return validateFaxNumber(field);
 
-            }else if(field.name === 'relationship_institution'){
+            }else if(field.name === 'relationship_institution' || field.name === 'institution'){
                 return validateInstitutionName(field);
+
+            }else if(field.name === 'primary_diagnosis' || field.name === 'surgery_description'  || field.name === 'request_description'){
+                return validateString(field);
 
             }else if(field.name === 'relationship_npi'){
                 return validateNpi(field);
 
-            }else {
+            }else if(field.name === 'relationship_first_name' || field.name === 'relationship_last_name'){
+                return validateNames(field, $('#relationship_to_patient').val());
+
+            }else if(field.name === 'relationship_other'){
+                return validateOtherNames(field, $('#relationship_to_patient').val());
+
+            }
+            else {
                 return validateText(field);
             }
         case 'select-one':
