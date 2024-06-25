@@ -924,9 +924,9 @@
             return {
                 isValid: false
             };
-        } //else if (!/^[a-zA-Z0-9-_,\/ ]+$/.test(val)) {
-        //     return { isValid: false, message: 'Only alphanumeric characters, hyphens, underscores, commas, and slashes are allowed.' };
-        // }
+        } else if (!/^[0-9-_,\/ ]+$/.test(val)) {
+             return { isValid: false, message: 'Only alphanumeric characters, hyphens, underscores, commas, and slashes are allowed.' };
+        }
         else {
             return {
                 isValid: true
@@ -1122,6 +1122,7 @@
         }
 
         const invalidFields = [...fields].filter(field => {
+            console.log(field.id);
         return !isValid(field);
         });
 
@@ -2258,7 +2259,7 @@ $(document).ready(function () {
 
 
       $("#date_of_birth").datepicker({
-            dateFormat: 'yy-mm-dd', 
+            dateFormat: 'mm-dd-yy', 
             changeMonth: true,
             changeYear: true,
             yearRange: '-300:+0',
