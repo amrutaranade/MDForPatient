@@ -1176,7 +1176,7 @@
      * Expects a Node (input[type="email"]).
      */
 
-     const validateEmail  = async(field) => {
+     const validateEmail  = (field) => {
         const val = field.value.trim();
 
         if (field.name === 'emailstep1' || field.name === 'confirmemailstep1' ||
@@ -1197,23 +1197,6 @@
                     isValid: false,
                     message: 'Emails do not match.'
                 };
-            }else if (field.name === 'emailstep1') {
-                $exist = await isEmailInDatabase(val);
-                console.log( $exist);
-                if($exist)
-                {
-                    return {
-                    isValid: false,
-                   message: 'This email is already registered.'
-                };
-                }
-                else {
-                    return {
-                    isValid: true,
-                    message:""
-                };
-                }
-                
             } else {
                 return {
                     isValid: true,
@@ -1253,34 +1236,33 @@
 //     }
 // };
 
-const isEmailInDatabase = (email) => {
-    // Get CSRF token from the page's meta tag
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+// const isEmailInDatabase = (email) => {
+//     // Get CSRF token from the page's meta tag
+//     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Make the AJAX request to check the email
-    return fetch('/check-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
-        },
-        body: JSON.stringify({ email: email })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("amruta", data.exists);
-        return data.exists; // Assuming the response contains a boolean indicating if the email exists
-    })
-    .catch(error => {
-        console.error('Error checking email in database:', error);
-        return false; // Return false if there's an error or the email does not exist
-    });
-};
+//     // Make the AJAX request to check the email
+//     return fetch('/check-email', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'X-CSRF-TOKEN': csrfToken
+//         },
+//         body: JSON.stringify({ email: email })
+//     })
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         return data.exists; // Assuming the response contains a boolean indicating if the email exists
+//     })
+//     .catch(error => {
+//         console.error('Error checking email in database:', error);
+//         return false; // Return false if there's an error or the email does not exist
+//     });
+// };
 
 
     /*****************************************************************************
@@ -1376,8 +1358,8 @@ const isEmailInDatabase = (email) => {
         }
 
         const invalidFields = [...fields].filter(field => {
-            console.log(field.id);
-        return !isValid(field);
+            //console.log(field.id);
+            return !isValid(field);
         });
 
         return new Promise((resolve, reject) => {
@@ -1494,8 +1476,8 @@ const isEmailInDatabase = (email) => {
      * within `getValidationData()`.
      */
 
-   async  function reportValidity(field) {
-        const validation = await  getValidationData(field);
+    function reportValidity(field) {
+        const validation = getValidationData(field);
         console.log('validation->', validation)
         if (!validation.isValid && validation.message) {
         reportError(field, validation.message);
@@ -1660,7 +1642,7 @@ const isEmailInDatabase = (email) => {
      * both performance and user experience.
      */
 
-    progressForm.addEventListener('input', debounce(async e  => {
+    progressForm.addEventListener('input', debounce( e  => {
         const { target } = e;
 
         validateStep(currentStep).then(() => {
@@ -1676,12 +1658,12 @@ const isEmailInDatabase = (email) => {
         });
 
         // Display or remove any error messages
-       await reportValidity(target);
+        reportValidity(target);
     }));
 
     /****************************************************************************/
 
-    progressForm.addEventListener('click', async e => {
+    progressForm.addEventListener('click', e => {
         const { target } = e;
 
         if (target.matches('[data-action="next"]')) {
@@ -1699,7 +1681,7 @@ const isEmailInDatabase = (email) => {
             if (invalidFields!=null && Array.isArray(invalidFields)) {
                 // Show errors for any invalid fields
                 invalidFields.forEach( async field => {
-                   await  reportValidity(field);
+                    reportValidity(field);
                 });
 
                 // Focus the first found invalid field for the user
@@ -1865,8 +1847,8 @@ const isEmailInDatabase = (email) => {
         }).catch(invalidFields => {
 
         // Show errors for any invalid fields
-        invalidFields.forEach(async field => {
-           await reportValidity(field);
+        invalidFields.forEach( field => {
+            reportValidity(field);
         });
 
         // Focus the first found invalid field for the user
