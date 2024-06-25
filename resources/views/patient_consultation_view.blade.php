@@ -87,7 +87,7 @@
                                         Date Of Birth
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled  id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" required value="{{$patientDetails->date_of_birth}}">
+                                    <input disabled  id="date_of_birth" type="date" name="date_of_birth" autocomplete="given-name" required max="9999-12-31" required value="{{date('m-d-y', strtotime($patientDetails->date_of_birth))}}">
                                     </div>
                                 </div>
 
@@ -1908,9 +1908,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     var totalFiles = succeeded.length + failed.length;
                     if (succeeded.length === totalFiles) {
                         // All files are successfully uploaded
-                        window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+                        window.location = "/thank-you";
                     } else {
-                        window.location = "/patient_consultation_view/{{ $patientDetails->id}}";
+                        window.location = "/thank-you";
                     }
                 }
             },

@@ -118,15 +118,15 @@ class PatientController extends Controller
 
     // Validate the request
     $validatedData = $request->validate([
-        'firstName' => 'required|string|max:255',
-        'middleName' => 'nullable|string|max:255',
-        'lastName' => 'required|string|max:255',
+        'firstName' => 'required|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+        'middleName' => 'nullable|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+        'lastName' => 'required|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
         'email' => 'required|string|email|max:255',
         'dateOfBirth' => 'required|date',
         'country' => 'nullable|integer',
         'state' => 'nullable|integer',
-        'city' => 'required|string|max:255',
-        'postalCode' => 'required|string|max:10',
+        'city' => 'required|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+        'postalCode' => 'required|string|min:5|max:6|regex:/^[0-9-]*$/',
         'streetAddress' => 'required|string|max:255',
     ]);
 
@@ -135,6 +135,10 @@ class PatientController extends Controller
         $formId = Str::uuid();
         session(['form_id' => $formId]);
     }    
+
+    if($requestData["email"] !== $requestData["confirm_email"]) {
+        return response()->json(['error' => 'Email and Confirm Email do not match.'], 422);
+    }
 
     // Check if a patient already exists with the provided email and ID
     $existingPatient = $patientId ? PatientsRegistrationDetail::where(['id' => $patientId, "email"=>$requestData["email"]])->first() : null;
@@ -219,9 +223,13 @@ class PatientController extends Controller
         $validatedData = $request->validate([
             'relationship_to_patient' => 'nullable|string|max:255',
             'relationship_email' => 'required|string|max:255',
-            'relationship_phone_number' => 'required|integer',
+            'relationship_phone_number' => 'required|integer|min:9|max:15|regex:/^[0-9-]*$/',
             'relationship_preferred_mode_of_communication' => 'required|string',
             'patientId' => 'required|integer',
+            'relationship_first_name' => 'string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+            'relationship_last_name' => 'string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+            'relationship_city' => 'string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+            'relationship_postal_code' => 'string|min:5|max:6|regex:/^[0-9-]*$/',
         ]);
 
         // Check the form ID in the session
@@ -262,18 +270,22 @@ class PatientController extends Controller
 
         // Validate the request
         $validatedData = $request->validate([
-            'firstName' => 'nullable|string|max:255',
-            'lastName' => 'nullable|string|max:255',
+            'firstName' => 'nullable|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+            'lastName' => 'nullable|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
             'institution' => 'nullable|string',
             'country' => 'nullable|integer',
             'state' => 'nullable|integer',
-            'city' => 'nullable|string|max:255',
-            'postalCode' => 'nullable|string|max:10',
+            'city' => 'nullable|string|max:255|regex:/^[a-zA-Z-\'\s]*$/',
+            'postalCode' => 'nullable|string|min:5|max:6|regex:/^[0-9-]*$/',
             'streetAddress' => 'nullable|string|max:255',
             'email' => 'nullable|string|max:255',
-            'phone_number' => 'nullable|integer',
+            'phone_number' => 'nullable|integer|min:9|max:15|regex:/^[0-9-]*$/',
             'patientId' => 'required|integer',
         ]);
+
+        if( $requestData["email"] !== $requestData["confirm_email"]) {
+            return response()->json(['error' => 'Email and Confirm Email do not match.'], 422);
+        }
 
         // Check the form ID in the session
         $formId = session('form_id');
@@ -307,10 +319,10 @@ class PatientController extends Controller
 
         // Validate the request
         $validatedData = $request->validate([
-            'primary_diagnosis' => 'nullable|string|max:255',
-            'treated_before' => 'nullable|string|max:255',
-            'surgery_description' => 'nullable|string',
-            'request_description' => 'nullable|string',
+            'primary_diagnosis' => 'nullable|string|max:255|regex:/^[a-zA-Z-,\'\s]*$/',
+            'treated_before' => 'nullable|string|max:255|regex:/^[a-zA-Z-,\'\s]*$/',
+            'surgery_description' => 'nullable|string|regex:/^[a-zA-Z-,\'\s]*$/',
+            'request_description' => 'nullable|string|regex:/^[a-zA-Z-,\'\s]*$/',
             'patientId' => 'required|integer',
         ]);
 
@@ -472,6 +484,15 @@ class PatientController extends Controller
         return redirect()->route('home');
     }
 
+    public function thankYou() {
+        session()->flush();
+        return view('final-thank-you');
+    }
+
+    public function redirectToHome() {
+        session()->flush();
+        return redirect()->route('home');
+    }
     
 }
 ?>

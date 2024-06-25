@@ -143,7 +143,7 @@
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     <select class="states" name="states" id="states" required>
-                                        @if(isset($patientDetails->state))
+                                        @if(isset($patientDetails->state) && !empty(isset($patientDetails->state)))
                                             @foreach($states as $state)
                                                 <option {{(isset($patientDetails->state) && $patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
                                             @endforeach
@@ -609,8 +609,7 @@
                                         <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                             <div class="mt-1 form__field">
                                                 <label class="form__choice-wrapper">
-                                                <input  id="patient_agreement" type="checkbox" name="patient_agreement" value="Yes" class="checkAllAppendix" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}
-                                                        class="patientAgreement">
+                                                <input  id="all_patient_agreements" type="checkbox" name="patient_agreement" value="Yes" class="checkAllAppendix" {{isset($expertOpinionRequests->patient_agreement) ? 'checked' : ''}}>
                                                     <span>I agree to all of the following:</span>                        
                                                 </label>
                                                 <label class="form__choice-wrapper">
@@ -1296,6 +1295,7 @@
         }
 
         const invalidFields = [...fields].filter(field => {
+            console.log(field.id);
         return !isValid(field);
         });
 
@@ -1827,7 +1827,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to check the state of all checkboxes and enable/disable the submit button for payment
     const submitBtn = document.getElementById('agreeAndProceedButton');
     function updateSubmitButtonState() {
-        
+        document.getElementById('all_patient_agreements').disabled = true;
         const digital_signature = document.getElementById('re_type_name').value.trim();
         const checkboxes = document.querySelectorAll('.patientAgreement');
         let allChecked = false;
@@ -2433,7 +2433,7 @@ $(document).ready(function () {
 
 
       $("#date_of_birth").datepicker({
-            dateFormat: 'yy-mm-dd', 
+            dateFormat: 'mm-dd-yy', 
             changeMonth: true,
             changeYear: true,
             yearRange: '-300:+0',
