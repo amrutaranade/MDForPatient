@@ -2543,6 +2543,8 @@ $(document).ready(function () {
     });
 
 
+    var currentYear = new Date().getFullYear();
+    var minYear = currentYear - 300;
     $("#date_of_birth").datepicker({
         dateFormat: 'mm-dd-yy', 
         changeMonth: true,
@@ -2550,9 +2552,12 @@ $(document).ready(function () {
         yearRange: '-300:+0',
         maxDate: 'today',
         onClose: function(dateText, inst) {
-            var dateFormat = $.datepicker._defaults.dateFormat;
+            var year = parseInt(dateText.split('-')[2], 10);
             if (!dateText.match(/^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\d{4}$/)) {
-                alert("Invalid date format. Please use mm-dd-yy format.");
+                alert("Invalid date format. Please use mm-dd-yyyy format.");
+                $(this).val('');
+            } else if (year < minYear || year > currentYear) {
+                alert("Year should be between " + minYear + " and " + currentYear + ".");
                 $(this).val('');
             }
         }
