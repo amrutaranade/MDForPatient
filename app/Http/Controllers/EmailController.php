@@ -11,18 +11,14 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpEmail;
 use App\Mail\WelcomeEmail;
 class EmailController extends Controller
-{
-    
-   
-        public function sendEmail($recipientEmail, $details)
-        {
-            Mail::to($recipientEmail)->send(new OtpEmail($details));
-        }
+{    public function sendEmail($recipientEmail, $details)
+    {
+        Mail::to($recipientEmail)->send(new OtpEmail($details));
+    }
 
-        public function sendWelcomEmail($recipientEmail, $details)
-        {
-            Mail::to($recipientEmail)->send(new WelcomeEmail($details));
-        }
-    
+    public function sendWelcomEmail($recipientEmail, $details, $ccName, $ccEmail)
+    {
+        Mail::to($recipientEmail)->cc($ccEmail, $ccName)->send(new WelcomeEmail($details));
+    } 
 
 }

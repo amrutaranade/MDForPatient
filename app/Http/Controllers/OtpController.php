@@ -81,7 +81,7 @@ class OtpController extends Controller
         ];
 
         // Send OTP via email using EmailController's sendEmail method
-        $this->emailController->sendEmail($recipientEmail, $details);
+        $this->emailController->sendEmail($recipientEmail, $details, null, null);
         // Send OTP via email
         // Mail::raw("Your OTP is: $otp", function($message) use ($user) {
         //     $message->to($user->email)

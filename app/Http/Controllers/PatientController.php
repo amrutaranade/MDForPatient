@@ -320,15 +320,14 @@ class PatientController extends Controller
     {
         $requestData = $request->all();
 
-        // Validate the request
         $validatedData = $request->validate([
-            'primary_diagnosis' => 'nullable|string|max:255|regex:/^[a-zA-Z-,\'\s]*$/',
-            'treated_before' => 'nullable|string|max:255|regex:/^[a-zA-Z-,\'\s]*$/',            
-            'request_description' => 'nullable|string|regex:/^[a-zA-Z-,\'\s]*$/',
+            'primary_diagnosis' => 'nullable|string|max:255',
+            'treated_before' => 'nullable|string|max:255',
+            'request_description' => 'nullable|string',
             'patientId' => 'required|integer',
         ]);
-
         
+               
 
         // Check the form ID in the session
         $formId = session('form_id');
@@ -427,8 +426,7 @@ class PatientController extends Controller
         return response()->json(['message' => 'Invalid or expired OTP.'], 400);
     }
 
-    public function upload(Request $request)
-    {        
+    public function upload(Request $request) {        
         $folderName = session("patient_consulatation_number");
         $file = $request->files->get('qqfile');
 
@@ -445,20 +443,21 @@ class PatientController extends Controller
        
         $patientId = session('patient_id');
         if($patientId){
+            // Get patient email
+            $patient = PatientsRegistrationDetail::find($patientId);
+            $patientDetailsEmail = Crypt::decryptString($patient->email);
+            $recipientEmail = $patientDetailsEmail;
+            $details = [
+                'title' => 'Welcome to MD For Patients',
+                'body' => $patientConsulatationNumber
+            ];
 
-        // Get patient email
-        $patient = PatientsRegistrationDetail::find($patientId);
-        $patientDetailsEmail = Crypt::decryptString($patient->email);
-        $recipientEmail = $patientDetailsEmail;
-        $details = [
-            'title' => 'Welcome to MD For Patients',
-            'body' => $patientConsulatationNumber
-        ];
+            $ccEmail = 'aalex@discoveralpha.com';
+            $ccName = 'Anija Alex';
 
-        // Send email
-        $this->emailController->sendWelcomEmail($recipientEmail, $details);
-
-         }
+            // Send email
+            $this->emailController->sendWelcomEmail($recipientEmail, $details, $ccName, $ccEmail);
+        }
         session()->flush();
 
         return view('thank-you', [

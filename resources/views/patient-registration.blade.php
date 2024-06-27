@@ -11,7 +11,7 @@
             <div class="col-lg-12 col-xl-8 px-xl-0">
                 <div class="containerHeader">
                     <div class="titleHeader">Expert Opinion Request</div>
-                    <div class="alertHeader">If this is a time-sensitive or urgent request, please contact 911 or seek local medical care as appropriate.</div>
+                    <div class="alertHeader">If you're contacting us about a medical emergency, please call 911.</div>
                 </div>
                 <br/>
             </div>
@@ -91,7 +91,7 @@
                                     $dateOfBirth = isset($patientDetails->date_of_birth) ? new DateTime($patientDetails->date_of_birth) : null;
                                     $formattedDateOfBirth = $dateOfBirth ? $dateOfBirth->format('m-d-Y') : '';
                                     ?>
-                                    <input readonly id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('m-d-Y')}}" value="{{$formattedDateOfBirth}}">
+                                    <input id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('m-d-Y')}}" value="{{$formattedDateOfBirth}}">
                                     </div>
 
                                 </div>
@@ -112,23 +112,25 @@
                                     </div>
                                     <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
-                                        <label for="City">
-                                            City
-                                            <span data-required="true" aria-hidden="true"></span>
-                                        </label>
-                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{isset($patientDetails->city) ? $patientDetails->city : ''}}">
+                                            <label for="postal_code">
+                                                Postal Code
+                                                <span data-required="true" aria-hidden="true"></span>
+                                            </label>
+                                            <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{isset($patientDetails->postal_code) ? $patientDetails->postal_code: ''}}">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                    
                                     <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="postal_code">
-                                        Postal Code
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{isset($patientDetails->postal_code) ? $patientDetails->postal_code: ''}}">
-                                    </div>
+                                        <label for="City">
+                                            City
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{isset($patientDetails->city) ? $patientDetails->city : ''}}">
+                                    </div>                                   
+                                    
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="Country">
                                         Country
@@ -249,6 +251,13 @@
                                         <input id="relationship_street_address" type="text" name="relationship_street_address" autocomplete="given-name" value="{{isset($contactParty->street_address) ? $contactParty->street_address : ''}}">
                                         </div>
                                     </div>
+                                    
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="relationship_postal_code">
+                                        Postal Code
+                                    </label>
+                                    <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" value="{{isset($contactParty->postal_code) ? $contactParty->postal_code : ''}}">
+                                    </div>
                                     <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
                                         <label for="relationship_city">
@@ -256,12 +265,6 @@
                                         </label>
                                         <input id="relationship_city" type="text" name="relationship_city" autocomplete="given-name" value="{{isset($contactParty->city) ? $contactParty->city : ''}}">
                                         </div>
-                                    </div>
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="relationship_postal_code">
-                                        Postal Code
-                                    </label>
-                                    <input id="relationship_postal_code" minlength="5" maxlength="6" type="text" name="relationship_postal_code" autocomplete="given-name" value="{{isset($contactParty->postal_code) ? $contactParty->postal_code : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-3 sm:mt-3">                                
@@ -425,19 +428,20 @@
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="city">
-                                        City
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <input id="city-step3" type="text" name="citystep3" autocomplete="given-name" required value="{{isset($referringPhysician->city) ? $referringPhysician->city : ''}}">
-                                    </div>
+                                    
 
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="postal_code">
                                         Postal Code
                                     </label>
                                     <input id="postal_code_step3" type="text" minlength="5" maxlength="6" name="postalcodestep3" autocomplete="given-name" value="{{isset($referringPhysician->postal_code) ? $referringPhysician->postal_code : ''}}">
+                                    </div>
+                                    <div class="mt-3 sm:mt-0 form__field">
+                                    <label for="city">
+                                        City
+                                        <span data-required="true" aria-hidden="true"></span>
+                                    </label>
+                                    <input id="city-step3" type="text" name="citystep3" autocomplete="given-name" required value="{{isset($referringPhysician->city) ? $referringPhysician->city : ''}}">
                                     </div>
                                 </div>
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
@@ -2539,13 +2543,20 @@ $(document).ready(function () {
     });
 
 
-      $("#date_of_birth").datepicker({
-            dateFormat: 'mm-dd-yy', 
-            changeMonth: true,
-            changeYear: true,
-            yearRange: '-300:+0',
-            maxDate: 'today',
-        });
+    $("#date_of_birth").datepicker({
+        dateFormat: 'mm-dd-yy', 
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-300:+0',
+        maxDate: 'today',
+        onClose: function(dateText, inst) {
+            var dateFormat = $.datepicker._defaults.dateFormat;
+            if (!dateText.match(/^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\d{4}$/)) {
+                alert("Invalid date format. Please use mm-dd-yy format.");
+                $(this).val('');
+            }
+        }
+    });
 
 });
 </script>
@@ -2618,7 +2629,7 @@ $(document).ready(function () {
     document.addEventListener("DOMContentLoaded", function() {
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        $('#fine-uploader-manual-trigger').fineUploader({
+        var uploader = $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
             retry: {
                 enableAuto: true
@@ -2645,6 +2656,16 @@ $(document).ready(function () {
                     } else {
                         window.location = "/final-submission";
                     }
+                    checkAllUploadsComplete();
+                },
+                onComplete: function(id, name, response) {
+                    checkAllUploadsComplete();
+                },
+                onCancel: function(id, name) {
+                    checkAllUploadsComplete();
+                },
+                onDeleteComplete: function(id, xhr, isError) {
+                    checkAllUploadsComplete();
                 }
             },
             request: {
@@ -2662,6 +2683,14 @@ $(document).ready(function () {
             autoUpload: false
         });
 
+        // Function to check if all uploads are complete and enable the buttons
+        function checkAllUploadsComplete() {
+            if ($('#fine-uploader-manual-trigger').fineUploader('getInProgress') === 0) {
+                $("#trigger-upload").removeAttr('disabled');
+                $("#backBtnMedicalRecords").removeAttr('disabled');
+            }
+        }
+
         $('#trigger-upload').click(function() {
             $("#trigger-upload").attr('disabled', 'disabled');
             $("#backBtnMedicalRecords").attr('disabled', 'disabled');
@@ -2670,11 +2699,12 @@ $(document).ready(function () {
     });
 
     document.getElementById('re_type_name').addEventListener('input', function (event) {
-            const input = event.target;
-            const cleanedValue = input.value.replace(/[^a-z A-Z\s]/g, '');
-            if (input.value !== cleanedValue) {
-                input.value = cleanedValue;
-            }
-        });
+        const input = event.target;
+        const cleanedValue = input.value.replace(/[^a-z A-Z\s]/g, '');
+        if (input.value !== cleanedValue) {
+            input.value = cleanedValue;
+        }
+    });
 </script>
+
 @endsection
