@@ -514,7 +514,7 @@
                                 <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
                                     <div class="mt-3 sm:mt-0 form__field">
                                     <label for="primary_diagnosis">
-                                        Please provide the Primary Diagnosis* (If known, please let us know)
+                                        Please provide the Primary Diagnosis* (If unknown, enter 'unknown')
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
                                     <input id="primary_diagnosis" type="text" name="primary_diagnosis" autocomplete="given-name" required value="{{isset($patientPrimaryConcern->primary_diagnosis) ? $patientPrimaryConcern->primary_diagnosis : ''}}">
@@ -1066,7 +1066,7 @@
             return { isValid: false, message: 'Institution name must be at most 100 characters long.' };
         } else if (field.name === 'institution' && val === '') {
            return { isValid: true }
-        }  else if (!/^[a-z A-Z0-9\s]*$/.test(val)) {
+        }  else if (!/^[a-zA-Z0-9\s'’-]*$/.test(val)) {
             return { isValid: false, message: 'Please enter a valid institution name with alphanumeric characters and spaces only.' };
         } else {
             return { isValid: true };
@@ -1079,8 +1079,8 @@
 
         if (val === '' && field.required) {
             return { isValid: false, message: 'This field is required.' };
-        }  else if (!/^[a-z A-Z0-9\s\-']*$/.test(val)) {
-            return { isValid: false, message: 'Please enter a valid data.' };
+        } else if (!/^[a-zA-Z0-9\s\-',.!?()°%+:;"/\[\]{}<>@#$^&*~_=`\|]*$/.test(val)) {
+            return { isValid: false, message: 'Please enter valid data.' };
         } else {
             return { isValid: true };
         }
