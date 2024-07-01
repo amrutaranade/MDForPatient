@@ -111,6 +111,9 @@ class PatientController extends Controller
 
     public function savePatientsDetailsFormSection1(Request $request)
 {
+    if(Session::get("session_destroyed") == true) {
+        return response()->json(['error' => 'Session Expired.'], null);
+    }
     $requestData = $request->all();
 
     // Check if a form ID is present in the session
@@ -221,6 +224,10 @@ class PatientController extends Controller
 
     public function saveContactPartyFormSection2(Request $request)
     {
+        if(Session::get("session_destroyed") == true) {
+            return response()->json(['error' => 'Session Expired.'], null);
+        }
+
         $requestData = $request->all();
 
         // Validate the request
@@ -270,6 +277,10 @@ class PatientController extends Controller
 
     public function savePatientsPhysicianFormSection3(Request $request)
     {
+        if(Session::get("session_destroyed") == true) {
+            return response()->json(['error' => 'Session Expired.'], null);
+        }
+
         $requestData = $request->all();
 
         // Validate the request
@@ -319,6 +330,10 @@ class PatientController extends Controller
 
     public function savePrimaryConcernsFormSection4(Request $request)
     {
+        if(Session::get("session_destroyed") == true) {
+            return response()->json(['error' => 'Session Expired.'], null);
+        }
+        
         $requestData = $request->all();
 
         $validatedData = $request->validate([
@@ -500,6 +515,8 @@ class PatientController extends Controller
     {
         if(Session::get("session_destroyed") == true) {
             return response()->json(['session_expired' => true, 'message' => 'Your session has expired due to inactivity.']);
+        } else {
+            return response()->json(['session_expired' => false, 'message' => '']);
         }
     }
 

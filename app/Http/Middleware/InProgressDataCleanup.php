@@ -29,7 +29,7 @@ class InProgressDataCleanup
             Log::info("Last Activity - ". $lastActivity);
             Log::info("Patient Id - ". $patientId);
             Log::info("time diff - ". now()->diffInMinutes($lastActivity));
-            Log::info("session.lifetime - ". 1);
+            
             if ($lastActivity && now()->diffInMinutes($lastActivity) > 1) {
                 $patientId = Session::get('patient_id');
                 $patient = PatientsRegistrationDetail::find($patientId);
@@ -47,11 +47,10 @@ class InProgressDataCleanup
                 Session::forget('last_activity');
                 Session::put("session_destroyed", true);
                 return redirect()->route('home');//->with('session_expired', 'Your session has expired due to inactivity.');
-            }
-
-            Session::put('last_activity', now());
+            }            
         }
-
+        
+        Session::put('last_activity', now());
         return $next($request);
     }
 

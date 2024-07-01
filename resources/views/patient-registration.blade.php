@@ -2717,7 +2717,7 @@ $(document).ready(function () {
 <script>
     (function() {
         // Define the interval time (e.g., every 30 seconds) for checking the session status
-        const checkInterval = 30 * 1000; // 30 seconds
+        const checkInterval = 5 * 1000; // 30 seconds
         const maxInactivityTime = 2 * 60 * 1000; // 2 minutes in milliseconds for testing
 
         // Function to check the session status
@@ -2730,13 +2730,12 @@ $(document).ready(function () {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Session check response:', data);
                 if (data.session_expired) {
                     alert(data.message);
                     window.location.href = "{{ route('home') }}";
                 }
             })
-            .catch(error => console.error('Error checking session:', error));
+            .catch(error => "");
         }
 
         // Function to reset the timer and set up event listeners for user activity
@@ -2746,7 +2745,6 @@ $(document).ready(function () {
             function resetTimer() {
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
-                    console.log('User inactive, checking session...');
                     checkSession();
                 }, maxInactivityTime);
             }
