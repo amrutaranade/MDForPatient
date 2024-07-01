@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'update.form.timestamp' => \App\Http\Middleware\UpdateFormTimestamp::class       
+        'update.form.timestamp' => \App\Http\Middleware\UpdateFormTimestamp::class,
+        'in_progress_cleanup' => \App\Http\Middleware\InProgressDataCleanup::class,       
     ];
 }

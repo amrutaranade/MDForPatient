@@ -1,5 +1,11 @@
 @extends("layout")
 @section("content")
+@if (session('message'))
+    <div class="alert alert-warning">
+        {{ session('message') }}
+    </div>
+@endif
+
 <div id="loading-screen">
         <img src="/dist/assets/images/loader.gif" />
         <p class="fw-bold">Please wait we are processing your request...</p>
