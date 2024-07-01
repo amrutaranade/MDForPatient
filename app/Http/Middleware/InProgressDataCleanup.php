@@ -30,7 +30,7 @@ class InProgressDataCleanup
             Log::info("Patient Id - ". $patientId);
             Log::info("time diff - ". now()->diffInMinutes($lastActivity));
             
-            if ($lastActivity && now()->diffInMinutes($lastActivity) > 1) {
+            if ($lastActivity && now()->diffInMinutes($lastActivity) > 20) {
                 $patientId = Session::get('patient_id');
                 $patient = PatientsRegistrationDetail::find($patientId);
                 if ($patient) {
@@ -40,7 +40,7 @@ class InProgressDataCleanup
                     ReferringPhysician::where('patient_id', $patient->id)->delete();
                     PatientPrimaryConcern::where('patient_id', $patient->id)->delete();
                     $patient->delete();
-                    Log::info("Patient data deleted". $patientId);
+                    Log::info("Patient data deleted - ". $patientId);
                 }
                 session()->flush();
                 Session::forget('patient_id');
