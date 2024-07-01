@@ -714,7 +714,7 @@
                                                     <div style="padding-right: 28px;" class="mt-5 mb-5">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     <button id="card-button" class="btn btn-primary btn-success" data-secret="">
-                                                        Pay $199.00
+                                                        Pay {{config("services.stripe.stripe_display_amount")}}
                                                     </button>
                                                     </div>
                                                 </div>
