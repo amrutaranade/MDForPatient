@@ -46,10 +46,10 @@ class InProgressDataCleanup
                 Session::forget('patient_id');
                 Session::forget('last_activity');
                 Session::put("session_destroyed", true);
-                return redirect()->route('home');//->with('session_expired', 'Your session has expired due to inactivity.');
+                //return redirect()->route('home');//->with('session_expired', 'Your session has expired due to inactivity.');
             }            
         }
-        
+
         Session::put('last_activity', now());
         return $next($request);
     }
