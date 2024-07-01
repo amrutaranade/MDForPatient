@@ -499,6 +499,7 @@ class PatientController extends Controller
     public function checkSession(Request $request)
     {
         if(Session::get("session_destroyed") == true) {
+            Session::put("session_destroyed", false);
             return response()->json(['session_expired' => true, 'message' => 'Your session has expired due to inactivity.']);
         } else {
             return response()->json(['session_expired' => false, 'message' => '']);
