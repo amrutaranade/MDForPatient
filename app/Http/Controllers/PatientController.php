@@ -81,6 +81,7 @@ class PatientController extends Controller
             ]);
         }
 
+        Session::put("session_destroyed", false);
         return view('patient-registration', [
             'countries' => $getCountriesData,
             'states' => $getStatesData
@@ -493,6 +494,26 @@ class PatientController extends Controller
         session()->flush();
         
         return redirect()->route('show.otp.form');
+    }
+
+    public function checkSession(Request $request)
+    {
+        if(Session::get("session_destroyed") == true) {
+            return response()->json(['session_expired' => true, 'message' => 'Your session has expired due to inactivity.']);
+        }
+    }
+
+    private function cleanupInProgressData($patientId)
+    {
+        $patient = PatientsRegistrationDetail::find($patientId);
+        if ($patient) {
+            PatientMedicalRecords::where('patient_id', $patient->id)->delete();
+            PatientExpertOpinionRequest::where('patient_id', $patient->id)->delete();
+            ContactParty::where('patient_id', $patient->id)->delete();
+            ReferringPhysician::where('patient_id', $patient->id)->delete();
+            PatientPrimaryConcern::where('patient_id', $patient->id)->delete();
+            $patient->delete();
+        }
     }
     
 }

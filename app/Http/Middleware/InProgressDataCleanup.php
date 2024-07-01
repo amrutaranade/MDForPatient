@@ -23,20 +23,15 @@ class InProgressDataCleanup
      */
     public function handle($request, Closure $next)
     {
+        $patientId = Session::get('patient_id');
         if (Session::has('patient_id')) {
-            $patientId = Session::get('patient_id');
             $lastActivity = Session::get('last_activity');
-
-            // Debugging logs
-            Log::info('Middleware executed.');
-            Log::info('Patient ID: ' . $patientId);
-            Log::info('Last Activity: ' . $lastActivity);
-
-            // Check if the session has timed out
-            if ($lastActivity && now()->diffInMinutes($lastActivity) >= 2) {
-                Log::info('Session timed out.');
-
-                // Perform the deletions
+            Log::info("Last Activity - ". $lastActivity);
+            Log::info("Patient Id - ". $patientId);
+            Log::info("time diff - ". now()->diffInMinutes($lastActivity));
+            Log::info("session.lifetime - ". 1);
+            if ($lastActivity && now()->diffInMinutes($lastActivity) > 1) {
+                $patientId = Session::get('patient_id');
                 $patient = PatientsRegistrationDetail::find($patientId);
                 if ($patient) {
                     PatientMedicalRecords::where('patient_id', $patient->id)->delete();
@@ -45,24 +40,32 @@ class InProgressDataCleanup
                     ReferringPhysician::where('patient_id', $patient->id)->delete();
                     PatientPrimaryConcern::where('patient_id', $patient->id)->delete();
                     $patient->delete();
+                    Log::info("Patient data deleted". $patientId);
                 }
-
-                // Remove patient_id from session
+                session()->flush();
                 Session::forget('patient_id');
                 Session::forget('last_activity');
-
-                // Set a flash message for session expiration
-                Session::flash('message', 'Your session has expired due to inactivity.');
-
-                // Redirect to home page
-                return redirect()->route('home');
+                Session::put("session_destroyed", true);
+                return redirect()->route('home');//->with('session_expired', 'Your session has expired due to inactivity.');
             }
 
-            // Update last activity timestamp
             Session::put('last_activity', now());
         }
 
         return $next($request);
+    }
+
+    private function cleanupInProgressData($patientId)
+    {
+        $patient = PatientsRegistrationDetail::find($patientId);
+        if ($patient) {
+            PatientMedicalRecords::where('patient_id', $patient->id)->delete();
+            PatientExpertOpinionRequest::where('patient_id', $patient->id)->delete();
+            ContactParty::where('patient_id', $patient->id)->delete();
+            ReferringPhysician::where('patient_id', $patient->id)->delete();
+            PatientPrimaryConcern::where('patient_id', $patient->id)->delete();
+            $patient->delete();
+        }
     }
 }
 ?>

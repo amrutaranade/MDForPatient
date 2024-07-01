@@ -1,8 +1,8 @@
 @extends("layout")
 @section("content")
-@if (session('message'))
+@if (session('session_expired'))
     <div class="alert alert-warning">
-        {{ session('message') }}
+        {{ session('session_expired') }}
     </div>
 @endif
 
@@ -1277,7 +1277,6 @@ const isEmailInDatabase = (email) => {
         return response.json();
     })
     .then(data => {
-        console.log("amruta", data.exists);
         return data.exists; // Assuming the response contains a boolean indicating if the email exists
     })
     .catch(error => {
@@ -1380,7 +1379,6 @@ const isEmailInDatabase = (email) => {
         }
 
         const invalidFields = [...fields].filter(field => {
-            console.log(field.id);
         return !isValid(field);
         });
 
@@ -1500,7 +1498,6 @@ const isEmailInDatabase = (email) => {
 
     function reportValidity(field) {
         const validation = getValidationData(field);
-        console.log('validation->', validation)
         if (!validation.isValid && validation.message) {
         reportError(field, validation.message);
         } else if (!validation.isValid) {
@@ -2716,6 +2713,60 @@ $(document).ready(function () {
             input.value = cleanedValue;
         }
     });
+</script>
+<script>
+    (function() {
+        // Define the interval time (e.g., every 30 seconds) for checking the session status
+        const checkInterval = 30 * 1000; // 30 seconds
+        const maxInactivityTime = 2 * 60 * 1000; // 2 minutes in milliseconds for testing
+
+        // Function to check the session status
+        function checkSession() {
+            fetch('/check-session', {
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Session check response:', data);
+                if (data.session_expired) {
+                    alert(data.message);
+                    window.location.href = "{{ route('home') }}";
+                }
+            })
+            .catch(error => console.error('Error checking session:', error));
+        }
+
+        // Function to reset the timer and set up event listeners for user activity
+        function setupInactivityTimer() {
+            let timeout;
+
+            function resetTimer() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    console.log('User inactive, checking session...');
+                    checkSession();
+                }, maxInactivityTime);
+            }
+
+            // Event listeners to reset the timer on user activity
+            window.onload = resetTimer;
+            document.onmousemove = resetTimer;
+            document.onkeypress = resetTimer;
+            document.onscroll = resetTimer;
+        }
+
+        // Initial setup
+        setupInactivityTimer();
+
+        // Periodically check the session status
+        setInterval(() => {
+            console.log('Periodically checking session...');
+            checkSession();
+        }, checkInterval);
+    })();
 </script>
 
 @endsection

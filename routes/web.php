@@ -23,9 +23,9 @@ use App\Http\Controllers\OtpController;
 //     return view('patient-registration');
 // });
 
-
+Route::get('/', [PatientController::class, 'patientFormView'])->name('home');
 Route::middleware(['in_progress_cleanup'])->group(function () {
-    Route::get('/', [PatientController::class, 'patientFormView'])->name('home');
+    
     Route::get('/final-submission', [PatientController::class, 'finalSubmission'])->name("final-submission");
     Route::get('/get-states/{country_id}', [PatientController::class, 'getStates']);
     Route::post('/save-patients-details-form', [PatientController::class, 'savePatientsDetailsFormSection1'])->name('save.form')->middleware('update.form.timestamp');;
@@ -102,3 +102,6 @@ Route::middleware(['in_progress_cleanup'])->group(function () {
     Route::get("thank-you",[PatientController::class, 'thankYou'])->name("thank-you");
     Route::get("redirectToHome",[PatientController::class, 'redirectToHome'])->name("redirectToHome");
 });
+
+Route::get('/check-session', [PatientController::class, 'checkSession']);
+
