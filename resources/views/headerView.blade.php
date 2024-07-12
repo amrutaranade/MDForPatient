@@ -4,12 +4,12 @@
           <a class="navbar-brand brand-logo-mini" href="/"><img src="/dist/assets/images/logo-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
-          
+        @if(session("final-submission") == true)
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-logout d-none d-lg-block">       
               <button class="btn btn-gradient-light btn-rounded btn-fw btnLogout">Logout</button>
             </li>
           </ul>
-          
+        @endif
         </div>
       </nav>
