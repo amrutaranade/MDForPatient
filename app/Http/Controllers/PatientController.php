@@ -143,7 +143,7 @@ class PatientController extends Controller
     }
 
     // Check if a patient already exists with the provided email and ID
-    $existingPatient = $patientId ? PatientsRegistrationDetail::where(['id' => $patientId, "email"=>$requestData["email"]])->first() : null;
+    $existingPatient = $patientId ? PatientsRegistrationDetail::where(['id' => $patientId])->first() : null;
 
     $dateString = $requestData["dateOfBirth"];
     $dob = DateTime::createFromFormat('m-d-Y', $dateString);      
@@ -398,36 +398,6 @@ class PatientController extends Controller
         return response()->json(['message' => 'OTP sent to your email.']);
     }
 
-    public function validateCaseNumber(Request $request) {
-        $caseNumber = $request->input('case_number');
-        // Replace with actual validation logic
-        $validCaseNumbers = PatientsRegistrationDetail::Where('patient_consulatation_number', $caseNumber)->first();
-
-        if ($caseNumber == $validCaseNumbers->patient_consulatation_number) {
-            $this->generateOtp(1);
-            return response()->json(['message' => 'Valid case number.']);
-        }
-
-        return response()->json(['message' => 'Invalid case number.'], 400);
-    }
-
-    public function verifyOtp(Request $request) {
-        //$user = auth()->user();
-        $otp = $request->input('otp');
-
-        // Retrieve the latest OTP for the user
-        $otpEntry = Otp::where('otp', $otp)
-                        ->where('expires_at', '>', Carbon::now())
-                        ->orderBy('created_at', 'desc')
-                        ->first();
-
-        if ($otpEntry) {
-            return redirect("patientConsultationView");
-        }
-
-        return response()->json(['message' => 'Invalid or expired OTP.'], 400);
-    }
-
     public function upload(Request $request) {     
         $folderName = session("patient_consulatation_number");
         $file = $request->files->get('qqfile');
@@ -456,7 +426,7 @@ class PatientController extends Controller
         if($patientId){
             // Get patient email
             $patient = PatientsRegistrationDetail::find($patientId);
-            $patientDetailsEmail = Crypt::decryptString($patient->email);
+            $patientDetailsEmail = $patient->email;
             $recipientEmail = $patientDetailsEmail;
             $details = [
                 'title' => 'Welcome to MD For Patients',
@@ -547,9 +517,9 @@ class PatientController extends Controller
         // Get patient details
         $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
         // Decrypt the email before passing it to the view
-        if ($patientDetails && !empty($patientDetails->email)) {
-            $patientDetails->email = Crypt::decryptString($patientDetails->email);
-        }
+        // if ($patientDetails && !empty($patientDetails->email)) {
+        //     $patientDetails->email = Crypt::decryptString($patientDetails->email);
+        // }
         $contactParty = ContactParty::Where('patient_id', $patientId)->first();
         $referringPhysician = ReferringPhysician::Where('patient_id', $patientId)->first();
         $patientPrimaryConcern = PatientPrimaryConcern::Where('patient_id', $patientId)->first();
@@ -575,6 +545,11 @@ class PatientController extends Controller
         $pdfFilePath = public_path('pdf/' . $fileName);
         
         return $pdfFilePath;
+    }
+
+    public function logout(Request $request) {
+        session()->flush();
+        return redirect()->route('show.otp.form');
     }
     
 }

@@ -1886,10 +1886,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        $('#fine-uploader-manual-trigger').fineUploader({
+        var uploader = $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
             retry: {
                 enableAuto: true
@@ -1916,6 +1916,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         window.location = "/thank-you";
                     }
+                    checkAllUploadsComplete();
+                },
+                onComplete: function(id, name, response) {
+                    checkAllUploadsComplete();
+                },
+                onCancel: function(id, name) {
+                    checkAllUploadsComplete();
+                },
+                onDeleteComplete: function(id, xhr, isError) {
+                    checkAllUploadsComplete();
                 }
             },
             request: {
@@ -1933,9 +1943,17 @@ document.addEventListener('DOMContentLoaded', function() {
             autoUpload: false
         });
 
+        // Function to check if all uploads are complete and enable the buttons
+        function checkAllUploadsComplete() {
+            if ($('#fine-uploader-manual-trigger').fineUploader('getInProgress') === 0) {
+                //$("#trigger-upload").removeAttr('disabled');
+                //$("#backBtnMedicalRecords").removeAttr('disabled');
+            }
+        }
+
         $('#trigger-upload').click(function() {
             $("#trigger-upload").attr('disabled', 'disabled');
-            $(".backBtnMedicalRecords").attr('disabled', 'disabled');
+            $("#backBtnMedicalRecords").attr('disabled', 'disabled');
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
     });

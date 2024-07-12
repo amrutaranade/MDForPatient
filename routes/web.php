@@ -104,4 +104,5 @@ Route::middleware(['in_progress_cleanup'])->group(function () {
 });
 
 Route::get('/check-session', [PatientController::class, 'checkSession']);
+Route::get('/logout', [PatientController::class, 'logout'])->name('logout');
 

@@ -71,7 +71,7 @@ class OtpController extends Controller
 
         // Get patient email
         $patient = PatientsRegistrationDetail::find($patientId);
-        $patientDetailsEmail = Crypt::decryptString($patient->email);
+        $patientDetailsEmail = $patient->email;
         $recipientEmail =  $patientDetailsEmail;
 
         // Prepare email details
@@ -139,10 +139,7 @@ class OtpController extends Controller
             return redirect()->route('show.otp.form');
         }
         $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
-        // Decrypt the email before passing it to the view
-        if ($patientDetails && !empty($patientDetails->email)) {
-            $patientDetails->email = Crypt::decryptString($patientDetails->email);
-        }
+        
         $contactParty = ContactParty::Where('patient_id', $patientId)->first();
         $referringPhysician = ReferringPhysician::Where('patient_id', $patientId)->first();
         $patientPrimaryConcern = PatientPrimaryConcern::Where('patient_id', $patientId)->first();
@@ -172,7 +169,7 @@ class OtpController extends Controller
                 'authToken' => $this->shareFileService->getAccessToken()
             ]);
         } else {       
-            return false;
+            return redirect()->route('show.otp.form');
         }
     }
 

@@ -98,6 +98,9 @@
             background-color: #00CED1;
             padding: 20px;
         }
+        #case-form{
+            width:100%
+        }
     
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
@@ -152,6 +155,9 @@
             if (confirm("You will lose filled data. Are you sure you want to discard the application?")) {
                 window.location.href = "{{ route('discard-application') }}";
             }
+        });
+        $(document).on('click', '.register', function() {            
+            window.location.href = "{{ route('home') }}";        
         });
     </script>
 </body>

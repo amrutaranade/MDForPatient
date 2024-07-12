@@ -83,5 +83,12 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="/fine-uploader/jquery.fine-uploader.js"></script>
     <!-- End custom js for this page -->
+      <!-- End custom js for this page -->
+    <script>
+        $(document).on('click', '.btnLogout', function() {            
+          window.location.href = "{{ route('logout') }}";            
+        });
+        
+    </script>
   </body>
 </html>
