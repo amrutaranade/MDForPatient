@@ -487,7 +487,7 @@ class PatientController extends Controller
     public function redirectToHome() {
         session()->flush();
         
-        return redirect()->route('show.otp.form');
+        return redirect()->route('home');
     }
 
     public function checkSession(Request $request)
@@ -549,7 +549,7 @@ class PatientController extends Controller
 
     public function logout(Request $request) {
         session()->flush();
-        return redirect()->route('show.otp.form');
+        return redirect()->route('home');
     }
     
 }

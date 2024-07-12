@@ -23,7 +23,7 @@ use App\Http\Controllers\OtpController;
 //     return view('patient-registration');
 // });
 
-Route::get('/', [PatientController::class, 'patientFormView'])->name('home');
+Route::get('/', [PatientController::class, 'patientFormView']);
 Route::middleware(['in_progress_cleanup'])->group(function () {
     
     Route::get('/final-submission', [PatientController::class, 'finalSubmission'])->name("final-submission");
@@ -65,7 +65,7 @@ Route::middleware(['in_progress_cleanup'])->group(function () {
     Route::post('/validate-case-number', [OtpController::class, 'validateCaseNumber']);
     Route::post('/generate-otp', [OtpController::class, 'generateOtp']);
     Route::post('/verify-otp', [OtpController::class, 'verifyOtp']);
-    Route::get('/otp', [OtpController::class, 'showOTPForm'])->name('show.otp.form');
+    Route::get('/home', [OtpController::class, 'showOTPForm'])->name('home');
     Route::get('/patient_consultation_view/{id}', [OtpController::class, 'patientConsultationView'])->name('patient.consultation.view');
 
     //ShreFile Controllers

@@ -53,7 +53,10 @@
             background-color: #00C4CC;
             font-family: Arial, sans-serif;
         }
-        .container {
+        .otp_container{
+            max-width: 80rem !important;
+        }
+        .container, .otp_container {
             
             margin: 50px auto;
             padding: 20px;

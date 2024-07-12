@@ -26807,3 +26807,10 @@ ol li{
   padding-top: 10px !important;
   padding-bottom: 0px !important;
 }
+
+.alert-info {
+  color: #0c5460;
+  font-size: 1.4rem !important;
+  color: red !important;
+  background: none;
+}

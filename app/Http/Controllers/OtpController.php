@@ -105,8 +105,9 @@ class OtpController extends Controller
             session(["otp_verified" => true]);
             return redirect()->action([OtpController::class, 'patientConsultationView'], [$otpEntry->patient_id]);
         }
-
-        return response()->json(['message' => 'Invalid or expired OTP.'], 400);
+        session(['msg'=>"Invalid or expired OTP. Please try again."]);
+        
+        return redirect()->route('home');
     }
 
     public function validateCaseNumber(Request $request) {
@@ -136,7 +137,7 @@ class OtpController extends Controller
     public function patientConsultationView ($patientId)
     {
         if(session("otp_verified") == false)  {
-            return redirect()->route('show.otp.form');
+            return redirect()->route('home');
         }
         $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
         
@@ -169,7 +170,7 @@ class OtpController extends Controller
                 'authToken' => $this->shareFileService->getAccessToken()
             ]);
         } else {       
-            return redirect()->route('show.otp.form');
+            return redirect()->route('home');
         }
     }
 
