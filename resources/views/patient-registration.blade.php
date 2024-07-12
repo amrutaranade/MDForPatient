@@ -60,136 +60,136 @@
 
                         <!-- Step 1 -->
                         <section id="progress-form__panel-1" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0" >
-                            <div class="p-5 mx-3">
-                            <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="first-name">
-                                        First Name
-                                        <span data-required="true" aria-hidden="true"></span>
-                                        <input type="hidden" name="patient_id" id="patientId" value="{{isset($patientDetails->id) ? $patientDetails->id : ''}}">
-                                    </label>
-                                    <input id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{isset($patientDetails->first_name) ? $patientDetails->first_name : ''}}">
-                                    </div>
-
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="first-name">
-                                        Middle Name
-                                    </label>
-                                    <input id="middle-name" type="text" name="middlename" autocomplete="given-name" value="{{isset($patientDetails->middle_name) ? $patientDetails->middle_name : ''}}">
-                                    </div>
-
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="last-name">
-                                        Last Name
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <input id="last-name" type="text" name="lastname" autocomplete="family-name" required value="{{isset($patientDetails->last_name) ? $patientDetails->last_name : ''}}">
-                                    </div>
-                                </div>
-
-                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="date_of_birth">
-                                        Date Of Birth
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <?php 
-                                    $dateOfBirth = isset($patientDetails->date_of_birth) ? new DateTime($patientDetails->date_of_birth) : null;
-                                    $formattedDateOfBirth = $dateOfBirth ? $dateOfBirth->format('m-d-Y') : '';
-                                    ?>
-                                    <input id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('m-d-Y')}}" value="{{$formattedDateOfBirth}}">
-                                    </div>
-
-                                </div>
-
-                                <div id="patientMailingAddressHrTag" class="sm:d-grid sm:grid-col-3 sm:mt-3 fw-bold mt-5" >
-                                    <div class="left-border-heading">Patient Mailing Address</div>
-                                </div>
-
-                                <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
-                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                <div class="p-5 mx-3">
+                                    <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
-                                        <label for="street_address">
-                                            Street Address
+                                        <label for="first-name">
+                                            First Name
+                                            <span data-required="true" aria-hidden="true"></span>
+                                            <input type="hidden" name="patient_id" id="patientId" value="{{isset($patientDetails->id) ? $patientDetails->id : ''}}">
+                                        </label>
+                                        <input id="first-name" type="text" name="firstname" autocomplete="given-name" required value="{{isset($patientDetails->first_name) ? $patientDetails->first_name : ''}}">
+                                        </div>
+
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="first-name">
+                                            Middle Name
+                                        </label>
+                                        <input id="middle-name" type="text" name="middlename" autocomplete="given-name" value="{{isset($patientDetails->middle_name) ? $patientDetails->middle_name : ''}}">
+                                        </div>
+
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="last-name">
+                                            Last Name
                                             <span data-required="true" aria-hidden="true"></span>
                                         </label>
-                                        <input id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{isset($patientDetails->street_address) ? $patientDetails->street_address : ''}}">
+                                        <input id="last-name" type="text" name="lastname" autocomplete="family-name" required value="{{isset($patientDetails->last_name) ? $patientDetails->last_name : ''}}">
                                         </div>
                                     </div>
-                                    <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+
+                                    <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
                                         <div class="mt-3 sm:mt-0 form__field">
-                                            <label for="postal_code">
-                                                Postal Code
+                                        <label for="date_of_birth">
+                                            Date Of Birth
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <?php 
+                                        $dateOfBirth = isset($patientDetails->date_of_birth) ? new DateTime($patientDetails->date_of_birth) : null;
+                                        $formattedDateOfBirth = $dateOfBirth ? $dateOfBirth->format('m-d-Y') : '';
+                                        ?>
+                                        <input id="date_of_birth" type="text" name="date_of_birth" autocomplete="given-name" required max="{{date('m-d-Y')}}" value="{{$formattedDateOfBirth}}">
+                                        </div>
+
+                                    </div>
+
+                                    <div id="patientMailingAddressHrTag" class="sm:d-grid sm:grid-col-3 sm:mt-3 fw-bold mt-5" >
+                                        <div class="left-border-heading">Patient Mailing Address</div>
+                                    </div>
+
+                                    <div class="sm:d-grid sm:grid-col-2 sm:mt-3">
+                                        <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                            <div class="mt-3 sm:mt-0 form__field">
+                                            <label for="street_address">
+                                                Street Address
                                                 <span data-required="true" aria-hidden="true"></span>
                                             </label>
-                                            <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{isset($patientDetails->postal_code) ? $patientDetails->postal_code: ''}}">
+                                            <input id="street_address" type="text" name="street_address" autocomplete="given-name" required value="{{isset($patientDetails->street_address) ? $patientDetails->street_address : ''}}">
+                                            </div>
+                                        </div>
+                                        <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                                            <div class="mt-3 sm:mt-0 form__field">
+                                                <label for="postal_code">
+                                                    Postal Code
+                                                    <span data-required="true" aria-hidden="true"></span>
+                                                </label>
+                                                <input id="postal_code" type="text" minlength="5" maxlength="6" name="postalcodestep1" autocomplete="given-name" required value="{{isset($patientDetails->postal_code) ? $patientDetails->postal_code: ''}}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                        
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                            <label for="City">
+                                                City
+                                                <span data-required="true" aria-hidden="true"></span>
+                                            </label>
+                                            <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{isset($patientDetails->city) ? $patientDetails->city : ''}}">
+                                        </div>                                   
+                                        
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="Country">
+                                            Country
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <select class="countries" name="countries" id="countries" required>
+                                            <option value="">--Select--</option>
+                                            @foreach($countries as $country)
+                                                <option {{(isset($patientDetails->country) && $patientDetails->country==$country['id']) ? 'selected' : null }} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
+                                            @endforeach
+                                        </select>
+                                        </div>
+
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="states">
+                                            State
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <select class="states" name="states" id="states" required>
+                                            @if(isset($patientDetails->state) && !empty(isset($patientDetails->state)))
+                                                @foreach($states as $state)
+                                                    <option {{(isset($patientDetails->state) && $patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="email">
+                                            Email
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <input id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{isset($patientDetails->email) ? $patientDetails->email : ''}}">
+                                        <label id="email-check-result"></label>
+                                        </div>
+
+                                        <div class="mt-3 sm:mt-0 form__field">
+                                        <label for="confirm_email">
+                                            Confirm Email
+                                            <span data-required="true" aria-hidden="true"></span>
+                                        </label>
+                                        <input id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{isset($patientDetails->email) ? $patientDetails->email : ''}}">
+                                        <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                    
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                        <label for="City">
-                                            City
-                                            <span data-required="true" aria-hidden="true"></span>
-                                        </label>
-                                        <input id="city" type="text" name="citystep1" autocomplete="given-name" required value="{{isset($patientDetails->city) ? $patientDetails->city : ''}}">
-                                    </div>                                   
-                                    
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="Country">
-                                        Country
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <select class="countries" name="countries" id="countries" required>
-                                        <option value="">--Select--</option>
-                                        @foreach($countries as $country)
-                                            <option {{(isset($patientDetails->country) && $patientDetails->country==$country['id']) ? 'selected' : null }} value="{{ $country['id'] ?? '' }}" data-country-name="{{ $country['country_name'] ?? '' }}">{{ $country['country_name'] ?? '' }}</option>
-                                        @endforeach
-                                    </select>
-                                    </div>
-
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="states">
-                                        State
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <select class="states" name="states" id="states" required>
-                                        @if(isset($patientDetails->state) && !empty(isset($patientDetails->state)))
-                                            @foreach($states as $state)
-                                                <option {{(isset($patientDetails->state) && $patientDetails->state==$state['id']) ? 'selected' : null}} value="{{ $state['id'] ?? '' }}" data-state-name="{{ $state['state_name'] ?? '' }}">{{ $state['state_name'] ?? '' }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    </div>
+                                <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
+                                    <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButton">
+                                    Save & Next
+                                    </button>
                                 </div>
-
-                                <div class="sm:d-grid sm:grid-col-3 sm:mt-3">
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="email">
-                                        Email
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <input id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{isset($patientDetails->email) ? $patientDetails->email : ''}}">
-                                    <label id="email-check-result"></label>
-                                    </div>
-
-                                    <div class="mt-3 sm:mt-0 form__field">
-                                    <label for="confirm_email">
-                                        Confirm Email
-                                        <span data-required="true" aria-hidden="true"></span>
-                                    </label>
-                                    <input id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{isset($patientDetails->email) ? $patientDetails->email : ''}}">
-                                    <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="px-5 py-4 text-end border-top mt-4 sm:mt-5">
-                                <button type="button" data-action="next" class="step1 btn btn-success rounded" id="continueButton">
-                                Save & Next
-                                </button>
-                            </div>
                         </section>
                         <!-- / End Step 1 -->
 
@@ -2694,8 +2694,8 @@ $(document).ready(function () {
         // Function to check if all uploads are complete and enable the buttons
         function checkAllUploadsComplete() {
             if ($('#fine-uploader-manual-trigger').fineUploader('getInProgress') === 0) {
-                $("#trigger-upload").removeAttr('disabled');
-                $("#backBtnMedicalRecords").removeAttr('disabled');
+                //$("#trigger-upload").removeAttr('disabled');
+                //$("#backBtnMedicalRecords").removeAttr('disabled');
             }
         }
 
@@ -2761,7 +2761,6 @@ $(document).ready(function () {
 
         // Periodically check the session status
         setInterval(() => {
-            console.log('Periodically checking session...');
             checkSession();
         }, checkInterval);
     })();

@@ -10,6 +10,7 @@ use Google\Service\Gmail\Message;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpEmail;
 use App\Mail\WelcomeEmail;
+use App\Mail\AdminEmail;
 class EmailController extends Controller
 {    public function sendEmail($recipientEmail, $details)
     {
@@ -20,5 +21,10 @@ class EmailController extends Controller
     {
         Mail::to($recipientEmail)->cc($ccEmail, $ccName)->send(new WelcomeEmail($details));
     } 
+
+    public function sendAdminMail($recipientEmail, $details)
+    {
+        Mail::to($recipientEmail)->send(new AdminEmail($details));
+    }
 
 }

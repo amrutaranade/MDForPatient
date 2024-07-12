@@ -16,22 +16,22 @@ class CreateContactPartiesTable extends Migration
         Schema::create('contact_parties', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->string('relationship_to_patient');  
-            $table->string('email'); 
-            $table->string('phone_number');
-            $table->string('preferred_mode_of_communication'); 
-            $table->string('preferred_contact_time')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable(); 
-            $table->string('NPI')->nullable(); 
-            $table->string('country')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();  
-            $table->string('postal_code')->nullable();  
-            $table->string('street_address')->nullable(); 
-            $table->string('Instituton')->nullable();
-            $table->string('fax_number')->nullable();
-            $table->string('relationship_other')->nullable();
+            $table->longText('relationship_to_patient');  
+            $table->longText('email'); 
+            $table->longText('phone_number');
+            $table->longText('preferred_mode_of_communication'); 
+            $table->longText('preferred_contact_time')->nullable();
+            $table->longText('first_name')->nullable();
+            $table->longText('last_name')->nullable(); 
+            $table->longText('NPI')->nullable(); 
+            $table->longText('country')->nullable();
+            $table->longText('state')->nullable();
+            $table->longText('city')->nullable();  
+            $table->longText('postal_code')->nullable();  
+            $table->longText('street_address')->nullable(); 
+            $table->longText('Instituton')->nullable();
+            $table->longText('fax_number')->nullable();
+            $table->longText('relationship_other')->nullable();
             $table->timestamps(); 
 
             // Foreign key constraint

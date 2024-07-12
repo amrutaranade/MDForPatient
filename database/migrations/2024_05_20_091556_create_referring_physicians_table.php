@@ -16,18 +16,18 @@ class CreateReferringPhysiciansTable extends Migration
         Schema::create('referring_physicians', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('institution')->nullable();
-            $table->string('country')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('street_address')->nullable();
-            $table->string('email')->nullable();
-            $table->string('confirm_email')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('fax_number')->nullable();
+            $table->longText('first_name')->nullable();
+            $table->longText('last_name')->nullable();
+            $table->longText('institution')->nullable();
+            $table->longText('country')->nullable();
+            $table->longText('state')->nullable();
+            $table->longText('city')->nullable();
+            $table->longText('postal_code')->nullable();
+            $table->longText('street_address')->nullable();
+            $table->longText('email')->nullable();
+            $table->longText('confirm_email')->nullable();
+            $table->longText('phone_number')->nullable();
+            $table->longText('fax_number')->nullable();
             $table->timestamps();
 
             // Foreign key constraint

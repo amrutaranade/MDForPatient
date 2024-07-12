@@ -15,11 +15,11 @@ class CreateStatesTable extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('state_name');
+            $table->longText('state_name');
             $table->unsignedBigInteger('country_id');
-            $table->string('country_code');
-            $table->string('country_name');
-            $table->string('state_code');
+            $table->longText('country_code');
+            $table->longText('country_name');
+            $table->longText('state_code');
         });
     }
 

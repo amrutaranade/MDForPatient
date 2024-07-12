@@ -18,13 +18,13 @@ class CreatePatientExpertOpinionRequestsTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->binary('cover_letter')->nullable();
             $table->binary('agreement')->nullable();
-            $table->longText('patient_agreement')->nullable();
-            $table->longText('appendix_1')->nullable();
-            $table->longText('appendix_2')->nullable();
-            $table->longText('appendix_3')->nullable();
-            $table->longText('appendix_4')->nullable();
-            $table->longText('appendix_5')->nullable();
-            $table->longText('re_type_name')->nullable();
+            $table->string('patient_agreement')->nullable();
+            $table->string('appendix_1')->nullable();
+            $table->string('appendix_2')->nullable();
+            $table->string('appendix_3')->nullable();
+            $table->string('appendix_4')->nullable();
+            $table->string('appendix_5')->nullable();
+            $table->string('re_type_name')->nullable();
             $table->timestamps();
 
             // Foreign key constraint

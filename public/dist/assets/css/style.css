@@ -22634,7 +22634,7 @@ code {
 
 /* gradient buttons */
 .btn-gradient-primary {
-  background: linear-gradient(to right, #da8cff, #9a55ff);
+  background: linear-gradient(to right, #84d9d2, #1bcfb4);
   border: 0;
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
@@ -25078,6 +25078,9 @@ dl li {
 }
 .auth .brand-logo img {
   width: 150px;
+}
+.auth .brand-logo-login img  {
+  width: 300px;
 }
 .auth form .form-group {
   margin-bottom: 1.5rem;

@@ -16,13 +16,13 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->integer("patient_id");
-            $table->string('card_holder_email');
-            $table->string('card_holder_name');
-            $table->string('card_last4');
+            $table->longText('card_holder_email');
+            $table->longText('card_holder_name');
+            $table->longText('card_last4');
             $table->integer('amount');
-            $table->string('currency');
-            $table->string('charge_id');
-            $table->string('status');
+            $table->longText('currency');
+            $table->longText('charge_id');
+            $table->longText('status');
             $table->timestamps();
         });
     }

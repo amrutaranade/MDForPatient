@@ -1,13 +1,55 @@
 
+@extends("layoutLogin")
+@section("content")
+<div class="container">
+    <div class="dottedDiv">
+        <div class="left">
+            <p>If you have not already registered, please do so.</p>
+            <button class="btn btn-success rounded">Register</button>
+        </div>
+        <div class="right">            
+            
+            <form id="case-form">
+                @csrf
+                <div id="consultation-section">                    
+                    <div class="col-lg-12 col-xl-8 px-xl-0">    
+                        <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
+                            <div class="mt-3 sm:mt-0 form__field">
+                                <label for="first-name">
+                                Check status of an existing consultation request.
+                                </label>
+                                <input type="text" id="case_number" name="case_number" placeholder="Case Number">
+                            </div>
+                        </div>
+                        <div class="sm:d-grid sm:grid-col-1 sm:mt-3">
 
-<div class="col-lg-4 mx-auto">
+                            <div class="mt-3 sm:mt-0 form__field">
+                                <button type="submit" class="btn btn-success rounded" >Validate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="otp-section" hidden>
+                    <h1>Enter OTP</h1>
+                    <form id="otp-form" action="/verify-otp" method="post">
+                        @csrf
+                        <input type="text" id="otp" name="otp" placeholder="OTP">
+                        <button type="submit" class="continueButton continueButtonStep btn btn-success btn-fw">Verify</button>
+                    </form>
+                    <div id="otp-message"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-lg-4 mx-auto" hidden>
   <div class="auth-form-light text-left p-5">
         <div id="consultation-section">
             <h3 class="fw-bold">Check status of an existing consultation request.</h3>
             <form id="case-form">
                 @csrf
                 <input type="text" id="case_number" name="case_number" placeholder="Case Number"><br/>
-                <button type="submit" class="continueButton continueButtonStep btn btn-success btn-fw" >Validate</button>
+                <button type="submit" class="continueButton btn btn-success btn-fw" >Validate</button>
             </form>
         </div>
 
@@ -55,3 +97,4 @@
         //         });
         // });
     </script>
+    @endsection

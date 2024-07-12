@@ -24,6 +24,7 @@ use App\Rules\UniqueEmail;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use PDF;
 
 
 class PatientController extends Controller
@@ -427,7 +428,7 @@ class PatientController extends Controller
         return response()->json(['message' => 'Invalid or expired OTP.'], 400);
     }
 
-    public function upload(Request $request) {        
+    public function upload(Request $request) {     
         $folderName = session("patient_consulatation_number");
         $file = $request->files->get('qqfile');
 
@@ -441,8 +442,17 @@ class PatientController extends Controller
 
     public function finalSubmission() {
         $patientConsulatationNumber = session("patient_consulatation_number");
-       
         $patientId = session('patient_id');
+       
+        //Generate PDF file from here
+        $pdfFilePath = $this->generatePDF($patientId);
+
+        // Upload the generated PDF
+        $this->shareFileService->uploadGeneratedPDF($pdfFilePath, session("patient_consulatation_number"));
+        
+        //Delete generated PDF from local storage
+        unlink($pdfFilePath);
+        
         if($patientId){
             // Get patient email
             $patient = PatientsRegistrationDetail::find($patientId);
@@ -456,9 +466,23 @@ class PatientController extends Controller
             $ccEmail = 'aalex@discoveralpha.com';
             $ccName = 'Anija Alex';
 
-            // Send email
+            // Send email to patient
             $this->emailController->sendWelcomEmail($recipientEmail, $details, $ccName, $ccEmail);
+
+            // Get patient email
+            $patient = PatientsRegistrationDetail::find($patientId);
+            $recipientEmail = "aalex@discoveralpha.com";
+            $details = [
+                'title' => 'New Patient Registration - '. $patient->first_name . ' ' . $patient->last_name. ' - ' . $patient->patient_consulatation_number,
+                'body' => $patientConsulatationNumber,
+                'patientName' => $patient->first_name . ' ' . $patient->last_name,
+            ];
+
+            // Send email to admin
+            $this->emailController->sendAdminMail($recipientEmail, $details, null, null);
+            
         }
+
         session()->flush();
 
         return view('thank-you', [
@@ -517,6 +541,40 @@ class PatientController extends Controller
             PatientPrimaryConcern::where('patient_id', $patient->id)->delete();
             $patient->delete();
         }
+    }
+
+    public function generatePDF($patientId) {
+        // Get patient details
+        $patientDetails = PatientsRegistrationDetail::Where("id", $patientId)->first();
+        // Decrypt the email before passing it to the view
+        if ($patientDetails && !empty($patientDetails->email)) {
+            $patientDetails->email = Crypt::decryptString($patientDetails->email);
+        }
+        $contactParty = ContactParty::Where('patient_id', $patientId)->first();
+        $referringPhysician = ReferringPhysician::Where('patient_id', $patientId)->first();
+        $patientPrimaryConcern = PatientPrimaryConcern::Where('patient_id', $patientId)->first();
+        $expertOpinionRequests = PatientExpertOpinionRequest::Where('patient_id', $patientId)->first();
+        $medicalRecords = PatientMedicalRecords::Where('patient_id', $patientId)->first();
+        $paymentDetails = Transaction::Where('patient_id', $patientId)->first();
+        $countries = Country::get()->toArray();
+        $states = State::get()->toArray();
+
+        if (!$referringPhysician) {
+            return response()->json(['error' => 'Referring physician details not found.'], 404);
+        }
+
+        
+        // Create PDF
+        $pdf = PDF::loadView('patient_details_pdf', compact('patientDetails', 'contactParty', 'referringPhysician', 'expertOpinionRequests','patientPrimaryConcern','paymentDetails', 'countries', 'states'));
+
+        // Generate file name
+        $fileName = $patientDetails->patient_consulatation_number . '.pdf';
+
+        // Save PDF file
+        $pdf->save(public_path('pdf/' . $fileName));
+        $pdfFilePath = public_path('pdf/' . $fileName);
+        
+        return $pdfFilePath;
     }
     
 }

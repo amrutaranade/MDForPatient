@@ -177,78 +177,6 @@ class ShareFileService
         //}
 
         return array("success" => true);
-
-        // if($successCount == count($files)){
-        //     return response()->json(['success']);
-        // } else {
-        //     return response()->json(['error']);
-        // }
-
-        /*
-        $token = $this->getAccessToken();    
-            
-        $local_path = $request->file('file')->getPathname();
-
-        if (!$file) {
-            return response()->json(['error' => 'No file uploaded'], 400);
-        }
-
-        $local_path = $file->getPathname();
-        $original_filename = $file->getClientOriginalName();
-
-        $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")/Upload";
-        
-        Log::error('File upload link - : '.$uri);
-
-        $headers = $this->getAuthorizationHeader($token); // Implement this function to get authorization headers
-
-        $client = new Client([
-            'verify' => false,
-            'timeout' => 300,
-            'headers' => $headers
-        ]);
-
-        try {
-            $response = $client->get($uri);
-            $upload_config = json_decode($response->getBody()->getContents());
-
-            if ($response->getStatusCode() == 200) {
-                $multipart = [
-                    [
-                        'name'     => 'File1',
-                        'contents' => fopen($local_path, 'r'),
-                        'filename' => $original_filename
-                    ]
-                ];
-
-                $uploadResponse = $client->post($upload_config->ChunkUri, [
-                    'multipart' => $multipart,
-                    'headers' => $headers // Use the same headers for the post request
-                ]);
-
-                //Save medical records data 
-                PatientMedicalRecords::insert([
-                    'patient_id' => session("patient_id") ?? $request->patient_id,
-                    'document_name' => $original_filename,
-                    'folder_id' => $folderId,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-                return response()->json(['success']);
-            } else {
-                return response()->json(['error'], $response->getStatusCode());
-            }
-        } catch (RequestException $e) {
-            Log::error('File upload error: '.$e->getMessage());
-            if ($e->hasResponse()) {
-                $responseBody = $e->getResponse()->getBody()->getContents();
-                Log::error('Response: '.$responseBody);
-                return response()->json(['error' => $responseBody], $e->getResponse()->getStatusCode());
-            } else {
-                return response()->json(['error' => 'Failed to connect to server'], 500);
-            }
-        }
-            */
     }
 
     private function getAuthorizationHeader($token)
@@ -467,5 +395,102 @@ class ShareFileService
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function uploadGeneratedPDF($filePath, $folderName)
+{
+    if (!$this->checkInternetConnection()) {
+        throw new \Exception('No internet connection');
+    }
+
+    try {
+        $rootFolderId = $this->getPersonalRootFolderId();
+    } catch (\Exception $e) {
+        Log::info('Error in finding personal root folder: ' . $e->getMessage());
+        throw new \Exception("Error obtaining personal root folder ID: " . $e->getMessage());
+    }
+
+    if ($rootFolderId === null) {
+        Log::info('Error in finding Root folder');
+        throw new \Exception("Root folder ID not found.");
+    }
+
+    try {
+        $folderId = $this->getFolderId($rootFolderId, $folderName);
+    } catch (\Exception $e) {
+        Log::info('Error in obtaining folder: ' . $e->getMessage());
+        throw new \Exception("Error obtaining folder ID: " . $e->getMessage());
+    }
+
+    if ($folderId === null) {
+        try {
+            $folderId = $this->createFolder($rootFolderId, $folderName);
+        } catch (\Exception $e) {
+            Log::info('Error in creating folder: ' . $e->getMessage());
+            throw new \Exception("Error creating folder: " . $e->getMessage());
+        }
+    }
+
+    $this->uploadFileToShareFile($filePath, $folderId);
+}
+
+public function uploadFileToShareFile($filePath, $folderId)
+{
+    if (!$this->checkInternetConnection()) {
+        throw new \Exception('No internet connection');
+    }
+
+    $token = $this->getAccessToken();
+    $original_filename = basename($filePath);
+
+    $uri = "https://{$this->subdomain}.sf-api.com/sf/v3/Items(" . $folderId . ")/Upload";
+    Log::error('File upload link - : ' . $uri);
+
+    $headers = $this->getAuthorizationHeader($token);
+
+    $client = new Client([
+        'verify' => false,
+        'timeout' => 300,
+        'headers' => $headers
+    ]);
+
+    try {
+        $response = $client->get($uri);
+        $upload_config = json_decode($response->getBody()->getContents());
+
+        if ($response->getStatusCode() == 200) {
+            $multipart = [
+                [
+                    'name'     => 'File1',
+                    'contents' => fopen($filePath, 'r'),
+                    'filename' => $original_filename
+                ]
+            ];
+
+            $uploadResponse = $client->post($upload_config->ChunkUri, [
+                'multipart' => $multipart,
+                'headers' => $headers
+            ]);
+
+            // Save medical records data
+            PatientMedicalRecords::insert([
+                'patient_id' => session("patient_id"),
+                'document_name' => $original_filename,
+                'folder_id' => $folderId,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+    } catch (RequestException $e) {
+        Log::error('File upload error: ' . $e->getMessage());
+        if ($e->hasResponse()) {
+            $responseBody = $e->getResponse()->getBody()->getContents();
+            Log::error('Response: ' . $responseBody);
+            throw new \Exception($responseBody, $e->getResponse()->getStatusCode());
+        } else {
+            throw new \Exception('Failed to connect to server', 500);
+        }
+    }
+}
+
 }
 ?>
