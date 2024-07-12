@@ -2732,7 +2732,7 @@ $(document).ready(function () {
             .then(data => {
                 if (data.session_expired) {
                     alert(data.message);
-                    window.location.href = "{{ route('home') }}";
+                    window.location.href = "{{ route('/') }}";
                 }
             })
             .catch(error => "");

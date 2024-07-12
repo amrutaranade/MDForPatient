@@ -160,7 +160,7 @@
             }
         });
         $(document).on('click', '.register', function() {            
-            window.location.href = "{{ route('home') }}";        
+            window.location.href = "{{ route('/') }}";        
         });
     </script>
 </body>

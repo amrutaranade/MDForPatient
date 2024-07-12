@@ -476,7 +476,7 @@ class PatientController extends Controller
 
         $this->deleteIncompleteFormData($patientId);
         session()->flush();
-        return redirect()->route('home');
+        return redirect()->route('/');
     }
 
     public function thankYou() {

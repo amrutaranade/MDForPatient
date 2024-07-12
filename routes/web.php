@@ -23,7 +23,7 @@ use App\Http\Controllers\OtpController;
 //     return view('patient-registration');
 // });
 
-Route::get('/', [PatientController::class, 'patientFormView']);
+Route::get('/', [PatientController::class, 'patientFormView'])->name("/");
 Route::middleware(['in_progress_cleanup'])->group(function () {
     
     Route::get('/final-submission', [PatientController::class, 'finalSubmission'])->name("final-submission");
