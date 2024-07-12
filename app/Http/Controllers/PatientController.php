@@ -454,7 +454,7 @@ class PatientController extends Controller
         }
 
         session()->flush();
-        session("final-submission", true);
+        session(["final-submission" => true]);
         return view('thank-you', [
             'patient_consulatation_number' => $patientConsulatationNumber
         ]);
