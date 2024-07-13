@@ -160,7 +160,7 @@
                                         Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{$patientDetails->email}}">
+                                    <input disabled id="email_step1" type="email" name="emailstep1" class ="email" autocomplete="given-name" required value="{{Crypt::decryptString($patientDetails->email)}}">
                                     <label id="email-check-result"></label>
                                     </div>
 
@@ -169,7 +169,7 @@
                                         Confirm Email
                                         <span data-required="true" aria-hidden="true"></span>
                                     </label>
-                                    <input disabled  id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{$patientDetails->email}}">
+                                    <input disabled  id="confirm_email_step1" type="email" name="confirmemailstep1" class="confirm_email" autocomplete="given-name" required value="{{Crypt::decryptString($patientDetails->email)}}">
                                     <span id="emailMatchMessage"  style="display: none;">Emails do not match</span>
                                     </div>
                                 </div>

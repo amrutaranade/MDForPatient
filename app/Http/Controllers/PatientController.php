@@ -433,7 +433,7 @@ class PatientController extends Controller
                 'body' => $patientConsulatationNumber
             ];
 
-            $ccEmail = 'aalex@discoveralpha.com';
+            $ccEmail = 'amruta.ranade@discoveralpha.com';
             $ccName = 'Anija Alex';
 
             // Send email to patient
@@ -441,7 +441,7 @@ class PatientController extends Controller
 
             // Get patient email
             $patient = PatientsRegistrationDetail::find($patientId);
-            $recipientEmail = "aalex@discoveralpha.com";
+            $recipientEmail = "amruta.ranade@discoveralpha.com";
             $details = [
                 'title' => 'New Patient Registration - '. $patient->first_name . ' ' . $patient->last_name. ' - ' . $patient->patient_consulatation_number,
                 'body' => $patientConsulatationNumber,

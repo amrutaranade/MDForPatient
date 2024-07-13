@@ -104,7 +104,7 @@
             </tr>            
             <tr>
                 <th>Email</th>
-                <td>{{ $patientDetails->email }}</td>
+                <td>{{ Crypt::decryptString($patientDetails->email) }}</td>
             </tr>
         </table>
 
