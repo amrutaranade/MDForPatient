@@ -49,7 +49,7 @@ class ShareFileService
             
             return $data['access_token'];
         } catch (RequestException $e) {
-            // Handle error
+            Log::info('Error : ' . $e->getMessage());
             throw new \Exception("Error obtaining access token: " . $e->getMessage());
         }
 
@@ -80,6 +80,7 @@ class ShareFileService
 
             return null;
         } catch (RequestException $e) {
+            Log::info('Error : ' . $e->getMessage());
             throw new \Exception("Error checking folder existence: " . $e->getMessage());
         }
     }
@@ -105,6 +106,7 @@ class ShareFileService
             $data = json_decode($response->getBody(), true);
             return $data['Id'];
         } catch (RequestException $e) {
+            Log::info('Error : ' . $e->getMessage());
             throw new \Exception("Error creating folder: " . $e->getMessage());
         }
     }    
@@ -212,6 +214,7 @@ class ShareFileService
 
             return true;
         } catch (RequestException $e) {
+            Log::info('Error : ' . $e->getMessage());
             return false;
         }
     }
@@ -274,6 +277,7 @@ class ShareFileService
 
             return null; // Personal root folder not found
         } catch (RequestException $e) {
+            Log::info('Error In getting Personal Root folder: ' . $e->getMessage());
             throw new \Exception("Error obtaining personal root folder ID: " . $e->getMessage());
         }
     }
@@ -300,6 +304,7 @@ class ShareFileService
                 return [];
             }
         }catch (RequestException $e) {
+            Log::info('Error in finding folder : ' . $e->getMessage());
             throw new \Exception("folder ID Not found: " . $e->getMessage());
         }        
     }
@@ -327,6 +332,7 @@ class ShareFileService
                 echo "Error downloading file. HTTP code: " . $response->getStatusCode() . "\n";
             }
         } catch (RequestException $e) {
+            Log::info('Error in downloading file: ' . $e->getMessage());
             echo "Error downloading file: " . $e->getMessage() . "\n";
         }
     }
@@ -373,6 +379,7 @@ class ShareFileService
                 echo "Unexpected HTTP code: " . $response->getStatusCode() . "\n";
             }
         } catch (RequestException $e) {
+            Log::info('Error in downloading file: ' . $e->getMessage());
             echo "Error downloading file: " . $e->getMessage() . "\n";
         }
     }
@@ -392,6 +399,7 @@ class ShareFileService
 
             return redirect($response->getHeaderLine('Location'));
         } catch (\Exception $e) {
+            Log::info('Error in downloading file : ' . $e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }

@@ -1886,7 +1886,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         var uploader = $('#fine-uploader-manual-trigger').fineUploader({
