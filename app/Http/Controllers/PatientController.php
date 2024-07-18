@@ -501,6 +501,15 @@ class PatientController extends Controller
             // Handle the exception here
             Log::info('Error in final submission: ' . $e->getMessage());
             //Send email to admin from here incase of failed registration
+            $recipientEmail = "intake@mdforpatients.com";
+            $details = [
+                'title' => 'Alert - Registration partially completed'. $patient->first_name . ' ' . $patient->last_name. ' - ' . $patient->patient_consulatation_number,
+                'body' => $patientConsulatationNumber,
+                'patientName' => $patient->first_name . ' ' . $patient->last_name,
+            ];
+
+            // Send email to patient
+            $this->emailController->sendAlertMail($recipientEmail, $details, null, null);
             return response()->json(['error' => 'An error occurred. Please try again later.'], 500);
         }
     }

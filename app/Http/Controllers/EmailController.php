@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpEmail;
 use App\Mail\WelcomeEmail;
 use App\Mail\AdminEmail;
+use App\Mail\AlertEmail;
+
 class EmailController extends Controller
 {    public function sendEmail($recipientEmail, $details)
     {
@@ -25,6 +27,11 @@ class EmailController extends Controller
     public function sendAdminMail($recipientEmail, $details)
     {
         Mail::to($recipientEmail)->send(new AdminEmail($details));
+    }
+
+    public function sendAlertMail($recipientEmail, $details)
+    {
+        Mail::to($recipientEmail)->send(new AlertEmail($details));
     }
 
 }
