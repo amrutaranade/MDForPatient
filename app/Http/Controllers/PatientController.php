@@ -509,6 +509,7 @@ class PatientController extends Controller
                 'title' => 'Alert - Registration partially completed'. $patient->first_name . ' ' . $patient->last_name. ' - ' . $patient->patient_consulatation_number,
                 'body' => $patientConsulatationNumber,
                 'patientName' => $patient->first_name . ' ' . $patient->last_name,
+                'email' => $patient->email
             ];
 
             // Send email to patient

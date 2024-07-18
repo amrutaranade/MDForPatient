@@ -46,6 +46,8 @@
 
         <p><strong>Patient Name:</strong> {{ $details['patientName'] }}</p>
         <p><strong>Consultation Number:</strong> {{ $details['body'] }}</p>
+        <p><strong>Email Id:</strong> {{ $details['email'] }}</p>
+        <p><strong>Contact Number:</strong> {{ $details['phone'] }}</p>
 
         <p>Client Services<br>MD for Patients</p>
 
