@@ -28,6 +28,7 @@ class CreatePatientsRegistrationDetailsTable extends Migration
             $table->longText('city');  
             $table->longText('postal_code');  
             $table->longText('street_address'); 
+            $table->longText("is_registration_completed")->default("pending");
             $table->softDeletes();
             $table->timestamps();
         });

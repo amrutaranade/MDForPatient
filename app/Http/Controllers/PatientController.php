@@ -487,6 +487,9 @@ class PatientController extends Controller
                     'patientName' => $patient->first_name . ' ' . $patient->last_name,
                 ];
 
+                $patient = PatientsRegistrationDetail::find($patientId);
+                $patient->is_registration_completed = "submitted";
+                $patient->save();
                 // Send email to admin
                 $this->emailController->sendAdminMail($recipientEmail, $details, null, null);
                 

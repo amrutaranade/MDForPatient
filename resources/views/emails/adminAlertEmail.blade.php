@@ -42,7 +42,7 @@
         </div>
         <div class="content">
         
-        <p>A new patient has registered but partially. Below are the details.</p>
+        <p>A new patient has attempted to register but the registration was incomplete. Below are the details.</p>
 
         <p><strong>Patient Name:</strong> {{ $details['patientName'] }}</p>
         <p><strong>Consultation Number:</strong> {{ $details['body'] }}</p>
