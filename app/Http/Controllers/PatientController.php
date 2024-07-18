@@ -53,9 +53,9 @@ class PatientController extends Controller
                 $patientId = session("patient_id");
                 $patientDetails = PatientsRegistrationDetail::find($patientId);
                 // Decrypt the email before passing it to the view
-                if ($patientDetails && !empty($patientDetails->email)) {
-                    $patientDetails->email = Crypt::decryptString($patientDetails->email);
-                }
+                // if ($patientDetails && !empty($patientDetails->email)) {
+                //     $patientDetails->email = Crypt::decryptString($patientDetails->email);
+                // }
                 $contactParty = ContactParty::where('patient_id', $patientId)->first();
                 $referringPhysician = ReferringPhysician::where('patient_id', $patientId)->first();
                 $patientPrimaryConcern = PatientPrimaryConcern::where('patient_id', $patientId)->first();
@@ -211,7 +211,7 @@ class PatientController extends Controller
                     "first_name" => $requestData["firstName"],
                     "middle_name" => $requestData["middleName"],
                     "last_name" => $requestData["lastName"],
-                    "email" => $encryptedEmail,
+                    "email" => $requestData["email"],
                     "date_of_birth" => $dob,
                     "country" => $requestData["country"],
                     "state" => $requestData["state"],
@@ -469,7 +469,7 @@ class PatientController extends Controller
                 // Get patient email
                 $patient = PatientsRegistrationDetail::find($patientId);
                 $patientDetailsEmail = $patient->email;
-                $recipientEmail = Crypt::decryptString($patientDetailsEmail);
+                $recipientEmail = $patientDetailsEmail;
                 $details = [
                     'title' => 'Welcome to MD For Patients',
                     'body' => $patientConsulatationNumber
@@ -500,6 +500,7 @@ class PatientController extends Controller
         } catch (\Exception $e) {
             // Handle the exception here
             Log::info('Error in final submission: ' . $e->getMessage());
+            //Send email to admin from here incase of failed registration
             return response()->json(['error' => 'An error occurred. Please try again later.'], 500);
         }
     }
@@ -595,7 +596,7 @@ class PatientController extends Controller
         } catch (\Exception $e) {
             // Handle the exception here
             Log::info('Error in generating PDF: ' . $e->getMessage());
-            return response()->json(['error' => 'An error occurred. Please try again later.'], 500);
+            return "";
         }
     }
 

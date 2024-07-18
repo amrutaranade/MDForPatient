@@ -73,7 +73,7 @@ class OtpController extends Controller
 
             // Get patient email
             $patient = PatientsRegistrationDetail::find($patientId);
-            $patientDetailsEmail = Crypt::decryptString($patient->email);
+            $patientDetailsEmail = $patient->email;
             $recipientEmail =  $patientDetailsEmail;
 
             // Prepare email details
